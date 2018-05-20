@@ -16,7 +16,7 @@
 ## Usage
 Once you've added [mod.cpk support](https://shrinefox.github.io/guides/p5/mod-cpk) to your copy of Persona 5 (PS3), you can use the [Mod Compendium](https://shrinefox.github.io/guides/p5/mod-compendium) to run the [latest compiled Release](https://github.com/ShrineFox/Persona-5-Mod-Menu/releases) in-game.
 ## Compiling
-Using TGE's [AtlusScriptCompiler](https://github.com/TGEnigma/AtlusScriptToolchain), you can edit the **.flow** and **.msg** scripts in this repository and recompile them into **.bf** format.
+Using the latest version of TGE's [AtlusScriptCompiler](https://github.com/TGEnigma/AtlusScriptToolchain) (compiled from the source code), you can edit the **.flow** and **.msg** scripts in this repository and recompile them into **.bf** format.
 For example, move the Utility.flow, Utility.msg and Math.flow files to the same folder as the script you're compiling and run:
 > "M:\Tools\AtlusScriptCompiler.exe" "M:\ModMenu\field\field.bf.flow" -Compile -OutFormat V3BE -Library P5 -Encoding P5
 
