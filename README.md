@@ -28,5 +28,7 @@ There are 3 different scripts that must be recompiled:
 
 Each of the PAC files can be located in ps3.cpk\field. To easily repack all scripts at once, make a batch file like the following using [TGE's PAKTools](https://github.com/TGEnigma/AtlusFileSystemLibrary/releases):
 > PAKPack.exe replace INPUTPATH\fldPack.pac etc/field.bf INPUTPATH\field.bf.flow.bf OUTPUTPATH\fldPack.pac
+
 > PAKPack.exe replace INPUTPATH\dngPack.pac etc/dungeon.bf INPUTPATH\dungeon.bf.flow.bf OUTPUTPATH\dngPack.pac
+
 > PAKPack.exe replace INPUTPATH\atDngPack.pac etc/at_dng.bf INPUTPATH\at_dng.bf.flow.bf OUTPUTPATH\at_DngPack.pac
