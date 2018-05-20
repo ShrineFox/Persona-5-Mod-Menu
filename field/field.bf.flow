@@ -9,8 +9,9 @@
 // Imports
 // 
 
+import( "../ModMenu.msg" );
+import( "../ModMenu.flow" );
 import( "field.bf.msg" );
-import( "ModMenu.flow" );
 
 // 
 // Script-level variable definitions
@@ -30,6 +31,10 @@ void fld_square_menu()
 	ModMenuDisplay();
 }
 
+void CallOriginalSquareMenu()
+{
+	SUB_Call_GroupChat();
+}
 
 void fld_r1_menu()
 {

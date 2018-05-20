@@ -64,7 +64,7 @@ void ModMenuDisplay()
 				CalendarEditorDisplay(); 
 				return;
 			case 11: 
-				SUB_Call_GroupChat();
+				CallOriginalSquareMenu();
 				break;
 			case 12:
 				AboutDialogDisplay(); 
@@ -906,14 +906,27 @@ void CalendarSetNextDaySelect()
 	int month = SEL_GENERIC_NOT_CANCEL(MonthMenuName, MonthMenu) + 1;
 	
 	int day = SelectNumberPrompt( CalendarPrompt2, 2 );
-	if ( day > 0 && ( ((month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) && day < 32) || (month == 2 && day < 30) ||  ((month == 4 || month == 6 || month == 9 || month == 11) && day < 31) ) {
-		SET_NEXT_DAY( month, day, 1 );
-		PUT(month);
-		PUT(day);
+	
+	if ( day <= 0 )
+	{
+		// No matter how down you feel on some days, every day is still a positive one.
+		MSG_SYSTEM( CalendarError );
+		return;
 	}
-	else {
-		MSG_SYSTEM(CalendarError);
+	
+	// Verify that the day doesn't exceed the number of possible days in the specified month
+	if ( ( ( month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12 ) && day >= 32 ) ||
+		   ( month == 2 && day >= 30 ) ||
+		 ( ( month == 4 || month == 6 || month == 9 || month == 11 ) && day >= 31 )
+	   )
+	{
+		MSG_SYSTEM( CalendarError );
+		return;
 	}
+	
+	SET_NEXT_DAY( month, day, 1 );
+	PUT( month );
+	PUT( day );
 }
 
 void CallCalendar()

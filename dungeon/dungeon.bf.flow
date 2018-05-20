@@ -9,8 +9,9 @@
 // Imports
 // 
 
+import( "../ModMenu.msg" );
+import( "../ModMenu.flow" );
 import( "dungeon.bf.msg" );
-import( "ModMenu.flow" );
 
 // 
 // Script-level variable definitions
@@ -42,6 +43,43 @@ void dng_square_menu()
 	ModMenuDisplay();
 }
 
+void CallOriginalSquareMenu()
+{
+	auto_recover();
+}
+
+void SUB_MoruShowFace()
+{
+    
+    if ( FLD_CHECK_MORGANA_BAG() == 1 )
+    {
+        int localVariable35 = FLD_PC_GET_CURRENT_RESHND( 0 );
+        int localVariable36 = MDL_GET_ITEM_RESHND( localVariable35, 2 );
+        MDL_ANIM( localVariable36, 50, 0, 0, 1f );
+        MDL_ANIM_NEXT( localVariable36, 51, 1, 0, 1f );
+    }
+
+}
+
+
+void SUB_MoruReturnBag()
+{
+    
+    if ( FLD_CHECK_MORGANA_BAG() == 1 )
+    {
+        int localVariable37 = FLD_PC_GET_CURRENT_RESHND( 0 );
+        int localVariable38 = MDL_GET_ITEM_RESHND( localVariable37, 2 );
+        MDL_ANIM( localVariable38, 52, 0, 5, 1f );
+        MDL_ANIM_NEXT( localVariable38, 0, 1, 0, 1f );
+    }
+
+}
+
+void Fld_FadeOut_CallCalendar()
+{
+    FADEOUT( 15, 10 );
+    FADE_SYNC();
+}
 
 void dng_r_menu()
 {

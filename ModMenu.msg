@@ -2,57 +2,57 @@
 Amicitia Mod Menu[w][e]
 
 [sel ModMenu]
-[s]Exit[f 4 26 0 115][e]
-[s]Player[f 4 26 1 116][e]
-[s]Boss Select[f 4 26 2 117][e]
-[s]Teleport[f 4 26 3 118][e]
-[s]Sound Test[f 4 26 4 119][e]
-[s]Field Select[f 4 26 5 120][e]
-[s]Event Select[f 4 26 6 121][e]
-[s]Camera[f 4 26 7 122][e]
-[s]NPCs[f 4 26 8 123][e]
-[s]Flags[f 4 26 9 124][e]
-[s]Calendar[f 4 26 10 125][e]
-[s]Auto Recover[f 4 26 11 126][e]
-[s]About[f 4 26 12 127][e]
+[s]Exit[f 4 26 0 2][e]
+[s]Player[f 4 26 1 3][e]
+[s]Boss Select[f 4 26 2 4][e]
+[s]Teleport[f 4 26 3 5][e]
+[s]Sound Test[f 4 26 4 6][e]
+[s]Field Select[f 4 26 5 7][e]
+[s]Event Select[f 4 26 6 8][e]
+[s]Camera[f 4 26 7 9][e]
+[s]NPCs[f 4 26 8 10][e]
+[s]Flags[f 4 26 9 11][e]
+[s]Calendar[f 4 26 10 12][e]
+[s]Check Phone/Auto Recover[f 4 26 11 13][e]
+[s]About[f 4 26 12 14][e]
 
-[dlg GENERIC_HELP_115]
+[dlg GENERIC_HELP_2]
 [s]Back out of this menu and[n]resume normal gameplay.[e]
 
-[dlg GENERIC_HELP_116]
+[dlg GENERIC_HELP_3]
 [s]Edit your Personas, items, stats,[n]money, or even your name.[e]
 
-[dlg GENERIC_HELP_117]
+[dlg GENERIC_HELP_4]
 [s]Choose a scene to start[n]a boss encounter.[e]
 
-[dlg GENERIC_HELP_118]
+[dlg GENERIC_HELP_5]
 [s]Clip through walls and explore[n]out of bounds areas. Hold[n]Square to change axis.[e]
 
-[dlg GENERIC_HELP_119]
+[dlg GENERIC_HELP_6]
 [s]Select a BGM ID to[n]play back an audio track.[e]
 
-[dlg GENERIC_HELP_120]
+[dlg GENERIC_HELP_7]
 [s]Enter the ID of a field pack[n]to warp to that map.[e]
 
-[dlg GENERIC_HELP_121]
+[dlg GENERIC_HELP_8]
 [s]Enter the ID of an event pack[n]to start the event.[e]
 
-[dlg GENERIC_HELP_122]
+[dlg GENERIC_HELP_9]
 [s]Change the camera's position,[n]rotation, and field of view.[e]
 
-[dlg GENERIC_HELP_123]
+[dlg GENERIC_HELP_10]
 [s]Spawn NPC models and[n]preview their animations.[e]
 
-[dlg GENERIC_HELP_124]
+[dlg GENERIC_HELP_11]
 [s]Change various values[n]in the game's memory.[e]
 
-[dlg GENERIC_HELP_125]
+[dlg GENERIC_HELP_12]
 [s]Set a date and time and[n]travel directly to it.[e]
 
-[dlg GENERIC_HELP_126]
-[s]Automatically heal the party[n]just like the Square Button is[n]supposed to do.[e]
+[dlg GENERIC_HELP_13]
+[s]View your IM messages[n]or auto heal the party[n]just like the Square Button is[n]supposed to do.[e]
 
-[dlg GENERIC_HELP_127]
+[dlg GENERIC_HELP_14]
 [s]Show some info about the[n]development of this mod.[e]
 
 
@@ -60,45 +60,45 @@ Amicitia Mod Menu[w][e]
 Player Options[w][e]
 
 [sel PlayerMenu]
-[s]Back[f 4 26 0 130][e]
-[s]Personas[f 4 26 1 131][e]
-[s]Stats[f 4 26 2 132][e]
-[s]Items[f 4 26 3 133][e]
-[s]Set Confidant Rank[f 4 26 4 134][e]
-[s]Set Protag Name[f 4 26 5 135][e]
-[s]Set Team Name[f 4 26 6 136][e]
-[s]Animation Test[f 4 26 7 137][e]
-[s]Set Scale[f 4 26 8 138][e]
-[s]Max Money[f 4 26 9 139][e]
+[s]Back[f 4 26 0 17][e]
+[s]Personas[f 4 26 1 18][e]
+[s]Stats[f 4 26 2 19][e]
+[s]Items[f 4 26 3 20][e]
+[s]Set Confidant Rank[f 4 26 4 21][e]
+[s]Set Protag Name[f 4 26 5 22][e]
+[s]Set Team Name[f 4 26 6 23][e]
+[s]Animation Test[f 4 26 7 24][e]
+[s]Set Scale[f 4 26 8 25][e]
+[s]Max Money[f 4 26 9 26][e]
 
-[dlg GENERIC_HELP_130]
+[dlg GENERIC_HELP_17]
 [s]Return to the [clr 1]Mod Menu's[clr 0][n]main selection page.[e]
 
-[dlg GENERIC_HELP_131]
+[dlg GENERIC_HELP_18]
 [s]Add or remove your personas, or[n]give you or your party[n]members new Skills.[e]
 
-[dlg GENERIC_HELP_132]
+[dlg GENERIC_HELP_19]
 [s]Add points to your Knowledge,[n]Charm, Proficiency, Guts[n]or Kindness.[e]
 
-[dlg GENERIC_HELP_133]
+[dlg GENERIC_HELP_20]
 [s]Give yourself a desired amount of[n]any consumables, weapons, armor,[n]costumes, or even key items.[e]
 
-[dlg GENERIC_HELP_134]
+[dlg GENERIC_HELP_21]
 [s]Select a Confidant and change your[n]current rank with their Arcana.[e]
 
-[dlg GENERIC_HELP_135]
+[dlg GENERIC_HELP_22]
 [s]Rename the protagonist at any[n]point in the game.[e]
 
-[dlg GENERIC_HELP_136]
+[dlg GENERIC_HELP_23]
 [s]Change the group name of the[n]Phantom Thieves at any[n]point in the game.[e]
 
-[dlg GENERIC_HELP_137]
+[dlg GENERIC_HELP_24]
 [s]Select one of the protagonist's[n]Field GAP files and view[n]its animations.[e]
 
-[dlg GENERIC_HELP_138]
+[dlg GENERIC_HELP_25]
 [s]Change the size of the[n]protagonist's model.[e]
 
-[dlg GENERIC_HELP_139]
+[dlg GENERIC_HELP_26]
 [s]Adds 999999 yen to your wallet.[e]
 
 
@@ -106,45 +106,45 @@ Player Options[w][e]
 Select Item Type...[w][e]
 
 [sel ItemMenu]
-Back[f 4 26 0 142][e]
-Consumables[f 4 26 1 143][e]
-Accessories[f 4 26 2 144][e]
-Key Items[f 4 26 3 145][e]
-Ranged Weapons[f 4 26 4 146][e]
-Melee Weapons[f 4 26 5 147][e]
-Outfits[f 4 26 6 148][e]
-Armor[f 4 26 7 149][e]
-Materials[f 4 26 8 150][e]
-Skill Cards[f 4 26 9 151][e]
+Back[f 4 26 0 29][e]
+Consumables[f 4 26 1 30][e]
+Accessories[f 4 26 2 31][e]
+Key Items[f 4 26 3 32][e]
+Ranged Weapons[f 4 26 4 33][e]
+Melee Weapons[f 4 26 5 34][e]
+Outfits[f 4 26 6 35][e]
+Armor[f 4 26 7 36][e]
+Materials[f 4 26 8 37][e]
+Skill Cards[f 4 26 9 38][e]
 
-[dlg GENERIC_HELP_142]
+[dlg GENERIC_HELP_38]
 [s]Return to the [clr 1]Mod Menu's[clr 0][n]Player Options page.[e]
 
-[dlg GENERIC_HELP_143]
+[dlg GENERIC_HELP_29]
 [s]Items that recover HP & SP,[n]relieve status ailments, or[n]provide buffs or debuffs.[e]
 
-[dlg GENERIC_HELP_144]
+[dlg GENERIC_HELP_30]
 [s]Items that you can equip to your[n]party members for stat[n]enhancements.[e]
 
-[dlg GENERIC_HELP_145]
+[dlg GENERIC_HELP_31]
 [s]Passive items that are acquired[n]throughout the story.[e]
 
-[dlg GENERIC_HELP_146]
+[dlg GENERIC_HELP_32]
 [s]Arms that can be equipped to[n]fire bullets during battle.[e]
 
-[dlg GENERIC_HELP_147]
+[dlg GENERIC_HELP_33]
 [s]Where Melee weapons would be[n]if I knew the offset for them.[n]Sorry for the inconvenience![e]
 
-[dlg GENERIC_HELP_148]
+[dlg GENERIC_HELP_34]
 [s]Equippable appearance changes[n]for party members that modify[n]their model in the Metaverse.[e]
 
-[dlg GENERIC_HELP_149]
+[dlg GENERIC_HELP_35]
 [s]Equippable items that can boost[n]defense or provide other benefits.[e]
 
-[dlg GENERIC_HELP_150]
+[dlg GENERIC_HELP_36]
 [s]Items that can be sold to Iwai[n]or used to create tools.[e]
 
-[dlg GENERIC_HELP_151]
+[dlg GENERIC_HELP_37]
 [s]Items that can be used to assign[n]Skills to one of your Personas.[e]
 
 
@@ -152,126 +152,125 @@ Skill Cards[f 4 26 9 151][e]
 Select Confidant...[w][e]
 
 [sel CommuMenu]
-Back[f 4 26 0 154][e]
-Igor[f 4 26 1 155][e]
-Morgana[f 4 26 2 156][e]
-Makoto Niijima[f 4 26 3 157][e]
-Haru Okumura[f 4 26 4 158][e]
-Yusuke Kitagawa[f 4 26 5 159][e]
-Sojiro Sakura[f 4 26 6 160][e]
-Ann Takamaki[f 4 26 7 161][e]
-Ryuji Sakamoto[f 4 26 8 162][e]
-Goro Akechi[f 4 26 9 163][e]
-Futaba Sakura[f 4 26 10 164][e]
-Chihaya Mifune[f 4 26 11 165][e]
-Caroline and Justine[f 4 26 12 166][e]
-Munehisa Iwai[f 4 26 13 167][e]
-Tae Takemi[f 4 26 14 168][e]
-Sayado Kawakami[f 4 26 15 169][e]
-Ichiko Ohya[f 4 26 16 170][e]
-Shinya Oda[f 4 26 17 171][e]
-Hifumi Togo[f 4 26 18 172][e]
-Yuuki Mishima[f 4 26 19 173][e]
-Toranosuke Yoshida[f 4 26 20 174][e]
-Sae Niijima[f 4 26 21 175][e]
+Back[f 4 26 0 41][e]
+Igor[f 4 26 1 42][e]
+Morgana[f 4 26 2 43][e]
+Makoto Niijima[f 4 26 3 44][e]
+Haru Okumura[f 4 26 4 45][e]
+Yusuke Kitagawa[f 4 26 5 46][e]
+Sojiro Sakura[f 4 26 6 47][e]
+Ann Takamaki[f 4 26 7 48][e]
+Ryuji Sakamoto[f 4 26 8 49][e]
+Goro Akechi[f 4 26 9 50][e]
+Futaba Sakura[f 4 26 10 51][e]
+Chihaya Mifune[f 4 26 11 52][e]
+Caroline and Justine[f 4 26 12 53][e]
+Munehisa Iwai[f 4 26 13 54][e]
+Tae Takemi[f 4 26 14 55][e]
+Sayado Kawakami[f 4 26 15 56][e]
+Ichiko Ohya[f 4 26 16 57][e]
+Shinya Oda[f 4 26 17 58][e]
+Hifumi Togo[f 4 26 18 59][e]
+Yuuki Mishima[f 4 26 19 60][e]
+Toranosuke Yoshida[f 4 26 20 61][e]
+Sae Niijima[f 4 26 21 62][e]
 
-[dlg GENERIC_HELP_154]
+[dlg GENERIC_HELP_63]
 [s]Return to the [clr 1]Mod Menu's[clr 0][n]Player Options page.[e]
 
-[dlg GENERIC_HELP_155]
+[dlg GENERIC_HELP_41]
 [s]Set the desired rank for[n]the Confidant of the [clr 9]Fool[clr 0][n]Arcana.[e]
 
-[dlg GENERIC_HELP_156]
+[dlg GENERIC_HELP_42]
 [s]Set the desired rank for[n]the Confidant of the [clr 9]Magician[clr 0][n]Arcana.[e]
 
-[dlg GENERIC_HELP_157]
+[dlg GENERIC_HELP_43]
 [s]Set the desired rank for[n]the Confidant of the [clr 9]Priestess[clr 0][n]Arcana.[e]
 
-[dlg GENERIC_HELP_158]
+[dlg GENERIC_HELP_44]
 [s]Set the desired rank for[n]the Confidant of the [clr 9]Empress[clr 0][n]Arcana.[e]
 
-[dlg GENERIC_HELP_159]
+[dlg GENERIC_HELP_45]
 [s]Set the desired rank for[n]the Confidant of the [clr 9]Emperor[clr 0][n]Arcana.[e]
 
-[dlg GENERIC_HELP_160]
+[dlg GENERIC_HELP_46]
 [s]Set the desired rank for[n]the Confidant of the [clr 9]Heirophant[clr 0][n]Arcana.[e]
 
-[dlg GENERIC_HELP_161]
+[dlg GENERIC_HELP_47]
 [s]Set the desired rank for[n]the Confidant of the [clr 9]Lovers[clr 0][n]Arcana.[e]
 
-[dlg GENERIC_HELP_162]
+[dlg GENERIC_HELP_48]
 [s]Set the desired rank for[n]the Confidant of the [clr 9]Chariot[clr 0][n]Arcana.[e]
 
-[dlg GENERIC_HELP_163]
+[dlg GENERIC_HELP_49]
 [s]Set the desired rank for[n]the Confidant of the [clr 9]Justice[clr 0][n]Arcana.[e]
 
-[dlg GENERIC_HELP_164]
+[dlg GENERIC_HELP_50]
 [s]Set the desired rank for[n]the Confidant of the [clr 9]Hermit[clr 0][n]Arcana.[e]
 
-[dlg GENERIC_HELP_165]
+[dlg GENERIC_HELP_51]
 [s]Set the desired rank for[n]the Confidant of the [clr 9]Fortune[clr 0][n]Arcana.[e]
 
-[dlg GENERIC_HELP_166]
+[dlg GENERIC_HELP_52]
 [s]Set the desired rank for[n]the Confidant of the [clr 9]Strength[clr 0][n]Arcana.[e]
 
-[dlg GENERIC_HELP_167]
+[dlg GENERIC_HELP_53]
 [s]Set the desired rank for[n]the Confidant of the [clr 9]Hanged Man[clr 0][n]Arcana.[e]
 
-[dlg GENERIC_HELP_168]
+[dlg GENERIC_HELP_54]
 [s]Set the desired rank for[n]the Confidant of the [clr 9]Death[clr 0][n]Arcana.[e]
 
-[dlg GENERIC_HELP_169]
+[dlg GENERIC_HELP_55]
 [s]Set the desired rank for[n]the Confidant of the [clr 9]Temperance[clr 0][n]Arcana.[e]
 
-[dlg GENERIC_HELP_170]
+[dlg GENERIC_HELP_56]
 [s]Set the desired rank for[n]the Confidant of the [clr 9]Devil[clr 0][n]Arcana.[e]
 
-[dlg GENERIC_HELP_171]
+[dlg GENERIC_HELP_57]
 [s]Set the desired rank for[n]the Confidant of the [clr 9]Tower[clr 0][n]Arcana.[e]
 
-[dlg GENERIC_HELP_172]
+[dlg GENERIC_HELP_58]
 [s]Set the desired rank for[n]the Confidant of the [clr 9]Star[clr 0][n]Arcana.[e]
 
-[dlg GENERIC_HELP_173]
+[dlg GENERIC_HELP_59]
 [s]Set the desired rank for[n]the Confidant of the [clr 9]Moon[clr 0][n]Arcana.[e]
 
-[dlg GENERIC_HELP_174]
+[dlg GENERIC_HELP_60]
 [s]Set the desired rank for[n]the Confidant of the [clr 9]Sun[clr 0][n]Arcana.[e]
 
-[dlg GENERIC_HELP_175]
+[dlg GENERIC_HELP_61]
 [s]Set the desired rank for[n]the Confidant of the [clr 9]Judgement[clr 0][n]Arcana.[e]
 
 [dlg UNUSED_HELP_96]
 [s]Set the desired rank for[n]the Confidant of the [clr 9]World[clr 0][n]Arcana.[e]
 
-
 [dlg StatsMenuName]
 Select Stat Type...[w][e]
 
 [sel StatsMenu]
-Back[f 4 26 0 179][e]
-Knowledge[f 4 26 1 180][e]
-Charm[f 4 26 2 181][e]
-Proficiency[f 4 26 3 182][e]
-Guts[f 4 26 4 183][e]
-Kindness[f 4 26 5 184][e]
+Back[f 4 26 0 66][e]
+Knowledge[f 4 26 1 67][e]
+Charm[f 4 26 2 68][e]
+Proficiency[f 4 26 3 69][e]
+Guts[f 4 26 4 70][e]
+Kindness[f 4 26 5 71][e]
 
-[dlg GENERIC_HELP_179]
+[dlg GENERIC_HELP_71]
 [s]Return to the [clr 1]Mod Menu's[clr 0][n]Player Options page.[e]
 
-[dlg GENERIC_HELP_180]
+[dlg GENERIC_HELP_66]
 [s]Increase your [clr 26]Knowledge[clr 0] stat[n]by the specified number of[n]points.[e]
 
-[dlg GENERIC_HELP_181]
+[dlg GENERIC_HELP_67]
 [s]Increase your [clr 26]Charm[clr 0] stat[n]by the specified number of[n]points.[e]
 
-[dlg GENERIC_HELP_182]
+[dlg GENERIC_HELP_68]
 [s]Increase your [clr 26]Proficiency[clr 0] stat[n]by the specified number of[n]points.[e]
 
-[dlg GENERIC_HELP_183]
+[dlg GENERIC_HELP_69]
 [s]Increase your [clr 26]Guts[clr 0] stat[n]by the specified number of[n]points.[e]
 
-[dlg GENERIC_HELP_184]
+[dlg GENERIC_HELP_70]
 [s]Increase your [clr 26]Kindness[clr 0] stat[n]by the specified number of[n]points.[e]
 
 [dlg StatPrompt [Stats]]
@@ -304,33 +303,33 @@ Morgana In Bag[e]
 GAP Playback[w][e]
 
 [sel GAPMenu]
-Back[f 4 26 0 194][e]
-Set GAP ID[f 4 26 1 195][e]
-Set GAP Index[f 4 26 2 196][e]
-Toggle Loop[f 4 26 3 197][e]
-Set Speed[f 4 26 4 198][e]
-Set Time[f 4 26 5 199][e]
-Playback animation[f 4 26 6 200][e]
+Back[f 4 26 0 81][e]
+Set GAP ID[f 4 26 1 82][e]
+Set GAP Index[f 4 26 2 83][e]
+Toggle Loop[f 4 26 3 84][e]
+Set Speed[f 4 26 4 85][e]
+Set Time[f 4 26 5 86][e]
+Playback animation[f 4 26 6 87][e]
 
-[dlg GENERIC_HELP_194]
+[dlg GENERIC_HELP_87]
 [s]Return to the [clr 1]Mod Menu's[clr 0][n]previous page.[e]
 
-[dlg GENERIC_HELP_195]
+[dlg GENERIC_HELP_81]
 [s]Input the filename of[n]a [clr 9]field GAP file for[clr 0][n]this character. (Starts with [clr 9]af[clr 0])[e]
 
-[dlg GENERIC_HELP_196]
+[dlg GENERIC_HELP_82]
 [s]Input the index of the[n]animation from the [clr 26]GAP[clr 0][n]that you want to view.[e]
 
-[dlg GENERIC_HELP_197]
+[dlg GENERIC_HELP_83]
 [s]Decide whether you want[n]the animation to repeat or not[n]when it's finished.[e]
 
-[dlg GENERIC_HELP_198]
+[dlg GENERIC_HELP_84]
 [s]Decide the playback speed[n]of the animation.[e]
 
-[dlg GENERIC_HELP_199]
+[dlg GENERIC_HELP_85]
 [s]Decide how many seconds you[n]would like to play the[n]animation for.[e]
 
-[dlg GENERIC_HELP_200]
+[dlg GENERIC_HELP_86]
 [s]Execute the animation playback[n][clr 9]after the above settings[clr 0][n]have been completed.[e]
 
 [dlg ScalePrompt [Scale Model]]
@@ -342,29 +341,29 @@ Set Joker's model scale (2 digits).
 Camera Options[w][e]
 
 [sel CameraMenu]
-Back[f 4 26 0 204][e]
-Reposition Camera[f 4 26 1 205][e]
-Adjust FOV[f 4 26 2 206][e]
-Rotate Camera[f 4 26 3 207][e]
-Unlock Camera[f 4 26 4 208][e]
-Lock Camera[f 4 26 5 209][e]
+Back[f 4 26 0 91][e]
+Reposition Camera[f 4 26 1 92][e]
+Adjust FOV[f 4 26 2 93][e]
+Rotate Camera[f 4 26 3 94][e]
+Unlock Camera[f 4 26 4 95][e]
+Lock Camera[f 4 26 5 96][e]
 
-[dlg GENERIC_HELP_204]
+[dlg GENERIC_HELP_96]
 [s]Return to the [clr 1]Mod Menu's[clr 0][n]main selection page.[e]
 
-[dlg GENERIC_HELP_205]
+[dlg GENERIC_HELP_91]
 [s]Move the camera along the X, Y[n]or Z axis. Hold Square to change[n]the axis.[e]
 
-[dlg GENERIC_HELP_206]
+[dlg GENERIC_HELP_92]
 [s]Zoom the camera in and out by[n]changing the Field of View.[e]
 
-[dlg GENERIC_HELP_207]
+[dlg GENERIC_HELP_93]
 [s]Change the orientation of the[n]camera with the D-pad.[e]
 
-[dlg GENERIC_HELP_208]
+[dlg GENERIC_HELP_94]
 [s]Make the camera follow the player[n]again if previously locked.[e]
 
-[dlg GENERIC_HELP_209]
+[dlg GENERIC_HELP_95]
 [s]Makes the camera stationary,[n]which is required to modify it.[e]
 
 [sel OneThruTen]
@@ -385,21 +384,21 @@ Lock Camera[f 4 26 5 209][e]
 Calendar Options[w][e]
 
 [sel CalendarMenu]
-Back[f 4 26 0 213][e]
-Set Next Day[f 4 26 1 214][e]
-Call Calendar[f 4 26 2 215][e]
-Set Weather[f 4 26 3 216][e]
+Back[f 4 26 0 100][e]
+Set Next Day[f 4 26 1 101][e]
+Call Calendar[f 4 26 2 102][e]
+Set Weather[f 4 26 3 103][e]
 
-[dlg GENERIC_HELP_213]
+[dlg GENERIC_HELP_102]
 [s]Return to the [clr 1]Mod Menu's[clr 0][n]main selection page.[e]
 
-[dlg GENERIC_HELP_214]
+[dlg GENERIC_HELP_100]
 [s]Choose the day and month[n]to warp to.[e]
 
-[dlg GENERIC_HELP_215]
+[dlg GENERIC_HELP_101]
 [s]End the current day and warp[n]to the next specified day.[e]
 
-[dlg GENERIC_HELP_216]
+[dlg GENERIC_HELP_103]
 [s]Change the current weather[n]condition value. Weather should[n]change after reloading map.[e]
 
 [dlg CalendarPrompt[Calendar]]
@@ -428,39 +427,38 @@ Choose the last 3 digits of
 NPC Options[w][e]
 
 [sel SpawnMenu]
-Back[f 4 26 0 225][e]
-Spawn Model[f 4 26 1 226][e]
-Animate Model[f 4 26 2 227][e]
+Back[f 4 26 0 112][e]
+Spawn Model[f 4 26 1 113][e]
+Animate Model[f 4 26 2 114][e]
 
-[dlg GENERIC_HELP_225]
+[dlg GENERIC_HELP_114]
 [s]Return to the [clr 1]Mod Menu's[clr 0][n]main selection page.[e]
 
-[dlg GENERIC_HELP_226]
+[dlg GENERIC_HELP_112]
 [s]Input a [clr 9]GMD filename[clr 0][n]to spawn a character model from.[e]
 
-[dlg GENERIC_HELP_227]
+[dlg GENERIC_HELP_113]
 [s]Apply field animations[n]to the last NPC you spawned.[e]
-
 
 [dlg PersonaMenuName]
 Persona Options[w][e]
 
 [sel PersonaMenu]
-Back[f 4 26 0 230][e]
-Add Persona[f 4 26 1 231][e]
-Delete Personas[f 4 26 2 232][e]
-Add Skill[f 4 26 3 233][e]
+Back[f 4 26 0 117][e]
+Add Persona[f 4 26 1 118][e]
+Delete Personas[f 4 26 2 119][e]
+Add Skill[f 4 26 3 120][e]
 
-[dlg GENERIC_HELP_230]
+[dlg GENERIC_HELP_120]
 [s]Return to the [clr 1]Mod Menu's[clr 0][n]Player Options page.[e]
 
-[dlg GENERIC_HELP_231]
+[dlg GENERIC_HELP_117]
 [s]Input a Persona's [clr 9]ID[clr 0][n]to add it to your stock.[e]
 
-[dlg GENERIC_HELP_232]
+[dlg GENERIC_HELP_118]
 [s]Permanently remove all[n]Personas from your current stock.[e]
 
-[dlg GENERIC_HELP_233]
+[dlg GENERIC_HELP_119]
 [s]Choose a party member and[n]the [clr 9]ID[clr 0] of a Skill to add[n]to their current Persona.[e]
 
 
@@ -556,79 +554,79 @@ Select a bgm to play.[w][e]
 Flag Options[w][e]
 
 [sel FlagMenu]
-Back[f 4 26 0 256][e]
-HUD Display[f 4 26 1 257][e]
-Add Party Members[f 4 26 2 258][e]
-Remove Party Members[f 4 26 3 259][e]
-Enable Party Editing[f 4 26 4 260][e]
-Navigator[f 4 26 5 261][e]
-Change Romance Route[f 4 26 6 262][e]
-Room Editor[f 4 26 7 263][e]
-Manual Input[f 4 26 8 264][e]
-Print Enabled Flags[f 4 26 9 265][e]
+Back[f 4 26 0 143][e]
+HUD Display[f 4 26 1 144][e]
+Add Party Members[f 4 26 2 145][e]
+Remove Party Members[f 4 26 3 146][e]
+Enable Party Editing[f 4 26 4 147][e]
+Navigator[f 4 26 5 148][e]
+Change Romance Route[f 4 26 6 149][e]
+Room Editor[f 4 26 7 150][e]
+Manual Input[f 4 26 8 151][e]
+Print Enabled Flags[f 4 26 9 152][e]
 
-[dlg GENERIC_HELP_256]
+[dlg GENERIC_HELP_143]
 [s]Return to the [clr 1]Mod Menu's[clr 0][n]main selection page.[e]
 
-[dlg GENERIC_HELP_257]
+[dlg GENERIC_HELP_144]
 [s]Show or hide the user interface[n]elements, such as the date, time,[n]and mission list.[e]
 
-[dlg GENERIC_HELP_258]
+[dlg GENERIC_HELP_145]
 [s]Make a Persona user available to[n]add to your party.[e]
 
-[dlg GENERIC_HELP_259]
+[dlg GENERIC_HELP_146]
 [s]Revoke a Persona user's[n]availability to be added[n]to your party.[e]
 
-[dlg GENERIC_HELP_260]
+[dlg GENERIC_HELP_147]
 [s]Allow choosing your own[n]party members from the Stats[n]menu in the pause menu.[e]
 
-[dlg GENERIC_HELP_261]
+[dlg GENERIC_HELP_148]
 [s]Change which character[n]currently serves as the Navigator.[e]
 
-[dlg GENERIC_HELP_262]
+[dlg GENERIC_HELP_149]
 [s]Start or end a relationship with[n]a female Confidant.[e]
 
-[dlg GENERIC_HELP_263]
+[dlg GENERIC_HELP_150]
 [s]Modify the state of the[n]protagonist's bedroom in[n]the Leblanc attic.[e]
 
-[dlg GENERIC_HELP_264]
+[dlg GENERIC_HELP_151]
 [s]Enter an 4-digit decimal value[n]of a bit to either[n]enable or disable it.[e]
 
-[dlg GENERIC_HELP_265]
+[dlg GENERIC_HELP_152]
 [s]Print all currently enabled[n]bit flag values to the[n]TTY log.[e]
 
 [dlg FieldMenuName]
 Field Select[e]
 
 [sel FieldMenu]
-Exit[f 4 26 0 268][e]
-Enter Field ID[f 4 26 1 269][e]
-Load Field[f 4 26 2 270][e]
+Exit[f 4 26 0 155][e]
+Enter Field ID[f 4 26 1 156][e]
+Load Field[f 4 26 2 157][e]
 
-[dlg GENERIC_HELP_268]
+[dlg GENERIC_HELP_157]
 [s]Return to the [clr 1]Mod Menu's[clr 0][n]main selection page.[e]
 
-[dlg GENERIC_HELP_269]
+[dlg GENERIC_HELP_155]
 [s]Input the 6 digits of a[n][clr 9]field pack's[clr 0] filename[n](found in ps3.cpk/field)[e]
 
-[dlg GENERIC_HELP_270]
+[dlg GENERIC_HELP_156]
 [s]Attempt to load the selected[n]field. [clr 9]WARNING: Some fields may[n]softlock the game.[clr 0][e]
 
 [dlg EventMenuName]
 Event Select[e]
 
 [sel EventMenu]
-Exit[f 4 26 0 273][e]
-Enter Event ID[f 4 26 1 274][e]
-Load Event[f 4 26 2 275][e]
+Exit[f 4 26 0 160][e]
+Enter Event ID[f 4 26 1 161][e]
+Load Event[f 4 26 2 162][e]
 
-[dlg GENERIC_HELP_273]
+[dlg GENERIC_HELP_162]
 [s]Return to the [clr 1]Mod Menu's[clr 0][n]main selection page.[e]
 
-[dlg GENERIC_HELP_274]
+[dlg GENERIC_HELP_160]
 [s]Input the 6 digits of a[n][clr 9]event pack's[clr 0] filename[n](found in data.cpk/event)[e]
 
-[dlg GENERIC_HELP_275]
+[dlg GENERIC_HELP_161]
 [s]Attempt to load the selected[n]event. [clr 9]WARNING: Some events may[n]softlock the game.[clr 0][e]
 
 [dlg NaviMenuName]
