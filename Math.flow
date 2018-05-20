@@ -1,0 +1,45 @@
+
+const float PI = 3.14159265358979323846f;
+
+int Pow( int x, int n )
+{
+    int number = 1;
+
+    for ( int i = 0; i < n; ++i )
+        number *= x;
+
+    return number;
+}
+
+void QuaternionFromEulerDegrees( float x, float y, float z, out float qX, out float qY, out float qZ, out float qW )
+{
+    x = DegreesToRadians( x );
+    y = DegreesToRadians( y );
+    z = DegreesToRadians( z );
+    
+    QuaternionFromEuler( x, y, z, out qX, out qY, out qZ, out qW );
+}
+
+void QuaternionFromEuler( float x, float y, float z, out float qX, out float qY, out float qZ, out float qW )
+{
+    x *= 0.5f;
+    y *= 0.5f;
+    z *= 0.5f;
+
+    float c1 = COS( x );
+    float c2 = COS( y );
+    float c3 = COS( z );
+    float s1 = SIN( x );
+    float s2 = SIN( y );
+    float s3 = SIN( z );
+
+    qW = c1 * c2 * c3 - s1 * s2 * s3;
+    qX = s1 * c2 * c3 + c1 * s2 * s3;
+    qY = c1 * s2 * c3 - s1 * c2 * s3;
+    qZ = c1 * c2 * s3 + s1 * s2 * c3;
+}
+
+float DegreesToRadians( float degrees )
+{
+    return degrees * PI / 180f;
+}

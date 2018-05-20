@@ -1,0 +1,1203 @@
+
+// 
+// FlowScript decompiled by AtlusScriptLib by TGE (2017)
+// In the unfortunate case of any bugs, please report them back to me.
+// 
+
+
+// 
+// Imports
+// 
+
+import( "field.bf.msg" );
+import( "ModMenu.flow" );
+
+// 
+// Script-level variable definitions
+// 
+
+int variable30;
+int variable31;
+int variable32;
+
+// 
+// Procedure declarations
+// 
+
+void fld_square_menu()
+{
+    //SUB_Call_GroupChat();
+	ModMenuDisplay();
+}
+
+
+void fld_r1_menu()
+{
+    
+    if ( BIT_CHK( 0 + 0x0800 + 0x0800 + 65 ) )
+    {
+        return;
+    }
+    else if ( CHK_DAYS( 11, 22 ) == 1 && GET_TIME() == 4 )
+    {
+        return;
+    }
+    else if ( BIT_CHK( 0 + 96 ) )
+    {
+        KeyfreeEvent_SHORTCUT();
+    }
+    else if ( BIT_CHK( 0 + 0x0800 + 546 ) && !BIT_CHK( 0 + 744 ) )
+    {
+        BIT_ON( 0 + 744 );
+    }
+
+    Field_SHORTCUT();
+}
+
+
+void fld_up_menu()
+{
+}
+
+
+void fld_down_menu()
+{
+}
+
+
+void fld_left_menu()
+{
+}
+
+
+void fld_right_menu()
+{
+}
+
+
+void fld_start_menu()
+{
+    int localVariable5 = GET_COUNT( 0x10 );
+    int localVariable6 = localVariable5 / 100;
+    int localVariable7 = REM( localVariable5, 1000 );
+    int localVariable4 = 0;
+    int localVariable0 = 0;
+    int localVariable2 = 0;
+    int localVariable3 = 0;
+    
+    if ( FLD_CHECK_SAVE_ENABLE() )
+    {
+        
+        if ( FLD_GET_MAJOR() == 10 && FLD_GET_MINOR() == 3 )
+        {
+            localVariable4 = 1;
+        }
+        else 
+        {
+            localVariable4 = 0;
+        }
+
+        FLD_PANEL_DISP( 0 );
+        
+        if ( BIT_CHK( 0 + 1089 ) || localVariable4 == 1 )
+        {
+            SAVE();
+            SAVE_UI_SYNC();
+            SAVE_SYNC();
+        }
+        else if ( BIT_CHK( 0 + 66 ) )
+        {
+            SUB_MoruShowFace();
+            localVariable0 = GET_COUNT( 7 );
+            int localVariable1 = 0;
+            localVariable2 = 0;
+            localVariable3 = 0;
+            
+            if ( BIT_CHK( 0 + 81 ) && BIT_CHK( 0 + 0x0800 + 0x0800 + 200 ) && CHK_DAYS( 5, 2 ) != 1 && localVariable0 <= 0 )
+            {
+                localVariable0 = 1;
+                localVariable2 = 27;
+            }
+            else if ( BIT_CHK( 0 + 82 ) && BIT_CHK( 0 + 0x0800 + 0x0800 + 600 ) && CHK_DAYS( 6, 5 ) != 1 && localVariable0 <= 1 )
+            {
+                localVariable0 = 2;
+                localVariable2 = 28;
+            }
+            else if ( BIT_CHK( 0 + 83 ) && BIT_CHK( 0 + 0x0800 + 0x0800 + 1000 ) && CHK_DAYS( 7, 9 ) != 1 && localVariable0 <= 2 )
+            {
+                localVariable0 = 3;
+                localVariable2 = 29;
+            }
+            else if ( BIT_CHK( 0 + 84 ) && BIT_CHK( 0 + 0x0800 + 0x0800 + 1400 ) && CHK_DAYS( 8, 21 ) != 1 && localVariable0 <= 3 )
+            {
+                localVariable0 = 4;
+                localVariable2 = 30;
+            }
+            else if ( BIT_CHK( 0 + 85 ) && BIT_CHK( 0 + 0x0800 + 0x0800 + 1800 ) && CHK_DAYS( 10, 11 ) != 1 && localVariable0 <= 4 )
+            {
+                localVariable0 = 5;
+                localVariable2 = 31;
+            }
+            else if ( BIT_CHK( 0 + 86 ) && BIT_CHK( 0 + 0x0800 + 0x0800 + 2214 ) && CHK_DAYS( 11, 20 ) != 1 && localVariable0 <= 5 )
+            {
+                localVariable0 = 6;
+                localVariable2 = 0x20;
+            }
+            else if ( BIT_CHK( 0 + 87 ) && BIT_CHK( 0 + 0x0800 + 0x0800 + 2700 ) && CHK_DAYS( 12, 18 ) != 1 && localVariable0 <= 6 )
+            {
+                localVariable0 = 7;
+                localVariable2 = 33;
+            }
+            else 
+            {
+                localVariable2 = 0;
+            }
+
+            SET_COUNT( 7, localVariable0 );
+        }
+
+        FLD_SET_DIALY( 1 );
+        SAVE();
+        SAVE_UI_SYNC();
+        FLD_SET_DIALY( 0 );
+        localVariable3 = SAVE_SYNC();
+        
+        if ( BIT_CHK( 0 + 66 ) )
+        {
+            
+            if ( localVariable3 == 1 )
+            {
+                
+                if ( localVariable2 != 0 )
+                {
+                    MSG_WND_DSP();
+                    MSG( localVariable2, 0 );
+                    MSG_WND_CLS();
+                }
+
+            }
+            else 
+            {
+                int localVariable1 = 0;
+                SET_COUNT( 7, localVariable1 );
+            }
+
+            SUB_MoruReturnBag();
+        }
+
+        FLD_PANEL_DISP( 1 );
+    }
+    else 
+    {
+        MSG_WND_DSP();
+        MSG_MIND( 20, 0 );
+        MSG_WND_CLS();
+    }
+
+}
+
+
+void Field_SHORTCUT()
+{
+    int localVariable9 = FLD_GET_MAJOR();
+    int localVariable10 = FLD_GET_MINOR();
+    int localVariable11 = FLD_GET_DIV_INDEX();
+    int localVariable12 = 0;
+    int localVariable13 = 0;
+    
+    if ( BIT_CHK( 0 + 0x0800 + 0x0800 + 3 ) && GET_TIME() == 5 || GET_TIME() == 6 )
+    {
+        return;
+    }
+    else if ( BIT_CHK( 0 + 0x0800 + 1843 ) && GET_TIME() == 5 || GET_TIME() == 6 )
+    {
+        return;
+    }
+    else if ( BIT_CHK( 0 + 0x0800 + 0x0800 + 4036 ) && GET_TIME() == 5 || GET_TIME() == 6 )
+    {
+        return;
+    }
+
+    
+    if ( localVariable9 == 1 || localVariable9 == 10 && localVariable10 == 2 || localVariable9 == 10 && localVariable10 == 18 )
+    {
+        
+        if ( CHK_DAYS_STARTEND( 3, 19, 3, 20 ) == 1 )
+        {
+            localVariable12 = 10;
+        }
+        else 
+        {
+            localVariable12 = 1;
+            localVariable13 = 0;
+            
+            if ( BIT_CHK( 0 + 75 ) || GET_TIME() == 5 )
+            {
+                localVariable13 = localVariable13 + 2;
+            }
+
+            
+            if ( !BIT_CHK( 0 + 752 ) )
+            {
+                localVariable13 = localVariable13 + 0x80;
+            }
+
+            
+            if ( !BIT_CHK( 0 + 761 ) )
+            {
+                localVariable13 = localVariable13 + 0x0100;
+            }
+
+            
+            if ( !BIT_CHK( 0 + 753 ) )
+            {
+                localVariable13 = localVariable13 + 0x0200;
+            }
+
+            
+            if ( !BIT_CHK( 0 + 747 ) )
+            {
+                localVariable13 = localVariable13 + 0x0400;
+            }
+
+            
+            if ( !BIT_CHK( 0 + 762 ) )
+            {
+                localVariable13 = localVariable13 + 0x0800;
+            }
+
+            
+            if ( !BIT_CHK( 0 + 748 ) )
+            {
+                localVariable13 = localVariable13 + 0x1000;
+            }
+
+            
+            if ( !BIT_CHK( 0 + 749 ) )
+            {
+                localVariable13 = localVariable13 + 0x2000;
+            }
+
+            
+            if ( !BIT_CHK( 0 + 763 ) )
+            {
+                localVariable13 = localVariable13 + 0x4000;
+            }
+
+            
+            if ( !BIT_CHK( 0 + 746 ) )
+            {
+                localVariable13 = localVariable13 + 0x00008000;
+            }
+
+            
+            if ( !BIT_CHK( 0 + 745 ) )
+            {
+                localVariable13 = localVariable13 + 0x00010000;
+            }
+
+            localVariable13 = localVariable13 + 0x40;
+        }
+
+    }
+    else if ( localVariable9 == 2 || localVariable9 == 11 && localVariable10 == 4 )
+    {
+        
+        if ( BIT_CHK( 0 + 95 ) )
+        {
+            localVariable12 = 8;
+        }
+        else if ( CHK_DAYS_STARTEND( 3, 19, 3, 20 ) == 1 )
+        {
+            localVariable12 = 11;
+        }
+        else 
+        {
+            localVariable12 = 2;
+            localVariable13 = 0;
+            
+            if ( BIT_CHK( 0 + 75 ) || BIT_CHK( 0 + 76 ) || BIT_CHK( 0 + 77 ) )
+            {
+                
+                if ( CHK_DAYS_STARTEND( 4, 1, 5, 17 ) == 1 )
+                {
+                    localVariable13 = localVariable13 + 2 + 4;
+                }
+                else if ( CHK_DAYS_STARTEND( 5, 18, 3, 31 ) == 1 )
+                {
+                    
+                    if ( BIT_CHK( 0 + 0x0800 + 547 ) )
+                    {
+                        localVariable13 = localVariable13 + 2 + 4;
+                    }
+                    else 
+                    {
+                        localVariable13 = localVariable13 + 2 + 8;
+                    }
+
+                }
+
+            }
+            else if ( BIT_CHK( 0 + 74 ) )
+            {
+                localVariable13 = localVariable13 + 4 + 8;
+            }
+            else 
+            {
+                localVariable13 = localVariable13 + 2 + 8;
+            }
+
+            
+            if ( !BIT_CHK( 0 + 744 ) )
+            {
+                localVariable13 = localVariable13 + 0x80;
+            }
+
+            
+            if ( GET_TIME() == 5 || BIT_CHK( 0 + 0x0800 + 0x10 ) )
+            {
+                
+                if ( BIT_CHK( 0 + 74 ) )
+                {
+                    localVariable13 = 4 + 8 + 0x10 + 0x20 + 0x40 + 0x80 + 0x0100;
+                }
+                else 
+                {
+                    localVariable13 = 2 + 4 + 8 + 0x10 + 0x20 + 0x40 + 0x80 + 0x0100;
+                }
+
+            }
+
+        }
+
+    }
+    else if ( localVariable9 == 3 || localVariable9 == 9 || localVariable9 == 11 && localVariable10 == 6 || localVariable9 == 10 && localVariable10 == 1 )
+    {
+        
+        if ( CHK_DAYS_STARTEND( 3, 19, 3, 20 ) == 1 )
+        {
+            localVariable12 = 9;
+            
+            if ( localVariable9 == 3 )
+            {
+                
+                if ( localVariable11 == 0 )
+                {
+                    localVariable13 = localVariable13 + 4 + 0x10;
+                }
+                else 
+                {
+                    localVariable13 = localVariable13 + 4 + 8;
+                }
+
+            }
+            else 
+            {
+                localVariable13 = localVariable13 + 8 + 0x10;
+            }
+
+        }
+        else if ( !BIT_CHK( 0 + 1195 ) && GET_TIME() == 5 )
+        {
+            localVariable12 = 3;
+            localVariable13 = 0;
+            localVariable13 = localVariable13 + 1 + 0x00008000;
+            localVariable13 = localVariable13 + 2 + 4;
+            
+            if ( localVariable9 == 3 )
+            {
+                
+                if ( localVariable11 == 0 )
+                {
+                    localVariable13 = localVariable13 + 0x10 + 0x40;
+                }
+                else 
+                {
+                    localVariable13 = localVariable13 + 0x10 + 0x20;
+                }
+
+            }
+            else 
+            {
+                localVariable13 = localVariable13 + 0x20 + 0x40;
+            }
+
+            localVariable13 = localVariable13 + 8 + 0x80 + 0x0100 + 0x0200 + 0x0400 + 0x0800;
+        }
+        else 
+        {
+            localVariable12 = 3;
+            localVariable13 = 0;
+            
+            if ( GET_TIME() == 5 && !BIT_CHK( 0 + 1184 ) )
+            {
+                localVariable13 = localVariable13 + 1 + 0x00008000;
+            }
+
+            
+            if ( GET_TIME() == 5 )
+            {
+                localVariable13 = localVariable13 + 2 + 4;
+            }
+            else if ( BIT_CHK( 0 + 76 ) )
+            {
+                localVariable13 = localVariable13 + 4;
+            }
+            else if ( BIT_CHK( 0 + 77 ) )
+            {
+                localVariable13 = localVariable13 + 2;
+            }
+            else 
+            {
+                localVariable13 = localVariable13 + 2 + 4;
+            }
+
+            
+            if ( localVariable9 == 3 )
+            {
+                
+                if ( localVariable11 == 0 )
+                {
+                    localVariable13 = localVariable13 + 0x10 + 0x40;
+                }
+                else 
+                {
+                    localVariable13 = localVariable13 + 0x10 + 0x20;
+                }
+
+            }
+            else 
+            {
+                localVariable13 = localVariable13 + 0x20 + 0x40;
+            }
+
+            
+            if ( !BIT_CHK( 0 + 754 ) )
+            {
+                localVariable13 = localVariable13 + 0x80;
+            }
+
+            
+            if ( !BIT_CHK( 0 + 755 ) )
+            {
+                localVariable13 = localVariable13 + 0x0100;
+            }
+
+            
+            if ( !BIT_CHK( 0 + 766 ) )
+            {
+                localVariable13 = localVariable13 + 0x0200;
+            }
+
+            
+            if ( !BIT_CHK( 0 + 756 ) )
+            {
+                localVariable13 = localVariable13 + 0x0400;
+            }
+
+            
+            if ( !BIT_CHK( 0 + 765 ) )
+            {
+                localVariable13 = localVariable13 + 0x0800;
+            }
+
+        }
+
+    }
+    else if ( localVariable9 == 6 || localVariable9 == 10 && localVariable10 == 12 )
+    {
+        localVariable12 = 4;
+        
+        if ( BIT_CHK( 0 + 757 ) && GET_TIME() == 5 )
+        {
+            localVariable13 = 0;
+        }
+        else 
+        {
+            localVariable13 = 4;
+        }
+
+        
+        if ( !BIT_CHK( 0 + 764 ) )
+        {
+            localVariable13 = localVariable13 + 8;
+        }
+
+        
+        if ( CHK_DAYS_STARTEND( 3, 19, 3, 20 ) == 1 )
+        {
+            localVariable13 = 8;
+        }
+
+    }
+    else if ( localVariable9 == 7 || localVariable9 == 10 && localVariable10 == 11 )
+    {
+        localVariable12 = 5;
+        localVariable13 = 0;
+        
+        if ( !BIT_CHK( 0 + 758 ) )
+        {
+            localVariable13 = localVariable13 + 4;
+        }
+
+        
+        if ( !BIT_CHK( 0 + 767 ) )
+        {
+            localVariable13 = localVariable13 + 8;
+        }
+
+        
+        if ( CHK_DAYS_STARTEND( 3, 19, 3, 20 ) == 1 )
+        {
+            localVariable13 = 8;
+        }
+
+    }
+    else if ( localVariable9 == 10 && localVariable10 == 3 )
+    {
+        MSG_WND_DSP();
+        MSG_MIND( 19, 0 );
+        MSG_WND_CLS();
+        return;
+    }
+    else if ( localVariable9 == 10 && localVariable10 == 4 )
+    {
+        localVariable12 = 7;
+        localVariable13 = 0;
+    }
+
+    int localVariable8 = FLD_SEL_EX( 1, localVariable12, 0, localVariable13, 0 );
+    FLD_PANEL_MAP_PROC_SYNC( 0 );
+}
+
+
+void KeyfreeEvent_SHORTCUT()
+{
+    int localVariable27 = KFEVT_GET_MAJOR();
+    int localVariable28 = KFEVT_GET_MINOR();
+    int localVariable29 = KFEVT_GET_DIV_INDEX();
+    int localVariable15 = FLD_GET_MAJOR();
+    int localVariable16 = FLD_GET_MINOR();
+    int localVariable17 = FLD_GET_DIV_INDEX();
+    int localVariable21 = GET_COUNT( 0x10 );
+    int localVariable22 = localVariable21 / 100;
+    int localVariable23 = REM( localVariable21, 1000 );
+    int localVariable20 = 0;
+    int localVariable18 = 0;
+    int localVariable19 = 0;
+    
+    if ( localVariable22 == 1371 )
+    {
+        
+        if ( localVariable28 == 101 )
+        {
+            localVariable18 = 35;
+            localVariable19 = 12280;
+        }
+        else if ( localVariable28 == 104 )
+        {
+            localVariable18 = 35;
+            localVariable19 = 12231;
+        }
+        else if ( localVariable28 == 106 )
+        {
+            localVariable18 = 35;
+            localVariable19 = 11839;
+        }
+        else 
+        {
+            return;
+        }
+
+    }
+    else if ( localVariable22 == 1413 )
+    {
+        
+        if ( localVariable28 <= 306 )
+        {
+            localVariable18 = 38;
+            localVariable19 = 14332;
+        }
+        else if ( localVariable28 == 307 )
+        {
+            localVariable18 = 38;
+            localVariable19 = 12284;
+        }
+        else if ( localVariable28 == 308 )
+        {
+            localVariable18 = 38;
+            localVariable19 = 12284;
+        }
+        else if ( localVariable28 == 309 )
+        {
+            localVariable18 = 39;
+            localVariable19 = 0;
+        }
+        else 
+        {
+            return;
+        }
+
+    }
+    else if ( localVariable22 == 1441 )
+    {
+        return;
+    }
+    else if ( localVariable22 == 1471 )
+    {
+        return;
+    }
+    else if ( localVariable22 == 1501 )
+    {
+        return;
+    }
+    else if ( localVariable22 == 1801 )
+    {
+        
+        if ( localVariable28 == 101 )
+        {
+            localVariable18 = 52;
+            localVariable19 = 2;
+        }
+        else if ( localVariable28 == 102 )
+        {
+            localVariable18 = 52;
+            localVariable19 = 4;
+        }
+        else if ( localVariable28 == 103 )
+        {
+            localVariable18 = 53;
+            localVariable19 = 102;
+        }
+        else if ( localVariable28 == 104 )
+        {
+            localVariable18 = 53;
+            localVariable19 = 109 + 0x00008000;
+        }
+        else if ( localVariable28 == 105 )
+        {
+            localVariable18 = 53;
+            localVariable19 = 53 + 0x00008000;
+        }
+        else if ( localVariable28 == 106 )
+        {
+            return;
+        }
+
+    }
+    else if ( localVariable22 == 1931 )
+    {
+        
+        if ( localVariable28 == 103 )
+        {
+            localVariable18 = 57;
+            localVariable19 = 1 + 0x00008000;
+        }
+        else 
+        {
+            return;
+        }
+
+    }
+    else if ( localVariable22 == 2281 )
+    {
+        return;
+    }
+    else if ( localVariable22 == 2381 )
+    {
+        
+        if ( localVariable28 == 101 )
+        {
+            localVariable18 = 0x40;
+        }
+        else if ( localVariable28 == 102 )
+        {
+            localVariable18 = 65;
+            
+            if ( localVariable29 == 0 )
+            {
+                localVariable19 = 560;
+            }
+            else if ( localVariable29 == 1 )
+            {
+                localVariable19 = 896;
+            }
+            else 
+            {
+                localVariable19 = 224;
+            }
+
+        }
+        else if ( localVariable28 == 103 )
+        {
+            localVariable18 = 66;
+            
+            if ( localVariable29 == 0 )
+            {
+                localVariable19 = 0x40;
+            }
+            else if ( localVariable29 == 1 )
+            {
+                localVariable19 = 0x40;
+            }
+            else 
+            {
+                localVariable19 = 0x20;
+            }
+
+        }
+        else if ( localVariable28 == 104 )
+        {
+            localVariable18 = 67;
+        }
+        else 
+        {
+            return;
+        }
+
+    }
+    else if ( localVariable22 == 2432 )
+    {
+        
+        if ( localVariable28 == 201 && localVariable21 >= 243202 )
+        {
+            localVariable18 = 69;
+            
+            if ( localVariable21 == 243202 )
+            {
+                localVariable19 = 1;
+            }
+
+        }
+        else if ( localVariable28 == 202 )
+        {
+            localVariable18 = 70;
+            
+            if ( localVariable29 == 0 )
+            {
+                localVariable19 = 864;
+            }
+            else if ( localVariable29 == 1 )
+            {
+                localVariable19 = 912;
+            }
+            else 
+            {
+                localVariable19 = 1232;
+            }
+
+        }
+        else if ( localVariable28 == 203 )
+        {
+            localVariable18 = 71;
+            
+            if ( localVariable29 == 0 )
+            {
+                localVariable19 = 0x40;
+            }
+            else if ( localVariable29 == 1 )
+            {
+                localVariable19 = 0x40;
+            }
+            else 
+            {
+                localVariable19 = 0x20;
+            }
+
+        }
+        else if ( localVariable28 == 204 )
+        {
+            localVariable18 = 72;
+        }
+        else if ( localVariable28 == 205 )
+        {
+            localVariable18 = 73;
+        }
+        else if ( localVariable28 == 206 )
+        {
+            localVariable18 = 74;
+        }
+        else 
+        {
+            return;
+        }
+
+    }
+    else if ( localVariable22 == 2433 )
+    {
+        localVariable18 = 75;
+        
+        if ( localVariable28 == 301 )
+        {
+            
+            if ( localVariable21 >= 243302 )
+            {
+                localVariable19 = 18;
+            }
+            else 
+            {
+                localVariable19 = 118;
+            }
+
+        }
+        else if ( localVariable28 == 302 )
+        {
+            
+            if ( localVariable21 >= 243302 )
+            {
+                localVariable19 = 18;
+            }
+            else 
+            {
+                localVariable19 = 115;
+            }
+
+        }
+        else if ( localVariable28 == 303 )
+        {
+            
+            if ( localVariable21 >= 243302 )
+            {
+                localVariable19 = 18;
+            }
+            else 
+            {
+                localVariable19 = 119;
+            }
+
+        }
+        else if ( localVariable28 == 304 )
+        {
+            
+            if ( localVariable21 >= 243302 )
+            {
+                localVariable19 = 18;
+            }
+            else 
+            {
+                localVariable19 = 87;
+            }
+
+        }
+        else if ( localVariable28 == 305 )
+        {
+            
+            if ( localVariable21 >= 243302 )
+            {
+                localVariable19 = 17;
+            }
+            else 
+            {
+                localVariable19 = 55;
+            }
+
+        }
+        else if ( localVariable28 == 306 )
+        {
+            return;
+        }
+
+    }
+    else if ( localVariable22 == 2442 )
+    {
+        
+        if ( localVariable28 == 202 )
+        {
+            localVariable18 = 77;
+        }
+        else 
+        {
+            return;
+        }
+
+    }
+    else if ( localVariable22 == 2443 )
+    {
+        return;
+    }
+    else if ( localVariable22 == 2444 )
+    {
+        return;
+    }
+    else if ( localVariable22 == 2445 )
+    {
+        return;
+    }
+    else 
+    {
+        return;
+    }
+
+    int localVariable14 = 0;
+    
+    if ( localVariable22 == 1801 && localVariable28 <= 103 || localVariable22 == 1413 && localVariable28 >= 107 )
+    {
+        localVariable14 = FLD_SEL_EX( 1, localVariable18, localVariable20, localVariable19, 0 );
+    }
+    else 
+    {
+        localVariable14 = FLD_SEL_EX( 1, localVariable18, localVariable20, localVariable19, 1 );
+    }
+
+    FLD_PANEL_MAP_PROC_SYNC( 0 );
+}
+
+
+void SUB_Call_GroupChat()
+{
+    
+    if ( FLD_GET_MAJOR() == 10 && FLD_GET_MINOR() == 3 )
+    {
+        return;
+    }
+
+    
+    if ( BIT_CHK( 0 + 320 ) )
+    {
+        SUB_PhonePickup();
+        MSG_WND_DSP();
+        MSG_MIND( 1, 0 );
+        MSG_WND_CLS();
+        SUB_PhoneEnd();
+        return;
+    }
+
+    SUB_PhonePickup();
+    CALL_CHAT_LIST();
+    SUB_PhoneEnd();
+}
+
+
+void R1_CoopJump()
+{
+}
+
+
+void test_r1_menu()
+{
+    FLD_SEL_EX( 0, 31, 0, 0, 0 );
+}
+
+
+void SUB_PhoneRing()
+{
+    int localVariable33 = FLD_PC_GET_RESHND( 0 );
+    MDL_ICON( localVariable33, 15 );
+    COMSE_PLAY( 1048 );
+    WAIT( 10 );
+    RUMBLE_START_S( 6, 12, 2, 30 );
+    WAIT( 30 );
+}
+
+
+void SUB_PhoneRumble()
+{
+    int localVariable34 = FLD_PC_GET_RESHND( 0 );
+    MDL_ICON( localVariable34, 18 );
+    COMSE_PLAY( 1047 );
+    WAIT( 10 );
+    RUMBLE_START_S( 6, 12, 2, 30 );
+    WAIT( 30 );
+}
+
+
+void SUB_PhonePickup()
+{
+    variable30 = 0;
+    FLD_SET_CELLPHONE( 1 );
+    WAIT( 15 );
+    variable30 = 1;
+}
+
+
+void SUB_PhoneCall()
+{
+    variable31 = FLD_PC_GET_RESHND( 0 );
+    
+    if ( GET_WEATHER_DETAIL() == 1 || GET_WEATHER_DETAIL() == 4 || GET_WEATHER_DETAIL() == 5 || GET_WEATHER_DETAIL() == 8 )
+    {
+        variable32 = FLD_MODEL_ADDMOTION_LOAD( variable31, 101 );
+    }
+    else 
+    {
+        variable32 = FLD_MODEL_ADDMOTION_LOAD( variable31, 1 );
+    }
+
+    FLD_MODEL_LOADSYNC( variable32 );
+    FLD_MODEL_COPY_POSE_ANIM( variable32, variable31 );
+    FLD_MODEL_SET_VISIBLE( variable31, 0, 0 );
+    FLD_MODEL_SET_VISIBLE( variable32, 1, 0 );
+    FLD_CELLPHONE_MODEL_VISIBLE( variable32, 1 );
+    MDL_ANIM( variable32, 60 + 0, 0, 5, 1f );
+    MDL_ANIM_NEXT( variable32, 60 + 1, 1, 0, 1f );
+    variable30 = 2;
+    WAIT( 30 );
+}
+
+
+void SUB_PhoneTalk()
+{
+    SUB_PhonePickup();
+    SUB_PhoneCall();
+}
+
+
+void SUB_PhoneEnd()
+{
+    
+    if ( variable30 == 0 )
+    {
+        return;
+    }
+
+    
+    if ( variable30 != 2 )
+    {
+        FLD_SET_CELLPHONE( 0 );
+    }
+    else 
+    {
+        FLD_MODEL_SET_VISIBLE( variable31, 0, 0 );
+        FLD_MODEL_SET_VISIBLE( variable32, 1, 0 );
+        MDL_ANIM( variable32, 60 + 2, 0, 10, 1f );
+        WAIT( 65 );
+        FLD_CELLPHONE_MODEL_VISIBLE( variable32, 0 );
+        MDL_ANIM_SYNC( variable32 );
+        MDL_ANIM( variable32, 0, 1, 0, 1f );
+        MDL_ANIM_BLENDSYNC( variable32 );
+        FLD_MODEL_COPY_POSE_ANIM( variable31, variable32 );
+        FLD_MODEL_SET_VISIBLE( variable31, 1, 0 );
+        FLD_MODEL_SET_VISIBLE( variable32, 0, 0 );
+        FLD_MODEL_FREE( variable32 );
+        FLD_SET_CELLPHONE( 0 );
+    }
+
+    variable30 = 0;
+}
+
+
+void SUB_MoruShowFace()
+{
+    
+    if ( FLD_CHECK_MORGANA_BAG() == 1 )
+    {
+        int localVariable35 = FLD_PC_GET_CURRENT_RESHND( 0 );
+        int localVariable36 = MDL_GET_ITEM_RESHND( localVariable35, 2 );
+        MDL_ANIM( localVariable36, 50, 0, 0, 1f );
+        MDL_ANIM_NEXT( localVariable36, 51, 1, 0, 1f );
+    }
+
+}
+
+
+void SUB_MoruReturnBag()
+{
+    
+    if ( FLD_CHECK_MORGANA_BAG() == 1 )
+    {
+        int localVariable37 = FLD_PC_GET_CURRENT_RESHND( 0 );
+        int localVariable38 = MDL_GET_ITEM_RESHND( localVariable37, 2 );
+        MDL_ANIM( localVariable38, 52, 0, 5, 1f );
+        MDL_ANIM_NEXT( localVariable38, 0, 1, 0, 1f );
+    }
+
+}
+
+
+void Fld_FadeOut_CallField()
+{
+    FADEOUT( 27, 10 );
+    FADE_SYNC();
+}
+
+
+void Fld_FadeOut_Crowd()
+{
+    FLD_REQ_SCN_CHANGE( 0 );
+}
+
+
+void Fld_FadeOut_CallEvent()
+{
+    FADEOUT( 15, 10 );
+    FADE_SYNC();
+}
+
+
+void Fld_FadeOut_CallCalendar()
+{
+    FADEOUT( 15, 10 );
+    FADE_SYNC();
+}
+
+
+void Fld_FadeOut_Default()
+{
+    FADEOUT( 0, 10 );
+    FADE_SYNC();
+}
+
+
+void Fld_FadeOut_Wait10()
+{
+    FADEOUT( 0, 10 );
+    FADE_SYNC();
+    WAIT( 10 );
+}
+
+
+void Fld_FadeIn_Default()
+{
+    FADEIN( 0, 20 );
+    FADE_SYNC();
+}
+
+
+void Fld_FadeOut_Subway()
+{
+    FADEOUT( 8, 10 );
+    FADE_SYNC();
+}
+
+
+void Fld_FadeOut_Symbol()
+{
+    FADEOUT( 15, 10 );
+    FADE_SYNC();
+}
+
+
+void Fld_FadeOut_Rain()
+{
+    FADEOUT( 11, 10 );
+    FADE_SYNC();
+}
+
+
+void Fld_FadeOut_Cross()
+{
+    FADEOUT( 13, 10 );
+    FADE_SYNC();
+}
+
+
+void Fld_FadeOut_Parallel()
+{
+    FADEOUT( 14, 10 );
+    FADE_SYNC();
+}
+
+
+void Fld_FadeOut_CutChange()
+{
+    FADEOUT( 5, 10 );
+    FADE_SYNC();
+}
+
+
+void Fld_FadeOut_Velvet()
+{
+    FADEOUT( 19, 10 );
+    FADE_SYNC();
+}
+
