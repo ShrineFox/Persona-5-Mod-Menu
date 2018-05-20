@@ -19,6 +19,7 @@ Once you've added [mod.cpk support](https://shrinefox.github.io/guides/p5/mod-cp
 Using TGE's [AtlusScriptCompiler](https://github.com/TGEnigma/AtlusScriptToolchain), you can edit the **.flow** and **.msg** scripts in this repository and recompile them into **.bf** format.
 For example, move the Utility.flow, Utility.msg and Math.flow files to the same folder as the script you're compiling and run:
 > "M:\Tools\AtlusScriptCompiler.exe" "M:\ModMenu\field\field.bf.flow" -Compile -OutFormat V3BE -Library P5 -Encoding P5
+
 This will output a new field.bf file, which will include the mod menu and other referenced scripts.
 
 There are 3 different scripts that must be recompiled:
