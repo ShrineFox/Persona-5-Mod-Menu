@@ -121,37 +121,37 @@ void fld_start_menu()
             if ( BIT_CHK( 0 + 81 ) && BIT_CHK( 0 + 0x0800 + 0x0800 + 200 ) && CHK_DAYS( 5, 2 ) != 1 && localVariable0 <= 0 )
             {
                 localVariable0 = 1;
-                localVariable2 = 27;
+                localVariable2 = MSG_SAVE_EPISODE_000_00;
             }
             else if ( BIT_CHK( 0 + 82 ) && BIT_CHK( 0 + 0x0800 + 0x0800 + 600 ) && CHK_DAYS( 6, 5 ) != 1 && localVariable0 <= 1 )
             {
                 localVariable0 = 2;
-                localVariable2 = 28;
+                localVariable2 = MSG_SAVE_EPISODE_001_00;
             }
             else if ( BIT_CHK( 0 + 83 ) && BIT_CHK( 0 + 0x0800 + 0x0800 + 1000 ) && CHK_DAYS( 7, 9 ) != 1 && localVariable0 <= 2 )
             {
                 localVariable0 = 3;
-                localVariable2 = 29;
+                localVariable2 = MSG_SAVE_EPISODE_002_00;
             }
             else if ( BIT_CHK( 0 + 84 ) && BIT_CHK( 0 + 0x0800 + 0x0800 + 1400 ) && CHK_DAYS( 8, 21 ) != 1 && localVariable0 <= 3 )
             {
                 localVariable0 = 4;
-                localVariable2 = 30;
+                localVariable2 = MSG_SAVE_EPISODE_003_00;
             }
             else if ( BIT_CHK( 0 + 85 ) && BIT_CHK( 0 + 0x0800 + 0x0800 + 1800 ) && CHK_DAYS( 10, 11 ) != 1 && localVariable0 <= 4 )
             {
                 localVariable0 = 5;
-                localVariable2 = 31;
+                localVariable2 = MSG_SAVE_EPISODE_004_00;
             }
             else if ( BIT_CHK( 0 + 86 ) && BIT_CHK( 0 + 0x0800 + 0x0800 + 2214 ) && CHK_DAYS( 11, 20 ) != 1 && localVariable0 <= 5 )
             {
                 localVariable0 = 6;
-                localVariable2 = 0x20;
+                localVariable2 = MSG_SAVE_EPISODE_005_00;
             }
             else if ( BIT_CHK( 0 + 87 ) && BIT_CHK( 0 + 0x0800 + 0x0800 + 2700 ) && CHK_DAYS( 12, 18 ) != 1 && localVariable0 <= 6 )
             {
                 localVariable0 = 7;
-                localVariable2 = 33;
+                localVariable2 = MSG_SAVE_EPISODE_006_00;
             }
             else 
             {
@@ -195,7 +195,7 @@ void fld_start_menu()
     else 
     {
         MSG_WND_DSP();
-        MSG_MIND( 20, 0 );
+        MSG_MIND( MND_SAVE_NG_COMMON, 0 );
         MSG_WND_CLS();
     }
 
@@ -561,7 +561,7 @@ void Field_SHORTCUT()
     else if ( localVariable9 == 10 && localVariable10 == 3 )
     {
         MSG_WND_DSP();
-        MSG_MIND( 19, 0 );
+        MSG_MIND( MND_NG, 0 );
         MSG_WND_CLS();
         return;
     }
@@ -961,7 +961,7 @@ void SUB_Call_GroupChat()
     {
         SUB_PhonePickup();
         MSG_WND_DSP();
-        MSG_MIND( 1, 0 );
+        MSG_MIND( MND_PHONE_NG_000_00, 0 );
         MSG_WND_CLS();
         SUB_PhoneEnd();
         return;

@@ -225,14 +225,14 @@ void at_dng_map_search()
 {
     FLD_PLACENAME_TEX_EXIT();
     FLD_PLACENAME_TEX_WAIT();
-    int localVariable6 = 4 + RND( 2 );
+    int localVariable6 = MAP_SEARCH0 + RND( 2 );
     FLD_REPORT_MSG_DTL( 8, 1, localVariable6, 0 );
     FLD_WAIT( 30 );
     FLD_MAP_SEARCH();
     FLD_REPORT_MSGSYNC_DTL( 8, 1, localVariable6, 0 );
     FLD_REPORT_FREE();
     MSG_WND_DSP();
-    MSG_SYSTEM( 7 );
+    MSG_SYSTEM( MAP_SYSTEM );
     MSG_WND_CLS();
 }
 
@@ -323,7 +323,7 @@ void rare_dng_tbox()
         FLD_UNIT_SET_WAIT( localVariable16 );
         WAIT( 5 );
         MSG_WND_DSP();
-        localVariable13 = 86;
+        localVariable13 = RARE_TBOX_MSG_M;
         MSG( localVariable13 + 0, 0 );
         localVariable15 = GET_ITEM_NUM( 12288 + 336 );
         localVariable18 = GET_ITEM_NUM( 12288 + 337 );
@@ -1380,39 +1380,39 @@ void DUNGEON_EXIT_CHECK()
     
     if ( localVariable68 == 151 )
     {
-        localVariable65 = 14;
+        localVariable65 = D01_EXIT_MES;
     }
     else if ( localVariable68 == 153 )
     {
-        localVariable65 = 15;
+        localVariable65 = D02_EXIT_MES;
     }
     else if ( localVariable68 == 154 )
     {
-        localVariable65 = 0x10;
+        localVariable65 = D03_EXIT_MES;
     }
     else if ( localVariable68 == 155 )
     {
-        localVariable65 = 17;
+        localVariable65 = D04_EXIT_MES;
     }
     else if ( localVariable68 == 156 )
     {
-        localVariable65 = 18;
+        localVariable65 = D05_EXIT_MES;
     }
     else if ( localVariable68 == 157 )
     {
-        localVariable65 = 19;
+        localVariable65 = D06_EXIT_MES;
     }
     else if ( localVariable68 == 159 )
     {
-        localVariable65 = 20;
+        localVariable65 = D07_EXIT_MES;
     }
     else if ( localVariable68 == 190 )
     {
-        localVariable65 = 21;
+        localVariable65 = D08_EXIT_MES;
     }
     else 
     {
-        localVariable65 = 14;
+        localVariable65 = D01_EXIT_MES;
     }
 
     EXIT_MAIN_MES_SET();
@@ -1751,39 +1751,39 @@ void EXIT_MAIN_MES_SET()
         
         if ( variable47 == 2 )
         {
-            variable48 = 31;
+            variable48 = D01_EXIT_MES;
         }
         else if ( variable47 == 3 )
         {
-            variable48 = 0x20;
+            variable48 = D02_EXIT_MES;
         }
         else if ( variable47 == 4 )
         {
-            variable48 = 33;
+            variable48 = D03_EXIT_MES;
         }
         else if ( variable47 == 5 )
         {
-            variable48 = 34;
+            variable48 = D04_EXIT_MES;
         }
         else if ( variable47 == 6 )
         {
-            variable48 = 35;
+            variable48 = D05_EXIT_MES;
         }
         else if ( variable47 == 8 )
         {
-            variable48 = 36;
+            variable48 = D06_EXIT_MES;
         }
         else if ( variable47 == 7 )
         {
-            variable48 = 37;
+            variable48 = D07_EXIT_MES;
         }
         else if ( variable47 == 9 )
         {
-            variable48 = 38;
+            variable48 = D07_EXIT_MES;
         }
         else 
         {
-            variable48 = 0x20;
+            variable48 = D02_EXIT_MES;
         }
 
         return;
@@ -1792,28 +1792,28 @@ void EXIT_MAIN_MES_SET()
     
     if ( BIT_CHK( 0 + 0x0800 + 0x0800 + 607 ) && !BIT_CHK( 0 + 0x0800 + 0x0800 + 608 ) && GET_COUNT( 146 ) < 29000 )
     {
-        variable48 = 75;
+        variable48 = D02_MISSION_POINT_PC03_m;
         return;
     }
 
     
     if ( BIT_CHK( 0 + 0x0800 + 0x0800 + 1402 ) && BIT_CHK( 0 + 0x0800 + 0x0800 + 1403 ) && GET_COUNT( 146 ) < 22000 )
     {
-        variable48 = 79;
+        variable48 = D03_FIRST_END_PC03_mes;
         return;
     }
 
     
     if ( BIT_CHK( 0 + 0x0800 + 0x0800 + 2202 ) && GET_COUNT( 150 ) < 50000 )
     {
-        variable48 = 80;
+        variable48 = D06_FIRST_END_PC06_mes;
         return;
     }
 
     
     if ( BIT_CHK( 0 + 0x0800 + 0x0800 + 2701 ) && !BIT_CHK( 0 + 0x0800 + 0x0800 + 2705 ) && GET_COUNT( 151 ) >= 15000 )
     {
-        variable48 = 81;
+        variable48 = D07_FIRST_END_PC03_mes;
         return;
     }
 
@@ -1851,46 +1851,46 @@ void EXIT_MAIN_MES_SET()
     
     if ( localVariable90 == 1 )
     {
-        variable48 = 22;
+        variable48 = DUNGEON_ROUTE_COMP_PC03_;
         return;
     }
 
     
     if ( variable47 == 2 )
     {
-        variable48 = 31;
+        variable48 = DUNGEON_EXIT_01_PC02_mes;
     }
     else if ( variable47 == 3 )
     {
-        variable48 = 0x20;
+        variable48 = DUNGEON_EXIT_01_PC03_mes;
     }
     else if ( variable47 == 4 )
     {
-        variable48 = 33;
+        variable48 = DUNGEON_EXIT_01_PC04_mes;
     }
     else if ( variable47 == 5 )
     {
-        variable48 = 34;
+        variable48 = DUNGEON_EXIT_01_PC05_mes;
     }
     else if ( variable47 == 6 )
     {
-        variable48 = 35;
+        variable48 = DUNGEON_EXIT_01_PC06_mes;
     }
     else if ( variable47 == 8 )
     {
-        variable48 = 36;
+        variable48 = DUNGEON_EXIT_01_PC07_mes;
     }
     else if ( variable47 == 7 )
     {
-        variable48 = 37;
+        variable48 = DUNGEON_EXIT_01_PC08_mes;
     }
     else if ( variable47 == 9 )
     {
-        variable48 = 38;
+        variable48 = DUNGEON_EXIT_01_PC09_mes;
     }
     else 
     {
-        variable48 = 0x20;
+        variable48 = DUNGEON_EXIT_01_PC03_mes;
     }
 
 }
@@ -2409,7 +2409,7 @@ void auto_recover()
     
     if ( localVariable106 == 0 )
     {
-        localVariable106 = FLD_SIMPLE_SYS_MSG( 106, 1, 1 );
+        localVariable106 = FLD_SIMPLE_SYS_MSG( MSG_AUTO_RECOVER_CONF, 1, 1 );
         
         if ( localVariable106 == 1 )
         {
@@ -2419,11 +2419,11 @@ void auto_recover()
     }
     else if ( localVariable106 == 1 )
     {
-        FLD_SIMPLE_SYS_MSG( 107, 0, 1 );
+        FLD_SIMPLE_SYS_MSG( MSG_AUTO_RECOVER_FULL, 0, 1 );
     }
     else if ( localVariable106 == 2 )
     {
-        FLD_SIMPLE_SYS_MSG( 108, 0, 1 );
+        FLD_SIMPLE_SYS_MSG( MSG_AUTO_RECOVER_NO_USER, 0, 1 );
     }
 
 }
@@ -2438,7 +2438,7 @@ void sobj_recover()
     FLD_REPORT_MSGSYNC_DTL( 8, 1, localVariable107, 0 );
     FLD_REPORT_FREE();
     MSG_WND_DSP();
-    MSG_SYSTEM( 112 );
+    MSG_SYSTEM( SCHOBJ_SYSTEM );
     MSG_WND_CLS();
 }
 

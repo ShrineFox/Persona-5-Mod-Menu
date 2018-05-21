@@ -3514,45 +3514,45 @@ void DUNGEON_EXIT_CHECK()
     
     if ( localVariable138 == 151 )
     {
-        localVariable135 = 13;
+        localVariable135 = D01_EXIT_MES;
     }
     else if ( localVariable138 == 153 )
     {
-        localVariable135 = 14;
+        localVariable135 = D02_EXIT_MES;
     }
     else if ( localVariable138 == 154 )
     {
-        localVariable135 = 15;
+        localVariable135 = D03_EXIT_MES;
     }
     else if ( localVariable138 == 155 )
     {
-        localVariable135 = 0x10;
+        localVariable135 = D04_EXIT_MES;
     }
     else if ( localVariable138 == 156 )
     {
-        localVariable135 = 17;
+        localVariable135 = D05_EXIT_MES;
     }
     else if ( localVariable138 == 157 )
     {
-        localVariable135 = 18;
+        localVariable135 = D06_EXIT_MES;
     }
     else if ( localVariable138 == 159 )
     {
-        localVariable135 = 19;
+        localVariable135 = D07_EXIT_MES;
     }
     else if ( localVariable138 == 190 )
     {
-        localVariable135 = 20;
+        localVariable135 = D08_EXIT_MES;
     }
     else 
     {
-        localVariable135 = 13;
+        localVariable135 = D01_EXIT_MES;
     }
 
     EXIT_MAIN_MES_SET();
     int localVariable137 = 0;
     localVariable137 = 1;
-    int localVariable136 = 10;
+    int localVariable136 = DUNGEON_EXIT_SEL;
     MSG_WND_DSP();
     MSG( variable118, 0 );
     SEL_DEFKEY( 14, 2 );
@@ -3795,35 +3795,35 @@ void DUNGEON_EXIT_NG_ACTIVE()
         
         if ( localVariable153 == 2 )
         {
-            localVariable152 = 61;
+            localVariable152 = D_EXIT_NG_ACTIVE_01_PC02;
         }
         else if ( localVariable153 == 3 )
         {
-            localVariable152 = 62;
+            localVariable152 = D_EXIT_NG_ACTIVE_01_PC03;
         }
         else if ( localVariable153 == 4 )
         {
-            localVariable152 = 63;
+            localVariable152 = D_EXIT_NG_ACTIVE_01_PC04;
         }
         else if ( localVariable153 == 5 )
         {
-            localVariable152 = 0x40;
+            localVariable152 = D_EXIT_NG_ACTIVE_01_PC05;
         }
         else if ( localVariable153 == 6 )
         {
-            localVariable152 = 65;
+            localVariable152 = D_EXIT_NG_ACTIVE_01_PC06;
         }
         else if ( localVariable153 == 8 )
         {
-            localVariable152 = 66;
+            localVariable152 = D_EXIT_NG_ACTIVE_01_PC07;
         }
         else if ( localVariable153 == 7 )
         {
-            localVariable152 = 67;
+            localVariable152 = D_EXIT_NG_ACTIVE_01_PC08;
         }
         else if ( localVariable153 == 9 )
         {
-            localVariable152 = 68;
+            localVariable152 = D_EXIT_NG_ACTIVE_01_PC09;
         }
 
     }
@@ -4543,7 +4543,7 @@ void auto_recover()
     
     if ( localVariable176 == 0 )
     {
-        localVariable176 = FLD_SIMPLE_SYS_MSG( 84, 1, 1 );
+        localVariable176 = FLD_SIMPLE_SYS_MSG( MSG_AUTO_RECOVER_CONF, 1, 1 );
         
         if ( localVariable176 == 1 )
         {
@@ -4553,11 +4553,11 @@ void auto_recover()
     }
     else if ( localVariable176 == 1 )
     {
-        FLD_SIMPLE_SYS_MSG( 85, 0, 1 );
+        FLD_SIMPLE_SYS_MSG( MSG_AUTO_RECOVER_FULL, 0, 1 );
     }
     else if ( localVariable176 == 2 )
     {
-        FLD_SIMPLE_SYS_MSG( 86, 0, 1 );
+        FLD_SIMPLE_SYS_MSG( MSG_AUTO_RECOVER_NO_USER, 0, 1 );
     }
 
 }
@@ -4565,14 +4565,14 @@ void auto_recover()
 
 void sobj_recover()
 {
-    int localVariable177 = 87 + RND( 2 );
+    int localVariable177 = SOBJ_RECOVER0 + RND( 2 );
     FLD_REPORT_MSG_DTL( 8, 1, localVariable177, 0 );
     FLD_WAIT( 30 );
     FLD_SOBJ_RECOVER();
     FLD_REPORT_MSGSYNC_DTL( 8, 1, localVariable177, 0 );
     FLD_REPORT_FREE();
     MSG_WND_DSP();
-    MSG_SYSTEM( 90 );
+    MSG_SYSTEM( SCHOBJ_SYSTEM );
     MSG_WND_CLS();
 }
 
