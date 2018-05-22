@@ -7,14 +7,14 @@ int SelectDigit()
     while ( true )
 	{
         SEL_MASK(1);
-		int temp = SEL_GENERIC(-1, Select0to4Dialog ) - 1;
+		int temp = SEL_GENERIC_NOT_HELP(-1, Select0to4Dialog ) - 1;
         if ( temp == -1 )
             break;
             
 		if ( temp == 5 ) // higher
 		{
             SEL_MASK(1);
-			temp = SEL_GENERIC(-1, Select5to9Dialog ) - 1;
+			temp = SEL_GENERIC_NOT_HELP(-1, Select5to9Dialog ) - 1;
             if ( temp == -1 )
                 break;
                 
@@ -37,7 +37,7 @@ int SelectNumber( int digitCount )
 	for ( int i = 0; i < digitCount; i++ )
 	{
         SEL_MASK(1);
-		int digit = SEL_GENERIC(-1, Select0to9Dialog) - 1;
+		int digit = SEL_GENERIC_NOT_HELP(-1, Select0to9Dialog) - 1;
         
         // Number should only equal negative one if we cancel
         // before entering anything.
@@ -68,11 +68,9 @@ float SelectFloat( float digitCount )
 	for ( float i = 0; i < digitCount; i++ )
 	{
         SEL_MASK(1);
-		float digit = SEL_GENERIC(-1, Select0to9Dialog) - 1;
+		float digit = SEL_GENERIC_NOT_HELP(-1, Select0to9Dialog) - 1;
         
         // Number should only equal one if we cancel
-        // before entering anything.
-        // Number should only equal negative one if we cancel
         // before entering anything.
         if (digit < 0)
         {

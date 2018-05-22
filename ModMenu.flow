@@ -266,8 +266,6 @@ void ItemEditorDisplay()
 			case 9: // Skill Cards
 				ItemGetSelect( 24576 );
 				break;
-			case 10: // Back
-				return;
 		}
 	}
 }
@@ -294,6 +292,7 @@ void CommuSetRankSelect()
 	
 	if (cmmId < 22 && cmmId > 0) {
 		DisplayMessagePrompt( CmmDialog2 );
+        SEL_MASK(1);
 		int lvl = SEL_GENERIC(-1, OneThruTen);
         
         if (lvl > 0) {
@@ -379,7 +378,9 @@ void FieldModelPlayAnim(int resHandle, int gapid, int index)
 
 void FieldModelAnimSelectId()
 {
-	gFldAnimGapId = SelectNumberPrompt( GapPrompt, 3 ); // Gap filename last 3 digits
+    int temp = SelectNumberPrompt( GapPrompt, 3 ); // Gap filename last 3 digits
+    if (temp >= 0)
+        gFldAnimGapId = temp;
 }
 
 void FieldModelAnimSelectIndex()
@@ -1074,10 +1075,12 @@ void PrintEnabledBits() {
 
 void SelectHUDDisplayFlag()
 {
-	int dateDisplay = SEL_GENERIC_NOT_CANCEL(-1, DateDisplayDlg );
+	int dateDisplay = SEL_GENERIC(-1, DateDisplayDlg ) - 1;
 	int hud = 0;
 	
 	switch(dateDisplay) {
+        case -1:
+            return;
 		case 0:
 			DATE_DISP( 1 );
 			FLD_PANEL_DISP(1);
@@ -1156,7 +1159,7 @@ void SelectNavigator()
 
 void SelectRomanceFlags() {
     SEL_MASK(1);
-	int lover = SEL_GENERIC(LoveMenuName, LoveMenu);
+	int lover = SEL_GENERIC_NOT_HELP(LoveMenuName, LoveMenu);
     if (lover < 0)
         return;
     
@@ -1171,7 +1174,7 @@ void SelectBitToggle()
         return;
     
     SEL_MASK(1);
-	int onOff = SEL_GENERIC( -1, OnOffSel ) - 1;
+	int onOff = SEL_GENERIC_NOT_HELP( -1, OnOffSel ) - 1;
     if (onOff < 0)
         return;
 	
@@ -1189,7 +1192,7 @@ void SelectBitToggle()
 void SelectItemToggle(int flag) 
 {
     SEL_MASK(1);
-	int selection = SEL_GENERIC( -1, DateDisplayDlg ) - 1;
+	int selection = SEL_GENERIC_NOT_HELP( -1, DateDisplayDlg ) - 1;
     if (selection < 0)
         return;
 	

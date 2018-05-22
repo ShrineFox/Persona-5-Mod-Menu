@@ -643,6 +643,7 @@ Futaba[e]
 None[e]
 
 [sel DateDisplayDlg]
+Back[e]
 Enable[e]
 Disable[e]
 
