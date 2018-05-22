@@ -5,8 +5,34 @@ int Pow( int x, int n )
 {
     int number = 1;
 
-    for ( int i = 0; i < n; ++i )
-        number *= x;
+    if (n >= 0)
+    {
+        for ( int i = 0; i < n; ++i )
+            number *= x;
+    }
+    else
+    {
+        for ( int i = 0; i > n; --i )
+            number /= x;
+    }
+
+    return number;
+}
+
+float PowF( int x, int n )
+{
+    float number = 1;
+
+    if (n >= 0)
+    {
+        for ( int i = 0; i < n; ++i )
+            number *= x;
+    }
+    else
+    {
+        for ( int i = 0; i > n; --i )
+            number /= x;
+    }
 
     return number;
 }

@@ -1,4 +1,5 @@
 [sel Select0to4Dialog]
+Back[e]
 0[e]
 1[e]
 2[e]
@@ -7,6 +8,7 @@
 Higher[e]
 
 [sel Select5to9Dialog]
+Back[e]
 5[e]
 6[e]
 7[e]
@@ -15,6 +17,7 @@ Higher[e]
 Lower[e]
 
 [sel Select0to9Dialog]
+Back[e]
 0[e]
 1[e]
 2[e]
