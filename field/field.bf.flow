@@ -31,11 +31,6 @@ void fld_square_menu()
 	ModMenuDisplay();
 }
 
-void CallOriginalSquareMenu()
-{
-	SUB_Call_GroupChat();
-}
-
 void fld_r1_menu()
 {
     
@@ -1206,3 +1201,7 @@ void Fld_FadeOut_Velvet()
     FADE_SYNC();
 }
 
+void CallOriginalSquareMenu()
+{
+	SUB_Call_GroupChat();
+}

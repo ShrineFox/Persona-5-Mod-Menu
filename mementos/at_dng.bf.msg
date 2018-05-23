@@ -302,7 +302,7 @@
 [msg RARE_TBOX_MSG_NO_KEY_1ST [Morgana]]
 [s][bup 0 3 11 0 0][f 4 10 -1 0 0]In order to open these treasure[n]chests, you need a special[n]tool called a [f 2 5 3 -1 0].[n][w][e]
 
-[msg RARE_TBOX_MSG_NO_KEY_1ST [Futaba]]
+[msg RARE_TBOX_MSG_NO_KEY_1ST2 [Futaba]]
 [s][bup 0 8 104 0 0][f 4 10 -1 0 0]A thief who can't make a [f 2 5 3 -1 0][n]by himself? That's surprising.[n][w][e]
 [s][bup 0 8 100 0 0][f 4 10 -1 0 0]Have Morgana teach you how[n]once you get home.[n][w][e]
 
@@ -310,14 +310,14 @@
 [s][bup 0 3 0 0 0][f 4 10 -1 0 0]I've mentioned this before, but I[n]wouldn't mind teaching you how to[n]make a [f 2 5 3 -1 0] sometime.[n][w][e]
 [s]Well, I guess that can wait[n]until we get home.[n][w][e]
 
-[msg RARE_TBOX_MSG_NO_KEY_2ND [Futaba]]
+[msg RARE_TBOX_MSG_NO_KEY_2ND2 [Futaba]]
 [s][bup 0 8 100 0 0][f 4 10 -1 0 0]Wait, you still don't know how[n]to make a [f 2 5 3 -1 0]...?[n][w][e]
 [s]Get Morgana to teach you[n]once you get home.[n][w][e]
 
 [msg RARE_TBOX_MSG_NO_KEY_ADD [Morgana]]
 [s][vp 8 2 0 1169 -1 0][bup 0 3 3 0 0][f 4 10 -1 0 0]...Though I guess your desk[n]is probably too damn messy[n]for that right now.[n][w][e]
 
-[msg RARE_TBOX_MSG_NO_KEY_ADD [Futaba]]
+[msg RARE_TBOX_MSG_NO_KEY_ADD2 [Futaba]]
 [s][bup 0 8 103 0 0][f 4 10 -1 0 0][vp 8 2 0 9197 -1 0]...Although that desk in your[n]room might be too messy for you[n]to make anything on right now...[n][w][e]
 
 [msg TBOX_MSG_DIRTYMAIL1ST_M [Morgana]]
@@ -336,16 +336,16 @@
 [s]What do you mean?[e]
 [s]I want more![e]
 
-[msg RARE_TBOX_MSG_NO_KEY_SER [Morgana]]
+[msg RARE_TBOX_MSG_NO_KEY_SER2 [Morgana]]
 [s][bup 0 3 0 0 0][f 4 10 -1 0 0]You'll make your own. I can[n]teach you how back in your room.[n][w][e]
 
-[msg RARE_TBOX_MSG_NO_KEY_SER [Morgana]]
+[msg RARE_TBOX_MSG_NO_KEY_SER3 [Morgana]]
 [s][bup 0 3 0 0 0][f 4 10 -1 0 0]Maybe, but a thief like you should[n]be able to make his own tools. I[n]can teach you how in your room.[n][w][e]
 
 [msg RARE_TBOX_MSG_AQKEYPICK_ [Morgana]]
 [s][bup 0 3 8 0 0][f 4 10 -1 0 0][vp 8 2 0 1171 -1 0]You have the [f 2 5 3 -1 0][n]with you, right? Let's take this![n][w][e]
 
-[msg RARE_TBOX_MSG_AQKEYPICK_ [Futaba]]
+[msg RARE_TBOX_MSG_AQKEYPICK_2 [Futaba]]
 [s][bup 0 8 104 0 0][f 4 10 -1 0 0][vp 8 2 0 9040 -1 0]That's the legendary infiltration[n]tool, the [f 2 5 3 -1 0]![n][w][e]
 [s][bup 0 8 101 0 0][f 4 10 -1 0 0]Wanna use it to open this!?[n][w][e]
 
