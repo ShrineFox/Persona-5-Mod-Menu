@@ -121,7 +121,8 @@ int SelectPrompt( int promptMessageId, int selectMessageId )
 {
 	MSG_WND_DSP(); 
 	MSG( promptMessageId, 0 );
-	int selection = SEL_GENERIC_NOT_CANCEL(-1, selectMessageId );
+	SEL_MASK(1);
+	int selection = SEL_GENERIC_NOT_HELP(-1, selectMessageId );
 	MSG_WND_CLS();
 	return selection;
 }
@@ -130,7 +131,8 @@ int SelectPrompt2( int promptMessageId, int selectMessageId )
 {
 	MSG_WND_DSP(); 
 	MSG( promptMessageId, 0 );
-	int selection = SEL_GENERIC_NOT_CANCEL(-1, selectMessageId );
+	SEL_MASK(1);
+	int selection = SEL_GENERIC_NOT_HELP(-1, selectMessageId );
 	MSG_WND_CLS();
 	return selection;
 }

@@ -37,7 +37,7 @@ void ModMenuDisplay()
 				PlayerEditorDisplay();
 				break;
 			case 2:
-				BossSelectMenuDisplay();
+				BattleTypeSelect();
 				return;
 			case 3: 
 				TeleportModeStart();
@@ -154,9 +154,10 @@ void PersonaAddSelect()
 
 void PersonaDeleteAllSelect()
 {
+	SEL_MASK(1);
 	bool deleteConfirm = SelectPrompt( PersonaDelPrompt, PersonaDelSelect );
 	
-	if ( deleteConfirm ) {
+	if ( deleteConfirm > 1 ) {
 		CLEAR_PERSONA_STOCK();
 		MSG_SYSTEM(PersonaDeleted);
 	}
@@ -166,13 +167,12 @@ void PersonaDeleteAllSelect()
 void PersonaAddSkillSelect()
 {
     SEL_MASK(1);
-    
-	int unitId = SEL_GENERIC(UnitMenuName, UnitSelect) + 1;
+	int unitId = SEL_GENERIC(UnitMenuName, UnitSelect);
     if ( unitId <= 0 ) // Cancel
         return;
         
 	int skillId = SelectNumberPrompt( SkillPrompt, 3 );
-    if ( skillId < 0 ) // Cancel
+    if ( skillId <= 0 ) // Cancel
         return;
         
 	SKILL_ADD( unitId, skillId );
@@ -293,7 +293,10 @@ void CommuSetRankSelect()
 	if (cmmId < 22 && cmmId > 0) {
 		DisplayMessagePrompt( CmmDialog2 );
         SEL_MASK(1);
-		int lvl = SEL_GENERIC(-1, OneThruTen);
+		int lvl = SEL_GENERIC(-1, OneThruTen) - 1;
+		
+		if (lvl <= 0)
+			return;
         
         if (lvl > 0) {
             CMM_RANKUP( cmmId, lvl, 1 );
@@ -733,8 +736,72 @@ void NpcModelAnimSelectIndex()
         gNpcAnimGapIndex = temp;
 }
 
+// Battle
+void BattleTypeSelect()
+{
+	SEL_MASK(1);
+	int selection = SEL_GENERIC_NOT_HELP( BattleTypeName, BattleTypeMenu );
+		
+	switch (selection)
+	{
+		case 0:
+			return;
+		case 1:
+			RegularBattle();
+			break;
+		case 2:
+			BossSelectMenu();
+			break;
+		case 3:
+			EventBattle();
+			break;
+	}
+}
+
+void RegularBattle() 
+{
+	SEL_MASK(1);
+	int encount = SelectNumberPrompt( EncounterPrompt, 3 );
+	
+	CALL_BATTLE(encount);
+	WAIT_BATTLE();
+}
+
+void EventBattle()
+{
+	while ( true )
+	{
+		SEL_MASK(1);
+		int selection = SEL_GENERIC(EventBattleName, EventBattleSelect);
+		switch ( selection )
+		{
+			case 0:
+				return;
+			case 1:
+				CALL_EVENTBATTLE( 422, 1, 779 );
+				break;
+			case 2:
+				CALL_EVENTBATTLE( 422, 3, 781 );
+				break;
+			case 3: 
+				CALL_EVENTBATTLE( 448, 1, 786 );
+				break;
+			case 4:
+				CALL_EVENTBATTLE( 459, 2, 785 );
+				break;
+			case 5: 
+				CALL_EVENTBATTLE( 500, 1, 790 );
+				break;
+			case 6:
+				CALL_EVENTBATTLE( 131, 1, 647 );
+				break;
+		}
+		CALL_FIELD(3,2,0,0);
+	}
+}
+
 // Boss Select
-void BossSelectMenuDisplay()
+void BossSelectMenu()
 {
     // Select boss
     int bossId = SelectBoss();
@@ -746,6 +813,7 @@ void BossSelectMenuDisplay()
     FLD_START_BOSS( bossId );
 }
 
+
 int SelectBoss()
 {
     for ( int i = 0; i < 22; i++ )
@@ -755,7 +823,7 @@ int SelectBoss()
 		PUT( i );
         
 		SEL_MASK(1);
-		int selection = SEL_GENERIC(-1, i + SelectBoss) - 1;
+		int selection = SEL_GENERIC(-1, i + SelectBoss);
         
         if (selection < 0)
             return -1;
@@ -967,7 +1035,8 @@ void CalendarEditorDisplay()
 
 void CalendarSetNextDaySelect()
 {
-	int month = SEL_GENERIC_NOT_CANCEL(MonthMenuName, MonthMenu) + 1;
+	SEL_MASK(1);
+	int month = SEL_GENERIC_NOT_HELP(MonthMenuName, MonthMenu);
 	
 	int day = SelectNumberPrompt( CalendarPrompt2, 2 );
 	
@@ -1075,7 +1144,7 @@ void PrintEnabledBits() {
 
 void SelectHUDDisplayFlag()
 {
-	int dateDisplay = SEL_GENERIC(-1, DateDisplayDlg ) - 1;
+	int dateDisplay = SEL_GENERIC_NOT_HELP(-1, DateDisplayDlg ) - 1;
 	int hud = 0;
 	
 	switch(dateDisplay) {
@@ -1111,13 +1180,21 @@ void SelectHUDDisplayFlag()
 
 void SelectAddPartyMember()
 {
-	int unit = SEL_GENERIC_NOT_CANCEL(UnitMenuName, UnitSelect2) + 48;
+	SEL_MASK(1);
+	int unit = SEL_GENERIC_NOT_HELP(UnitMenuName, UnitSelect2) + 47;
+	if ( unit <= 0 ) // Cancel
+        return;
+		
 	BIT_ON( 0 + 0x0800 + 0x0800 + 0x1000 + 0x0100 + unit );
 }
 
 void SelectRemovePartyMember()
 {
-	int unit = SEL_GENERIC_NOT_CANCEL(UnitMenuName, UnitSelect2) + 48;
+	SEL_MASK(1);
+	int unit = SEL_GENERIC_NOT_HELP(UnitMenuName, UnitSelect2) + 47;
+	if ( unit <= 0 ) // Cancel
+        return;
+		
 	BIT_OFF( 0 + 0x0800 + 0x0800 + 0x1000 + 0x0100 + unit );
 }
 
@@ -1160,7 +1237,7 @@ void SelectNavigator()
 void SelectRomanceFlags() {
     SEL_MASK(1);
 	int lover = SEL_GENERIC_NOT_HELP(LoveMenuName, LoveMenu);
-    if (lover < 0)
+    if (lover <= 0)
         return;
     
     lover += (0x0800 + 720);
@@ -1180,10 +1257,12 @@ void SelectBitToggle()
 	
 	switch (onOff) 
 	{
-		case 0: // On
+		case 0:
+			break;
+		case 1: // On
 			BIT_ON( id );
 			break;
-		case 1: // Off
+		case 2: // Off
 			BIT_OFF( id );
 			break;
 	}
