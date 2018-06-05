@@ -4,22 +4,30 @@ import( "Math.flow" );
 
 int SelectDigit()
 {
-	while ( true )
+    while ( true )
 	{
-		int firstSelection = SEL_GENERIC_NOT_CANCEL(-1, Select0to4Dialog );
-		if ( firstSelection == 5 ) // higher
+        SEL_MASK(1);
+		int temp = SEL_GENERIC_NOT_HELP(-1, Select0to4Dialog ) - 1;
+        if ( temp == -1 )
+            break;
+            
+		if ( temp == 5 ) // higher
 		{
-			int secondSelection = SEL_GENERIC_NOT_CANCEL(-1, Select5to9Dialog );
-			if ( secondSelection == 5 ) // lower
+            SEL_MASK(1);
+			temp = SEL_GENERIC_NOT_HELP(-1, Select5to9Dialog ) - 1;
+            if ( temp == -1 )
+                break;
+                
+			if ( temp == 5 ) // lower
 			  continue;
 
-			return secondSelection + 5;
+			return temp + 5;
 		}
 
-		return firstSelection;
+		return temp;
 	}
 	
-	return 0;
+	return -1;
 }
 
 int SelectNumber( int digitCount )
@@ -28,7 +36,24 @@ int SelectNumber( int digitCount )
 	
 	for ( int i = 0; i < digitCount; i++ )
 	{
-		int digit = SEL_GENERIC_NOT_CANCEL(-1, Select0to9Dialog);
+        SEL_MASK(1);
+		int digit = SEL_GENERIC_NOT_HELP(-1, Select0to9Dialog) - 1;
+        
+        // Number should only equal negative one if we cancel
+        // before entering anything.
+        if (digit < 0)
+        {
+            if (i < 1)
+            {
+                return -1;
+            }
+            else
+            {
+                number = number * PowF(10, -1 * i );
+                break;
+            }
+        }
+        
 		int digitToPower = digit * Pow( 10, digitCount - ( i + 1 ) );
 		number += digitToPower;
 	}
@@ -42,7 +67,24 @@ float SelectFloat( float digitCount )
 	
 	for ( float i = 0; i < digitCount; i++ )
 	{
-		float digit = SEL_GENERIC_NOT_CANCEL(-1, Select0to9Dialog);
+        SEL_MASK(1);
+		float digit = SEL_GENERIC_NOT_HELP(-1, Select0to9Dialog) - 1;
+        
+        // Number should only equal one if we cancel
+        // before entering anything.
+        if (digit < 0)
+        {
+            if (i < 1)
+            {
+                return -1;
+            }
+            else
+            {
+                number = number * PowF(10, -1 * i );
+                break;
+            }
+        }
+        
 		float digitToPower = digit * Pow( 10, digitCount - ( i + 1 ) );
 		number += digitToPower;
 	}
@@ -60,13 +102,19 @@ void DisplayMessagePrompt( int messageId )
 int SelectNumberPrompt( int messageId, int digits )
 {
 	DisplayMessagePrompt( messageId );
-	return SelectNumber( digits );
+    int i = SelectNumber( digits );
+    PUTS( "SelectNumber returned: " );
+    PUT( i );
+	return i;
 }
 
 float SelectFloatPrompt( int messageId, int digits )
 {
 	DisplayMessagePrompt( messageId );
-	return SelectFloat( digits );
+    float i = SelectFloat( digits );
+    PUTS( "SelectFloat returned: " );
+    PUT( i );
+	return i;
 }
 
 int SelectPrompt( int promptMessageId, int selectMessageId )

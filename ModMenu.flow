@@ -144,8 +144,12 @@ void PersonaEditorOpen()
 void PersonaAddSelect()
 {
 	int personaId = SelectNumberPrompt( PersonaAddPrompt, 3 );
-	ADD_PERSONA_STOCK( personaId );
-	MSG_SYSTEM(PersonaAdded);
+    
+    if ( personaId < 0 )
+        return;
+    
+    ADD_PERSONA_STOCK( personaId );
+    MSG_SYSTEM(PersonaAdded);
 }
 
 void PersonaDeleteAllSelect()
@@ -161,8 +165,16 @@ void PersonaDeleteAllSelect()
 
 void PersonaAddSkillSelect()
 {
-	int unitId = SEL_GENERIC_NOT_CANCEL(UnitMenuName, UnitSelect) + 1;
+    SEL_MASK(1);
+    
+	int unitId = SEL_GENERIC(UnitMenuName, UnitSelect) + 1;
+    if ( unitId <= 0 ) // Cancel
+        return;
+        
 	int skillId = SelectNumberPrompt( SkillPrompt, 3 );
+    if ( skillId < 0 ) // Cancel
+        return;
+        
 	SKILL_ADD( unitId, skillId );
 	FADEIN( 0, 10 );
 	FADE_SYNC();
@@ -177,30 +189,32 @@ void StatEditorDisplay()
 	{
 		SEL_MASK(1);
 		int selection = SEL_GENERIC(StatsMenuName, StatsMenu);
-		int pointsToAdd;
+        
+        if (selection < 0)
+            return;
+        
+		int pointsToAdd = SelectNumberPrompt( StatPrompt, 2 );
+        
+        if (pointsToAdd < 0)
+            continue;
 
 		switch ( selection )
 		{
 			case 0:
 				return;
 			case 1: // Knowledge
-				pointsToAdd = SelectNumberPrompt( StatPrompt, 2 );
 				StatAddPointAndDisplay( pointsToAdd, 0, 0, 0, 0 );
 				break;
 			case 2: // Charm
-				pointsToAdd = SelectNumberPrompt( StatPrompt, 2 );
 				StatAddPointAndDisplay( 0, pointsToAdd, 0, 0, 0 );
 				break;
 			case 3: // Proficiency
-				pointsToAdd = SelectNumberPrompt( StatPrompt, 2 );
 				StatAddPointAndDisplay( 0, 0, pointsToAdd, 0, 0 );
 				break;
 			case 4: // Guts
-				pointsToAdd = SelectNumberPrompt( StatPrompt, 2 );
 				StatAddPointAndDisplay( 0, 0, 0, pointsToAdd, 0 );
 				break;
 			case 5: // Kindness
-				pointsToAdd = SelectNumberPrompt( StatPrompt, 2 );
 				StatAddPointAndDisplay( 0, 0, 0, 0, pointsToAdd );
 				break;
 		}
@@ -252,8 +266,6 @@ void ItemEditorDisplay()
 			case 9: // Skill Cards
 				ItemGetSelect( 24576 );
 				break;
-			case 10: // Back
-				return;
 		}
 	}
 }
@@ -261,7 +273,11 @@ void ItemEditorDisplay()
 void ItemGetSelect( int type ) 
 {
 	int itemId = SelectNumberPrompt( ItemPrompt, 4 );
+    if (itemId < 0)
+        return;
 	int amount = SelectNumberPrompt( ItemPrompt2, 2 );
+    if (amount < 0)
+        return;
 	
 	GET_ITEM_BUF_RESET();
 	GET_ITEM_BUF_SET( type + itemId, amount );
@@ -276,16 +292,19 @@ void CommuSetRankSelect()
 	
 	if (cmmId < 22 && cmmId > 0) {
 		DisplayMessagePrompt( CmmDialog2 );
-		int lvl = SEL_GENERIC_NOT_CANCEL(-1, OneThruTen);
-		
-		CMM_RANKUP( cmmId, lvl, 1 );
-		
-		if ( !CMM_EXIST( cmmId ) ) {
-			CMM_OPEN( cmmId );
-		}
-		
-		CMM_SET_LV( cmmId, lvl );
-		CMM_ADD_POINT( cmmId, 9999);
+        SEL_MASK(1);
+		int lvl = SEL_GENERIC(-1, OneThruTen);
+        
+        if (lvl > 0) {
+            CMM_RANKUP( cmmId, lvl, 1 );
+            
+            if ( !CMM_EXIST( cmmId ) ) {
+                CMM_OPEN( cmmId );
+            }
+            
+            CMM_SET_LV( cmmId, lvl );
+            CMM_ADD_POINT( cmmId, 9999);
+        }
 	}
 }
 
@@ -359,12 +378,16 @@ void FieldModelPlayAnim(int resHandle, int gapid, int index)
 
 void FieldModelAnimSelectId()
 {
-	gFldAnimGapId = SelectNumberPrompt( GapPrompt, 3 ); // Gap filename last 3 digits
+    int temp = SelectNumberPrompt( GapPrompt, 3 ); // Gap filename last 3 digits
+    if (temp >= 0)
+        gFldAnimGapId = temp;
 }
 
 void FieldModelAnimSelectIndex()
 {
-	gFldAnimGapIndex = SelectNumberPrompt( GapPrompt2, 2 );
+    int temp = SelectNumberPrompt( GapPrompt2, 2 );
+    if (temp >= 0)
+        gFldAnimGapIndex = temp;
 }
 
 void FieldModelAnimSelectLoop()
@@ -374,18 +397,26 @@ void FieldModelAnimSelectLoop()
 
 void FieldModelAnimSelectSpeed() 
 {
-	gFldAnimSpeed = SelectFloatPrompt( GapPrompt5, 2 ) / 10;
+    float temp = SelectFloatPrompt( GapPrompt5, 2 );
+    if (temp >= 0)
+        gFldAnimSpeed = temp / 10;
 }
 
 void FieldModelAnimSelectTime() 
 {
-	gFldAnimTime = SelectNumberPrompt( GapPrompt6, 1 ) * 30;
+    int temp = SelectNumberPrompt( GapPrompt6, 1 );
+    if (temp >= 0)
+        gFldAnimTime = temp * 30;
 }
 
 void PlayerSelectModelScale() 
 {
-	float modelScale = SelectFloatPrompt( ScalePrompt, 2 ) / 10;
-	FLD_MODEL_SET_SCALE(FLD_PC_GET_RESHND( 0 ), modelScale);
+    float temp = SelectFloatPrompt( ScalePrompt, 2 );
+    if (temp >= 0)
+	{
+        float modelScale = temp / 10;
+        FLD_MODEL_SET_SCALE(FLD_PC_GET_RESHND( 0 ), modelScale);
+    }
 }
 
 // Camera Editor
@@ -625,8 +656,14 @@ void NpcControlMenuDisplay()
 void NpcSpawnSelect()
 {
 	int modelIdMajor = SelectNumberPrompt( NPCPrompt, 4 );
+    if (modelIdMajor < 0)
+        return;
 	int modelIdMinor = SelectNumberPrompt( NPCPrompt2, 3 );
+    if (modelIdMinor < 0)
+        return;
 	int modelIdSub = SelectNumberPrompt( NPCPrompt3, 2 );
+    if (modelIdSub < 0)
+        return;
 	gLastSpawnedNpcModelHandle = NpcSpawn( modelIdMajor, modelIdMinor, modelIdSub );
 }
 
@@ -684,12 +721,16 @@ void NpcAnimViewerDisplay( int resHandle )
 
 void NpcModelAnimSelectId()
 {
-	gNpcAnimGapId = SelectNumberPrompt( GapPrompt, 3 );
+    int temp = SelectNumberPrompt( GapPrompt, 3 );
+    if (temp >= 0)
+        gNpcAnimGapId = temp;
 }
 
 void NpcModelAnimSelectIndex()
 {
-	gNpcAnimGapIndex = SelectNumberPrompt( GapPrompt2, 2 );
+    int temp = SelectNumberPrompt( GapPrompt2, 2 );
+    if (temp >= 0)
+        gNpcAnimGapIndex = temp;
 }
 
 // Boss Select
@@ -697,6 +738,9 @@ void BossSelectMenuDisplay()
 {
     // Select boss
     int bossId = SelectBoss();
+    
+    if (bossId < 0)
+        return;
     
     // Start boss fight
     FLD_START_BOSS( bossId );
@@ -709,8 +753,12 @@ int SelectBoss()
 		// Print which index we're on
 		PUTS( "SelectBoss: index:" );
 		PUT( i );
-		
-		int selection = SEL_GENERIC_NOT_CANCEL(-1, i + SelectBoss);
+        
+		SEL_MASK(1);
+		int selection = SEL_GENERIC(-1, i + SelectBoss) - 1;
+        
+        if (selection < 0)
+            return -1;
 		
 		if ( selection == 4 ) // previous
 		{
@@ -733,7 +781,7 @@ int SelectBoss()
 		return selection + ( i * 4 ); 
 	}
 	
-	return 0;
+	return -1;
 }
 
 // Teleport Mode 
@@ -809,7 +857,9 @@ void BgmSelect()
 	// Close the dialog window
 	MSG_WND_CLS(); 
 
-	int bgmId = SelectNumber(3); 
+	int bgmId = SelectNumber(3);
+    if (bgmId < 0)
+        return;
 
 	// Play bgm
 	BGM( bgmId );
@@ -828,8 +878,15 @@ void FieldSelect()
 			case 0:
 				return;
 			case 1:
-				gFieldMajor = SelectNumberPrompt( FieldDlg, 3 );
-				gFieldMinor = SelectNumberPrompt( FieldDlg2, 3 );
+                int temp = SelectNumberPrompt( FieldDlg, 3 );
+                if (temp < 0)
+                    break;
+				gFieldMajor = temp;
+                
+				temp = SelectNumberPrompt( FieldDlg2, 3 );
+                if (temp < 0)
+                    break;
+                gFieldMinor = temp;
 				break;
 			case 2:
 				if (gFieldMajor == 0 && gFieldMinor == 0)
@@ -855,8 +912,15 @@ void EventSelect()
 			case 0:
 				return;
 			case 1:
-				gEventMajor = SelectNumberPrompt( EventDlg, 3 );
-				gEventMinor = SelectNumberPrompt( EventDlg2, 3 );
+                int temp = SelectNumberPrompt( EventDlg, 3 );
+                if (temp < 0)
+                    break;
+				gEventMajor = temp;
+                
+				temp = SelectNumberPrompt( EventDlg2, 3 );
+                if (temp < 0)
+                    break;
+                gEventMinor = temp;
 				break;
 			case 2:
 				if (gEventMajor == 0 && gEventMinor == 0)
@@ -1011,10 +1075,12 @@ void PrintEnabledBits() {
 
 void SelectHUDDisplayFlag()
 {
-	int dateDisplay = SEL_GENERIC_NOT_CANCEL(-1, DateDisplayDlg );
+	int dateDisplay = SEL_GENERIC(-1, DateDisplayDlg ) - 1;
 	int hud = 0;
 	
 	switch(dateDisplay) {
+        case -1:
+            return;
 		case 0:
 			DATE_DISP( 1 );
 			FLD_PANEL_DISP(1);
@@ -1092,14 +1158,25 @@ void SelectNavigator()
 }
 
 void SelectRomanceFlags() {
-	int lover = SEL_GENERIC_NOT_CANCEL(LoveMenuName, LoveMenu) + 0x0800 + 720;
+    SEL_MASK(1);
+	int lover = SEL_GENERIC_NOT_HELP(LoveMenuName, LoveMenu);
+    if (lover < 0)
+        return;
+    
+    lover += (0x0800 + 720);
 	SelectItemToggle(lover);
 }
 
 void SelectBitToggle()
 {
 	int id = SelectNumber( 4 );
-	int onOff = SEL_GENERIC_NOT_CANCEL(-1, OnOffSel );
+    if (id < 0)
+        return;
+    
+    SEL_MASK(1);
+	int onOff = SEL_GENERIC_NOT_HELP( -1, OnOffSel ) - 1;
+    if (onOff < 0)
+        return;
 	
 	switch (onOff) 
 	{
@@ -1114,9 +1191,12 @@ void SelectBitToggle()
 
 void SelectItemToggle(int flag) 
 {
-	int selection = SEL_GENERIC_NOT_CANCEL(-1, DateDisplayDlg );
+    SEL_MASK(1);
+	int selection = SEL_GENERIC_NOT_HELP( -1, DateDisplayDlg ) - 1;
+    if (selection < 0)
+        return;
 	
-	switch(selection) {
+	switch (selection) {
 		case 0:
 			BIT_ON( flag );
 			break;

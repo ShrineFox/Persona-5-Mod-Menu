@@ -1,3 +1,5 @@
 
 AtlusScriptCompiler\.log
 build/**
+
+*.lnk
