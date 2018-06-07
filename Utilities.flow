@@ -49,7 +49,7 @@ int SelectNumber( int digitCount )
             }
             else
             {
-                number = number * PowF(10, -1 * i );
+                number = number / Pow(10, digitCount - i );
                 break;
             }
         }
@@ -80,7 +80,7 @@ float SelectFloat( float digitCount )
             }
             else
             {
-                number = number * PowF(10, -1 * i );
+                number = number / PowF(10, digitCount - i );
                 break;
             }
         }
