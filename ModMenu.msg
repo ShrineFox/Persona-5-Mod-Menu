@@ -504,7 +504,7 @@ Choose a character to add a skill to
 
 [dlg SkillPrompt [Add Skill]]
 Enter the ID of the skill to add.
-[n](max. 2 digits, press Circle to end)[w][e]
+[n](max. 3 digits, press Circle to end)[w][e]
 
 [dlg PersonaAddPrompt[Add Persona]]
 Input the ID of the Persona to add.
