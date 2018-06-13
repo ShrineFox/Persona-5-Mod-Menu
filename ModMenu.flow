@@ -825,10 +825,10 @@ int SelectBoss()
 		SEL_MASK(1);
 		int selection = SEL_GENERIC(-1, i + SelectBoss);
         
-        if (selection < 0)
+        if (selection == 0)
             return -1;
 		
-		if ( selection == 4 ) // previous
+		if ( selection == 5 ) // previous
 		{
 			// Continue increments i by 1, so to counter that
 			// we subtract an additional 1 from i to go to the previous
@@ -841,7 +841,7 @@ int SelectBoss()
 			
 			continue;
 		}
-		else if ( selection == 5 ) // next
+		else if ( selection == 6 ) // next
 		{
 			continue;
 		}
@@ -1236,8 +1236,8 @@ void SelectNavigator()
 
 void SelectRomanceFlags() {
     SEL_MASK(1);
-	int lover = SEL_GENERIC_NOT_HELP(LoveMenuName, LoveMenu);
-    if (lover <= 0)
+	int lover = SEL_GENERIC_NOT_HELP(LoveMenuName, LoveMenu) - 1;
+    if (lover == -1)
         return;
     
     lover += (0x0800 + 720);
