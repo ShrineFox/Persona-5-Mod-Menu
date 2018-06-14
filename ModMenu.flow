@@ -26,47 +26,49 @@ void ModMenuDisplay()
 {
 	while ( true )
 	{
-		SEL_MASK(1);
-		int selection = SEL_GENERIC(-1, ModMenu);
+		int selection = SEL_GENERIC( -1, ModMenu );
+        
+        PUTS( "ModMenuDisplay(): " );
+        PUT( selection );
 		
 		switch ( selection )
 		{
+            case -1:
+                return;
 			case 0:
-				return;
-			case 1:
 				PlayerEditorDisplay();
 				break;
-			case 2:
+			case 1:
 				BattleTypeSelect();
 				return;
-			case 3: 
+			case 2: 
 				TeleportModeStart();
 				break;
-			case 4: 
+			case 3: 
 				BgmSelect();
 				break;
-			case 5:
+			case 4:
 				FieldSelect();
 				return;
-			case 6:
+			case 5:
 				EventSelect();
 				return;
-			case 7:
+			case 6:
 				CameraEditorDisplay(); 
 				break;
-			case 8:
+			case 7:
 				NpcControlMenuDisplay(); 
 				break;
-			case 9: 
+			case 8: 
 				FlagsEditorDisplay(); 
 				break;
-			case 10: 
+			case 9: 
 				CalendarEditorDisplay(); 
 				return;
-			case 11: 
+			case 10: 
 				CallOriginalSquareMenu();
 				break;
-			case 12:
+			case 11:
 				AboutDialogDisplay(); 
 				break;
 		}
@@ -79,37 +81,36 @@ void PlayerEditorDisplay()
 {
 	while ( true )
 	{
-		SEL_MASK(1);
-		int selection = SEL_GENERIC(PlayerMenuName, PlayerMenu);
+		int selection = SEL_GENERIC( PlayerMenuName, PlayerMenu );
 		switch ( selection )
 		{
-			case 0:
+			case -1:
 				return;
-			case 1:
+			case 0:
 				PersonaEditorOpen();
 				break;
-			case 2:
+			case 1:
 				StatEditorDisplay();
 				break;
-			case 3: 
+			case 2: 
 				ItemEditorDisplay();
 				break;
-			case 4:
+			case 3:
 				CommuSetRankSelect();
 				break;
-			case 5: // Set Protag Name
+			case 4: // Set Protag Name
 				CALL_NAME_ENTRY();
 				break;
-			case 6: // Set Team Name
+			case 5: // Set Team Name
 				CALL_PHANTOM_NAME_ENTRY();
 				break;
-			case 7:
+			case 6:
 				PlayerAnimViewerDisplay();
 				break;
-			case 8:
+			case 7:
 				PlayerSelectModelScale();
 				break;
-			case 9: 
+			case 8: 
 				PlayerSetMaxMoney();
 				break;
 		}
@@ -121,20 +122,18 @@ void PersonaEditorOpen()
 {
 	while ( true )
 	{
-		SEL_MASK(1);
-		int selection = SEL_GENERIC(PersonaMenuName, PersonaMenu);
-	
-		switch (selection)
+		int selection = SEL_GENERIC( PersonaMenuName, PersonaMenu );
+		switch ( selection )
 		{
-			case 0:
+			case -1:
 				return;
-			case 1:
+			case 0:
 				PersonaAddSelect();
 				break;
-			case 2:
+			case 1:
 				PersonaDeleteAllSelect();
 				break;
-			case 3:
+			case 2:
 				PersonaAddSkillSelect();
 				break;
 		}
@@ -145,34 +144,32 @@ void PersonaAddSelect()
 {
 	int personaId = SelectNumberPrompt( PersonaAddPrompt, 3 );
     
-    if ( personaId < 0 )
+    if ( personaId == -1 )
         return;
     
     ADD_PERSONA_STOCK( personaId );
-    MSG_SYSTEM(PersonaAdded);
+    MSG_SYSTEM( PersonaAdded );
 }
 
 void PersonaDeleteAllSelect()
 {
-	SEL_MASK(1);
-	bool deleteConfirm = SelectPrompt( PersonaDelPrompt, PersonaDelSelect );
+	bool deleteConfirm = SelectNoYesPrompt( PersonaDelPrompt );
 	
-	if ( deleteConfirm > 1 ) {
+	if ( deleteConfirm == 1 ) {
 		CLEAR_PERSONA_STOCK();
-		MSG_SYSTEM(PersonaDeleted);
+		MSG_SYSTEM( PersonaDeleted );
 	}
 	
 }
 
 void PersonaAddSkillSelect()
 {
-    SEL_MASK(1);
-	int unitId = SEL_GENERIC(UnitMenuName, UnitSelect);
-    if ( unitId <= 0 ) // Cancel
+	int unitId = SEL_GENERIC( UnitMenuName, UnitSelect );
+    if ( unitId == -1 ) // Cancel
         return;
         
 	int skillId = SelectNumberPrompt( SkillPrompt, 3 );
-    if ( skillId <= 0 ) // Cancel
+    if ( skillId == -1 ) // Cancel
         return;
         
 	SKILL_ADD( unitId, skillId );
@@ -187,34 +184,33 @@ void StatEditorDisplay()
 {
 	while ( true )
 	{
-		SEL_MASK(1);
-		int selection = SEL_GENERIC(StatsMenuName, StatsMenu);
+		int selection = SEL_GENERIC( StatsMenuName, StatsMenu );
         
-        if (selection < 0)
+        if ( selection == -1 )
             return;
         
 		int pointsToAdd = SelectNumberPrompt( StatPrompt, 2 );
         
-        if (pointsToAdd < 0)
+        if ( pointsToAdd == -1 )
             continue;
 
 		switch ( selection )
 		{
-			case 0:
+			case -1:
 				return;
-			case 1: // Knowledge
+			case 0: // Knowledge
 				StatAddPointAndDisplay( pointsToAdd, 0, 0, 0, 0 );
 				break;
-			case 2: // Charm
+			case 1: // Charm
 				StatAddPointAndDisplay( 0, pointsToAdd, 0, 0, 0 );
 				break;
-			case 3: // Proficiency
+			case 2: // Proficiency
 				StatAddPointAndDisplay( 0, 0, pointsToAdd, 0, 0 );
 				break;
-			case 4: // Guts
+			case 3: // Guts
 				StatAddPointAndDisplay( 0, 0, 0, pointsToAdd, 0 );
 				break;
-			case 5: // Kindness
+			case 4: // Kindness
 				StatAddPointAndDisplay( 0, 0, 0, 0, pointsToAdd );
 				break;
 		}
@@ -232,38 +228,37 @@ void ItemEditorDisplay()
 {
 	while ( true )
 	{
-		SEL_MASK(1);
-		int itemType = SEL_GENERIC(ItemMenuName, ItemMenu);
+		int itemType = SEL_GENERIC( ItemMenuName, ItemMenu );
 	
 		switch ( itemType ) 
 		{
-			case 0:
+			case -1:
 				return;
-			case 1: // Consumables
+			case 0: // Consumables
 				ItemGetSelect( 12288 );
 				break;
-			case 2: // Accessories
+			case 1: // Accessories
 				ItemGetSelect( 0x2000 );
 				break;
-			case 3: // Key Items
+			case 2: // Key Items
 				ItemGetSelect( 0x4000 );
 				break;
-			case 4: // Ranged Weapon
+			case 3: // Ranged Weapon
 				ItemGetSelect( 0x8000 );
 				break;
-			case 5: // Melee Weapons
+			case 4: // Melee Weapons
 				MSG_SYSTEM(MeleeError);
 				break;
-			case 6: // Outfits
+			case 5: // Outfits
 				ItemGetSelect( 0x7000 );
 				break;
-			case 7: // Armor
+			case 6: // Armor
 				ItemGetSelect( 0x1000 );
 				break;
-			case 8: // Materials
+			case 7: // Materials
 				ItemGetSelect( 0x5000 );
 				break;
-			case 9: // Skill Cards
+			case 8: // Skill Cards
 				ItemGetSelect( 24576 );
 				break;
 		}
@@ -273,10 +268,10 @@ void ItemEditorDisplay()
 void ItemGetSelect( int type ) 
 {
 	int itemId = SelectNumberPrompt( ItemPrompt, 4 );
-    if (itemId < 0)
+    if (itemId == -1)
         return;
 	int amount = SelectNumberPrompt( ItemPrompt2, 2 );
-    if (amount < 0)
+    if (amount == -1)
         return;
 	
 	GET_ITEM_BUF_RESET();
@@ -287,18 +282,16 @@ void ItemGetSelect( int type )
 
 void CommuSetRankSelect()
 {
-	SEL_MASK(1);
-	int cmmId = SEL_GENERIC(CommuMenuName, CommuMenu);
+	int cmmId = SEL_GENERIC( CommuMenuName, CommuMenu );
 	
-	if (cmmId < 22 && cmmId > 0) {
+	if ( cmmId < 22 && cmmId > 0 ) {
 		DisplayMessagePrompt( CmmDialog2 );
-        SEL_MASK(1);
-		int lvl = SEL_GENERIC(-1, OneThruTen) - 1;
+		int lvl = SEL_GENERIC( -1, OneThruTen );
 		
-		if (lvl <= 0)
+		if ( lvl <= 0 )
 			return;
         
-        if (lvl > 0) {
+        if ( lvl > 0 ) {
             CMM_RANKUP( cmmId, lvl, 1 );
             
             if ( !CMM_EXIST( cmmId ) ) {
@@ -315,20 +308,19 @@ void PlayerAnimViewerDisplay()
 {
 	while ( true )
 	{
-		SEL_MASK(1);
 		int selection = SEL_GENERIC( AnimMenuName, AnimMenu );
 	
 		switch ( selection )
 		{
-			case 0:
+			case -1:
 				return;
-			case 1: // Joker Animation Viewer
-				FieldModelAnimViewerDisplay(FLD_PC_GET_RESHND( 0 ));
+			case 0: // Joker Animation Viewer
+				FieldModelAnimViewerDisplay( FLD_PC_GET_RESHND( 0 ) );
 				break;
-			case 2: // Morgana Out of Bag
+			case 1: // Morgana Out of Bag
 				SUB_MoruShowFace();
 				break;
-			case 3: // Morgana In Bag
+			case 2: // Morgana In Bag
 				SUB_MoruReturnBag();
 				break;
 		}
@@ -339,30 +331,29 @@ void PlayerAnimViewerDisplay()
 void FieldModelAnimViewerDisplay(int resHandle) 
 {
 	while ( true )
-	{	
-		SEL_MASK(1);
-		int selection = SEL_GENERIC(GAPMenuName, GAPMenu);
+	{
+		int selection = SEL_GENERIC( GAPMenuName, GAPMenu );
 		
-		switch (selection)
+		switch ( selection )
 		{
-			case 0:
+			case -1:
 				return;
-			case 1:
+			case 0:
 				FieldModelAnimSelectId();
 				break;
-			case 2:
+			case 1:
 				FieldModelAnimSelectIndex();
 				break;
-			case 3:
+			case 2:
 				FieldModelAnimSelectLoop();
 				break;
-			case 4:
+			case 3:
 				FieldModelAnimSelectSpeed();
 				break;
-			case 5:
+			case 4:
 				FieldModelAnimSelectTime();
 				break;
-			case 6:
+			case 5:
 				FieldModelPlayAnim(resHandle, gFldAnimGapId, gFldAnimGapIndex);
 				break;
 		}	
@@ -382,43 +373,43 @@ void FieldModelPlayAnim(int resHandle, int gapid, int index)
 void FieldModelAnimSelectId()
 {
     int temp = SelectNumberPrompt( GapPrompt, 3 ); // Gap filename last 3 digits
-    if (temp >= 0)
+    if ( temp != -1 )
         gFldAnimGapId = temp;
 }
 
 void FieldModelAnimSelectIndex()
 {
     int temp = SelectNumberPrompt( GapPrompt2, 2 );
-    if (temp >= 0)
+    if ( temp != -1 )
         gFldAnimGapIndex = temp;
 }
 
 void FieldModelAnimSelectLoop()
 {
-	gFldAnimShouldLoop = SelectPrompt( GapPrompt3, SelectionDialogAnimLoop );
+	gFldAnimShouldLoop = SelectOffOnPrompt( GapPrompt3 );
 }
 
 void FieldModelAnimSelectSpeed() 
 {
     float temp = SelectFloatPrompt( GapPrompt5, 2 );
-    if (temp >= 0)
+    if ( temp != -1 )
         gFldAnimSpeed = temp / 10;
 }
 
 void FieldModelAnimSelectTime() 
 {
     int temp = SelectNumberPrompt( GapPrompt6, 1 );
-    if (temp >= 0)
+    if ( temp != -1 )
         gFldAnimTime = temp * 30;
 }
 
 void PlayerSelectModelScale() 
 {
     float temp = SelectFloatPrompt( ScalePrompt, 2 );
-    if (temp >= 0)
+    if ( temp != -1 )
 	{
         float modelScale = temp / 10;
-        FLD_MODEL_SET_SCALE(FLD_PC_GET_RESHND( 0 ), modelScale);
+        FLD_MODEL_SET_SCALE( FLD_PC_GET_RESHND( 0 ), modelScale );
     }
 }
 
@@ -427,8 +418,7 @@ void CameraEditorDisplay()
 {
 	while ( true )
 	{
-		SEL_MASK(1);
-		int selection = SEL_GENERIC(CameraMenuName, CameraMenu);
+		int selection = SEL_GENERIC( CameraMenuName, CameraMenu );
 	
 		switch ( selection )
 		{
@@ -639,17 +629,16 @@ void NpcControlMenuDisplay()
 {
 	while ( true )
 	{
-		SEL_MASK(1);
-		int selection = SEL_GENERIC(SpawnMenuName, SpawnMenu);
+		int selection = SEL_GENERIC( SpawnMenuName, SpawnMenu );
 	
 		switch ( selection )
 		{
-			case 0:
+			case -1:
 				return;
-			case 1: // Spawn Model
+			case 0: // Spawn Model
 				NpcSpawnSelect();
 				break;
-			case 2: // Animate Model
+			case 1: // Animate Model
 				NpcAnimViewerDisplay( gLastSpawnedNpcModelHandle );
 				break;
 		}
@@ -659,13 +648,13 @@ void NpcControlMenuDisplay()
 void NpcSpawnSelect()
 {
 	int modelIdMajor = SelectNumberPrompt( NPCPrompt, 4 );
-    if (modelIdMajor < 0)
+    if (modelIdMajor == -1)
         return;
 	int modelIdMinor = SelectNumberPrompt( NPCPrompt2, 3 );
-    if (modelIdMinor < 0)
+    if (modelIdMinor == -1)
         return;
 	int modelIdSub = SelectNumberPrompt( NPCPrompt3, 2 );
-    if (modelIdSub < 0)
+    if (modelIdSub == -1)
         return;
 	gLastSpawnedNpcModelHandle = NpcSpawn( modelIdMajor, modelIdMinor, modelIdSub );
 }
@@ -693,29 +682,28 @@ void NpcAnimViewerDisplay( int resHandle )
 {
 	while ( true )
 	{
-		SEL_MASK(1);
-		int selection = SEL_GENERIC(GAPMenuName, GAPMenu);
+		int selection = SEL_GENERIC( GAPMenuName, GAPMenu );
 		
 		switch ( selection )
 		{ 
-			case 0:
+			case -1:
 				return;
-			case 1:
+			case 0:
 				NpcModelAnimSelectId();
 				break;
-			case 2:
+			case 1:
 				NpcModelAnimSelectIndex();
 				break;
-			case 3:
+			case 2:
 				FieldModelAnimSelectLoop();
 				break;
-			case 4:
+			case 3:
 				FieldModelAnimSelectSpeed();
 				break;
-			case 5:
+			case 4:
 				FieldModelAnimSelectTime();
 				break;
-			case 6:
+			case 5:
 				FieldModelPlayAnim(resHandle, gNpcAnimGapId, gNpcAnimGapIndex);
 				break;
 		}
@@ -725,34 +713,33 @@ void NpcAnimViewerDisplay( int resHandle )
 void NpcModelAnimSelectId()
 {
     int temp = SelectNumberPrompt( GapPrompt, 3 );
-    if (temp >= 0)
+    if ( temp != -1 )
         gNpcAnimGapId = temp;
 }
 
 void NpcModelAnimSelectIndex()
 {
     int temp = SelectNumberPrompt( GapPrompt2, 2 );
-    if (temp >= 0)
+    if ( temp != -1 )
         gNpcAnimGapIndex = temp;
 }
 
 // Battle
 void BattleTypeSelect()
 {
-	SEL_MASK(1);
 	int selection = SEL_GENERIC_NOT_HELP( BattleTypeName, BattleTypeMenu );
 		
-	switch (selection)
+	switch ( selection )
 	{
-		case 0:
+		case -1:
 			return;
-		case 1:
+		case 0:
 			RegularBattle();
 			break;
-		case 2:
+		case 1:
 			BossSelectMenu();
 			break;
-		case 3:
+		case 2:
 			EventBattle();
 			break;
 	}
@@ -760,8 +747,10 @@ void BattleTypeSelect()
 
 void RegularBattle() 
 {
-	SEL_MASK(1);
 	int encount = SelectNumberPrompt( EncounterPrompt, 3 );
+    
+    if ( encount == -1 )
+        return;
 	
 	CALL_BATTLE(encount);
 	WAIT_BATTLE();
@@ -771,28 +760,27 @@ void EventBattle()
 {
 	while ( true )
 	{
-		SEL_MASK(1);
-		int selection = SEL_GENERIC(EventBattleName, EventBattleSelect);
+		int selection = SEL_GENERIC( EventBattleName, EventBattleSelect );
 		switch ( selection )
 		{
-			case 0:
+			case -1:
 				return;
-			case 1:
+			case 0:
 				CALL_EVENTBATTLE( 422, 1, 779 );
 				break;
-			case 2:
+			case 1:
 				CALL_EVENTBATTLE( 422, 3, 781 );
 				break;
-			case 3: 
+			case 2: 
 				CALL_EVENTBATTLE( 448, 1, 786 );
 				break;
-			case 4:
+			case 3:
 				CALL_EVENTBATTLE( 459, 2, 785 );
 				break;
-			case 5: 
+			case 4: 
 				CALL_EVENTBATTLE( 500, 1, 790 );
 				break;
-			case 6:
+			case 5:
 				CALL_EVENTBATTLE( 131, 1, 647 );
 				break;
 		}
@@ -806,7 +794,7 @@ void BossSelectMenu()
     // Select boss
     int bossId = SelectBoss();
     
-    if (bossId < 0)
+    if ( bossId == -1 )
         return;
     
     // Start boss fight
@@ -822,10 +810,9 @@ int SelectBoss()
 		PUTS( "SelectBoss: index:" );
 		PUT( i );
         
-		SEL_MASK(1);
-		int selection = SEL_GENERIC(-1, i + SelectBoss);
+		int selection = SEL_GENERIC( -1, i + SelectBoss );
         
-        if (selection == 0)
+        if (selection == -1)
             return -1;
 		
 		if ( selection == 5 ) // previous
@@ -925,8 +912,8 @@ void BgmSelect()
 	// Close the dialog window
 	MSG_WND_CLS(); 
 
-	int bgmId = SelectNumber(3);
-    if (bgmId < 0)
+	int bgmId = SelectNumber( 3 );
+    if ( bgmId == -1 )
         return;
 
 	// Play bgm
@@ -938,25 +925,24 @@ void FieldSelect()
 {
 	while ( true )
 	{
-		SEL_MASK(1);
-		int selection = SEL_GENERIC(FieldMenuName, FieldMenu);
+		int selection = SEL_GENERIC( FieldMenuName, FieldMenu );
 		
 		switch ( selection )
 		{ 
-			case 0:
+			case -1:
 				return;
-			case 1:
+			case 0:
                 int temp = SelectNumberPrompt( FieldDlg, 3 );
-                if (temp < 0)
+                if ( temp == -1 )
                     break;
 				gFieldMajor = temp;
                 
 				temp = SelectNumberPrompt( FieldDlg2, 3 );
-                if (temp < 0)
+                if ( temp == -1 )
                     break;
                 gFieldMinor = temp;
 				break;
-			case 2:
+			case 1:
 				if (gFieldMajor == 0 && gFieldMinor == 0)
 					MSG_SYSTEM(LoadCheckError);
 				else
@@ -972,26 +958,25 @@ void EventSelect()
 {
 	while ( true )
 	{
-		SEL_MASK(1);
-		int selection = SEL_GENERIC(EventMenuName, EventMenu);
+		int selection = SEL_GENERIC( EventMenuName, EventMenu );
 		
 		switch ( selection )
 		{ 
-			case 0:
+			case -1:
 				return;
-			case 1:
+			case 0:
                 int temp = SelectNumberPrompt( EventDlg, 3 );
-                if (temp < 0)
+                if ( temp == -1 )
                     break;
 				gEventMajor = temp;
                 
 				temp = SelectNumberPrompt( EventDlg2, 3 );
-                if (temp < 0)
+                if ( temp == -1 )
                     break;
                 gEventMinor = temp;
 				break;
-			case 2:
-				if (gEventMajor == 0 && gEventMinor == 0)
+			case 1:
+				if ( gEventMajor == 0 && gEventMinor == 0 )
 					MSG_SYSTEM(LoadCheckError);
 				else
 					CALL_EVENT( gEventMajor, gEventMinor);
@@ -1013,20 +998,19 @@ void CalendarEditorDisplay()
 {
 	while ( true )
 	{
-		SEL_MASK(1);
-		int selection = SEL_GENERIC(CalendarMenuName, CalendarMenu);
+		int selection = SEL_GENERIC( CalendarMenuName, CalendarMenu );
 		
 		switch (selection)
 		{
-			case 0:
+			case -1:
 				return;
-			case 1:
+			case 0:
 				CalendarSetNextDaySelect();
 				break;
-			case 2:
+			case 1:
 				CallCalendar();
 				return;
-			case 3:
+			case 2:
 				ChangeWeather();
 				break;
 		}
@@ -1035,10 +1019,18 @@ void CalendarEditorDisplay()
 
 void CalendarSetNextDaySelect()
 {
-	SEL_MASK(1);
-	int month = SEL_GENERIC_NOT_HELP(MonthMenuName, MonthMenu);
+	int month = SEL_GENERIC_NOT_HELP( MonthMenuName, MonthMenu ) + 1;
+    
+    if ( month <= 0 )
+        return;
+        
+    PUTS( "Month: " );
+    PUT( month );
 	
 	int day = SelectNumberPrompt( CalendarPrompt2, 2 );
+    
+    PUTS( "Day: " );
+    PUT( day );
 	
 	if ( day <= 0 )
 	{
@@ -1046,16 +1038,37 @@ void CalendarSetNextDaySelect()
 		MSG_SYSTEM( CalendarError );
 		return;
 	}
+    
+    int daysInMonth = 0;
+    
+    if ( month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12 ) daysInMonth = 31;
+    else if ( month == 2 ) daysInMonth = 29;
+    else if ( month == 4 || month == 6 || month == 9 || month == 11 ) daysInMonth = 30;
 	
 	// Verify that the day doesn't exceed the number of possible days in the specified month
-	if ( ( ( month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12 ) && day >= 32 ) ||
-		   ( month == 2 && day >= 30 ) ||
-		 ( ( month == 4 || month == 6 || month == 9 || month == 11 ) && day >= 31 )
-	   )
+	if ( day > daysInMonth )
 	{
 		MSG_SYSTEM( CalendarError );
 		return;
 	}
+    
+    int thisMonth = GET_MONTH();
+    int thisDay = GET_DAY();
+    
+    PUTS( "Current Month: " );
+    PUT( thisMonth );
+    PUTS( "Current Day: " );
+    PUT( thisDay );
+    
+    // We can only go backwards one day at a time, including jumping from the start of one month to the end of the previous month
+    if ( ( ( month == thisMonth ) && ( ( day - thisDay ) < -1 ) ) ||
+         ( ( month - thisMonth == -1 ) && ( thisDay == 1 && day != daysInMonth ) ) ||
+         ( month - thisMonth < -1 )
+       )
+    {
+        MSG_SYSTEM( CalendarBackwardsError );
+		return;
+    }
 	
 	SET_NEXT_DAY( month, day, 1 );
 	PUT( month );
@@ -1070,15 +1083,14 @@ void CallCalendar()
 
 void ChangeWeather() 
 {
-	SEL_MASK(1);
 	int selection = SEL_GENERIC_NOT_HELP( WeatherMenuName, WeatherMenu );
 		
 	switch (selection)
 	{
-		case 0:
+		case -1:
 			break;
 		default:
-			PUSH_WEATHER(selection - 1);
+			PUSH_WEATHER( selection );
 			break;
 	}
 }
@@ -1090,38 +1102,37 @@ void FlagsEditorDisplay()
 	// section is 0x460 bytes long
 	while ( true )
 	{
-		SEL_MASK(1);
 		int selection = SEL_GENERIC( FlagMenuName, FlagMenu );
 		
 		switch (selection)
 		{
-			case 0:
+			case -1:
 				return;
-			case 1:
+			case 0:
 				SelectHUDDisplayFlag();
 				break;
-			case 2:
+			case 1:
 				SelectAddPartyMember();
 				break;
-			case 3:
+			case 2:
 				SelectRemovePartyMember();
 				break;
-			case 4:
+			case 3:
 				EnablePartyEditing();
 				break;
-			case 5:
+			case 4:
 				SelectNavigator();
 				break;
-			case 6:
+			case 5:
 				SelectRomanceFlags();
 				break;
-			case 7:
+			case 6:
 				RoomEditorDisplay();
 				break;
-			case 8: // Manual Input
+			case 7: // Manual Input
 				SelectBitToggle();
 				break;
-			case 9:
+			case 8:
 				PrintEnabledBits();
 				break;
 		}
@@ -1144,27 +1155,27 @@ void PrintEnabledBits() {
 
 void SelectHUDDisplayFlag()
 {
-	int dateDisplay = SEL_GENERIC_NOT_HELP(-1, DateDisplayDlg ) - 1;
+	int dateDisplay = SEL_GENERIC_NOT_HELP( -1, DateDisplayDlg );
 	int hud = 0;
 	
-	switch(dateDisplay) {
+	switch (dateDisplay) {
         case -1:
             return;
 		case 0:
 			DATE_DISP( 1 );
-			FLD_PANEL_DISP(1);
+			FLD_PANEL_DISP( 1 );
 			hud = 1;
 			break;
 		case 1:
 			DATE_DISP( 0 );
-			FLD_PANEL_DISP(0);
+			FLD_PANEL_DISP( 0 );
 			hud = 2;
 			break;
 	}
 
 	MSG_WND_DSP(); 
 	
-	switch(hud) {
+	switch ( hud ) {
 		case 0:
 			break;
 		case 1:
@@ -1180,9 +1191,8 @@ void SelectHUDDisplayFlag()
 
 void SelectAddPartyMember()
 {
-	SEL_MASK(1);
-	int unit = SEL_GENERIC_NOT_HELP(UnitMenuName, UnitSelect2) + 47;
-	if ( unit <= 0 ) // Cancel
+	int unit = SEL_GENERIC_NOT_HELP( UnitMenuName, UnitSelect2 ) + 47;
+	if ( unit == 46 ) // Cancel
         return;
 		
 	BIT_ON( 0 + 0x0800 + 0x0800 + 0x1000 + 0x0100 + unit );
@@ -1190,9 +1200,8 @@ void SelectAddPartyMember()
 
 void SelectRemovePartyMember()
 {
-	SEL_MASK(1);
-	int unit = SEL_GENERIC_NOT_HELP(UnitMenuName, UnitSelect2) + 47;
-	if ( unit <= 0 ) // Cancel
+	int unit = SEL_GENERIC_NOT_HELP( UnitMenuName, UnitSelect2 ) + 47;
+	if ( unit == 46 ) // Cancel
         return;
 		
 	BIT_OFF( 0 + 0x0800 + 0x0800 + 0x1000 + 0x0100 + unit );
@@ -1212,22 +1221,21 @@ void EnablePartyEditing()
 
 void SelectNavigator()
 {
-	SEL_MASK(1);
-	int navi = SEL_GENERIC_NOT_HELP(NaviMenuName, NaviMenu);
+	int navi = SEL_GENERIC_NOT_HELP( NaviMenuName, NaviMenu );
 	
 	switch ( navi ) 
 	{
-		case 0:
+		case -1:
 			break;
-		case 1: // Morgana
+		case 0: // Morgana
 			BIT_ON( 0 + 0x0800 + 0x0800 + 0x1000 + 12 );
 			BIT_OFF( 0 + 0x0800 + 0x0800 + 0x1000 + 13 );
 			break;
-		case 2: // Futaba
+		case 1: // Futaba
 			BIT_ON( 0 + 0x0800 + 0x0800 + 0x1000 + 13 );
 			BIT_OFF( 0 + 0x0800 + 0x0800 + 0x1000 + 12 );
 			break;
-		case 3: // None
+		case 2: // None
 			BIT_OFF( 0 + 0x0800 + 0x0800 + 0x1000 + 12 );
 			BIT_OFF( 0 + 0x0800 + 0x0800 + 0x1000 + 13 );
 			break;
@@ -1235,34 +1243,30 @@ void SelectNavigator()
 }
 
 void SelectRomanceFlags() {
-    SEL_MASK(1);
-	int lover = SEL_GENERIC_NOT_HELP(LoveMenuName, LoveMenu) - 1;
-    if (lover == -1)
+	int lover = SEL_GENERIC_NOT_HELP( LoveMenuName, LoveMenu );
+    if ( lover == -1 )
         return;
     
     lover += (0x0800 + 720);
-	SelectItemToggle(lover);
+	SelectItemToggle( lover );
 }
 
 void SelectBitToggle()
 {
 	int id = SelectNumber( 4 );
-    if (id < 0)
+    if (id == -1)
         return;
     
-    SEL_MASK(1);
-	int onOff = SEL_GENERIC_NOT_HELP( -1, OnOffSel ) - 1;
-    if (onOff < 0)
-        return;
+	int onOff = SEL_GENERIC_NOT_HELP( -1, SelectOnOff );
 	
 	switch (onOff) 
 	{
-		case 0:
-			break;
-		case 1: // On
+        case -1: // Back
+            break;
+		case 0: // On
 			BIT_ON( id );
 			break;
-		case 2: // Off
+		case 1: // Off
 			BIT_OFF( id );
 			break;
 	}
@@ -1270,12 +1274,11 @@ void SelectBitToggle()
 
 void SelectItemToggle(int flag) 
 {
-    SEL_MASK(1);
-	int selection = SEL_GENERIC_NOT_HELP( -1, DateDisplayDlg ) - 1;
-    if (selection < 0)
-        return;
+	int selection = SEL_GENERIC_NOT_HELP( -1, DateDisplayDlg );
 	
 	switch (selection) {
+        case -1:
+            break;
 		case 0:
 			BIT_ON( flag );
 			break;
@@ -1290,20 +1293,19 @@ void RoomEditorDisplay()
 {
 	while ( true )
 	{
-		SEL_MASK(1);
-		int roomSel = SEL_GENERIC_NOT_HELP(-1, RoomEdit );
+		int roomSel = SEL_GENERIC_NOT_HELP( -1, RoomEdit );
 
 		switch (roomSel) 
 		{
-			case 0:
+			case -1:
 				return;
-			case 1:
+			case 0:
 				FurnitureEditorDisplay();
 				break;
-			case 2: 
+			case 1: 
 				CollectibleEditorDisplay();
 				break;
-			case 3: 
+			case 2: 
 				CleanlinessEditorDisplay();
 				break;
 		}
@@ -1315,35 +1317,34 @@ void FurnitureEditorDisplay()
 {
 	while ( true )
 	{
-		SEL_MASK(1);
-		int furnSel = SEL_GENERIC_NOT_HELP(-1, FurnEdit );
+		int furnSel = SEL_GENERIC_NOT_HELP( -1, FurnEdit );
 	
 		switch ( furnSel ) 
 		{
-			case 0:
+			case -1:
 				return;
-			case 1: // Plant
+			case 0: // Plant
 				SelectItemToggle(4230);
 				break;
-			case 2: // Sayuri
+			case 1: // Sayuri
 				SelectItemToggle(101);
 				break;
-			case 3: // DVD Player
+			case 2: // DVD Player
 				SelectItemToggle(3142);
 				break;
-			case 4: // Game Console
+			case 3: // Game Console
 				SelectItemToggle(3146);
 				break;
-			case 5: // Old TV Set
+			case 4: // Old TV Set
 				SelectItemToggle(4232);
 				break;
-			case 6: // Radio
+			case 5: // Radio
 				SelectItemToggle(4233);
 				break;
-			case 7: // Cat Bed
+			case 6: // Cat Bed
 				SelectItemToggle(8121);
 				break;
-			case 8: // UFO Game Prizes
+			case 7: // UFO Game Prizes
 				int ufoPrize = SelectNumber(1);
 				switch (ufoPrize) 
 				{
@@ -1373,86 +1374,86 @@ void CollectibleEditorDisplay()
 {
 	while ( true )
 	{
-		SEL_MASK(1);
-		int collSel = SEL_GENERIC_NOT_HELP(-1, CollEdit );
+		int collSel = SEL_GENERIC_NOT_HELP( -1, CollEdit );
 	
-		switch (collSel) 
+		switch ( collSel ) 
 		{
-			case 0:
+			case -1:
 				return;
-			case 1: // Swan Boat
+			case 0: // Swan Boat
 				SelectItemToggle(3456);
 				break;
-			case 2: // Ramen
+			case 1: // Ramen
 				SelectItemToggle(3457);
 				break;
-			case 3: // Pennant
+			case 2: // Pennant
 				SelectItemToggle(3458);
 				break;
-			case 4: // Statue
+			case 3: // Statue
 				SelectItemToggle(3459);
 				break;
-			case 5: // Sky Tree
+			case 4: // Sky Tree
 				SelectItemToggle(3460);
 				break;
-			case 6: // Big Hera
+			case 5: // Big Hera
 				SelectItemToggle(3461);
 				break;
-			case 7: // Shumai
+			case 6: // Shumai
 				SelectItemToggle(3462);
 				break;
-			case 8: // Fusen
+			case 7: // Fusen
 				SelectItemToggle(3463);
 				break;
-			case 9: // I Love
+			case 8: // I Love
 				SelectItemToggle(3464);
 				break;
-			case 10: // Idol
+			case 9: // Idol
 				SelectItemToggle(3465);
 				break;
-			case 11: 
+			case 10: // Next
 				CollectibleEditorDisplay2();
-				return;
+				break;
 		}
 	}
 }
 
 void CollectibleEditorDisplay2() 
 {
-	while ( true )
-	{
-		SEL_MASK(1);
-		int collectables = SEL_GENERIC_NOT_HELP(-1, CollEdit2 );
-	
-		switch (collectables) 
-		{
-			case 0:
-				return;
-			case 1: // Seiza
-				SelectItemToggle(3466);
-				break;
-			case 2: // Syogi
-				SelectItemToggle(3467);
-				break;
-			case 3: // Hero
-				SelectItemToggle(3468);
-				break;
-			case 4: // Hamaya
-				SelectItemToggle(3469);
-				break;
-			case 5: // Jyainyan
-				SelectItemToggle(3470);
-				break;
-			case 6: // Sushi
-				SelectItemToggle(3471);
-				break;
-			case 7: // Choco
-				SelectItemToggle(3472);
-				break;
-			case 8: // Kumade
-				SelectItemToggle(3473);
-				break;
-		}
+    while ( true )
+    {
+		int collectables = SEL_GENERIC_NOT_HELP( -1, CollEdit2 );
+                
+		switch ( collectables ) 
+        {
+			case -1:
+                return;
+			case 0: // Seiza
+                SelectItemToggle(3466);
+                break;
+			case 1: // Syogi
+                SelectItemToggle(3467);
+                break;
+			case 2: // Hero
+                SelectItemToggle(3468);
+                break;
+			case 3: // Hamaya
+                SelectItemToggle(3469);
+                break;
+			case 4: // Jyainyan
+                SelectItemToggle(3470);
+                break;
+			case 5: // Sushi
+                SelectItemToggle(3471);
+                break;
+			case 6: // Choco
+                SelectItemToggle(3472);
+                break;
+			case 7: // Kumade
+                SelectItemToggle(3473);
+                break;
+            case 8: // Previous
+                return;
+        }
 	}
 }
 
@@ -1461,28 +1462,27 @@ void CleanlinessEditorDisplay()
 {
 	while ( true )
 	{
-		SEL_MASK(1);
-		int cleanSel = SEL_GENERIC_NOT_HELP(-1, CleanEdit );
+		int cleanSel = SEL_GENERIC_NOT_HELP( -1, CleanEdit );
 		switch (cleanSel) 
 		{
-			case 0:
+			case -1:
 				return;
-			case 1: // Bookshelf
+			case 0: // Bookshelf
 				SelectItemToggle(4229);
 				break;
-			case 2: // Work Bench
+			case 1: // Work Bench
 				SelectItemToggle(4231);
 				break;
-			case 3: // Visitors Table
+			case 2: // Visitors Table
 				SelectItemToggle(8176);
 				break;
-			case 4: // Training Chair
+			case 3: // Training Chair
 				SelectItemToggle(3144);
 				break;
-			case 5: // Winter Heater
+			case 4: // Winter Heater
 				SelectItemToggle(8147);
 				break;
-			case 6: // Laptop
+			case 5: // Laptop
 				SelectItemToggle(3237);
 				break;
 		}

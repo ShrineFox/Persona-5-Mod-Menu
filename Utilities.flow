@@ -6,15 +6,13 @@ int SelectDigit()
 {
     while ( true )
 	{
-        SEL_MASK(1);
-		int temp = SEL_GENERIC_NOT_HELP(-1, Select0to4Dialog ) - 1;
+		int temp = SEL_GENERIC_NOT_HELP( -1, Select0to4Dialog );
         if ( temp == -1 )
             break;
             
 		if ( temp == 5 ) // higher
 		{
-            SEL_MASK(1);
-			temp = SEL_GENERIC_NOT_HELP(-1, Select5to9Dialog ) - 1;
+			temp = SEL_GENERIC_NOT_HELP( -1, Select5to9Dialog );
             if ( temp == -1 )
                 break;
                 
@@ -36,20 +34,24 @@ int SelectNumber( int digitCount )
 	
 	for ( int i = 0; i < digitCount; i++ )
 	{
-        SEL_MASK(1);
-		int digit = SEL_GENERIC_NOT_HELP(-1, Select0to9Dialog) - 1;
+		int digit = SEL_GENERIC_NOT_HELP( -1, Select0to9Dialog );
+        
+        PUTS( "i = " );
+        PUT( i );
+        PUTS( "digit = " );
+        PUT( digit );
         
         // Number should only equal negative one if we cancel
         // before entering anything.
-        if (digit < 0)
+        if ( digit == -1 )
         {
-            if (i < 1)
+            if ( i == 0 )
             {
                 return -1;
             }
             else
             {
-                number = number / Pow(10, digitCount - i );
+                number = number / Pow( 10, digitCount - i );
                 break;
             }
         }
@@ -67,20 +69,19 @@ float SelectFloat( float digitCount )
 	
 	for ( float i = 0; i < digitCount; i++ )
 	{
-        SEL_MASK(1);
-		float digit = SEL_GENERIC_NOT_HELP(-1, Select0to9Dialog) - 1;
+		float digit = SEL_GENERIC_NOT_HELP( -1, Select0to9Dialog );
         
         // Number should only equal one if we cancel
         // before entering anything.
-        if (digit < 0)
+        if ( digit == -1 )
         {
-            if (i < 1)
+            if ( i == 0 )
             {
                 return -1;
             }
             else
             {
-                number = number / PowF(10, digitCount - i );
+                number = number / PowF( 10, digitCount - i );
                 break;
             }
         }
@@ -90,6 +91,30 @@ float SelectFloat( float digitCount )
 	}
 	
 	return number;
+}
+
+int SelectYesNo()
+{
+    int selection = SEL_GENERIC_NOT_HELP( -1, SelectYesNo );
+	return selection;
+}
+
+int SelectNoYes()
+{
+    int selection = SEL_GENERIC_NOT_HELP( -1, SelectOffOn );
+	return selection;
+}
+
+int SelectOnOff()
+{
+    int selection = SEL_GENERIC_NOT_HELP( -1, SelectOnOff );
+	return selection;
+}
+
+int SelectOffOn()
+{
+    int selection = SEL_GENERIC_NOT_HELP( -1, SelectOffOn );
+	return selection;
 }
 
 void DisplayMessagePrompt( int messageId )
@@ -121,18 +146,43 @@ int SelectPrompt( int promptMessageId, int selectMessageId )
 {
 	MSG_WND_DSP(); 
 	MSG( promptMessageId, 0 );
-	SEL_MASK(1);
-	int selection = SEL_GENERIC_NOT_HELP(-1, selectMessageId );
+	int selection = SEL_GENERIC_NOT_HELP( -1, selectMessageId );
 	MSG_WND_CLS();
 	return selection;
 }
 
-int SelectPrompt2( int promptMessageId, int selectMessageId )
+int SelectYesNoPrompt( int promptMessageId )
 {
-	MSG_WND_DSP(); 
+    MSG_WND_DSP(); 
 	MSG( promptMessageId, 0 );
-	SEL_MASK(1);
-	int selection = SEL_GENERIC_NOT_HELP(-1, selectMessageId );
-	MSG_WND_CLS();
+    int selection = SelectYesNo();
+    MSG_WND_CLS();
+	return selection;
+}
+
+int SelectNoYesPrompt( int promptMessageId )
+{
+    MSG_WND_DSP(); 
+	MSG( promptMessageId, 0 );
+    int selection = SelectNoYes();
+    MSG_WND_CLS();
+	return selection;
+}
+
+int SelectOnOffPrompt( int promptMessageId )
+{
+    MSG_WND_DSP(); 
+	MSG( promptMessageId, 0 );
+    int selection = SelectOnOff();
+    MSG_WND_CLS();
+	return selection;
+}
+
+int SelectOffOnPrompt( int promptMessageId )
+{
+    MSG_WND_DSP(); 
+	MSG( promptMessageId, 0 );
+    int selection = SelectOffOn();
+    MSG_WND_CLS();
 	return selection;
 }
