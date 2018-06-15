@@ -5,184 +5,198 @@ import( "Math.flow" );
 int SelectDigit()
 {
     while ( true )
-	{
-		int temp = SEL_GENERIC_NOT_HELP( -1, Select0to4Dialog );
+    {
+        int temp = SEL_GENERIC_NOT_HELP( -1, Select0to4Dialog );
         if ( temp == -1 )
             break;
             
-		if ( temp == 5 ) // higher
-		{
-			temp = SEL_GENERIC_NOT_HELP( -1, Select5to9Dialog );
+        if ( temp == 5 ) // higher
+        {
+            temp = SEL_GENERIC_NOT_HELP( -1, Select5to9Dialog );
             if ( temp == -1 )
                 break;
                 
-			if ( temp == 5 ) // lower
-			  continue;
+            if ( temp == 5 ) // lower
+                continue;
 
-			return temp + 5;
-		}
+            return temp + 5;
+        }
 
-		return temp;
-	}
-	
-	return -1;
+        return temp;
+    }
+    
+    return -1;
 }
 
 int SelectNumber( int digitCount )
 {
-	int number = 0;
-	
-	for ( int i = 0; i < digitCount; i++ )
-	{
-		int digit = SEL_GENERIC_NOT_HELP( -1, Select0to9Dialog );
+    int number = 0;
+    
+    for ( int i = 0; i < digitCount; i++ )
+    {
+        int digit = SEL_GENERIC_NOT_HELP( -1, Select0to9Dialog );
         
-        PUTS( "i = " );
-        PUT( i );
-        PUTS( "digit = " );
-        PUT( digit );
-        
-        // Number should only equal negative one if we cancel
-        // before entering anything.
         if ( digit == -1 )
         {
+            // Number should only equal negative one if we cancel
+            // before entering anything.
             if ( i == 0 )
             {
-                return -1;
-            }
-            else
-            {
-                number = number / Pow( 10, digitCount - i );
+                number = -1;
                 break;
             }
+            else
+                break;
         }
         
-		int digitToPower = digit * Pow( 10, digitCount - ( i + 1 ) );
-		number += digitToPower;
-	}
-	
-	return number;
+        number *= 10;
+        number += digit;
+    }
+    
+    PUTS( "SelectNumber returned: " );
+    PUT( number );
+    return number;
 }
 
-float SelectFloat( float digitCount )
+float SelectFloat()
 {
-	float number = 0;
-	
-	for ( float i = 0; i < digitCount; i++ )
-	{
-		float digit = SEL_GENERIC_NOT_HELP( -1, Select0to9Dialog );
+    DisplayMessagePrompt( SelectFloatInteger );
+    
+    int i = 0;
+    float ipart = 0;
+    while ( true )
+    {
+        float digit = SEL_GENERIC_NOT_HELP( -1, Select0to9Dialog );
         
-        // Number should only equal one if we cancel
-        // before entering anything.
         if ( digit == -1 )
         {
+            // Number should only equal negative one if we cancel
+            // before entering anything.
             if ( i == 0 )
-            {
                 return -1;
-            }
             else
-            {
-                number = number / PowF( 10, digitCount - i );
                 break;
-            }
         }
         
-		float digitToPower = digit * Pow( 10, digitCount - ( i + 1 ) );
-		number += digitToPower;
-	}
-	
-	return number;
+        ipart *= 10;
+        ipart += digit;
+        i++;
+    }
+    PUTS( "SelectFloat integer part: " );
+    PUT( ipart );
+    
+    
+    DisplayMessagePrompt( SelectFloatFractional );
+    
+    i = 0;
+    float fpart = 0;
+    while ( true )
+    {
+        float digit = SEL_GENERIC_NOT_HELP( -1, Select0to9Dialog );
+        
+        if ( digit == -1 )
+            break;
+        
+        fpart *= 10;
+        fpart += digit;
+        i++;
+    }
+    PUTS( "SelectFloat fractional part: " );
+    PUT( fpart );
+    
+    fpart = fpart / Pow( 10, i );
+    
+    
+    float number = ipart + fpart;
+    return number;
 }
 
 int SelectYesNo()
 {
     int selection = SEL_GENERIC_NOT_HELP( -1, SelectYesNo );
-	return selection;
+    return selection;
 }
 
 int SelectNoYes()
 {
     int selection = SEL_GENERIC_NOT_HELP( -1, SelectOffOn );
-	return selection;
+    return selection;
 }
 
 int SelectOnOff()
 {
     int selection = SEL_GENERIC_NOT_HELP( -1, SelectOnOff );
-	return selection;
+    return selection;
 }
 
 int SelectOffOn()
 {
     int selection = SEL_GENERIC_NOT_HELP( -1, SelectOffOn );
-	return selection;
+    return selection;
 }
 
 void DisplayMessagePrompt( int messageId )
 {
-	MSG_WND_DSP(); 
-	MSG( messageId, 0 ); 
-	MSG_WND_CLS();
+    MSG_WND_DSP(); 
+    MSG( messageId, 0 ); 
+    MSG_WND_CLS();
 }
 
 int SelectNumberPrompt( int messageId, int digits )
 {
-	DisplayMessagePrompt( messageId );
+    DisplayMessagePrompt( messageId );
     int i = SelectNumber( digits );
-    PUTS( "SelectNumber returned: " );
-    PUT( i );
-	return i;
+    return i;
 }
 
-float SelectFloatPrompt( int messageId, int digits )
+float SelectFloatPrompt( int messageId )
 {
-	DisplayMessagePrompt( messageId );
-    float i = SelectFloat( digits );
-    PUTS( "SelectFloat returned: " );
-    PUT( i );
-	return i;
+    DisplayMessagePrompt( messageId );
+    float i = SelectFloat();
+    return i;
 }
 
 int SelectPrompt( int promptMessageId, int selectMessageId )
 {
-	MSG_WND_DSP(); 
-	MSG( promptMessageId, 0 );
-	int selection = SEL_GENERIC_NOT_HELP( -1, selectMessageId );
-	MSG_WND_CLS();
-	return selection;
+    MSG_WND_DSP(); 
+    MSG( promptMessageId, 0 );
+    int selection = SEL_GENERIC_NOT_HELP( -1, selectMessageId );
+    MSG_WND_CLS();
+    return selection;
 }
 
 int SelectYesNoPrompt( int promptMessageId )
 {
     MSG_WND_DSP(); 
-	MSG( promptMessageId, 0 );
+    MSG( promptMessageId, 0 );
     int selection = SelectYesNo();
     MSG_WND_CLS();
-	return selection;
+    return selection;
 }
 
 int SelectNoYesPrompt( int promptMessageId )
 {
     MSG_WND_DSP(); 
-	MSG( promptMessageId, 0 );
+    MSG( promptMessageId, 0 );
     int selection = SelectNoYes();
     MSG_WND_CLS();
-	return selection;
+    return selection;
 }
 
 int SelectOnOffPrompt( int promptMessageId )
 {
     MSG_WND_DSP(); 
-	MSG( promptMessageId, 0 );
+    MSG( promptMessageId, 0 );
     int selection = SelectOnOff();
     MSG_WND_CLS();
-	return selection;
+    return selection;
 }
 
 int SelectOffOnPrompt( int promptMessageId )
 {
     MSG_WND_DSP(); 
-	MSG( promptMessageId, 0 );
+    MSG( promptMessageId, 0 );
     int selection = SelectOffOn();
     MSG_WND_CLS();
-	return selection;
+    return selection;
 }
