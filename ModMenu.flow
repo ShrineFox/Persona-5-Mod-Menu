@@ -160,7 +160,7 @@ void PersonaDeleteAllSelect()
 
 void PersonaAddSkillSelect()
 {
-    int unitId = SEL_GENERIC( UnitMenuName, UnitSelect );
+    int unitId = SEL_GENERIC_NOT_HELP( UnitMenuName, UnitSelect ) + 1;
     if ( unitId == -1 ) // Cancel
         return;
         
@@ -278,7 +278,7 @@ void ItemGetSelect( int type )
 
 void CommuSetRankSelect()
 {
-    int cmmId = SEL_GENERIC( CommuMenuName, CommuMenu );
+    int cmmId = SEL_GENERIC( CommuMenuName, CommuMenu ) + 1;
     
     if ( cmmId < 22 && cmmId > 0 ) {
         DisplayMessagePrompt( CmmDialog2 );
@@ -756,7 +756,7 @@ void EventBattle()
 {
     while ( true )
     {
-        int selection = SEL_GENERIC( EventBattleName, EventBattleSelect );
+        int selection = SEL_GENERIC_NOT_HELP( EventBattleName, EventBattleSelect );
         switch ( selection )
         {
             case -1:
@@ -806,7 +806,7 @@ int SelectBoss()
         PUTS( "SelectBoss: index:" );
         PUT( i );
         
-        int selection = SEL_GENERIC( -1, i + SelectBoss );
+        int selection = SEL_GENERIC_NOT_HELP( -1, i + SelectBoss );
         
         if (selection == -1)
             return -1;
