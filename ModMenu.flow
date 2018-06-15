@@ -27,10 +27,6 @@ void ModMenuDisplay()
 	while ( true )
 	{
 		int selection = SEL_GENERIC( -1, ModMenu );
-        
-        PUTS( "ModMenuDisplay(): " );
-        PUT( selection );
-		
 		switch ( selection )
 		{
             case -1:
@@ -422,21 +418,21 @@ void CameraEditorDisplay()
 	
 		switch ( selection )
 		{
-			case 0:
+			case -1:
 				return;
-			case 1:
+			case 0:
 				CameraInputPos();
 				break;
-			case 2:
+			case 1:
 				CameraInputFov();
 				break;
-			case 3:
+			case 2:
 				CameraInputRot();
 				break;
-			case 4:
+			case 3:
 				CameraUnlock();
 				break;
-			case 5:
+			case 4:
 				CameraLock();
 				break;
 		}
