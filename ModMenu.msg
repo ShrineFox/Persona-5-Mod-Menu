@@ -121,7 +121,7 @@ Skill Cards[f 4 26 8 35][e]
 [s]Arms that can be equipped to[n]fire bullets during battle.[e]
 
 [dlg GENERIC_HELP_31]
-[s]Where Melee weapons would be[n]if I knew the offset for them.[n]Sorry for the inconvenience![e]
+[s]Weapons used for basic physical[n]attacks during battle.[e]
 
 [dlg GENERIC_HELP_32]
 [s]Equippable appearance changes[n]for party members that modify[n]their model in the Metaverse.[e]

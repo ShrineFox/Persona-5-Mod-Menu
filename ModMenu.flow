@@ -231,7 +231,7 @@ void ItemEditorDisplay()
             case -1:
                 return;
             case 0: // Consumables
-                ItemGetSelect( 12288 );
+                ItemGetSelect( 0x3000 );
                 break;
             case 1: // Accessories
                 ItemGetSelect( 0x2000 );
@@ -239,11 +239,11 @@ void ItemEditorDisplay()
             case 2: // Key Items
                 ItemGetSelect( 0x4000 );
                 break;
-            case 3: // Ranged Weapon
+            case 3: // Ranged Weapons
                 ItemGetSelect( 0x8000 );
                 break;
             case 4: // Melee Weapons
-                MSG_SYSTEM(MeleeError);
+                ItemGetSelect( 0x0000 );
                 break;
             case 5: // Outfits
                 ItemGetSelect( 0x7000 );
@@ -255,7 +255,7 @@ void ItemEditorDisplay()
                 ItemGetSelect( 0x5000 );
                 break;
             case 8: // Skill Cards
-                ItemGetSelect( 24576 );
+                ItemGetSelect( 0x6000 );
                 break;
         }
     }
