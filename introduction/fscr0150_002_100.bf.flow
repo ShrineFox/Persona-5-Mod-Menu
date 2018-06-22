@@ -17,9 +17,8 @@ import( "fscr0150_002_100.bf.msg" );
 
 void General_0150_002_100()
 {
-	FLD_GET_SCRIPT_TIMING();
 	BIT_OFF( 0 + 0x0800 + 0x0800 + 0x1000 + 0x0100 + 5 );
-	BIT_OFF(320);
+	BIT_OFF( 320 );
 	MSG_SYSTEM( ModMenuEnable ); 
 	
     if ( GET_COUNT( 144 ) == 10050 || GET_COUNT( 150 ) == 80050 )
