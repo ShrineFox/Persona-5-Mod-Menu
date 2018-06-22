@@ -898,3 +898,17 @@ Disable all flags[e]
 Enable all flags[e]
 Swap enabled/disabled flags[e]
 Toggle range of flags[e]
+
+[dlg PersonaAddSkillMenuName]
+Persona Options[w][e]
+
+[sel PersonaAddSkillMenu]
+Add Skill[e]
+Add Skill (Manual Input)[f 4 26 2 110][e]
+
+[dlg PersonaAddMenuName]
+Persona Options[w][e]
+
+[sel PersonaAddMenu]
+Add Persona[e]
+Add Persona (Manual Input)[f 4 26 0 108][e]

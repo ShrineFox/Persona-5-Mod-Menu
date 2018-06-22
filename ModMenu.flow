@@ -4,6 +4,8 @@
 import( "ModMenu.msg" );
 import( "Math.flow" );
 import( "Utilities.flow" );
+import( "SkillSelection.flow" );
+import( "PersonaSelection.flow" );
 
 // Store this for animating the last spawned npc
 global int gLastSpawnedNpcModelHandle;
@@ -125,24 +127,53 @@ void PersonaEditorOpen()
             case -1:
                 return;
             case 0:
-                PersonaAddSelect();
+                PersonaAddMenuOpen();
                 break;
             case 1:
                 PersonaDeleteAllSelect();
                 break;
             case 2:
-                PersonaAddSkillSelect();
+                PersonaAddSkillMenuOpen();
                 break;
         }
     }
 }
 
-void PersonaAddSelect()
+void PersonaAddMenuOpen()
 {
-    int personaId = SelectNumberPrompt( PersonaAddPrompt, 3 );
-    
-    if ( personaId == -1 )
-        return;
+	while ( true )
+	{
+		int selection = SEL_GENERIC_NOT_HELP( PersonaAddMenuName, PersonaAddMenu );
+		
+		switch ( selection )
+        {
+            case -1:
+                return;
+            case 0:
+                PersonaAddSelect( false );
+                break;
+            case 1:
+                PersonaAddSelect( true );
+                break;
+        }
+	}
+}
+
+void PersonaAddSelect( bool useNumberInput )
+{
+	int personaId;
+	if ( useNumberInput )
+	{
+		personaId = SelectNumberPrompt( PersonaAddPrompt, 3 ); 
+		if ( personaId == -1 )
+			return;
+	}
+	else
+	{
+		personaId = PersonaSelectByName();
+		if ( personaId == -1 )
+			return;
+	}
     
     ADD_PERSONA_STOCK( personaId );
     MSG_SYSTEM( PersonaAdded );
@@ -152,22 +183,52 @@ void PersonaDeleteAllSelect()
 {
     bool deleteConfirm = SelectNoYesPrompt( PersonaDelPrompt );
     
-    if ( deleteConfirm == 1 ) {
+    if ( deleteConfirm ) {
         CLEAR_PERSONA_STOCK();
         MSG_SYSTEM( PersonaDeleted );
     }
     
 }
 
-void PersonaAddSkillSelect()
+void PersonaAddSkillMenuOpen()
+{
+	while ( true )
+	{
+		int selection = SEL_GENERIC_NOT_HELP( PersonaAddSkillMenuName, PersonaAddSkillMenu );
+		
+		switch ( selection )
+        {
+            case -1:
+                return;
+            case 0:
+                PersonaAddSkillSelect( false );
+                break;
+            case 1:
+                PersonaAddSkillSelect( true );
+                break;
+        }
+	}
+}
+
+void PersonaAddSkillSelect( bool useNumberInput )
 {
     int unitId = SEL_GENERIC_NOT_HELP( UnitMenuName, UnitSelect ) + 1;
     if ( unitId == -1 ) // Cancel
         return;
         
-    int skillId = SelectNumberPrompt( SkillPrompt, 3 );
-    if ( skillId == -1 ) // Cancel
-        return;
+	int skillId;
+	if ( useNumberInput )
+	{
+		skillId = SelectNumberPrompt( SkillPrompt, 3 );
+		if ( skillId == -1 ) // Cancel
+			return;
+	}
+	else
+	{
+		skillId = SkillSelectByName();
+		if ( skillId == -1 )
+			return;
+	}
         
     SKILL_ADD( unitId, skillId );
     FADEIN( 0, 10 );
