@@ -516,6 +516,7 @@ Change Romance Route[f 4 26 5 136][e]
 Room Editor[f 4 26 6 137][e]
 Manual Input[f 4 26 7 138][e]
 Print Enabled Flags[f 4 26 8 139][e]
+Mass Flag Editor[f 4 26 9 138][e]
 
 [dlg GENERIC_HELP_131]
 [s]Show or hide the user interface[n]elements, such as the date, time,[n]and mission list.[e]
@@ -891,3 +892,9 @@ MISC[e]
 
 [dlg EncounterPrompt]
 Set the number of the encounter[n]you want to fight (3 digits).[w][e]
+
+[sel FlagMassEditor]
+Disable all flags[e]
+Enable all flags[e]
+Swap enabled/disabled flags[e]
+Toggle range of flags[e]

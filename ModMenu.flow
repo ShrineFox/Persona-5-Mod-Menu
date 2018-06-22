@@ -24,6 +24,8 @@ global int gEventMinor;
 
 void ModMenuDisplay()
 {
+	ALL_ENABLE_SHARE_PLAY(); //Re-enables screen recording
+	BIT_OFF(4099); //Removes your "tired" status
     while ( true )
     {
         int selection = SEL_GENERIC( -1, ModMenu );
@@ -1151,21 +1153,91 @@ void FlagsEditorDisplay()
             case 8:
                 PrintEnabledBits();
                 break;
+			case 9:
+				FlagMassEditor();
+				break;
         }
     }
 }
 
+void FlagMassEditor() {
+    while ( true )
+    {
+        int selection = SEL_GENERIC( FlagMenuName, FlagMassEditor );
+        
+        switch (selection)
+        {
+            case -1:
+                return;
+            case 0:
+                DisableAllBits();
+                break;
+            case 1:
+                EnableAllBits();
+                break;
+            case 2:
+                ToggleAllBits();
+                break;
+			case 3:
+				ToggleRange();
+				break;
+		}
+	}
+}
+
 void DisableAllBits() {
-    for ( int i = 0; i < 3680; i++ ) {
+    for ( int i = 0; i < 8960; i++ ) {
         BIT_OFF( i );
     }
 }
 
+void EnableAllBits() {
+    for ( int i = 0; i < 8960; i++ ) {
+        BIT_ON( i );
+    }
+}
+
+void ToggleAllBits() {
+    for ( int i = 0; i < 8960; i++ ) {
+        if (BIT_CHK(i)) {
+			BIT_OFF(i);
+		}
+		else {
+			BIT_ON(i);
+		}
+    }
+}
+
 void PrintEnabledBits() {
-    for ( int i = 0; i < 3680; i++ ) {
+    for ( int i = 0; i < 8960; i++ ) {
         if (BIT_CHK(i)) {
             PUT(i);
         }
+    }
+}
+
+void ToggleRange() {
+	int range1 =  SelectNumber( 4 );
+	int range2 = SelectNumber( 4 );
+    
+    int onOff = SEL_GENERIC_NOT_HELP( -1, SelectOnOff );
+    
+    switch (onOff) 
+    {
+        case -1: // Back
+            break;
+        case 0: // On
+			for ( int i = range1; i < range2; i++ ) 
+			{
+				BIT_ON( i );
+			}
+            break;
+        case 1: // Off
+			for ( int i = range1; i < range2; i++ ) 
+			{
+				BIT_OFF( i );
+			}
+            break;
     }
 }
 
@@ -1207,8 +1279,8 @@ void SelectHUDDisplayFlag()
 
 void SelectAddPartyMember()
 {
-    int unit = SEL_GENERIC_NOT_HELP( UnitMenuName, UnitSelect2 ) + 47;
-    if ( unit == 46 ) // Cancel
+    int unit = SEL_GENERIC_NOT_HELP( UnitMenuName, UnitSelect2 ) + 48;
+    if ( unit == 47 ) // Cancel
         return;
         
     BIT_ON( 0 + 0x0800 + 0x0800 + 0x1000 + 0x0100 + unit );
@@ -1216,8 +1288,8 @@ void SelectAddPartyMember()
 
 void SelectRemovePartyMember()
 {
-    int unit = SEL_GENERIC_NOT_HELP( UnitMenuName, UnitSelect2 ) + 47;
-    if ( unit == 46 ) // Cancel
+    int unit = SEL_GENERIC_NOT_HELP( UnitMenuName, UnitSelect2 ) + 48;
+    if ( unit == 47 ) // Cancel
         return;
         
     BIT_OFF( 0 + 0x0800 + 0x0800 + 0x1000 + 0x0100 + unit );

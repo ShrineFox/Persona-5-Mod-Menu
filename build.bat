@@ -11,6 +11,7 @@ if not exist %OUTPUT_PATH% mkdir %OUTPUT_PATH%
 %COMPILER% .\field\field.bf.flow     -Compile -OutFormat V3BE -Library P5 -Encoding P5 -Out "%OUTPUT_PATH%\field.bf"
 %COMPILER% .\dungeon\dungeon.bf.flow -Compile -OutFormat V3BE -Library P5 -Encoding P5 -Out "%OUTPUT_PATH%\dungeon.bf"
 %COMPILER% .\mementos\at_dng.bf.flow -Compile -OutFormat V3BE -Library P5 -Encoding P5 -Out "%OUTPUT_PATH%\at_dng.bf"
+%COMPILER% .\introduction\fscr0150_002_100.bf.flow -Compile -OutFormat V3BE -Library P5 -Encoding P5 -Out "%OUTPUT_PATH%\fscr0150_002_100.bf"
 
 %PAKPACK% replace "%INPUT_PATH%\fldPack.pac"   etc/field.bf   "%OUTPUT_PATH%\field.bf"   "%OUTPUT_PATH%\fldPack.pac"
 %PAKPACK% replace "%INPUT_PATH%\dngPack.pac"   etc/dungeon.bf "%OUTPUT_PATH%\dungeon.bf" "%OUTPUT_PATH%\dngPack.pac"
