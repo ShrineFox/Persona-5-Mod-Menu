@@ -27,3 +27,9 @@ There are 3 different scripts that must be recompiled:
 - **dungeon.bf** (for palaces) found in **dngPack.pac**
 - **at_dng.bf** (for mementos) found in **atDngPack.pac**
 Each of the PAC files can be located in ps3.cpk\field.
+
+In order to be able to use the Mod Menu before unlocking the square button functionality,
+- **fscr0150_002_100.bf** must go in the \script\field folder of the mod.
+
+In order to use the Amicitia UI logo for the menu,
+- **sharedUI.spd** must go in the \camp\shared folder of the mod.
