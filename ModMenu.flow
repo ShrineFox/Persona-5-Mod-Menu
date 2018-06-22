@@ -71,7 +71,6 @@ void ModMenuDisplay()
     }
 }
 
-
 // Player Editor
 void PlayerEditorDisplay()
 {
@@ -750,6 +749,7 @@ void RegularBattle()
     
     CALL_BATTLE(encount);
     WAIT_BATTLE();
+	ReloadPreviousField();
 }
 
 void EventBattle()
@@ -780,8 +780,13 @@ void EventBattle()
                 CALL_EVENTBATTLE( 131, 1, 647 );
                 break;
         }
-        CALL_FIELD(3,2,0,0);
     }
+	
+	WAIT_BATTLE();
+	
+	// TODO(TGE): does not reload the field, stuck on loading screen
+	// however the mod menu remains accessible.
+	ReloadPreviousField();
 }
 
 // Boss Select
@@ -961,24 +966,39 @@ void EventSelect()
             case -1:
                 return;
             case 0:
-                int temp = SelectNumberPrompt( EventDlg, 3 );
-                if ( temp == -1 )
-                    break;
-                gEventMajor = temp;
-                
-                temp = SelectNumberPrompt( EventDlg2, 3 );
-                if ( temp == -1 )
-                    break;
-                gEventMinor = temp;
+				EventSelectIds();
                 break;
             case 1:
-                if ( gEventMajor == 0 && gEventMinor == 0 )
-                    MSG_SYSTEM(LoadCheckError);
-                else
-                    CALL_EVENT( gEventMajor, gEventMinor);
+				EventLoadSelected();
                 return;
         }
     }
+}
+
+void EventSelectIds()
+{
+	int temp = SelectNumberPrompt( EventDlg, 3 );
+	if ( temp == -1 )
+		return;
+	gEventMajor = temp;
+	
+	temp = SelectNumberPrompt( EventDlg2, 3 );
+	if ( temp == -1 )
+		return;
+		
+	gEventMinor = temp;
+}
+
+void EventLoadSelected()
+{
+	if ( gEventMajor == 0 && gEventMinor == 0 )
+	{
+		MSG_SYSTEM(LoadCheckError);
+		return;
+	}
+	
+	CALL_EVENT( gEventMajor, gEventMinor );
+	ReloadPreviousField();
 }
 
 void PlayerSetMaxMoney() 
@@ -1489,4 +1509,13 @@ void CleanlinessEditorDisplay()
 void AboutDialogDisplay() 
 {
     DisplayMessagePrompt( AboutDlg );
+}
+
+void ReloadPreviousField()
+{	
+	if ( FLD_GET_MAJOR() != FLD_GET_PREV_MAJOR() || FLD_GET_MINOR() != FLD_GET_PREV_MINOR() )
+	{
+		// Reload previous field
+		CALL_FIELD( FLD_GET_PREV_MAJOR(), FLD_GET_PREV_MINOR(), 0, 0 );
+	}
 }
