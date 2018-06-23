@@ -16,20 +16,20 @@
 ## Usage
 Once you've added [mod.cpk support](https://shrinefox.github.io/guides/p5/mod-cpk) to your copy of Persona 5 (PS3), you can use the [Mod Compendium](https://shrinefox.github.io/guides/p5/mod-compendium) to run the [latest compiled Release](https://github.com/ShrineFox/Persona-5-Mod-Menu/releases) in-game.
 ## Compiling
-Using the latest version of TGE's [AtlusScriptCompiler](https://github.com/TGEnigma/AtlusScriptToolchain) (compiled from the source code), you can edit the **.flow** and **.msg** scripts in this repository and recompile them into **.bf** format.
-For example, move the Utility.flow, Utility.msg and Math.flow files to the same folder as the script you're compiling and run:
-> "M:\Tools\AtlusScriptCompiler.exe" "M:\ModMenu\field\field.bf.flow" -Compile -OutFormat V3BE -Library P5 -Encoding P5
+1. Build (from source) the latest version of TGE's [AtlusScriptCompiler](https://github.com/TGEnigma/AtlusScriptToolchain), which you can use to compile the **.flow** and **.msg** scripts in this repository and recompile them into **.bf** format.
+2. Also download [TGE's PAKTools](https://github.com/TGEnigma/AtlusFileSystemLibrary/releases).
+3. Edit the build.bat file with the paths to your AtlusScriptCompiler and PAKTool exe files. Place the PAK files from your copy of the game in the input folder.
 
-This will output a new field.bf file, which will include the mod menu and other referenced scripts.
+When you run the bat, the scripts will be compiled into BF files and packed into new PAK files.
 
 There are 3 different scripts that must be recompiled:
 - **field.bf** (for the field) found in **fldPack.pac**
 - **dungeon.bf** (for palaces) found in **dngPack.pac**
 - **at_dng.bf** (for mementos) found in **atDngPack.pac**
+Each of the PAC files can be located in ps3.cpk\field.
 
-Each of the PAC files can be located in ps3.cpk\field. To easily repack all scripts at once, make a batch file like the following using [TGE's PAKTools](https://github.com/TGEnigma/AtlusFileSystemLibrary/releases):
-> PAKPack.exe replace INPUTPATH\fldPack.pac etc/field.bf INPUTPATH\field.bf.flow.bf OUTPUTPATH\fldPack.pac
+In order to be able to use the Mod Menu before unlocking the square button functionality,
+- **fscr0150_002_100.bf** must go in the \script\field folder of the mod.
 
-> PAKPack.exe replace INPUTPATH\dngPack.pac etc/dungeon.bf INPUTPATH\dungeon.bf.flow.bf OUTPUTPATH\dngPack.pac
-
-> PAKPack.exe replace INPUTPATH\atDngPack.pac etc/at_dng.bf INPUTPATH\at_dng.bf.flow.bf OUTPUTPATH\at_DngPack.pac
+In order to use the Amicitia UI logo for the menu,
+- **sharedUI.spd** must go in the \camp\shared folder of the mod.

@@ -25,3 +25,27 @@ Lower[e]
 7[e]
 8[e]
 9[e]
+
+[dlg SelectFloatInteger]
+Enter the integer portion of the float.[n]
+(Press Circle to end)[w][e]
+
+[dlg SelectFloatFractional]
+Enter the fractional portion of the float.[n]
+(Press Circle to end)[w][e]
+
+[sel SelectYesNo]
+Yes[e]
+No[e]
+
+[sel SelectNoYes]
+No[e]
+Yes[e]
+
+[sel SelectOnOff]
+On[e]
+Off[e]
+
+[sel SelectOffOn]
+Off[e]
+On[e]

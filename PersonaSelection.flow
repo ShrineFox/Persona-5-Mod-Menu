@@ -1,0 +1,595 @@
+import( "PersonaSelection.msg" );
+
+int PersonaSelectByName()
+{
+    int firstLetterIndex = SEL_GENERIC_NOT_HELP( -1, SelPersonaNameFirstLetter );
+    if ( firstLetterIndex == -1 )
+        return -1;
+    
+	int menuIndex = FirstLetterToPersonaMenuIndex( firstLetterIndex );
+    if ( menuIndex == -1 )
+        return -1;
+	
+	int personaIndex = -1;
+	while ( true )
+	{
+		int selIndex = SEL_GENERIC_NOT_HELP( -1, menuIndex );
+		personaIndex = PersonaNameSelectionIndexToPersonaIndex( menuIndex, selIndex );
+		
+		if ( personaIndex == -2 )
+			--menuIndex;
+		else if ( personaIndex == -3 )
+			++menuIndex;
+		else
+			break;
+	}
+	
+	return personaIndex;
+}
+
+int FirstLetterToPersonaMenuIndex( int firstLetterIndex )
+{
+    switch ( firstLetterIndex )
+    {
+        case 0: return SelPersonaNameSetA + 0;
+        case 1: return SelPersonaNameSetA + 2;
+        case 2: return SelPersonaNameSetA + 4;
+        case 3: return SelPersonaNameSetA + 5;
+        case 4: return SelPersonaNameSetA + 6;
+        case 5: return SelPersonaNameSetA + 7;
+        case 6: return SelPersonaNameSetA + 8;
+        case 7: return SelPersonaNameSetA + 9;
+        case 8: return SelPersonaNameSetA + 10;
+        case 9: return SelPersonaNameSetA + 11;
+        case 10: return SelPersonaNameSetA + 12;
+        case 11: return SelPersonaNameSetA + 14;
+        case 12: return SelPersonaNameSetA + 15;
+        case 13: return SelPersonaNameSetA + 17;
+        case 14: return SelPersonaNameSetA + 18;
+        case 15: return SelPersonaNameSetA + 19;
+        case 16: return SelPersonaNameSetA + 20;
+        case 17: return SelPersonaNameSetA + 21;
+        case 18: return SelPersonaNameSetA + 22;
+        case 19: return SelPersonaNameSetA + 25;
+        case 20: return SelPersonaNameSetA + 26;
+        case 21: return SelPersonaNameSetA + 27;
+        case 22: return SelPersonaNameSetA + 28;
+        case 23: return SelPersonaNameSetA + 29;
+        case 24: return SelPersonaNameSetA + 30;
+    }
+
+    return -1;
+}
+
+int PersonaNameSelectionIndexToPersonaIndex( int menuIndex, int selIndex )
+{
+    switch ( menuIndex )
+    {
+        case SelPersonaNameSetA:
+        {
+            switch ( selIndex )
+            {
+                case -1: return -1;
+                case 0: return 22;
+                case 1: return 47;
+                case 2: return 55;
+                case 3: return 59;
+                case 4: return 75;
+                case 5: return 76;
+                case 6: return 85;
+                case 7: return 89;
+                case 8: return 101;
+                case 9: return 102;
+                case 10: return 131;
+                case 11: return 153;
+                case 12: return 158;
+                case 13: return 163;
+                case 14: return 164;
+                case 15: return -3;
+            }
+        }
+
+        case SelPersonaNameSetA2:
+        {
+            switch ( selIndex )
+            {
+                case -1: return -1;
+                case 0: return 186;
+                case 1: return 187;
+                case 2: return 196;
+                case 3: return 197;
+                case 4: return 201;
+                case 5: return 216;
+                case 6: return 217;
+                case 7: return 220;
+                case 8: return 235;
+                case 9: return 236;
+                case 10: return 289;
+                case 11: return 300;
+                case 12: return 312;
+                case 13: return 321;
+                case 14: return -2;
+            }
+        }
+
+        case SelPersonaNameSetB:
+        {
+            switch ( selIndex )
+            {
+                case -1: return -1;
+                case 0: return 2;
+                case 1: return 27;
+                case 2: return 62;
+                case 3: return 74;
+                case 4: return 122;
+                case 5: return 125;
+                case 6: return 126;
+                case 7: return 127;
+                case 8: return 136;
+                case 9: return 142;
+                case 10: return 143;
+                case 11: return 276;
+                case 12: return 277;
+                case 13: return 293;
+                case 14: return 305;
+                case 15: return -3;
+            }
+        }
+
+        case SelPersonaNameSetB2:
+        {
+            switch ( selIndex )
+            {
+                case -1: return -1;
+                case 0: return 318;
+                case 1: return -2;
+            }
+        }
+
+        case SelPersonaNameSetC:
+        {
+            switch ( selIndex )
+            {
+                case -1: return -1;
+                case 0: return 3;
+                case 1: return 7;
+                case 2: return 64;
+                case 3: return 65;
+                case 4: return 79;
+                case 5: return 113;
+                case 6: return 144;
+                case 7: return 161;
+                case 8: return 202;
+                case 9: return 204;
+                case 10: return 221;
+                case 11: return 223;
+            }
+        }
+
+        case SelPersonaNameSetD:
+        {
+            switch ( selIndex )
+            {
+                case -1: return -1;
+                case 0: return 12;
+                case 1: return 72;
+                case 2: return 100;
+                case 3: return 123;
+                case 4: return 282;
+            }
+        }
+
+        case SelPersonaNameSetE:
+        {
+            switch ( selIndex )
+            {
+                case -1: return -1;
+                case 0: return 9;
+                case 1: return 111;
+                case 2: return 269;
+                case 3: return 307;
+            }
+        }
+
+        case SelPersonaNameSetF:
+        {
+            switch ( selIndex )
+            {
+                case -1: return -1;
+                case 0: return 36;
+                case 1: return 66;
+                case 2: return 95;
+                case 3: return 259;
+                case 4: return 272;
+            }
+        }
+
+        case SelPersonaNameSetG:
+        {
+            switch ( selIndex )
+            {
+                case -1: return -1;
+                case 0: return 21;
+                case 1: return 28;
+                case 2: return 45;
+                case 3: return 139;
+                case 4: return 205;
+                case 5: return 224;
+                case 6: return 271;
+                case 7: return 275;
+            }
+        }
+
+        case SelPersonaNameSetH:
+        {
+            switch ( selIndex )
+            {
+                case -1: return -1;
+                case 0: return 11;
+                case 1: return 26;
+                case 2: return 54;
+                case 3: return 112;
+                case 4: return 167;
+                case 5: return 169;
+                case 6: return 214;
+                case 7: return 233;
+                case 8: return 281;
+                case 9: return 287;
+            }
+        }
+
+        case SelPersonaNameSetI:
+        {
+            switch ( selIndex )
+            {
+                case -1: return -1;
+                case 0: return 31;
+                case 1: return 39;
+                case 2: return 67;
+                case 3: return 81;
+                case 4: return 183;
+                case 5: return 193;
+                case 6: return 262;
+            }
+        }
+
+        case SelPersonaNameSetJ:
+        {
+            switch ( selIndex )
+            {
+                case -1: return -1;
+                case 0: return 4;
+                case 1: return 5;
+                case 2: return 96;
+                case 3: return 206;
+                case 4: return 225;
+                case 5: return 279;
+                case 6: return 311;
+                case 7: return 315;
+            }
+        }
+
+        case SelPersonaNameSetK:
+        {
+            switch ( selIndex )
+            {
+                case -1: return -1;
+                case 0: return 29;
+                case 1: return 48;
+                case 2: return 49;
+                case 3: return 78;
+                case 4: return 90;
+                case 5: return 91;
+                case 6: return 93;
+                case 7: return 97;
+                case 8: return 98;
+                case 9: return 104;
+                case 10: return 105;
+                case 11: return 109;
+                case 12: return 130;
+                case 13: return 152;
+                case 14: return 185;
+                case 15: return -3;
+            }
+        }
+
+        case SelPersonaNameSetK2:
+        {
+            switch ( selIndex )
+            {
+                case -1: return -1;
+                case 0: return 195;
+                case 1: return 215;
+                case 2: return 234;
+                case 3: return 254;
+                case 4: return 278;
+                case 5: return -2;
+            }
+        }
+
+        case SelPersonaNameSetL:
+        {
+            switch ( selIndex )
+            {
+                case -1: return -1;
+                case 0: return 8;
+                case 1: return 32;
+                case 2: return 33;
+                case 3: return 41;
+                case 4: return 63;
+                case 5: return 162;
+                case 6: return 210;
+                case 7: return 219;
+                case 8: return 230;
+                case 9: return 238;
+                case 10: return 253;
+                case 11: return 266;
+            }
+        }
+
+        case SelPersonaNameSetM:
+        {
+            switch ( selIndex )
+            {
+                case -1: return -1;
+                case 0: return 1;
+                case 1: return 13;
+                case 2: return 23;
+                case 3: return 35;
+                case 4: return 43;
+                case 5: return 70;
+                case 6: return 121;
+                case 7: return 128;
+                case 8: return 135;
+                case 9: return 140;
+                case 10: return 157;
+                case 11: return 159;
+                case 12: return 160;
+                case 13: return 184;
+                case 14: return 189;
+                case 15: return -3;
+            }
+        }
+
+        case SelPersonaNameSetM2:
+        {
+            switch ( selIndex )
+            {
+                case -1: return -1;
+                case 0: return 190;
+                case 1: return 194;
+                case 2: return 207;
+                case 3: return 213;
+                case 4: return 226;
+                case 5: return 232;
+                case 6: return 285;
+                case 7: return 295;
+                case 8: return 313;
+                case 9: return -2;
+            }
+        }
+
+        case SelPersonaNameSetN:
+        {
+            switch ( selIndex )
+            {
+                case -1: return -1;
+                case 0: return 30;
+                case 1: return 73;
+                case 2: return 82;
+                case 3: return 133;
+                case 4: return 138;
+                case 5: return 141;
+                case 6: return 151;
+                case 7: return 208;
+                case 8: return 227;
+                case 9: return 256;
+                case 10: return 298;
+            }
+        }
+
+        case SelPersonaNameSetO:
+        {
+            switch ( selIndex )
+            {
+                case -1: return -1;
+                case 0: return 10;
+                case 1: return 14;
+                case 2: return 40;
+                case 3: return 50;
+                case 4: return 53;
+                case 5: return 56;
+                case 6: return 68;
+                case 7: return 92;
+                case 8: return 110;
+                case 9: return 132;
+                case 10: return 181;
+                case 11: return 191;
+                case 12: return 255;
+                case 13: return 317;
+            }
+        }
+
+        case SelPersonaNameSetP:
+        {
+            switch ( selIndex )
+            {
+                case -1: return -1;
+                case 0: return 6;
+                case 1: return 44;
+                case 2: return 80;
+                case 3: return 134;
+                case 4: return 218;
+                case 5: return 237;
+                case 6: return 286;
+                case 7: return 296;
+                case 8: return 297;
+                case 9: return 308;
+                case 10: return 319;
+                case 11: return 320;
+            }
+        }
+
+        case SelPersonaNameSetQ:
+        {
+            switch ( selIndex )
+            {
+                case -1: return -1;
+                case 0: return 57;
+                case 1: return 107;
+                case 2: return 303;
+            }
+        }
+
+        case SelPersonaNameSetR:
+        {
+            switch ( selIndex )
+            {
+                case -1: return -1;
+                case 0: return 24;
+                case 1: return 34;
+                case 2: return 42;
+                case 3: return 106;
+                case 4: return 137;
+                case 5: return 209;
+                case 6: return 228;
+                case 7: return 304;
+            }
+        }
+
+        case SelPersonaNameSetS:
+        {
+            switch ( selIndex )
+            {
+                case -1: return -1;
+                case 0: return 18;
+                case 1: return 25;
+                case 2: return 37;
+                case 3: return 51;
+                case 4: return 58;
+                case 5: return 60;
+                case 6: return 61;
+                case 7: return 69;
+                case 8: return 77;
+                case 9: return 84;
+                case 10: return 94;
+                case 11: return 108;
+                case 12: return 124;
+                case 13: return 129;
+                case 14: return 154;
+                case 15: return -3;
+            }
+        }
+
+        case SelPersonaNameSetS2:
+        {
+            switch ( selIndex )
+            {
+                case -1: return -1;
+                case 0: return 156;
+                case 1: return 170;
+                case 2: return 199;
+                case 3: return 211;
+                case 4: return 212;
+                case 5: return 231;
+                case 6: return 252;
+                case 7: return 261;
+                case 8: return 264;
+                case 9: return 265;
+                case 10: return 273;
+                case 11: return 274;
+                case 12: return 292;
+                case 13: return 310;
+                case 14: return 314;
+                case 15: return -2;
+                case 16: return -3;
+            }
+        }
+
+        case SelPersonaNameSetS3:
+        {
+            switch ( selIndex )
+            {
+                case -1: return -1;
+                case 0: return 316;
+                case 1: return -2;
+            }
+        }
+
+        case SelPersonaNameSetT:
+        {
+            switch ( selIndex )
+            {
+                case -1: return -1;
+                case 0: return 15;
+                case 1: return 38;
+                case 2: return 88;
+                case 3: return 99;
+                case 4: return 182;
+                case 5: return 188;
+                case 6: return 192;
+                case 7: return 198;
+                case 8: return 283;
+                case 9: return 301;
+            }
+        }
+
+        case SelPersonaNameSetU:
+        {
+            switch ( selIndex )
+            {
+                case -1: return -1;
+                case 0: return 16;
+                case 1: return 17;
+            }
+        }
+
+        case SelPersonaNameSetV:
+        {
+            switch ( selIndex )
+            {
+                case -1: return -1;
+                case 0: return 19;
+                case 1: return 166;
+                case 2: return 299;
+            }
+        }
+
+        case SelPersonaNameSetW:
+        {
+            switch ( selIndex )
+            {
+                case -1: return -1;
+                case 0: return 284;
+            }
+        }
+
+        case SelPersonaNameSetY:
+        {
+            switch ( selIndex )
+            {
+                case -1: return -1;
+                case 0: return 20;
+                case 1: return 52;
+                case 2: return 86;
+                case 3: return 87;
+                case 4: return 168;
+            }
+        }
+
+        case SelPersonaNameSetZ:
+        {
+            switch ( selIndex )
+            {
+                case -1: return -1;
+                case 0: return 46;
+                case 1: return 203;
+                case 2: return 222;
+                case 3: return 280;
+            }
+        }
+
+    }
+
+    return -1;
+}
