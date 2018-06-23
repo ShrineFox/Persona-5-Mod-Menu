@@ -27,7 +27,8 @@ global int gEventMinor;
 void ModMenuDisplay()
 {
 	ALL_ENABLE_SHARE_PLAY(); //Re-enables screen recording
-	BIT_OFF(4099); //Removes your "tired" status
+	BIT_OFF( 4099 ); //Removes your "tired" status
+    
     while ( true )
     {
         int selection = SEL_GENERIC( -1, ModMenu );
@@ -212,7 +213,7 @@ void PersonaAddSkillMenuOpen()
 
 void PersonaAddSkillSelect( bool useNumberInput )
 {
-    int unitId = SEL_GENERIC_NOT_HELP( UnitMenuName, UnitSelect ) + 1;
+    int unitId = SEL_GENERIC_NOT_HELP( UnitMenuName, UnitSelect );
     if ( unitId == -1 ) // Cancel
         return;
         
@@ -230,7 +231,7 @@ void PersonaAddSkillSelect( bool useNumberInput )
 			return;
 	}
         
-    SKILL_ADD( unitId, skillId );
+    SKILL_ADD( ( unitId + 1 ), skillId );
     FADEIN( 0, 10 );
     FADE_SYNC();
     FLD_REQ_FLASHBACK( 152, 51 );
@@ -342,24 +343,23 @@ void CommuSetRankSelect()
 {
     int cmmId = SEL_GENERIC( CommuMenuName, CommuMenu ) + 1;
     
-    if ( cmmId < 22 && cmmId > 0 ) {
-        DisplayMessagePrompt( CmmDialog2 );
-        int lvl = SEL_GENERIC( -1, OneThruTen );
+    if ( cmmId <= 0 || cmmId >= 22 )
+        return;
         
-        if ( lvl <= 0 )
-            return;
+    DisplayMessagePrompt( CmmDialog2 );
+    int lvl = SEL_GENERIC_NOT_HELP( -1, OneThruTen ) + 1;
+    
+    if ( lvl == 0 )
+        return;
         
-        if ( lvl > 0 ) {
-            CMM_RANKUP( cmmId, lvl, 1 );
-            
-            if ( !CMM_EXIST( cmmId ) ) {
-                CMM_OPEN( cmmId );
-            }
-            
-            CMM_SET_LV( cmmId, lvl );
-            CMM_ADD_POINT( cmmId, 9999);
-        }
+    CMM_RANKUP( cmmId, lvl, 1 );
+    
+    if ( !CMM_EXIST( cmmId ) ) {
+        CMM_OPEN( cmmId );
     }
+    
+    CMM_SET_LV( cmmId, lvl );
+    CMM_ADD_POINT( cmmId, 9999 );
 }
 
 void PlayerAnimViewerDisplay()
@@ -386,7 +386,7 @@ void PlayerAnimViewerDisplay()
 }
 
 // Field Model Anim Viewer
-void FieldModelAnimViewerDisplay(int resHandle) 
+void FieldModelAnimViewerDisplay( int resHandle ) 
 {
     while ( true )
     {
@@ -412,13 +412,13 @@ void FieldModelAnimViewerDisplay(int resHandle)
                 FieldModelAnimSelectTime();
                 break;
             case 5:
-                FieldModelPlayAnim(resHandle, gFldAnimGapId, gFldAnimGapIndex);
+                FieldModelPlayAnim( resHandle, gFldAnimGapId, gFldAnimGapIndex );
                 break;
         }   
     }
 }
 
-void FieldModelPlayAnim(int resHandle, int gapid, int index) 
+void FieldModelPlayAnim( int resHandle, int gapid, int index ) 
 {
     int clone = FLD_MODEL_CLONE_ADDMOTION( resHandle, gapid );
     FLD_UNIT_WAIT_DISABLE( clone );
@@ -706,13 +706,13 @@ void NpcControlMenuDisplay()
 void NpcSpawnSelect()
 {
     int modelIdMajor = SelectNumberPrompt( NPCPrompt, 4 );
-    if (modelIdMajor == -1)
+    if ( modelIdMajor == -1 )
         return;
     int modelIdMinor = SelectNumberPrompt( NPCPrompt2, 3 );
-    if (modelIdMinor == -1)
+    if ( modelIdMinor == -1 )
         return;
     int modelIdSub = SelectNumberPrompt( NPCPrompt3, 2 );
-    if (modelIdSub == -1)
+    if ( modelIdSub == -1 )
         return;
     gLastSpawnedNpcModelHandle = NpcSpawn( modelIdMajor, modelIdMinor, modelIdSub );
 }
@@ -762,7 +762,7 @@ void NpcAnimViewerDisplay( int resHandle )
                 FieldModelAnimSelectTime();
                 break;
             case 5:
-                FieldModelPlayAnim(resHandle, gNpcAnimGapId, gNpcAnimGapIndex);
+                FieldModelPlayAnim( resHandle, gNpcAnimGapId, gNpcAnimGapIndex );
                 break;
         }
     }
@@ -810,9 +810,64 @@ void RegularBattle()
     if ( encount == -1 )
         return;
     
-    CALL_BATTLE(encount);
+    CALL_BATTLE( encount );
     WAIT_BATTLE();
 	ReloadPreviousField();
+}
+
+// Boss Select
+void BossSelectMenu()
+{
+    // Select boss
+    int bossId = SelectBoss();
+    
+    if ( bossId == -1 )
+        return;
+    
+    // Start boss fight
+    FLD_START_BOSS( bossId );
+}
+
+
+int SelectBoss()
+{
+    int i = 0;
+    while ( true )
+    {
+        // Print which menu index we're on
+        PUTS( "SelectBoss menu index:" );
+        PUT( i );
+        
+        int selection = SEL_GENERIC_NOT_HELP( -1, i + SelectBoss );
+        
+        PUTS( "SelectBoss choice:" );
+        PUT( selection );
+        
+        if ( selection == -1 )
+            return -1;
+        
+        if ( selection < 4 )
+        {
+            return selection + ( i * 4 ); 
+        }
+        else if ( selection == 4 ) // previous
+        {
+            if ( i > 0 )
+                i--;
+            else
+                i = 21;
+        }
+        else if ( selection == 5 ) // next
+        {
+            if ( i < 21 )
+                i++;
+            else
+                i = 0;
+        }
+        
+    }
+    
+    return -1;
 }
 
 void EventBattle()
@@ -850,57 +905,6 @@ void EventBattle()
 	// TODO(TGE): does not reload the field, stuck on loading screen
 	// however the mod menu remains accessible.
 	ReloadPreviousField();
-}
-
-// Boss Select
-void BossSelectMenu()
-{
-    // Select boss
-    int bossId = SelectBoss();
-    
-    if ( bossId == -1 )
-        return;
-    
-    // Start boss fight
-    FLD_START_BOSS( bossId );
-}
-
-
-int SelectBoss()
-{
-    for ( int i = 0; i < 22; i++ )
-    {
-        // Print which index we're on
-        PUTS( "SelectBoss: index:" );
-        PUT( i );
-        
-        int selection = SEL_GENERIC_NOT_HELP( -1, i + SelectBoss );
-        
-        if (selection == -1)
-            return -1;
-        
-        if ( selection == 5 ) // previous
-        {
-            // Continue increments i by 1, so to counter that
-            // we subtract an additional 1 from i to go to the previous
-            // iteration
-            
-            if ( i != 0 )
-                i -= 2;
-            else
-                i = 20;
-            
-            continue;
-        }
-        else if ( selection == 6 ) // next
-        {
-            continue;
-        }
-        
-        return selection + ( i * 4 ); 
-    }
-    
-    return -1;
 }
 
 // Teleport Mode 
@@ -1008,7 +1012,7 @@ void FieldSelect()
                 break;
             case 1:
                 if (gFieldMajor == 0 && gFieldMinor == 0)
-                    MSG_SYSTEM(LoadCheckError);
+                    MSG_SYSTEM( LoadCheckError );
                 else
                     CALL_FIELD( gFieldMajor, gFieldMinor, 0, 0 );
                 return;
