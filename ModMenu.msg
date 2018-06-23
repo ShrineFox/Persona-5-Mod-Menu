@@ -57,7 +57,7 @@ Player Options[w][e]
 
 [sel PlayerMenu]
 [s]Personas[f 4 26 0 16][e]
-[s]Stats[f 4 26 1 17][e]
+[s]Social Stats[f 4 26 1 17][e]
 [s]Items[f 4 26 2 18][e]
 [s]Set Confidant Rank[f 4 26 3 19][e]
 [s]Set Protag Name[f 4 26 4 20][e]
@@ -67,7 +67,7 @@ Player Options[w][e]
 [s]Max Money[f 4 26 8 24][e]
 
 [dlg GENERIC_HELP_16]
-[s]Add or remove your personas, or[n]give you or your party[n]members new Skills.[e]
+[s]Add or remove your Personas, or[n]give you or your party[n]members new Skills.[e]
 
 [dlg GENERIC_HELP_17]
 [s]Add points to your Knowledge,[n]Charm, Proficiency, Guts[n]or Kindness.[e]
@@ -76,13 +76,13 @@ Player Options[w][e]
 [s]Give yourself a desired amount of[n]any consumables, weapons, armor,[n]costumes, or even key items.[e]
 
 [dlg GENERIC_HELP_19]
-[s]Select a Confidant and change your[n]current rank with their Arcana.[e]
+[s]Select a Confidant and set your[n]current rank with their Arcana.[e]
 
 [dlg GENERIC_HELP_20]
-[s]Rename the protagonist at any[n]point in the game.[e]
+[s]Rename the protagonist at any[n]point in the game.[n][clr 9]WARNING: CRASHES ON REAL PS3![clr 0][e]
 
 [dlg GENERIC_HELP_21]
-[s]Change the group name of the[n]Phantom Thieves at any[n]point in the game.[e]
+[s]Change the group name of the[n]Phantom Thieves at any[n]point in the game.[n][clr 9]WARNING: CRASHES ON REAL PS3![clr 0][e]
 
 [dlg GENERIC_HELP_22]
 [s]Select one of the protagonist's[n]Field GAP files and view[n]its animations.[e]
@@ -266,16 +266,18 @@ Enter how many items you want.[n](max. 2 digits, press Circle to end)[w][e]
 Enter the Confidant's Arcana ID.[n](max. 2 digits, press Circle to end)[w][e]
 
 [dlg CmmDialog2 [Confidant Rank]]
-Enter the desired Confidant rank.[n](max. 2 digits, press Circle to end)[w][e]
+Enter the desired Confidant rank.[w][e]
 
 
 [dlg AnimMenuName]
-Player Animation...[w][e]
+Player Animation[w][e]
 
 [sel AnimMenu]
 Field Animation Test[e]
 Morgana Out of Bag[e]
 Morgana In Bag[e]
+Show Bag[e]
+Hide Bag[e]
 
 
 [dlg GAPMenuName]
@@ -308,7 +310,7 @@ Playback animation[f 4 26 5 81][e]
 [s]Execute the animation playback[n][clr 9]after the above settings[clr 0][n]have been completed.[e]
 
 [dlg ScalePrompt [Scale Model]]
-Set Joker's model scale.[n](max. 2 digits, press Circle to end)
+Set Joker's model scale.[n](press Circle to end)
 [n]Default is 10.[w][e]
 
 
@@ -338,7 +340,6 @@ Lock Camera[f 4 26 4 89][e]
 [s]Makes the camera stationary,[n]which is required to modify it.[e]
 
 [sel OneThruTen]
-0[e]
 1[e]
 2[e]
 3[e]
@@ -368,24 +369,24 @@ Set Weather[f 4 26 2 95][e]
 [s]Change the current weather[n]condition value. Weather should[n]change after reloading map.[e]
 
 [dlg CalendarPrompt[Calendar]]
-Choose what month to start in.[n](max. 2 digits, press Circle to end)[w][e]
+Choose what month to start in.[n](press Circle to end)[w][e]
 
-[dlg CalendarPrompt2[Calendar]]
+[dlg CalendarPrompt2 [Calendar]]
 Choose what day to start on.[n](max. 2 digits, press Circle to end)[w][e]
 
-[dlg EventDlg[Events]]
+[dlg EventDlg [Event Select]]
 Choose the first 3 digits of
 [n]the event to load.[n](max. 3 digits, press Circle to end)[w][e]
 
-[dlg EventDlg2[Events]]
+[dlg EventDlg2 [Event Select]]
 Choose the last 3 digits of
 [n]the event to load.[n](max. 3 digits, press Circle to end)[w][e]
 
-[dlg FieldDlg[Fields]]
+[dlg FieldDlg [Field Select]]
 Choose the first 3 digits of
 [n]the field to load.[n](max. 3 digits, press Circle to end)[w][e]
 
-[dlg FieldDlg2[Fields]]
+[dlg FieldDlg2 [Field Select]]
 Choose the last 3 digits of
 [n]the field to load.[n](max. 3 digits, press Circle to end)[w][e]
 
@@ -411,13 +412,13 @@ Delete Personas[f 4 26 1 109][e]
 Add Skill[f 4 26 2 110][e]
 
 [dlg GENERIC_HELP_108]
-[s]Input a Persona's [clr 9]ID[clr 0][n]to add it to your stock.[e]
+[s]Input a Persona's name or ID[n]to add it to your stock.[e]
 
 [dlg GENERIC_HELP_109]
-[s]Permanently remove all[n]Personas from your current stock.[e]
+[s]Permanently remove all Personas[n]from your current stock.[e]
 
 [dlg GENERIC_HELP_110]
-[s]Choose a party member and[n]the [clr 9]ID[clr 0] of a Skill to add[n]to their current Persona.[e]
+[s]Choose a party member and the[n]name or ID of a Skill to add[n]to their current Persona.[e]
 
 
 [dlg UnitMenuName]
@@ -444,11 +445,11 @@ Haru[e]
 Futaba[e]
 Akechi[e]
 
-[dlg PersonaDelPrompt[Delete Personas]]
+[dlg PersonaDelPrompt [Delete Personas]]
 This will permanently remove all 
 [n]Personas in your stock. Are you sure?[w][e]
 
-[dlg UnitPrompt[Add Skill]]
+[dlg UnitPrompt [Add Skill]]
 Choose a character to add a skill to
 [n]their currently equipped Persona.[w][e]
 
@@ -456,7 +457,7 @@ Choose a character to add a skill to
 Enter the ID of the skill to add.
 [n](max. 3 digits, press Circle to end)[w][e]
 
-[dlg PersonaAddPrompt[Add Persona]]
+[dlg PersonaAddPrompt [Add Persona]]
 Input the ID of the Persona to add.
 [n](max. 3 digits, press Circle to end)[w][e]
 
@@ -598,14 +599,9 @@ Ohya[e]
 Hifumi[e]
 
 [dlg AboutDlg[About this menu]]
-Created by [clr 1]TGE[clr 0] and [clr 6]ShrineFox[clr 0] using
-[n]TGE's [clr 9]AtlusScriptCompiler[clr 0] tool. Check out
+Created by [clr 1]TGE[clr 0], [clr 6]ShrineFox[clr 0] and [clr 15]CaptainSwag101[clr 0]
+[n]using TGE's [clr 9]AtlusScriptCompiler[clr 0] tool. Visit
 [n]https://shrinefox.github.io to learn more![w][e]
-
-[dlg MeleeError]
-Sorry, this function doesn't work yet!
-[n]We're missing the offset for these
-[n]types of items at the moment.[w][e]
 
 [sel RoomEdit]
 Furniture[e]
@@ -904,11 +900,14 @@ Persona Options[w][e]
 
 [sel PersonaAddSkillMenu]
 Add Skill[e]
-Add Skill (Manual Input)[f 4 26 2 110][e]
+Add Skill (Manual Input)[e]
 
 [dlg PersonaAddMenuName]
 Persona Options[w][e]
 
 [sel PersonaAddMenu]
 Add Persona[e]
-Add Persona (Manual Input)[f 4 26 0 108][e]
+Add Persona (Manual Input)[e]
+
+[dlg BagShowHide]
+The bag has been toggled.[n]To see the change, go to a new field[n]or reload the current one.[w][e]

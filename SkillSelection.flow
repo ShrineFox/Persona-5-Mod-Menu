@@ -2,18 +2,24 @@ import( "SkillSelection.msg" );
 
 int SkillSelectByName()
 {
-	int setIndex = SkillNameGetSetIndex( SEL_GENERIC_NOT_HELP( -1, SelSkillNameSets ) );
+    int firstLetterIndex = SEL_GENERIC_NOT_HELP( -1, SelSkillNameFirstLetter );
+    if ( firstLetterIndex == -1 )
+        return -1;
+    
+	int menuIndex = FirstLetterToSkillMenuIndex( firstLetterIndex );
+    if ( menuIndex == -1 )
+        return -1;
 	
 	int skillIndex = -1;
 	while ( true )
 	{
-		int selIndex = SEL_GENERIC_NOT_HELP( -1, setIndex );
-		skillIndex = SkillNameSetSelectionIndexToSkillIndex( setIndex, selIndex );
+		int selIndex = SEL_GENERIC_NOT_HELP( -1, menuIndex );
+		skillIndex = SkillNameSelectionIndexToSkillIndex( menuIndex, selIndex );
 		
 		if ( skillIndex == -2 )
-			--setIndex;
+			--menuIndex;
 		else if ( skillIndex == -3 )
-			++setIndex;
+			++menuIndex;
 		else
 			break;
 	}
@@ -21,10 +27,10 @@ int SkillSelectByName()
 	return skillIndex;
 }
 
-int SkillNameGetSetIndex( int baseSetIndex )
+int FirstLetterToSkillMenuIndex( int menuIndex )
 {
 
-    switch ( baseSetIndex )
+    switch ( menuIndex )
     {
         case 0: return SelSkillNameSetA + 0;
         case 1: return SelSkillNameSetA + 4;
@@ -55,9 +61,9 @@ int SkillNameGetSetIndex( int baseSetIndex )
     return -1;
 }
 
-int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
+int SkillNameSelectionIndexToSkillIndex( int menuIndex, int selIndex )
 {
-    switch ( setIndex )
+    switch ( menuIndex )
     {
         case SelSkillNameSetA:
         {
@@ -87,7 +93,7 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
         {
             switch ( selIndex )
             {
-                case -1: return -2;
+                case -1: return -1;
                 case 0: return 401;
                 case 1: return 402;
                 case 2: return 404;
@@ -103,7 +109,8 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
                 case 12: return 490;
                 case 13: return 503;
                 case 14: return 524;
-                case 15: return -3;
+                case 15: return -2;
+                case 16: return -3;
             }
         }
 
@@ -111,7 +118,7 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
         {
             switch ( selIndex )
             {
-                case -1: return -2;
+                case -1: return -1;
                 case 0: return 608;
                 case 1: return 619;
                 case 2: return 641;
@@ -127,7 +134,8 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
                 case 12: return 856;
                 case 13: return 857;
                 case 14: return 905;
-                case 15: return -3;
+                case 15: return -2;
+                case 16: return -3;
             }
         }
 
@@ -135,11 +143,12 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
         {
             switch ( selIndex )
             {
-                case -1: return -2;
+                case -1: return -1;
                 case 0: return 945;
                 case 1: return 951;
                 case 2: return 986;
                 case 3: return 987;
+                case 4: return -2;
             }
         }
 
@@ -171,7 +180,7 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
         {
             switch ( selIndex )
             {
-                case -1: return -2;
+                case -1: return -1;
                 case 0: return 481;
                 case 1: return 488;
                 case 2: return 505;
@@ -187,7 +196,8 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
                 case 12: return 737;
                 case 13: return 752;
                 case 14: return 757;
-                case 15: return -3;
+                case 15: return -2;
+                case 16: return -3;
             }
         }
 
@@ -195,7 +205,7 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
         {
             switch ( selIndex )
             {
-                case -1: return -2;
+                case -1: return -1;
                 case 0: return 768;
                 case 1: return 771;
                 case 2: return 867;
@@ -203,6 +213,7 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
                 case 4: return 940;
                 case 5: return 978;
                 case 6: return 979;
+                case 7: return -2;
             }
         }
 
@@ -234,7 +245,7 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
         {
             switch ( selIndex )
             {
-                case -1: return -2;
+                case -1: return -1;
                 case 0: return 601;
                 case 1: return 602;
                 case 2: return 624;
@@ -250,7 +261,8 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
                 case 12: return 702;
                 case 13: return 704;
                 case 14: return 705;
-                case 15: return -3;
+                case 15: return -2;
+                case 16: return -3;
             }
         }
 
@@ -258,7 +270,7 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
         {
             switch ( selIndex )
             {
-                case -1: return -2;
+                case -1: return -1;
                 case 0: return 730;
                 case 1: return 731;
                 case 2: return 743;
@@ -271,6 +283,7 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
                 case 9: return 954;
                 case 10: return 981;
                 case 11: return 982;
+                case 12: return -2;
             }
         }
 
@@ -302,7 +315,7 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
         {
             switch ( selIndex )
             {
-                case -1: return -2;
+                case -1: return -1;
                 case 0: return 348;
                 case 1: return 355;
                 case 2: return 356;
@@ -318,7 +331,8 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
                 case 12: return 586;
                 case 13: return 587;
                 case 14: return 588;
-                case 15: return -3;
+                case 15: return -2;
+                case 16: return -3;
             }
         }
 
@@ -326,7 +340,7 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
         {
             switch ( selIndex )
             {
-                case -1: return -2;
+                case -1: return -1;
                 case 0: return 589;
                 case 1: return 590;
                 case 2: return 591;
@@ -342,7 +356,8 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
                 case 12: return 628;
                 case 13: return 629;
                 case 14: return 632;
-                case 15: return -3;
+                case 15: return -2;
+                case 16: return -3;
             }
         }
 
@@ -350,7 +365,7 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
         {
             switch ( selIndex )
             {
-                case -1: return -2;
+                case -1: return -1;
                 case 0: return 633;
                 case 1: return 635;
                 case 2: return 637;
@@ -366,7 +381,8 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
                 case 12: return 727;
                 case 13: return 745;
                 case 14: return 810;
-                case 15: return -3;
+                case 15: return -2;
+                case 16: return -3;
             }
         }
 
@@ -374,7 +390,7 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
         {
             switch ( selIndex )
             {
-                case -1: return -2;
+                case -1: return -1;
                 case 0: return 812;
                 case 1: return 814;
                 case 2: return 816;
@@ -390,7 +406,8 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
                 case 12: return 893;
                 case 13: return 898;
                 case 14: return 903;
-                case 15: return -3;
+                case 15: return -2;
+                case 16: return -3;
             }
         }
 
@@ -398,13 +415,14 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
         {
             switch ( selIndex )
             {
-                case -1: return -2;
+                case -1: return -1;
                 case 0: return 910;
                 case 1: return 916;
                 case 2: return 959;
                 case 3: return 964;
                 case 4: return 972;
                 case 5: return 975;
+                case 6: return -2;
             }
         }
 
@@ -436,7 +454,7 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
         {
             switch ( selIndex )
             {
-                case -1: return -2;
+                case -1: return -1;
                 case 0: return 643;
                 case 1: return 661;
                 case 2: return 667;
@@ -452,7 +470,8 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
                 case 12: return 826;
                 case 13: return 827;
                 case 14: return 838;
-                case 15: return -3;
+                case 15: return -2;
+                case 16: return -3;
             }
         }
 
@@ -460,10 +479,11 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
         {
             switch ( selIndex )
             {
-                case -1: return -2;
+                case -1: return -1;
                 case 0: return 839;
                 case 1: return 973;
                 case 2: return 976;
+                case 3: return -2;
             }
         }
 
@@ -495,7 +515,7 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
         {
             switch ( selIndex )
             {
-                case -1: return -2;
+                case -1: return -1;
                 case 0: return 416;
                 case 1: return 444;
                 case 2: return 456;
@@ -511,7 +531,8 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
                 case 12: return 748;
                 case 13: return 820;
                 case 14: return 821;
-                case 15: return -3;
+                case 15: return -2;
+                case 16: return -3;
             }
         }
 
@@ -519,7 +540,7 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
         {
             switch ( selIndex )
             {
-                case -1: return -2;
+                case -1: return -1;
                 case 0: return 850;
                 case 1: return 858;
                 case 2: return 912;
@@ -527,6 +548,7 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
                 case 4: return 941;
                 case 5: return 944;
                 case 6: return 985;
+                case 7: return -2;
             }
         }
 
@@ -558,7 +580,7 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
         {
             switch ( selIndex )
             {
-                case -1: return -2;
+                case -1: return -1;
                 case 0: return 627;
                 case 1: return 677;
                 case 2: return 742;
@@ -566,6 +588,7 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
                 case 4: return 863;
                 case 5: return 864;
                 case 6: return 991;
+                case 7: return -2;
             }
         }
 
@@ -597,7 +620,7 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
         {
             switch ( selIndex )
             {
-                case -1: return -2;
+                case -1: return -1;
                 case 0: return 236;
                 case 1: return 263;
                 case 2: return 266;
@@ -613,7 +636,8 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
                 case 12: return 680;
                 case 13: return 740;
                 case 14: return 802;
-                case 15: return -3;
+                case 15: return -2;
+                case 16: return -3;
             }
         }
 
@@ -621,9 +645,10 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
         {
             switch ( selIndex )
             {
-                case -1: return -2;
+                case -1: return -1;
                 case 0: return 906;
                 case 1: return 947;
+                case 2: return -2;
             }
         }
 
@@ -705,7 +730,7 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
         {
             switch ( selIndex )
             {
-                case -1: return -2;
+                case -1: return -1;
                 case 0: return 200;
                 case 1: return 204;
                 case 2: return 205;
@@ -719,6 +744,7 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
                 case 10: return 673;
                 case 11: return 860;
                 case 12: return 946;
+                case 13: return -2;
             }
         }
 
@@ -750,7 +776,7 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
         {
             switch ( selIndex )
             {
-                case -1: return -2;
+                case -1: return -1;
                 case 0: return 52;
                 case 1: return 53;
                 case 2: return 57;
@@ -766,7 +792,8 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
                 case 12: return 70;
                 case 13: return 71;
                 case 14: return 72;
-                case 15: return -3;
+                case 15: return -2;
+                case 16: return -3;
             }
         }
 
@@ -774,7 +801,7 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
         {
             switch ( selIndex )
             {
-                case -1: return -2;
+                case -1: return -1;
                 case 0: return 76;
                 case 1: return 77;
                 case 2: return 78;
@@ -790,7 +817,8 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
                 case 12: return 145;
                 case 13: return 148;
                 case 14: return 153;
-                case 15: return -3;
+                case 15: return -2;
+                case 16: return -3;
             }
         }
 
@@ -798,7 +826,7 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
         {
             switch ( selIndex )
             {
-                case -1: return -2;
+                case -1: return -1;
                 case 0: return 156;
                 case 1: return 159;
                 case 2: return 164;
@@ -814,7 +842,8 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
                 case 12: return 283;
                 case 13: return 305;
                 case 14: return 306;
-                case 15: return -3;
+                case 15: return -2;
+                case 16: return -3;
             }
         }
 
@@ -822,7 +851,7 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
         {
             switch ( selIndex )
             {
-                case -1: return -2;
+                case -1: return -1;
                 case 0: return 307;
                 case 1: return 330;
                 case 2: return 331;
@@ -838,7 +867,8 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
                 case 12: return 459;
                 case 13: return 462;
                 case 14: return 465;
-                case 15: return -3;
+                case 15: return -2;
+                case 16: return -3;
             }
         }
 
@@ -846,7 +876,7 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
         {
             switch ( selIndex )
             {
-                case -1: return -2;
+                case -1: return -1;
                 case 0: return 501;
                 case 1: return 507;
                 case 2: return 508;
@@ -862,7 +892,8 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
                 case 12: return 622;
                 case 13: return 625;
                 case 14: return 640;
-                case 15: return -3;
+                case 15: return -2;
+                case 16: return -3;
             }
         }
 
@@ -870,7 +901,7 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
         {
             switch ( selIndex )
             {
-                case -1: return -2;
+                case -1: return -1;
                 case 0: return 642;
                 case 1: return 665;
                 case 2: return 672;
@@ -886,7 +917,8 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
                 case 12: return 724;
                 case 13: return 749;
                 case 14: return 750;
-                case 15: return -3;
+                case 15: return -2;
+                case 16: return -3;
             }
         }
 
@@ -894,13 +926,14 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
         {
             switch ( selIndex )
             {
-                case -1: return -2;
+                case -1: return -1;
                 case 0: return 773;
                 case 1: return 774;
                 case 2: return 775;
                 case 3: return 776;
                 case 4: return 907;
                 case 5: return 984;
+                case 6: return -2;
             }
         }
 
@@ -932,7 +965,7 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
         {
             switch ( selIndex )
             {
-                case -1: return -2;
+                case -1: return -1;
                 case 0: return 931;
                 case 1: return 932;
                 case 2: return 933;
@@ -944,6 +977,7 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
                 case 8: return 962;
                 case 9: return 966;
                 case 10: return 967;
+                case 11: return -2;
             }
         }
 
@@ -994,7 +1028,7 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
         {
             switch ( selIndex )
             {
-                case -1: return -2;
+                case -1: return -1;
                 case 0: return 529;
                 case 1: return 531;
                 case 2: return 535;
@@ -1009,6 +1043,7 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
                 case 11: return 772;
                 case 12: return 969;
                 case 13: return 970;
+                case 14: return -2;
             }
         }
 
@@ -1040,7 +1075,7 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
         {
             switch ( selIndex )
             {
-                case -1: return -2;
+                case -1: return -1;
                 case 0: return 483;
                 case 1: return 484;
                 case 2: return 485;
@@ -1056,7 +1091,8 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
                 case 12: return 584;
                 case 13: return 604;
                 case 14: return 605;
-                case 15: return -3;
+                case 15: return -2;
+                case 16: return -3;
             }
         }
 
@@ -1064,7 +1100,7 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
         {
             switch ( selIndex )
             {
-                case -1: return -2;
+                case -1: return -1;
                 case 0: return 606;
                 case 1: return 607;
                 case 2: return 636;
@@ -1080,7 +1116,8 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
                 case 12: return 872;
                 case 13: return 875;
                 case 14: return 877;
-                case 15: return -3;
+                case 15: return -2;
+                case 16: return -3;
             }
         }
 
@@ -1088,7 +1125,7 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
         {
             switch ( selIndex )
             {
-                case -1: return -2;
+                case -1: return -1;
                 case 0: return 880;
                 case 1: return 882;
                 case 2: return 885;
@@ -1104,7 +1141,8 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
                 case 12: return 921;
                 case 13: return 922;
                 case 14: return 923;
-                case 15: return -3;
+                case 15: return -2;
+                case 16: return -3;
             }
         }
 
@@ -1112,7 +1150,7 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
         {
             switch ( selIndex )
             {
-                case -1: return -2;
+                case -1: return -1;
                 case 0: return 924;
                 case 1: return 925;
                 case 2: return 926;
@@ -1121,6 +1159,7 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
                 case 5: return 958;
                 case 6: return 961;
                 case 7: return 963;
+                case 8: return -2;
             }
         }
 
@@ -1152,7 +1191,7 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
         {
             switch ( selIndex )
             {
-                case -1: return -2;
+                case -1: return -1;
                 case 0: return 282;
                 case 1: return 311;
                 case 2: return 318;
@@ -1168,7 +1207,8 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
                 case 12: return 436;
                 case 13: return 437;
                 case 14: return 438;
-                case 15: return -3;
+                case 15: return -2;
+                case 16: return -3;
             }
         }
 
@@ -1176,7 +1216,7 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
         {
             switch ( selIndex )
             {
-                case -1: return -2;
+                case -1: return -1;
                 case 0: return 439;
                 case 1: return 440;
                 case 2: return 441;
@@ -1192,7 +1232,8 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
                 case 12: return 513;
                 case 13: return 523;
                 case 14: return 533;
-                case 15: return -3;
+                case 15: return -2;
+                case 16: return -3;
             }
         }
 
@@ -1200,7 +1241,7 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
         {
             switch ( selIndex )
             {
-                case -1: return -2;
+                case -1: return -1;
                 case 0: return 538;
                 case 1: return 545;
                 case 2: return 546;
@@ -1216,7 +1257,8 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
                 case 12: return 630;
                 case 13: return 634;
                 case 14: return 648;
-                case 15: return -3;
+                case 15: return -2;
+                case 16: return -3;
             }
         }
 
@@ -1224,7 +1266,7 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
         {
             switch ( selIndex )
             {
-                case -1: return -2;
+                case -1: return -1;
                 case 0: return 649;
                 case 1: return 662;
                 case 2: return 671;
@@ -1240,7 +1282,8 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
                 case 12: return 855;
                 case 13: return 868;
                 case 14: return 914;
-                case 15: return -3;
+                case 15: return -2;
+                case 16: return -3;
             }
         }
 
@@ -1248,11 +1291,12 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
         {
             switch ( selIndex )
             {
-                case -1: return -2;
+                case -1: return -1;
                 case 0: return 942;
                 case 1: return 953;
                 case 2: return 989;
                 case 3: return 992;
+                case 4: return -2;
             }
         }
 
@@ -1284,7 +1328,7 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
         {
             switch ( selIndex )
             {
-                case -1: return -2;
+                case -1: return -1;
                 case 0: return 447;
                 case 1: return 458;
                 case 2: return 473;
@@ -1300,7 +1344,8 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
                 case 12: return 710;
                 case 13: return 755;
                 case 14: return 756;
-                case 15: return -3;
+                case 15: return -2;
+                case 16: return -3;
             }
         }
 
@@ -1308,10 +1353,11 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
         {
             switch ( selIndex )
             {
-                case -1: return -2;
+                case -1: return -1;
                 case 0: return 770;
                 case 1: return 949;
                 case 2: return 955;
+                case 3: return -2;
             }
         }
 
@@ -1372,8 +1418,9 @@ int SkillNameSetSelectionIndexToSkillIndex( int setIndex, int selIndex )
         {
             switch ( selIndex )
             {
-                case -1: return -2;
+                case -1: return -1;
                 case 0: return 825;
+                case 1: return -2;
             }
         }
 
