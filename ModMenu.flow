@@ -366,7 +366,7 @@ void PlayerAnimViewerDisplay()
 {
     while ( true )
     {
-        int selection = SEL_GENERIC( AnimMenuName, AnimMenu );
+        int selection = SEL_GENERIC_NOT_HELP( AnimMenuName, AnimMenu );
     
         switch ( selection )
         {
@@ -380,6 +380,18 @@ void PlayerAnimViewerDisplay()
                 break;
             case 2: // Morgana In Bag
                 SUB_MoruReturnBag();
+                break;
+            case 3: // Show Bag
+                BIT_ON( 4206 );
+                BIT_OFF( 4207 );
+                BIT_OFF( 4112 );
+                DisplayMessagePrompt( BagShowHide );
+                break;
+            case 4: // Hide Bag
+                BIT_OFF( 4206 );
+                BIT_ON( 4207 );
+                BIT_ON( 4112 );
+                DisplayMessagePrompt( BagShowHide );
                 break;
         }
     }
