@@ -2,28 +2,34 @@ import( "PersonaSelection.msg" );
 
 int PersonaSelectByName()
 {
-	int setIndex = PersonaNameGetSetIndex( SEL_GENERIC_NOT_HELP( -1, SelPersonaNameSets ) );
+    int firstLetterIndex = SEL_GENERIC_NOT_HELP( -1, SelPersonaNameFirstLetter );
+    if ( firstLetterIndex == -1 )
+        return -1;
+    
+	int menuIndex = FirstLetterToPersonaMenuIndex( firstLetterIndex );
+    if ( menuIndex == -1 )
+        return -1;
 	
-	int index = -1;
+	int personaIndex = -1;
 	while ( true )
 	{
-		int selIndex = SEL_GENERIC_NOT_HELP( -1, setIndex );
-		index = PersonaNameSetSelectionIndexToPersonaIndex( setIndex, selIndex );
+		int selIndex = SEL_GENERIC_NOT_HELP( -1, menuIndex );
+		personaIndex = PersonaNameSelectionIndexToPersonaIndex( menuIndex, selIndex );
 		
-		if ( index == -2 )
-			--setIndex;
-		else if ( index == -3 )
-			++setIndex;
+		if ( personaIndex == -2 )
+			--menuIndex;
+		else if ( personaIndex == -3 )
+			++menuIndex;
 		else
 			break;
 	}
 	
-	return index;
+	return personaIndex;
 }
 
-int PersonaNameGetSetIndex( int baseSetIndex )
+int FirstLetterToPersonaMenuIndex( int firstLetterIndex )
 {
-    switch ( baseSetIndex )
+    switch ( firstLetterIndex )
     {
         case 0: return SelPersonaNameSetA + 0;
         case 1: return SelPersonaNameSetA + 2;
@@ -55,9 +61,9 @@ int PersonaNameGetSetIndex( int baseSetIndex )
     return -1;
 }
 
-int PersonaNameSetSelectionIndexToPersonaIndex( int setIndex, int selIndex )
+int PersonaNameSelectionIndexToPersonaIndex( int menuIndex, int selIndex )
 {
-    switch ( setIndex )
+    switch ( menuIndex )
     {
         case SelPersonaNameSetA:
         {
@@ -87,7 +93,7 @@ int PersonaNameSetSelectionIndexToPersonaIndex( int setIndex, int selIndex )
         {
             switch ( selIndex )
             {
-                case -1: return -2;
+                case -1: return -1;
                 case 0: return 186;
                 case 1: return 187;
                 case 2: return 196;
@@ -102,6 +108,7 @@ int PersonaNameSetSelectionIndexToPersonaIndex( int setIndex, int selIndex )
                 case 11: return 300;
                 case 12: return 312;
                 case 13: return 321;
+                case 14: return -2;
             }
         }
 
@@ -133,8 +140,9 @@ int PersonaNameSetSelectionIndexToPersonaIndex( int setIndex, int selIndex )
         {
             switch ( selIndex )
             {
-                case -1: return -2;
+                case -1: return -1;
                 case 0: return 318;
+                case 1: return -2;
             }
         }
 
@@ -289,12 +297,13 @@ int PersonaNameSetSelectionIndexToPersonaIndex( int setIndex, int selIndex )
         {
             switch ( selIndex )
             {
-                case -1: return -2;
+                case -1: return -1;
                 case 0: return 195;
                 case 1: return 215;
                 case 2: return 234;
                 case 3: return 254;
                 case 4: return 278;
+                case 5: return -2;
             }
         }
 
@@ -346,7 +355,7 @@ int PersonaNameSetSelectionIndexToPersonaIndex( int setIndex, int selIndex )
         {
             switch ( selIndex )
             {
-                case -1: return -2;
+                case -1: return -1;
                 case 0: return 190;
                 case 1: return 194;
                 case 2: return 207;
@@ -356,6 +365,7 @@ int PersonaNameSetSelectionIndexToPersonaIndex( int setIndex, int selIndex )
                 case 6: return 285;
                 case 7: return 295;
                 case 8: return 313;
+                case 9: return -2;
             }
         }
 
@@ -475,7 +485,7 @@ int PersonaNameSetSelectionIndexToPersonaIndex( int setIndex, int selIndex )
         {
             switch ( selIndex )
             {
-                case -1: return -2;
+                case -1: return -1;
                 case 0: return 156;
                 case 1: return 170;
                 case 2: return 199;
@@ -491,7 +501,8 @@ int PersonaNameSetSelectionIndexToPersonaIndex( int setIndex, int selIndex )
                 case 12: return 292;
                 case 13: return 310;
                 case 14: return 314;
-                case 15: return -3;
+                case 15: return -2;
+                case 16: return -3;
             }
         }
 
@@ -499,8 +510,9 @@ int PersonaNameSetSelectionIndexToPersonaIndex( int setIndex, int selIndex )
         {
             switch ( selIndex )
             {
-                case -1: return -2;
+                case -1: return -1;
                 case 0: return 316;
+                case 1: return -2;
             }
         }
 
