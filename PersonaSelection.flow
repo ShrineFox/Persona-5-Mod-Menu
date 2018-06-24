@@ -6,25 +6,25 @@ int PersonaSelectByName()
     if ( firstLetterIndex == -1 )
         return -1;
     
-	int menuIndex = FirstLetterToPersonaMenuIndex( firstLetterIndex );
+    int menuIndex = FirstLetterToPersonaMenuIndex( firstLetterIndex );
     if ( menuIndex == -1 )
         return -1;
-	
-	int personaIndex = -1;
-	while ( true )
-	{
-		int selIndex = SEL_GENERIC_NOT_HELP( -1, menuIndex );
-		personaIndex = PersonaNameSelectionIndexToPersonaIndex( menuIndex, selIndex );
-		
-		if ( personaIndex == -2 )
-			--menuIndex;
-		else if ( personaIndex == -3 )
-			++menuIndex;
-		else
-			break;
-	}
-	
-	return personaIndex;
+    
+    int personaIndex = -1;
+    while ( true )
+    {
+        int selIndex = SEL_GENERIC_NOT_HELP( -1, menuIndex );
+        personaIndex = PersonaNameSelectionIndexToPersonaIndex( menuIndex, selIndex );
+        
+        if ( personaIndex == -2 )
+            --menuIndex;
+        else if ( personaIndex == -3 )
+            ++menuIndex;
+        else
+            break;
+    }
+    
+    return personaIndex;
 }
 
 int FirstLetterToPersonaMenuIndex( int firstLetterIndex )

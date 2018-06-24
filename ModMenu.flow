@@ -26,8 +26,8 @@ global int gEventMinor;
 
 void ModMenuDisplay()
 {
-	ALL_ENABLE_SHARE_PLAY(); //Re-enables screen recording
-	BIT_OFF( 4099 ); //Removes your "tired" status
+    ALL_ENABLE_SHARE_PLAY(); //Re-enables screen recording
+    BIT_OFF( 4099 ); //Removes your "tired" status
     
     while ( true )
     {
@@ -142,11 +142,11 @@ void PersonaEditorOpen()
 
 void PersonaAddMenuOpen()
 {
-	while ( true )
-	{
-		int selection = SEL_GENERIC_NOT_HELP( PersonaAddMenuName, PersonaAddMenu );
-		
-		switch ( selection )
+    while ( true )
+    {
+        int selection = SEL_GENERIC_NOT_HELP( PersonaAddMenuName, PersonaAddMenu );
+        
+        switch ( selection )
         {
             case -1:
                 return;
@@ -157,24 +157,24 @@ void PersonaAddMenuOpen()
                 PersonaAddSelect( true );
                 break;
         }
-	}
+    }
 }
 
 void PersonaAddSelect( bool useNumberInput )
 {
-	int personaId;
-	if ( useNumberInput )
-	{
-		personaId = SelectNumberPrompt( PersonaAddPrompt, 3 ); 
-		if ( personaId == -1 )
-			return;
-	}
-	else
-	{
-		personaId = PersonaSelectByName();
-		if ( personaId == -1 )
-			return;
-	}
+    int personaId;
+    if ( useNumberInput )
+    {
+        personaId = SelectNumberPrompt( PersonaAddPrompt, 3 ); 
+        if ( personaId == -1 )
+            return;
+    }
+    else
+    {
+        personaId = PersonaSelectByName();
+        if ( personaId == -1 )
+            return;
+    }
     
     ADD_PERSONA_STOCK( personaId );
     MSG_SYSTEM( PersonaAdded );
@@ -193,11 +193,11 @@ void PersonaDeleteAllSelect()
 
 void PersonaAddSkillMenuOpen()
 {
-	while ( true )
-	{
-		int selection = SEL_GENERIC_NOT_HELP( PersonaAddSkillMenuName, PersonaAddSkillMenu );
-		
-		switch ( selection )
+    while ( true )
+    {
+        int selection = SEL_GENERIC_NOT_HELP( PersonaAddSkillMenuName, PersonaAddSkillMenu );
+        
+        switch ( selection )
         {
             case -1:
                 return;
@@ -208,7 +208,7 @@ void PersonaAddSkillMenuOpen()
                 PersonaAddSkillSelect( true );
                 break;
         }
-	}
+    }
 }
 
 void PersonaAddSkillSelect( bool useNumberInput )
@@ -217,19 +217,19 @@ void PersonaAddSkillSelect( bool useNumberInput )
     if ( unitId == -1 ) // Cancel
         return;
         
-	int skillId;
-	if ( useNumberInput )
-	{
-		skillId = SelectNumberPrompt( SkillPrompt, 3 );
-		if ( skillId == -1 ) // Cancel
-			return;
-	}
-	else
-	{
-		skillId = SkillSelectByName();
-		if ( skillId == -1 )
-			return;
-	}
+    int skillId;
+    if ( useNumberInput )
+    {
+        skillId = SelectNumberPrompt( SkillPrompt, 3 );
+        if ( skillId == -1 ) // Cancel
+            return;
+    }
+    else
+    {
+        skillId = SkillSelectByName();
+        if ( skillId == -1 )
+            return;
+    }
         
     SKILL_ADD( ( unitId + 1 ), skillId );
     FADEIN( 0, 10 );
@@ -824,7 +824,7 @@ void RegularBattle()
     
     CALL_BATTLE( encount );
     WAIT_BATTLE();
-	ReloadPreviousField();
+    ReloadPreviousField();
 }
 
 // Boss Select
@@ -911,12 +911,12 @@ void EventBattle()
                 break;
         }
     }
-	
-	WAIT_BATTLE();
-	
-	// TODO(TGE): does not reload the field, stuck on loading screen
-	// however the mod menu remains accessible.
-	ReloadPreviousField();
+    
+    WAIT_BATTLE();
+    
+    // TODO(TGE): does not reload the field, stuck on loading screen
+    // however the mod menu remains accessible.
+    ReloadPreviousField();
 }
 
 // Teleport Mode 
@@ -1045,10 +1045,10 @@ void EventSelect()
             case -1:
                 return;
             case 0:
-				EventSelectIds();
+                EventSelectIds();
                 break;
             case 1:
-				EventLoadSelected();
+                EventLoadSelected();
                 return;
         }
     }
@@ -1056,28 +1056,28 @@ void EventSelect()
 
 void EventSelectIds()
 {
-	int temp = SelectNumberPrompt( EventDlg, 3 );
-	if ( temp == -1 )
-		return;
-	gEventMajor = temp;
-	
-	temp = SelectNumberPrompt( EventDlg2, 3 );
-	if ( temp == -1 )
-		return;
-		
-	gEventMinor = temp;
+    int temp = SelectNumberPrompt( EventDlg, 3 );
+    if ( temp == -1 )
+        return;
+    gEventMajor = temp;
+    
+    temp = SelectNumberPrompt( EventDlg2, 3 );
+    if ( temp == -1 )
+        return;
+        
+    gEventMinor = temp;
 }
 
 void EventLoadSelected()
 {
-	if ( gEventMajor == 0 && gEventMinor == 0 )
-	{
-		MSG_SYSTEM(LoadCheckError);
-		return;
-	}
-	
-	CALL_EVENT( gEventMajor, gEventMinor );
-	ReloadPreviousField();
+    if ( gEventMajor == 0 && gEventMinor == 0 )
+    {
+        MSG_SYSTEM(LoadCheckError);
+        return;
+    }
+    
+    CALL_EVENT( gEventMajor, gEventMinor );
+    ReloadPreviousField();
 }
 
 void PlayerSetMaxMoney() 
@@ -1230,9 +1230,9 @@ void FlagsEditorDisplay()
             case 8:
                 PrintEnabledBits();
                 break;
-			case 9:
-				FlagMassEditor();
-				break;
+            case 9:
+                FlagMassEditor();
+                break;
         }
     }
 }
@@ -1255,11 +1255,11 @@ void FlagMassEditor() {
             case 2:
                 ToggleAllBits();
                 break;
-			case 3:
-				ToggleRange();
-				break;
-		}
-	}
+            case 3:
+                ToggleRange();
+                break;
+        }
+    }
 }
 
 void DisableAllBits() {
@@ -1277,11 +1277,11 @@ void EnableAllBits() {
 void ToggleAllBits() {
     for ( int i = 0; i < 8960; i++ ) {
         if (BIT_CHK(i)) {
-			BIT_OFF(i);
-		}
-		else {
-			BIT_ON(i);
-		}
+            BIT_OFF(i);
+        }
+        else {
+            BIT_ON(i);
+        }
     }
 }
 
@@ -1294,8 +1294,8 @@ void PrintEnabledBits() {
 }
 
 void ToggleRange() {
-	int range1 =  SelectNumber( 4 );
-	int range2 = SelectNumber( 4 );
+    int range1 =  SelectNumber( 4 );
+    int range2 = SelectNumber( 4 );
     
     int onOff = SEL_GENERIC_NOT_HELP( -1, SelectOnOff );
     
@@ -1304,16 +1304,16 @@ void ToggleRange() {
         case -1: // Back
             break;
         case 0: // On
-			for ( int i = range1; i < range2; i++ ) 
-			{
-				BIT_ON( i );
-			}
+            for ( int i = range1; i < range2; i++ ) 
+            {
+                BIT_ON( i );
+            }
             break;
         case 1: // Off
-			for ( int i = range1; i < range2; i++ ) 
-			{
-				BIT_OFF( i );
-			}
+            for ( int i = range1; i < range2; i++ ) 
+            {
+                BIT_OFF( i );
+            }
             break;
     }
 }
@@ -1661,10 +1661,10 @@ void AboutDialogDisplay()
 }
 
 void ReloadPreviousField()
-{	
-	if ( FLD_GET_MAJOR() != FLD_GET_PREV_MAJOR() || FLD_GET_MINOR() != FLD_GET_PREV_MINOR() )
-	{
-		// Reload previous field
-		CALL_FIELD( FLD_GET_PREV_MAJOR(), FLD_GET_PREV_MINOR(), 0, 0 );
-	}
+{   
+    if ( FLD_GET_MAJOR() != FLD_GET_PREV_MAJOR() || FLD_GET_MINOR() != FLD_GET_PREV_MINOR() )
+    {
+        // Reload previous field
+        CALL_FIELD( FLD_GET_PREV_MAJOR(), FLD_GET_PREV_MINOR(), 0, 0 );
+    }
 }
