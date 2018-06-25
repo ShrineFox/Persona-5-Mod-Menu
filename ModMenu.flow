@@ -838,8 +838,90 @@ void BossSelectMenu()
     
     // Start boss fight
     FLD_START_BOSS( bossId );
+    
+    /*
+    int selection = SEL_GENERIC_NOT_HELP( BattleTypeName, BattleTypeMenu );
+        
+    switch ( selection )
+    {
+        case -1:
+            return;
+        case 0:
+            Palace1();
+            break;
+        case 1:
+            Palace2();
+            break;
+        case 2:
+            Palace3();
+            break;
+        case 3:
+            Palace4();
+            break;
+        case 4:
+            Palace5();
+            break;
+        case 5:
+            Palace6();
+            break;
+        case 6:
+            Palace7();
+            break;
+        case 7:
+            Palace8();
+            break;
+        case 8:
+            Palace0();
+            break;
+    }
+    */
 }
 
+//Dungeon/Palace Select
+void Palace1()
+{
+    
+}
+
+void Palace2()
+{
+    
+}
+
+void Palace3()
+{
+    
+}
+
+void Palace4()
+{
+    
+}
+
+void Palace5()
+{
+    
+}
+
+void Palace6()
+{
+    
+}
+
+void Palace7()
+{
+    
+}
+
+void Palace8()
+{
+    
+}
+
+void Palace0()
+{
+    
+}
 
 int SelectBoss()
 {
