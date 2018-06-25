@@ -31,31 +31,31 @@ int FirstLetterToPersonaMenuIndex( int firstLetterIndex )
 {
     switch ( firstLetterIndex )
     {
-        case 0: return SelPersonaNameSetA + 0;
-        case 1: return SelPersonaNameSetA + 2;
-        case 2: return SelPersonaNameSetA + 4;
-        case 3: return SelPersonaNameSetA + 5;
-        case 4: return SelPersonaNameSetA + 6;
-        case 5: return SelPersonaNameSetA + 7;
-        case 6: return SelPersonaNameSetA + 8;
-        case 7: return SelPersonaNameSetA + 9;
-        case 8: return SelPersonaNameSetA + 10;
-        case 9: return SelPersonaNameSetA + 11;
-        case 10: return SelPersonaNameSetA + 12;
-        case 11: return SelPersonaNameSetA + 14;
-        case 12: return SelPersonaNameSetA + 15;
-        case 13: return SelPersonaNameSetA + 17;
-        case 14: return SelPersonaNameSetA + 18;
-        case 15: return SelPersonaNameSetA + 19;
-        case 16: return SelPersonaNameSetA + 20;
-        case 17: return SelPersonaNameSetA + 21;
-        case 18: return SelPersonaNameSetA + 22;
-        case 19: return SelPersonaNameSetA + 25;
-        case 20: return SelPersonaNameSetA + 26;
-        case 21: return SelPersonaNameSetA + 27;
-        case 22: return SelPersonaNameSetA + 28;
-        case 23: return SelPersonaNameSetA + 29;
-        case 24: return SelPersonaNameSetA + 30;
+        case 0: return SelPersonaNameSetA;
+        case 1: return SelPersonaNameSetB;
+        case 2: return SelPersonaNameSetC;
+        case 3: return SelPersonaNameSetD;
+        case 4: return SelPersonaNameSetE;
+        case 5: return SelPersonaNameSetF;
+        case 6: return SelPersonaNameSetG;
+        case 7: return SelPersonaNameSetH;
+        case 8: return SelPersonaNameSetI;
+        case 9: return SelPersonaNameSetJ;
+        case 10: return SelPersonaNameSetK;
+        case 11: return SelPersonaNameSetL;
+        case 12: return SelPersonaNameSetM;
+        case 13: return SelPersonaNameSetN;
+        case 14: return SelPersonaNameSetO;
+        case 15: return SelPersonaNameSetP;
+        case 16: return SelPersonaNameSetQ;
+        case 17: return SelPersonaNameSetR;
+        case 18: return SelPersonaNameSetS;
+        case 19: return SelPersonaNameSetT;
+        case 20: return SelPersonaNameSetU;
+        case 21: return SelPersonaNameSetV;
+        case 22: return SelPersonaNameSetW;
+        case 23: return SelPersonaNameSetY;
+        case 24: return SelPersonaNameSetZ;
     }
 
     return -1;
