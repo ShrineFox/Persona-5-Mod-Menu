@@ -6,25 +6,25 @@ int SkillSelectByName()
     if ( firstLetterIndex == -1 )
         return -1;
     
-	int menuIndex = FirstLetterToSkillMenuIndex( firstLetterIndex );
+    int menuIndex = FirstLetterToSkillMenuIndex( firstLetterIndex );
     if ( menuIndex == -1 )
         return -1;
-	
-	int skillIndex = -1;
-	while ( true )
-	{
-		int selIndex = SEL_GENERIC_NOT_HELP( -1, menuIndex );
-		skillIndex = SkillNameSelectionIndexToSkillIndex( menuIndex, selIndex );
-		
-		if ( skillIndex == -2 )
-			--menuIndex;
-		else if ( skillIndex == -3 )
-			++menuIndex;
-		else
-			break;
-	}
-	
-	return skillIndex;
+    
+    int skillIndex = -1;
+    while ( true )
+    {
+        int selIndex = SEL_GENERIC_NOT_HELP( -1, menuIndex );
+        skillIndex = SkillNameSelectionIndexToSkillIndex( menuIndex, selIndex );
+        
+        if ( skillIndex == -2 )
+            --menuIndex;
+        else if ( skillIndex == -3 )
+            ++menuIndex;
+        else
+            break;
+    }
+    
+    return skillIndex;
 }
 
 int FirstLetterToSkillMenuIndex( int menuIndex )
