@@ -840,7 +840,7 @@ void BossSelectMenu()
     FLD_START_BOSS( bossId );
     
     /*
-    int selection = SEL_GENERIC_NOT_HELP( BattleTypeName, BattleTypeMenu );
+    int selection = SEL_GENERIC_NOT_HELP( PalaceName, PalaceMenu );
         
     switch ( selection )
     {
@@ -880,47 +880,83 @@ void BossSelectMenu()
 //Dungeon/Palace Select
 void Palace1()
 {
+    if ( bossId == -1 )
+        return;
     
+    // Start boss fight
+    FLD_START_BOSS( bossId );
 }
 
 void Palace2()
 {
+    if ( bossId == -1 )
+        return;
     
+    // Start boss fight
+    FLD_START_BOSS( bossId );
 }
 
 void Palace3()
 {
+    if ( bossId == -1 )
+        return;
     
+    // Start boss fight
+    FLD_START_BOSS( bossId );
 }
 
 void Palace4()
 {
+    if ( bossId == -1 )
+        return;
     
+    // Start boss fight
+    FLD_START_BOSS( bossId );
 }
 
 void Palace5()
 {
+    if ( bossId == -1 )
+        return;
     
+    // Start boss fight
+    FLD_START_BOSS( bossId );
 }
 
 void Palace6()
 {
+    if ( bossId == -1 )
+        return;
     
+    // Start boss fight
+    FLD_START_BOSS( bossId );
 }
 
 void Palace7()
 {
+    if ( bossId == -1 )
+        return;
     
+    // Start boss fight
+    FLD_START_BOSS( bossId );
 }
 
 void Palace8()
 {
+    if ( bossId == -1 )
+        return;
     
+    // Start boss fight
+    FLD_START_BOSS( bossId );
 }
 
 void Palace0()
 {
+    if ( bossId == -1 )
+        return;
     
+    // Start boss fight
+    FLD_START_BOSS( bossId );
 }
 
 int SelectBoss()
