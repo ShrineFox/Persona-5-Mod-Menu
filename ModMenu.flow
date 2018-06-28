@@ -884,10 +884,10 @@ void Palace1()
         case 2:
             FLD_START_BOSS( 3 );
             break;
-		case 3:
+        case 3:
             FLD_START_BOSS( 10 );
             break;
-		case 4:
+        case 4:
             FLD_START_BOSS( 11 );
             break;
         case 5:
@@ -896,10 +896,10 @@ void Palace1()
         case 6:
             FLD_START_BOSS( 13 );
             break;
-		case 7:
+        case 7:
             FLD_START_BOSS( 20 );
             break;
-		case 8:
+        case 8:
             FLD_START_BOSS( 21 );
             break;
         case 9:
@@ -908,10 +908,10 @@ void Palace1()
         case 10:
             FLD_START_BOSS( 23 );
             break;
-		case 11:
+        case 11:
             FLD_START_BOSS( 30 );
             break;
-		case 12:
+        case 12:
             FLD_START_BOSS( 31 );
             break;
     }
@@ -934,10 +934,10 @@ void Palace2()
         case 2:
             FLD_START_BOSS( 40 );
             break;
-		case 3:
+        case 3:
             FLD_START_BOSS( 41 );
             break;
-		case 4:
+        case 4:
             FLD_START_BOSS( 42 );
             break;
     }
@@ -960,10 +960,10 @@ void Palace3()
         case 2:
             FLD_START_BOSS( 51 );
             break;
-		case 3:
+        case 3:
             FLD_START_BOSS( 52 );
             break;
-		case 4:
+        case 4:
             FLD_START_BOSS( 53 );
             break;
         case 5:
@@ -992,10 +992,10 @@ void Palace4()
         case 2:
             FLD_START_BOSS( 70 );
             break;
-		case 3:
+        case 3:
             FLD_START_BOSS( 71 );
             break;
-		case 4:
+        case 4:
             FLD_START_BOSS( 72 );
             break;
         case 5:
@@ -1021,10 +1021,10 @@ void Palace5()
         case 2:
             FLD_START_BOSS( 82 );
             break;
-		case 3:
+        case 3:
             FLD_START_BOSS( 83 );
             break;
-		case 4:
+        case 4:
             FLD_START_BOSS( 90 );
             break;
         case 5:
@@ -1050,10 +1050,10 @@ void Palace6()
         case 2:
             FLD_START_BOSS( 100 );
             break;
-		case 3:
+        case 3:
             FLD_START_BOSS( 101 );
             break;
-		case 4:
+        case 4:
             FLD_START_BOSS( 102 );
             break;
         case 5:
@@ -1062,10 +1062,10 @@ void Palace6()
         case 6:
             FLD_START_BOSS( 110 );
             break;
-		case 7:
+        case 7:
             FLD_START_BOSS( 111 );
             break;
-		case 8:
+        case 8:
             FLD_START_BOSS( 112 );
             break;
         case 9:
@@ -1094,10 +1094,10 @@ void Palace7()
         case 2:
             FLD_START_BOSS( 123 );
             break;
-		case 3:
+        case 3:
             FLD_START_BOSS( 130 );
             break;
-		case 4:
+        case 4:
             FLD_START_BOSS( 131 );
             break;
         case 5:
@@ -1106,10 +1106,10 @@ void Palace7()
         case 6:
             FLD_START_BOSS( 133 );
             break;
-		case 7:
+        case 7:
             FLD_START_BOSS( 140 );
             break;
-		case 8:
+        case 8:
             FLD_START_BOSS( 141 );
             break;
         case 9:
@@ -1138,10 +1138,10 @@ void Palace8()
         case 2:
             FLD_START_BOSS( 152 );
             break;
-		case 3:
+        case 3:
             FLD_START_BOSS( 153 );
             break;
-		case 4:
+        case 4:
             FLD_START_BOSS( 160 );
             break;
         case 5:
@@ -1150,10 +1150,10 @@ void Palace8()
         case 6:
             FLD_START_BOSS( 162 );
             break;
-		case 7:
+        case 7:
             FLD_START_BOSS( 163 );
             break;
-		case 8:
+        case 8:
             FLD_START_BOSS( 170 );
             break;
         case 9:
@@ -1179,10 +1179,10 @@ void Misc1()
         case 2:
             FLD_START_BOSS( 173 );
             break;
-		case 3:
+        case 3:
             FLD_START_BOSS( 180 );
             break;
-		case 4:
+        case 4:
             FLD_START_BOSS( 181 );
             break;
         case 5:
@@ -1191,10 +1191,10 @@ void Misc1()
         case 6:
             FLD_START_BOSS( 183 );
             break;
-		case 7:
+        case 7:
             FLD_START_BOSS( 190 );
             break;
-		case 8:
+        case 8:
             FLD_START_BOSS( 191 );
             break;
         case 9:
@@ -1203,7 +1203,7 @@ void Misc1()
         case 10:
             FLD_START_BOSS( 193 );
             break;
-		case 11:
+        case 11:
             Misc2() //next
             break;
     }
@@ -1226,10 +1226,10 @@ void Misc2()
         case 2:
             FLD_START_BOSS( 173 );
             break;
-		case 3:
+        case 3:
             FLD_START_BOSS( 180 );
             break;
-		case 4:
+        case 4:
             FLD_START_BOSS( 181 );
             break;
         case 5:
@@ -1238,10 +1238,10 @@ void Misc2()
         case 6:
             FLD_START_BOSS( 183 );
             break;
-		case 7:
+        case 7:
             FLD_START_BOSS( 190 );
             break;
-		case 8:
+        case 8:
             Misc1() //previous
             break;
     }
