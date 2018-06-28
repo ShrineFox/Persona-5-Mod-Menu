@@ -876,7 +876,6 @@ void Palace1()
         case -1:
             return;
         case 0:
-            // Start boss fight
 			FLD_START_BOSS( 1 );
             break;
         case 1:
@@ -927,7 +926,6 @@ void Palace2()
         case -1:
             return;
         case 0:
-            // Start boss fight
 			FLD_START_BOSS( 32 );
             break;
         case 1:
@@ -954,7 +952,6 @@ void Palace3()
         case -1:
             return;
         case 0:
-            // Start boss fight
 			FLD_START_BOSS( 43 );
             break;
         case 1:
@@ -987,7 +984,6 @@ void Palace4()
         case -1:
             return;
         case 0:
-            // Start boss fight
 			FLD_START_BOSS( 62 );
             break;
         case 1:
@@ -1017,7 +1013,6 @@ void Palace5()
         case -1:
             return;
         case 0:
-            // Start boss fight
 			FLD_START_BOSS( 80 );
             break;
         case 1:
@@ -1047,7 +1042,6 @@ void Palace6()
         case -1:
             return;
         case 0:
-            // Start boss fight
 			FLD_START_BOSS( 92 );
             break;
         case 1:
@@ -1092,7 +1086,6 @@ void Palace7()
         case -1:
             return;
         case 0:
-            // Start boss fight
 			FLD_START_BOSS( 121 );
             break;
         case 1:
@@ -1137,7 +1130,6 @@ void Palace8()
         case -1:
             return;
         case 0:
-            // Start boss fight
 			FLD_START_BOSS( 150 );
             break;
         case 1:
@@ -1179,7 +1171,6 @@ void Palace0()
         case -1:
             return;
         case 0:
-            // Start boss fight
 			FLD_START_BOSS( 0 );
             break;
         case 1:
