@@ -830,16 +830,6 @@ void RegularBattle()
 // Boss Select
 void BossSelectMenu()
 {
-    // Select boss
-    int bossId = SelectBoss();
-    
-    if ( bossId == -1 )
-        return;
-    
-    // Start boss fight
-    FLD_START_BOSS( bossId );
-    
-    /*
     int selection = SEL_GENERIC_NOT_HELP( PalaceName, PalaceMenu );
         
     switch ( selection )
@@ -874,7 +864,6 @@ void BossSelectMenu()
             Palace0();
             break;
     }
-    */
 }
 
 //Dungeon/Palace Select
