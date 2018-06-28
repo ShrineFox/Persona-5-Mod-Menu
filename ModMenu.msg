@@ -845,7 +845,7 @@ Depth of Mementos[e]
 Misc[e]
 
 [dlg PalaceName]
-Palace Select[w][e]
+Palace Select[e]
 
 [sel EventBattleSelect]
 Akechi[e]
