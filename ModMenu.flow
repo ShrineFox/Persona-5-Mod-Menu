@@ -835,7 +835,7 @@ void BossSelectMenu()
     switch ( selection )
     {
         case -1:
-            return;
+            break;
         case 0:
             Palace1();
             break;
@@ -861,7 +861,7 @@ void BossSelectMenu()
             Palace8();
             break;
         case 8:
-            Palace0();
+            Misc1();
             break;
     }
 }
@@ -874,7 +874,7 @@ void Palace1()
     switch ( selection )
     {
         case -1:
-            return;
+            break;
         case 0:
             FLD_START_BOSS( 1 );
             break;
@@ -924,7 +924,7 @@ void Palace2()
     switch ( selection )
     {
         case -1:
-            return;
+            break;
         case 0:
             FLD_START_BOSS( 32 );
             break;
@@ -950,7 +950,7 @@ void Palace3()
     switch ( selection )
     {
         case -1:
-            return;
+            break;
         case 0:
             FLD_START_BOSS( 43 );
             break;
@@ -982,7 +982,7 @@ void Palace4()
     switch ( selection )
     {
         case -1:
-            return;
+            break;
         case 0:
             FLD_START_BOSS( 62 );
             break;
@@ -1011,7 +1011,7 @@ void Palace5()
     switch ( selection )
     {
         case -1:
-            return;
+            break;
         case 0:
             FLD_START_BOSS( 80 );
             break;
@@ -1040,7 +1040,7 @@ void Palace6()
     switch ( selection )
     {
         case -1:
-            return;
+            break;
         case 0:
             FLD_START_BOSS( 92 );
             break;
@@ -1084,7 +1084,7 @@ void Palace7()
     switch ( selection )
     {
         case -1:
-            return;
+            break;
         case 0:
             FLD_START_BOSS( 121 );
             break;
@@ -1128,7 +1128,7 @@ void Palace8()
     switch ( selection )
     {
         case -1:
-            return;
+            break;
         case 0:
             FLD_START_BOSS( 150 );
             break;
@@ -1169,7 +1169,7 @@ void Misc1()
     switch ( selection )
     {
         case -1:
-            return;
+            break;
         case 0:
             FLD_START_BOSS( 0 );
             break;
@@ -1216,7 +1216,7 @@ void Misc2()
     switch ( selection )
     {
         case -1:
-            return;
+            break;
         case 0:
             FLD_START_BOSS( 0 );
             break;
