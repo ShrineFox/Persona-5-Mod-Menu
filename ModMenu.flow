@@ -869,7 +869,7 @@ void BossSelectMenu()
 //Dungeon/Palace Select
 void Palace1()
 {
-	int selection = SEL_GENERIC_NOT_HELP( -1, Palace1 );
+    int selection = SEL_GENERIC_NOT_HELP( -1, Palace1 );
         
     switch ( selection )
     {
