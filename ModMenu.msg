@@ -64,7 +64,8 @@ Player Options[w][e]
 [s]Set Team Name[f 4 26 5 21][e]
 [s]Animation Test[f 4 26 6 22][e]
 [s]Set Scale[f 4 26 7 23][e]
-[s]Max Money[f 4 26 8 24][e]
+[s]Attach Item Model[f 4 26 8 196][e]
+[s]Max Money[f 4 26 9 24][e]
 
 [dlg GENERIC_HELP_16]
 [s]Add or remove your Personas, or[n]give you or your party[n]members new Skills.[e]
@@ -88,7 +89,7 @@ Player Options[w][e]
 [s]Select one of the protagonist's[n]Field GAP files and view[n]its animations.[e]
 
 [dlg GENERIC_HELP_23]
-[s]Change the size of the[n]protagonist's model.[e]
+[s]Change the size of the[n]selected model.[e]
 
 [dlg GENERIC_HELP_24]
 [s]Adds 999,999 yen to your wallet.[e]
@@ -278,7 +279,8 @@ Morgana Out of Bag[e]
 Morgana In Bag[e]
 Show Bag[e]
 Hide Bag[e]
-
+Umbrella On[e]
+Umbrella Off[e]
 
 [dlg GAPMenuName]
 GAP Playback[w][e]
@@ -310,8 +312,7 @@ Playback animation[f 4 26 5 81][e]
 [s]Execute the animation playback[n][clr 9]after the above settings[clr 0][n]have been completed.[e]
 
 [dlg ScalePrompt [Scale Model]]
-Set Joker's model scale.[n](press Circle to end)
-[n]Default is 10.[w][e]
+Set the character's model scale.[n](press Circle to end)[n]Default is 10.[w][e]
 
 
 [dlg CameraMenuName]
@@ -323,6 +324,7 @@ Adjust FOV[f 4 26 1 86][e]
 Rotate Camera[f 4 26 2 87][e]
 Unlock Camera[f 4 26 3 88][e]
 Lock Camera[f 4 26 4 89][e]
+Disable Camera Shake[f 4 26 5 195][e]
 
 [dlg GENERIC_HELP_85]
 [s]Move the camera along the X, Y[n]or Z axis. Hold Square to change[n]the axis.[e]
@@ -396,6 +398,9 @@ NPC Options[w][e]
 [sel SpawnMenu]
 Spawn Model[f 4 26 0 104][e]
 Animate Model[f 4 26 1 105][e]
+Set Model Scale[f 4 26 2 23][e]
+Attach Item Model[f 4 26 3 196][e]
+Spawn Object Model[f 4 26 4 197][e]
 
 [dlg GENERIC_HELP_104]
 [s]Input a [clr 9]GMD filename[clr 0][n]to spawn a character model from.[e]
@@ -517,7 +522,7 @@ Change Romance Route[f 4 26 5 136][e]
 Room Editor[f 4 26 6 137][e]
 Manual Input[f 4 26 7 138][e]
 Print Enabled Flags[f 4 26 8 139][e]
-Mass Flag Editor[f 4 26 9 138][e]
+Mass Flag Editor[f 4 26 9 197][e]
 
 [dlg GENERIC_HELP_131]
 [s]Show or hide the user interface[n]elements, such as the date, time,[n]and mission list.[e]
@@ -841,7 +846,7 @@ Pyramid[e]
 Space Station[e]
 Casino[e]
 Cruise Ship[e]
-Depth of Mementos[e]
+Mementos Depths[e]
 Misc[e]
 
 [dlg PalaceName]
@@ -880,3 +885,30 @@ Add Persona (Manual Input)[e]
 
 [dlg BagShowHide]
 The bag has been toggled.[n]To see the change, go to a new field[n]or reload the current one.[w][e]
+
+[dlg GENERIC_HELP_195]
+Removes the swaying effect[n]of the camera that's[n]used in dungeons.[w][e]
+
+[dlg GENERIC_HELP_196]
+Select an item's model ID to[n]spawn it and connect it to[n]the character's model.[w][e]
+
+[dlg GENERIC_HELP_197]
+Select a range of flags[n]to either enable or disable.[w][e]
+
+[dlg ItemSpawnPrompt]
+Enter the first half of the model's[n]ID from data.cpk/model/item.[n](Max 4 digits, press Circle to end).[w][e]
+
+[dlg ItemSpawnPrompt2]
+Enter the last half of the model's[n]ID from data.cpk/model/item.[n](Max 3 digits, press Circle to end).[w][e]
+
+[dlg ObjectSpawnPrompt]
+Enter the first half of the[n]model's ID from data.cpk/model/field_tex/object.[n](Max 3 digits, press Circle to end).[w][e]
+
+[dlg ObjectSpawnPrompt2]
+Enter the last half of the[n]model's ID from data.cpk/model/field_tex/object.[n](Max 3 digits, press Circle to end).[w][e]
+
+[dlg FlagRangePrompt]
+Enter the start of the[n]range to narrow down.[n](Max 4 digits, press Circle to end).[w][e]
+
+[dlg FlagRangePrompt2]
+Enter the end of the[n]range to narrow down.[n](Max 4 digits, press Circle to end).[w][e]
