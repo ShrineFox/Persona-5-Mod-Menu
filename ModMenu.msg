@@ -80,10 +80,10 @@ Player Options[w][e]
 [s]Select a Confidant and set your[n]current rank with their Arcana.[e]
 
 [dlg GENERIC_HELP_20]
-[s]Rename the protagonist at any[n]point in the game.[n][clr 9]WARNING: CRASHES ON REAL PS3![clr 0][e]
+[s]Rename the protagonist at any[n]point in the game.[n][e]
 
 [dlg GENERIC_HELP_21]
-[s]Change the group name of the[n]Phantom Thieves at any[n]point in the game.[n][clr 9]WARNING: CRASHES ON REAL PS3![clr 0][e]
+[s]Change the group name of the[n]Phantom Thieves at any[n]point in the game.[n][e]
 
 [dlg GENERIC_HELP_22]
 [s]Select one of the protagonist's[n]Field GAP files and view[n]its animations.[e]

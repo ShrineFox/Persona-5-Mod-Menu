@@ -99,10 +99,14 @@ void PlayerEditorDisplay()
                 CommuSetRankSelect();
                 break;
             case 4: // Set Protag Name
+                INIT_IME_DRIVER();
                 CALL_NAME_ENTRY();
+                END_IME_DRIVER();
                 break;
             case 5: // Set Team Name
+                INIT_IME_DRIVER();
                 CALL_PHANTOM_NAME_ENTRY();
+                END_IME_DRIVER();
                 break;
             case 6:
                 PlayerAnimViewerDisplay();
