@@ -7,16 +7,20 @@ set OUTPUT_PATH=%BUILD_PATH%\output
 if not exist %BUILD_PATH% mkdir %BUILD_PATH%
 if not exist %INPUT_PATH% mkdir %INPUT_PATH%
 if not exist %OUTPUT_PATH% mkdir %OUTPUT_PATH%
+if not exist %OUTPUT_PATH%\camp\shared mkdir %OUTPUT_PATH%\camp\shared
+if not exist %OUTPUT_PATH%\field mkdir %OUTPUT_PATH%\field
+if not exist %OUTPUT_PATH%\script\field mkdir %OUTPUT_PATH%\script\field
 
-%COMPILER% .\field\field.bf.flow     -Compile -OutFormat V3BE -Library P5 -Encoding P5 -Out "%OUTPUT_PATH%\field.bf"
-%COMPILER% .\dungeon\dungeon.bf.flow -Compile -OutFormat V3BE -Library P5 -Encoding P5 -Out "%OUTPUT_PATH%\dungeon.bf"
-%COMPILER% .\mementos\at_dng.bf.flow -Compile -OutFormat V3BE -Library P5 -Encoding P5 -Out "%OUTPUT_PATH%\at_dng.bf"
-%COMPILER% .\introduction\fscr0150_002_100.bf.flow -Compile -OutFormat V3BE -Library P5 -Encoding P5 -Out "%OUTPUT_PATH%\fscr0150_002_100.bf"
+copy .\camp\shared\sharedUI.spd "%OUTPUT_PATH%\camp\shared\sharedUI.spd"
+%COMPILER% .\field\field.bf.flow     -Compile -OutFormat V3BE -Library P5 -Encoding P5 -Out "%OUTPUT_PATH%\field\field.bf"
+%COMPILER% .\dungeon\dungeon.bf.flow -Compile -OutFormat V3BE -Library P5 -Encoding P5 -Out "%OUTPUT_PATH%\field\dungeon.bf"
+%COMPILER% .\mementos\at_dng.bf.flow -Compile -OutFormat V3BE -Library P5 -Encoding P5 -Out "%OUTPUT_PATH%\field\at_dng.bf"
+%COMPILER% .\introduction\fscr0150_002_100.bf.flow -Compile -OutFormat V3BE -Library P5 -Encoding P5 -Out "%OUTPUT_PATH%\script\field\fscr0150_002_100.bf"
 
-%PAKPACK% replace "%INPUT_PATH%\fldPack.pac"   etc/field.bf   "%OUTPUT_PATH%\field.bf"   "%OUTPUT_PATH%\fldPack.pac"
-%PAKPACK% replace "%INPUT_PATH%\dngPack.pac"   etc/dungeon.bf "%OUTPUT_PATH%\dungeon.bf" "%OUTPUT_PATH%\dngPack.pac"
-%PAKPACK% replace "%INPUT_PATH%\atDngPack.pac" etc/at_dng.bf  "%OUTPUT_PATH%\at_dng.bf"  "%OUTPUT_PATH%\atDngPack.pac"
+%PAKPACK% replace "%INPUT_PATH%\fldPack.pac"   etc/field.bf   "%OUTPUT_PATH%\field\field.bf"   "%OUTPUT_PATH%\field\fldPack.pac"
+%PAKPACK% replace "%INPUT_PATH%\dngPack.pac"   etc/dungeon.bf "%OUTPUT_PATH%\field\dungeon.bf" "%OUTPUT_PATH%\field\dngPack.pac"
+%PAKPACK% replace "%INPUT_PATH%\atDngPack.pac" etc/at_dng.bf  "%OUTPUT_PATH%\field\at_dng.bf"  "%OUTPUT_PATH%\field\atDngPack.pac"
 
-del "%OUTPUT_PATH%\field.bf"
-del "%OUTPUT_PATH%\dungeon.bf"
-del "%OUTPUT_PATH%\at_dng.bf"
+del "%OUTPUT_PATH%\field\field.bf"
+del "%OUTPUT_PATH%\field\dungeon.bf"
+del "%OUTPUT_PATH%\field\at_dng.bf"
