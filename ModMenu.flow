@@ -1274,7 +1274,7 @@ void Misc1()
             FLD_START_BOSS( 193 );
             break;
         case 11:
-            Misc2() //next
+            Misc2(); //next
             break;
     }
 }
@@ -1312,7 +1312,7 @@ void Misc2()
             FLD_START_BOSS( 190 );
             break;
         case 8:
-            Misc1() //previous
+            Misc1(); //previous
             break;
     }
 }
