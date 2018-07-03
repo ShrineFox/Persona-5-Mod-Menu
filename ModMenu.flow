@@ -99,10 +99,14 @@ void PlayerEditorDisplay()
                 CommuSetRankSelect();
                 break;
             case 4: // Set Protag Name
+                INIT_IME_DRIVER();
                 CALL_NAME_ENTRY();
+                END_IME_DRIVER();
                 break;
             case 5: // Set Team Name
+                INIT_IME_DRIVER();
                 CALL_PHANTOM_NAME_ENTRY();
+                END_IME_DRIVER();
                 break;
             case 6:
                 PlayerAnimViewerDisplay();
@@ -110,7 +114,10 @@ void PlayerEditorDisplay()
             case 7:
                 PlayerSelectModelScale();
                 break;
-            case 8: 
+            case 8:
+                PlayerAttachItemModel(FLD_PC_GET_RESHND(0));
+                break;
+            case 9: 
                 PlayerSetMaxMoney();
                 break;
         }
@@ -393,6 +400,12 @@ void PlayerAnimViewerDisplay()
                 BIT_ON( 4112 );
                 DisplayMessagePrompt( BagShowHide );
                 break;
+            case 5: // Umbrella On
+                FLD_BAG_ANIM_DISABLE();
+                FLD_UMBRELLA_ANIM_CHANGE( 1 );
+            case 6: // Umbrella Off
+                FLD_BAG_ANIM_DISABLE();
+                FLD_UMBRELLA_ANIM_CHANGE( 0 );
         }
     }
 }
@@ -483,6 +496,18 @@ void PlayerSelectModelScale()
     }
 }
 
+void PlayerAttachItemModel(int resHandle)
+{
+    int itemModelMajor = SelectNumberPrompt( ItemSpawnPrompt, 4 );
+    int itemModelMinor = SelectNumberPrompt( ItemSpawnPrompt2, 3 );
+    //FLD_PC_MODEL_ATTACH_ITEM( resHandle, itemModelMajor, itemModelMinor );
+    int itemModel = FLD_ITEM_MODEL_LOAD( itemModelMajor, itemModelMinor );
+    FLD_MODEL_LOADSYNC( itemModel );
+    FLD_MODEL_SET_VISIBLE( itemModel, 1, 0 );
+    FLD_MODEL_ATTACH_TRANSLATE( itemModel, resHandle, 101 );
+    FLD_MODEL_ATTACH_ROTATE( itemModel, resHandle, 101 );
+}
+
 // Camera Editor
 void CameraEditorDisplay()
 {
@@ -508,6 +533,9 @@ void CameraEditorDisplay()
                 break;
             case 4:
                 CameraLock();
+                break;
+            case 5:
+                CAMERA_SHAKE_STOP();
                 break;
         }
     }
@@ -711,6 +739,15 @@ void NpcControlMenuDisplay()
             case 1: // Animate Model
                 NpcAnimViewerDisplay( gLastSpawnedNpcModelHandle );
                 break;
+            case 2: // Scale Model
+                NpcScale();
+                break;
+            case 3: // Attach Item Model
+                PlayerAttachItemModel(gLastSpawnedNpcModelHandle);
+                break;
+            case 4: // Spawn Object
+                NpcSpawnObjectModel(FLD_PC_GET_RESHND(0));
+                break;
         }
     }
 }
@@ -792,6 +829,39 @@ void NpcModelAnimSelectIndex()
     int temp = SelectNumberPrompt( GapPrompt2, 2 );
     if ( temp != -1 )
         gNpcAnimGapIndex = temp;
+}
+
+void NpcScale()
+{
+    float temp = SelectFloatPrompt( ScalePrompt );
+    if ( temp != -1 )
+    {
+        float modelScale = temp / 10;
+        FLD_MODEL_SET_SCALE( gLastSpawnedNpcModelHandle, modelScale );
+    }
+}
+
+void NpcSpawnObjectModel( int resHandle )
+{
+    float x = FLD_MODEL_GET_X_TRANSLATE( resHandle );
+    float y = FLD_MODEL_GET_Y_TRANSLATE( resHandle );
+    float z = FLD_MODEL_GET_Z_TRANSLATE( resHandle );
+    float xr = FLD_MODEL_GET_X_ROTATE( resHandle );
+    float yr = FLD_MODEL_GET_Y_ROTATE( resHandle );
+    float zr = FLD_MODEL_GET_Z_ROTATE( resHandle );
+    
+    int itemModelMajor = SelectNumberPrompt( ObjectSpawnPrompt, 3 );
+    int itemModelMinor = SelectNumberPrompt( ObjectSpawnPrompt2, 3 );
+    
+    int objectModel = FLD_OBJ_MODEL_LOAD( itemModelMajor, itemModelMinor );
+    FLD_MODEL_LOADSYNC( objectModel );
+    //FLD_OBJ_MODEL_LINKBG( objectModel );
+    
+    FLD_MODEL_SET_TRANSLATE( objectModel, x, y, z, 0 );
+    FLD_MODEL_SET_ROTATE( objectModel, xr, yr, zr, 0 );
+    FLD_MODEL_SYNC_TRANSLATE( objectModel );
+    FLD_MODEL_SYNC_ROTATE( objectModel );
+    FLD_MODEL_SET_VISIBLE( objectModel, 1, 0 );
 }
 
 // Battle
@@ -1247,47 +1317,6 @@ void Misc2()
     }
 }
 
-int SelectBoss()
-{
-    int i = 0;
-    while ( true )
-    {
-        // Print which menu index we're on
-        PUTS( "SelectBoss menu index:" );
-        PUT( i );
-        
-        int selection = SEL_GENERIC_NOT_HELP( -1, i + SelectBoss );
-        
-        PUTS( "SelectBoss choice:" );
-        PUT( selection );
-        
-        if ( selection == -1 )
-            return -1;
-        
-        if ( selection < 4 )
-        {
-            return selection + ( i * 4 ); 
-        }
-        else if ( selection == 4 ) // previous
-        {
-            if ( i > 0 )
-                i--;
-            else
-                i = 21;
-        }
-        else if ( selection == 5 ) // next
-        {
-            if ( i < 21 )
-                i++;
-            else
-                i = 0;
-        }
-        
-    }
-    
-    return -1;
-}
-
 void EventBattle()
 {
     while ( true )
@@ -1700,7 +1729,9 @@ void PrintEnabledBits() {
 }
 
 void ToggleRange() {
+    DisplayMessagePrompt( FlagRangePrompt );
     int range1 =  SelectNumber( 4 );
+    DisplayMessagePrompt( FlagRangePrompt2 );
     int range2 = SelectNumber( 4 );
     
     int onOff = SEL_GENERIC_NOT_HELP( -1, SelectOnOff );
