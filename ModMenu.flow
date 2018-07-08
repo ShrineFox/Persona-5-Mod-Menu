@@ -955,34 +955,34 @@ void Palace1()
             FLD_START_BOSS( 3 );
             break;
         case 3:
-            FLD_START_BOSS( 10 );
+            FLD_START_BOSS( 4 );
             break;
         case 4:
-            FLD_START_BOSS( 11 );
+            FLD_START_BOSS( 5 );
             break;
         case 5:
-            FLD_START_BOSS( 12 );
+            FLD_START_BOSS( 6 );
             break;
         case 6:
-            FLD_START_BOSS( 13 );
+            FLD_START_BOSS( 7 );
             break;
         case 7:
-            FLD_START_BOSS( 20 );
+            FLD_START_BOSS( 8 );
             break;
         case 8:
-            FLD_START_BOSS( 21 );
+            FLD_START_BOSS( 9 );
             break;
         case 9:
-            FLD_START_BOSS( 22 );
+            FLD_START_BOSS( 10 );
             break;
         case 10:
-            FLD_START_BOSS( 23 );
+            FLD_START_BOSS( 11 );
             break;
         case 11:
-            FLD_START_BOSS( 30 );
+            FLD_START_BOSS( 12 );
             break;
         case 12:
-            FLD_START_BOSS( 31 );
+            FLD_START_BOSS( 13 );
             break;
     }
 }
@@ -996,19 +996,19 @@ void Palace2()
         case -1:
             break;
         case 0:
-            FLD_START_BOSS( 32 );
+            FLD_START_BOSS( 14 );
             break;
         case 1:
-            FLD_START_BOSS( 33 );
+            FLD_START_BOSS( 15 );
             break;
         case 2:
-            FLD_START_BOSS( 40 );
+            FLD_START_BOSS( 16 );
             break;
         case 3:
-            FLD_START_BOSS( 41 );
+            FLD_START_BOSS( 17 );
             break;
         case 4:
-            FLD_START_BOSS( 42 );
+            FLD_START_BOSS( 18 );
             break;
     }
 }
@@ -1022,7 +1022,141 @@ void Palace3()
         case -1:
             break;
         case 0:
+            FLD_START_BOSS( 19 );
+            break;
+        case 1:
+            FLD_START_BOSS( 20 );
+            break;
+        case 2:
+            FLD_START_BOSS( 21 );
+            break;
+        case 3:
+            FLD_START_BOSS( 22 );
+            break;
+        case 4:
+            FLD_START_BOSS( 23 );
+            break;
+        case 5:
+            FLD_START_BOSS( 24 );
+            break;
+        case 6:
+            FLD_START_BOSS( 25 );
+            break;
+    }
+}
+
+void Palace4()
+{
+    int selection = SEL_GENERIC_NOT_HELP( -1, Palace4 );
+        
+    switch ( selection )
+    {
+        case -1:
+            break;
+        case 0:
+            FLD_START_BOSS( 26 );
+            break;
+        case 1:
+            FLD_START_BOSS( 27 );
+            break;
+        case 2:
+            FLD_START_BOSS( 28 );
+            break;
+        case 3:
+            FLD_START_BOSS( 29 );
+            break;
+        case 4:
+            FLD_START_BOSS( 30 );
+            break;
+        case 5:
+            FLD_START_BOSS( 31 );
+            break;
+    }
+}
+
+void Palace5()
+{
+    int selection = SEL_GENERIC_NOT_HELP( -1, Palace5 );
+        
+    switch ( selection )
+    {
+        case -1:
+            break;
+        case 0:
+            FLD_START_BOSS( 32 );
+            break;
+        case 1:
+            FLD_START_BOSS( 33 );
+            break;
+        case 2:
+            FLD_START_BOSS( 34 );
+            break;
+        case 3:
+            FLD_START_BOSS( 35 );
+            break;
+        case 4:
+            FLD_START_BOSS( 36 );
+            break;
+        case 5:
+            FLD_START_BOSS( 37 );
+            break;
+    }
+}
+
+void Palace6()
+{
+    int selection = SEL_GENERIC_NOT_HELP( -1, Palace6 );
+        
+    switch ( selection )
+    {
+        case -1:
+            break;
+        case 0:
+            FLD_START_BOSS( 38 );
+            break;
+        case 1:
+            FLD_START_BOSS( 39 );
+            break;
+        case 2:
+            FLD_START_BOSS( 40 );
+            break;
+        case 3:
+            FLD_START_BOSS( 41 );
+            break;
+        case 4:
+            FLD_START_BOSS( 42 );
+            break;
+        case 5:
             FLD_START_BOSS( 43 );
+            break;
+        case 6:
+            FLD_START_BOSS( 44 );
+            break;
+        case 7:
+            FLD_START_BOSS( 45 );
+            break;
+        case 8:
+            FLD_START_BOSS( 46 );
+            break;
+        case 9:
+            FLD_START_BOSS( 47 );
+            break;
+        case 10:
+            FLD_START_BOSS( 48 );
+            break;
+    }
+}
+
+void Palace7()
+{
+    int selection = SEL_GENERIC_NOT_HELP( -1, Palace7 );
+        
+    switch ( selection )
+    {
+        case -1:
+            break;
+        case 0:
+            FLD_START_BOSS( 49 );
             break;
         case 1:
             FLD_START_BOSS( 50 );
@@ -1037,46 +1171,117 @@ void Palace3()
             FLD_START_BOSS( 53 );
             break;
         case 5:
-            FLD_START_BOSS( 60 );
+            FLD_START_BOSS( 54 );
             break;
         case 6:
-            FLD_START_BOSS( 61 );
+            FLD_START_BOSS( 55 );
+            break;
+        case 7:
+            FLD_START_BOSS( 56 );
+            break;
+        case 8:
+            FLD_START_BOSS( 57 );
+            break;
+        case 9:
+            FLD_START_BOSS( 58 );
+            break;
+        case 10:
+            FLD_START_BOSS( 59 );
             break;
     }
 }
 
-void Palace4()
+void Palace8()
 {
-    int selection = SEL_GENERIC_NOT_HELP( -1, Palace4 );
+    int selection = SEL_GENERIC_NOT_HELP( -1, Palace8 );
         
     switch ( selection )
     {
         case -1:
             break;
         case 0:
-            FLD_START_BOSS( 62 );
+            FLD_START_BOSS( 60 );
             break;
         case 1:
-            FLD_START_BOSS( 63 );
+            FLD_START_BOSS( 61 );
             break;
         case 2:
-            FLD_START_BOSS( 70 );
+            FLD_START_BOSS( 62 );
             break;
         case 3:
-            FLD_START_BOSS( 71 );
+            FLD_START_BOSS( 63 );
             break;
         case 4:
-            FLD_START_BOSS( 72 );
+            FLD_START_BOSS( 64 );
             break;
         case 5:
-            FLD_START_BOSS( 73 );
+            FLD_START_BOSS( 65 );
+            break;
+        case 6:
+            FLD_START_BOSS( 66 );
+            break;
+        case 7:
+            FLD_START_BOSS( 67 );
+            break;
+        case 8:
+            FLD_START_BOSS( 68 );
+            break;
+        case 9:
+            FLD_START_BOSS( 69 );
             break;
     }
 }
 
-void Palace5()
+void Misc1()
 {
-    int selection = SEL_GENERIC_NOT_HELP( -1, Palace5 );
+    int selection = SEL_GENERIC_NOT_HELP( -1, Misc1 );
+        
+    switch ( selection )
+    {
+        case -1:
+            break;
+        case 0:
+            FLD_START_BOSS( 0 );
+            break;
+        case 1:
+            FLD_START_BOSS( 70 );
+            break;
+        case 2:
+            FLD_START_BOSS( 71 );
+            break;
+        case 3:
+            FLD_START_BOSS( 72 );
+            break;
+        case 4:
+            FLD_START_BOSS( 73 );
+            break;
+        case 5:
+            FLD_START_BOSS( 74 );
+            break;
+        case 6:
+            FLD_START_BOSS( 75 );
+            break;
+        case 7:
+            FLD_START_BOSS( 76 );
+            break;
+        case 8:
+            FLD_START_BOSS( 77 );
+            break;
+        case 9:
+            FLD_START_BOSS( 78 );
+            break;
+        case 10:
+            FLD_START_BOSS( 79 );
+            break;
+        case 11:
+            Misc2() //next
+            break;
+    }
+}
+
+void Misc2()
+{
+    int selection = SEL_GENERIC_NOT_HELP( -1, Misc2 );
         
     switch ( selection )
     {
@@ -1095,221 +1300,16 @@ void Palace5()
             FLD_START_BOSS( 83 );
             break;
         case 4:
-            FLD_START_BOSS( 90 );
+            FLD_START_BOSS( 84 );
             break;
         case 5:
-            FLD_START_BOSS( 91 );
-            break;
-    }
-}
-
-void Palace6()
-{
-    int selection = SEL_GENERIC_NOT_HELP( -1, Palace6 );
-        
-    switch ( selection )
-    {
-        case -1:
-            break;
-        case 0:
-            FLD_START_BOSS( 92 );
-            break;
-        case 1:
-            FLD_START_BOSS( 93 );
-            break;
-        case 2:
-            FLD_START_BOSS( 100 );
-            break;
-        case 3:
-            FLD_START_BOSS( 101 );
-            break;
-        case 4:
-            FLD_START_BOSS( 102 );
-            break;
-        case 5:
-            FLD_START_BOSS( 103 );
+            FLD_START_BOSS( 85 );
             break;
         case 6:
-            FLD_START_BOSS( 110 );
+            FLD_START_BOSS( 86 );
             break;
         case 7:
-            FLD_START_BOSS( 111 );
-            break;
-        case 8:
-            FLD_START_BOSS( 112 );
-            break;
-        case 9:
-            FLD_START_BOSS( 113 );
-            break;
-        case 10:
-            FLD_START_BOSS( 120 );
-            break;
-    }
-}
-
-void Palace7()
-{
-    int selection = SEL_GENERIC_NOT_HELP( -1, Palace7 );
-        
-    switch ( selection )
-    {
-        case -1:
-            break;
-        case 0:
-            FLD_START_BOSS( 121 );
-            break;
-        case 1:
-            FLD_START_BOSS( 122 );
-            break;
-        case 2:
-            FLD_START_BOSS( 123 );
-            break;
-        case 3:
-            FLD_START_BOSS( 130 );
-            break;
-        case 4:
-            FLD_START_BOSS( 131 );
-            break;
-        case 5:
-            FLD_START_BOSS( 132 );
-            break;
-        case 6:
-            FLD_START_BOSS( 133 );
-            break;
-        case 7:
-            FLD_START_BOSS( 140 );
-            break;
-        case 8:
-            FLD_START_BOSS( 141 );
-            break;
-        case 9:
-            FLD_START_BOSS( 142 );
-            break;
-        case 10:
-            FLD_START_BOSS( 143 );
-            break;
-    }
-}
-
-void Palace8()
-{
-    int selection = SEL_GENERIC_NOT_HELP( -1, Palace8 );
-        
-    switch ( selection )
-    {
-        case -1:
-            break;
-        case 0:
-            FLD_START_BOSS( 150 );
-            break;
-        case 1:
-            FLD_START_BOSS( 151 );
-            break;
-        case 2:
-            FLD_START_BOSS( 152 );
-            break;
-        case 3:
-            FLD_START_BOSS( 153 );
-            break;
-        case 4:
-            FLD_START_BOSS( 160 );
-            break;
-        case 5:
-            FLD_START_BOSS( 161 );
-            break;
-        case 6:
-            FLD_START_BOSS( 162 );
-            break;
-        case 7:
-            FLD_START_BOSS( 163 );
-            break;
-        case 8:
-            FLD_START_BOSS( 170 );
-            break;
-        case 9:
-            FLD_START_BOSS( 171 );
-            break;
-    }
-}
-
-void Misc1()
-{
-    int selection = SEL_GENERIC_NOT_HELP( -1, Misc1 );
-        
-    switch ( selection )
-    {
-        case -1:
-            break;
-        case 0:
-            FLD_START_BOSS( 0 );
-            break;
-        case 1:
-            FLD_START_BOSS( 172 );
-            break;
-        case 2:
-            FLD_START_BOSS( 173 );
-            break;
-        case 3:
-            FLD_START_BOSS( 180 );
-            break;
-        case 4:
-            FLD_START_BOSS( 181 );
-            break;
-        case 5:
-            FLD_START_BOSS( 182 );
-            break;
-        case 6:
-            FLD_START_BOSS( 183 );
-            break;
-        case 7:
-            FLD_START_BOSS( 190 );
-            break;
-        case 8:
-            FLD_START_BOSS( 191 );
-            break;
-        case 9:
-            FLD_START_BOSS( 192 );
-            break;
-        case 10:
-            FLD_START_BOSS( 193 );
-            break;
-        case 11:
-            Misc2() //next
-            break;
-    }
-}
-
-void Misc2()
-{
-    int selection = SEL_GENERIC_NOT_HELP( -1, Misc2 );
-        
-    switch ( selection )
-    {
-        case -1:
-            break;
-        case 0:
-            FLD_START_BOSS( 0 );
-            break;
-        case 1:
-            FLD_START_BOSS( 172 );
-            break;
-        case 2:
-            FLD_START_BOSS( 173 );
-            break;
-        case 3:
-            FLD_START_BOSS( 180 );
-            break;
-        case 4:
-            FLD_START_BOSS( 181 );
-            break;
-        case 5:
-            FLD_START_BOSS( 182 );
-            break;
-        case 6:
-            FLD_START_BOSS( 183 );
-            break;
-        case 7:
-            FLD_START_BOSS( 190 );
+            FLD_START_BOSS( 87 );
             break;
         case 8:
             Misc1() //previous
