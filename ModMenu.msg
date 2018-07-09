@@ -415,6 +415,7 @@ Persona Options[w][e]
 Add Persona[f 4 26 0 108][e]
 Delete Personas[f 4 26 1 109][e]
 Add Skill[f 4 26 2 110][e]
+Unlock Full Compendium[f 4 26 3 204][e]
 
 [dlg GENERIC_HELP_108]
 [s]Input a Persona's name or ID[n]to add it to your stock.[e]
@@ -912,3 +913,6 @@ Enter the start of the[n]range to narrow down.[n](Max 4 digits, press Circle to 
 
 [dlg FlagRangePrompt2]
 Enter the end of the[n]range to narrow down.[n](Max 4 digits, press Circle to end).[w][e]
+
+[dlg GENERIC_HELP_204]
+Unlocks all Personas in the[n]Compendium. [clr 9]This will delete all[n]Personas in your current stock![clr 0][w][e]
