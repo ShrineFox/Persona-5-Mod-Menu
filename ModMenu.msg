@@ -598,7 +598,7 @@ Makoto[e]
 Haru[e]
 Ann[e]
 Futaba[e]
-Chihiya[e]
+Chihaya[e]
 Takemi[e]
 Kawakami[e]
 Ohya[e]
@@ -611,7 +611,7 @@ Created by [clr 1]TGE[clr 0], [clr 6]ShrineFox[clr 0] and [clr 15]CaptainSwag101
 
 [sel RoomEdit]
 Furniture[e]
-Collectables[e]
+Collectibles[e]
 Cleanliness[e]
 
 [sel FurnEdit]
