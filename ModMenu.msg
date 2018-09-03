@@ -607,7 +607,7 @@ Hifumi[e]
 [dlg AboutDlg[About this menu]]
 Created by [clr 1]TGE[clr 0], [clr 6]ShrineFox[clr 0] and [clr 15]CaptainSwag101[clr 0]
 [n]using TGE's [clr 9]AtlusScriptCompiler[clr 0] tool. Visit
-[n]https://shrinefox.github.io to learn more![w][e]
+[n]https://amicitia.github.io to learn more![w][e]
 
 [sel RoomEdit]
 Furniture[e]
