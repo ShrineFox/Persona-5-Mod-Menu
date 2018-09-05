@@ -143,9 +143,9 @@ void PersonaEditorOpen()
             case 2:
                 PersonaAddSkillMenuOpen();
                 break;
-			case 3:
-				PersonaAddAllToCompendium();
-				break;
+            case 3:
+                PersonaAddAllToCompendium();
+                break;
         }
     }
 }
@@ -250,10 +250,14 @@ void PersonaAddSkillSelect( bool useNumberInput )
 
 void PersonaAddAllToCompendium() 
 {
-	for (int i = 0; i < 463; i++) {
-		ADD_PERSONA_STOCK( i );
-		CLEAR_PERSONA_STOCK();
-	}
+    for ( int i = 0; i < 463; i++ )
+    {
+        if ( i % 6 == 0 )
+            CLEAR_PERSONA_STOCK();
+
+        ADD_PERSONA_STOCK( i );
+    }
+    CLEAR_PERSONA_STOCK();
 }
 
 // Stat Editor
