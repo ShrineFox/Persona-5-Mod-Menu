@@ -1734,26 +1734,27 @@ void FlagMassEditor() {
 }
 
 void DisableAllBits() {
-    for ( int i = 0; i < 8960; i++ ) {
-        if (i != 320) 
-		{ 
-			BIT_OFF( i ); 
-		}
+    for ( int i = 0; i < 8960; i++ ) 
+	{
+		BIT_OFF( i ); 
     }
 }
 
 void EnableAllBits() {
     for ( int i = 0; i < 8960; i++ ) {
-        BIT_ON( i );
+        if (i != 320) 
+		{ 
+			BIT_ON( i ); 
+		}
     }
 }
 
 void ToggleAllBits() {
     for ( int i = 0; i < 8960; i++ ) {
-        if (BIT_CHK(i) && i != 320) {
+        if (BIT_CHK(i)) {
             BIT_OFF(i);
         }
-        else {
+        else if (i != 320) {
             BIT_ON(i);
         }
     }
@@ -1761,7 +1762,8 @@ void ToggleAllBits() {
 
 void PrintEnabledBits() {
     for ( int i = 0; i < 8960; i++ ) {
-        if (BIT_CHK(i)) {
+        if (BIT_CHK(i)) 
+		{
             PUT(i);
         }
     }
@@ -1782,16 +1784,16 @@ void ToggleRange() {
         case 0: // On
             for ( int i = range1; i < range2; i++ ) 
             {
-                BIT_ON( i );
+				if (i != 320) 
+				{
+					BIT_ON( i );
+				}
             }
             break;
         case 1: // Off
             for ( int i = range1; i < range2; i++ ) 
             {
-				if (i != 320) 
-				{
-					BIT_OFF( i );
-				}
+				BIT_OFF( i );
             }
             break;
     }
