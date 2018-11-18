@@ -29,7 +29,8 @@ void fld_square_menu_hook()
 {
     ALL_ENABLE_SHARE_PLAY(); //Re-enables screen recording
     BIT_OFF( 4099 ); //Removes your "tired" status
-    
+    PrintPosition(); //Logs your current coordinates
+	
     while ( true )
     {
         int selection = SEL_GENERIC( -1, ModMenu );
@@ -75,6 +76,17 @@ void fld_square_menu_hook()
                 break;
         }
     }
+}
+
+void PrintPosition()
+{
+	int pcHandle = FLD_PC_GET_RESHND( 0 );
+	PUTS( "X:" );
+	PUT( FLD_MODEL_GET_X_TRANSLATE( pcHandle ) );
+	PUTS( "Y:" );
+	PUT( FLD_MODEL_GET_Y_TRANSLATE( pcHandle ) );
+	PUTS( "Z:" );
+	PUT( FLD_MODEL_GET_Z_TRANSLATE( pcHandle ) );
 }
 
 // Player Editor
@@ -751,6 +763,7 @@ void NpcControlMenuDisplay()
                 return;
             case 0: // Spawn Model
                 NpcSpawnSelect();
+				PrintPosition();
                 break;
             case 1: // Animate Model
                 NpcAnimViewerDisplay( gLastSpawnedNpcModelHandle );
@@ -763,6 +776,7 @@ void NpcControlMenuDisplay()
                 break;
             case 4: // Spawn Object
                 NpcSpawnObjectModel(FLD_PC_GET_RESHND(0));
+				PrintPosition();
                 break;
         }
     }
@@ -1479,6 +1493,9 @@ void FieldSelect()
                 else
                     CALL_FIELD( gFieldMajor, gFieldMinor, 0, 0 );
                 return;
+			case 2:
+				CALL_FIELD( FLD_GET_PREV_MAJOR(), FLD_GET_PREV_MINOR(), 0, 0 );
+				return;
         }
     }
     
@@ -1666,22 +1683,25 @@ void FlagsEditorDisplay()
             case 3:
                 EnablePartyEditing();
                 break;
-            case 4:
+			case 4:
+				SelectFollowers();
+				break;
+            case 5:
                 SelectNavigator();
                 break;
-            case 5:
+            case 6:
                 SelectRomanceFlags();
                 break;
-            case 6:
+            case 7:
                 RoomEditorDisplay();
                 break;
-            case 7: // Manual Input
+            case 8: // Manual Input
                 SelectBitToggle();
                 break;
-            case 8:
+            case 9:
                 PrintEnabledBits();
                 break;
-            case 9:
+            case 10:
                 FlagMassEditor();
                 break;
         }
@@ -1715,7 +1735,10 @@ void FlagMassEditor() {
 
 void DisableAllBits() {
     for ( int i = 0; i < 8960; i++ ) {
-        BIT_OFF( i );
+        if (i != 320) 
+		{ 
+			BIT_OFF( i ); 
+		}
     }
 }
 
@@ -1727,7 +1750,7 @@ void EnableAllBits() {
 
 void ToggleAllBits() {
     for ( int i = 0; i < 8960; i++ ) {
-        if (BIT_CHK(i)) {
+        if (BIT_CHK(i) && i != 320) {
             BIT_OFF(i);
         }
         else {
@@ -1765,7 +1788,10 @@ void ToggleRange() {
         case 1: // Off
             for ( int i = range1; i < range2; i++ ) 
             {
-                BIT_OFF( i );
+				if (i != 320) 
+				{
+					BIT_OFF( i );
+				}
             }
             break;
     }
@@ -1835,6 +1861,27 @@ void EnablePartyEditing()
     BIT_OFF( 0 + 0x0800 + 0x0800 + 0x1000 + 0x0103 + 5);
     BIT_OFF( 0 + 0x0800 + 0x0800 + 0x1000 + 0x0103 + 6);
     BIT_OFF( 0 + 0x0800 + 0x0800 + 0x1000 + 0x0103 + 7);
+}
+
+void SelectFollowers()
+{
+	int unit = SEL_GENERIC_NOT_HELP( UnitMenuName, UnitSelect2 );
+	if (unit <= 6) 
+	{
+		unit = unit + 4114;
+	}
+	int onOff = SEL_GENERIC_NOT_HELP( -1, SelectOnOff );
+    switch (onOff) 
+    {
+        case -1: // Back
+            break;
+        case 0: // On
+            BIT_ON( unit );
+            break;
+        case 1: // Off
+            BIT_OFF( unit );
+            break;
+    }
 }
 
 void SelectNavigator()
