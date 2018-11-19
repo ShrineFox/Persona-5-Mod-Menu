@@ -1855,23 +1855,17 @@ void SelectRemovePartyMember()
 
 void EnablePartyEditing()
 {
-    BIT_OFF( 0 + 0x0800 + 0x0800 + 0x1000 + 0x0103 + 0);
-    BIT_OFF( 0 + 0x0800 + 0x0800 + 0x1000 + 0x0103 + 1);
-    BIT_OFF( 0 + 0x0800 + 0x0800 + 0x1000 + 0x0103 + 2);
-    BIT_OFF( 0 + 0x0800 + 0x0800 + 0x1000 + 0x0103 + 3);
-    BIT_OFF( 0 + 0x0800 + 0x0800 + 0x1000 + 0x0103 + 4);
-    BIT_OFF( 0 + 0x0800 + 0x0800 + 0x1000 + 0x0103 + 5);
-    BIT_OFF( 0 + 0x0800 + 0x0800 + 0x1000 + 0x0103 + 6);
-    BIT_OFF( 0 + 0x0800 + 0x0800 + 0x1000 + 0x0103 + 7);
+	for ( int i = 0; i < 8; i++ ) 
+	{
+		BIT_OFF( 2103 + i );
+	}
 }
 
 void SelectFollowers()
 {
 	int unit = SEL_GENERIC_NOT_HELP( UnitMenuName, UnitSelect2 );
-	if (unit <= 6) 
-	{
-		unit = unit + 4114;
-	}
+	unit = unit + 4114;
+	BIT_ON( 4161 );
 	int onOff = SEL_GENERIC_NOT_HELP( -1, SelectOnOff );
     switch (onOff) 
     {
