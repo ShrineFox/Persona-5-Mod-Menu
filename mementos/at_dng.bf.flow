@@ -36,7 +36,6 @@ int variable26;
 
 void at_dng_square_menu()
 {
-    //auto_recover();
 	ModMenuDisplay();
 }
 
@@ -93,16 +92,11 @@ void at_dng_right_menu()
 
 void at_dng_start_menu()
 {
-    
-    if ( FLD_CHECK_SAVE_ENABLE() )
-    {
-        FLD_PANEL_DISP( 0 );
-        SAVE();
-        SAVE_UI_SYNC();
-        SAVE_SYNC();
-        FLD_PANEL_DISP( 1 );
-    }
-
+	FLD_PANEL_DISP( 0 );
+	SAVE();
+	SAVE_UI_SYNC();
+	SAVE_SYNC();
+	FLD_PANEL_DISP( 1 );
 }
 
 
@@ -2621,4 +2615,9 @@ void Fld_FadeOut_CallCalendar()
 {
     FADEOUT( 15, 10 );
     FADE_SYNC();
+}
+
+void OpenOriginalSquareMenu()
+{
+	auto_recover();
 }

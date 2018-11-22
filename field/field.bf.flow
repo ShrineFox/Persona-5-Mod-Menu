@@ -1,0 +1,21 @@
+import( "../build/input/extracted/etc/field.bf" );
+import( "../ModMenu.flow" );
+
+void CallOriginalSquareMenu()
+{
+    SUB_Call_GroupChat();
+}
+
+void fld_square_menu_hook()
+{
+    ModMenuDisplay();
+}
+
+void fld_start_menu_hook()
+{
+	FLD_PANEL_DISP( 0 );
+	SAVE();
+	SAVE_UI_SYNC();
+	SAVE_SYNC();
+	FLD_PANEL_DISP( 1 );
+}
