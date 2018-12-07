@@ -1,4 +1,5 @@
 import( "../build/input/extracted/etc/field.bf" );
+import( "placeholder.msg" );
 import( "../ModMenu.flow" );
 
 void CallOriginalSquareMenu()

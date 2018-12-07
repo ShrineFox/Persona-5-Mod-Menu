@@ -12,12 +12,14 @@ if not exist %OUTPUT_PATH%\field mkdir %OUTPUT_PATH%\field
 if not exist %OUTPUT_PATH%\script\field mkdir %OUTPUT_PATH%\script\field
 
 copy .\camp\shared\sharedUI.spd "%OUTPUT_PATH%\camp\shared\sharedUI.spd"
+
+%PAKPACK% unpack "%INPUT_PATH%\atDngPack.pac"   %INPUT_PATH%\extracted
+%PAKPACK% unpack "%INPUT_PATH%\dngPack.pac"   %INPUT_PATH%\extracted
 %PAKPACK% unpack "%INPUT_PATH%\fldPack.pac"   %INPUT_PATH%\extracted
 
 %COMPILER% .\field\field.bf.flow    -Compile -OutFormat V3BE -Library P5 -Encoding P5 -Out "%OUTPUT_PATH%\field\field.bf" -Hook
-%COMPILER% .\dungeon\dungeon.bf.flow -Compile -OutFormat V3BE -Library P5 -Encoding P5 -Out "%OUTPUT_PATH%\field\dungeon.bf"
-%COMPILER% .\mementos\at_dng.bf.flow -Compile -OutFormat V3BE -Library P5 -Encoding P5 -Out "%OUTPUT_PATH%\field\at_dng.bf"
-%COMPILER% .\introduction\fscr0150_002_100.bf.flow -Compile -OutFormat V3BE -Library P5 -Encoding P5 -Out "%OUTPUT_PATH%\script\field\fscr0150_002_100.bf"
+%COMPILER% .\dungeon\dungeon.bf.flow -Compile -OutFormat V3BE -Library P5 -Encoding P5 -Out "%OUTPUT_PATH%\field\dungeon.bf" -Hook
+%COMPILER% .\mementos\at_dng.bf.flow -Compile -OutFormat V3BE -Library P5 -Encoding P5 -Out "%OUTPUT_PATH%\field\at_dng.bf" -Hook
 
 %PAKPACK% replace "%INPUT_PATH%\fldPack.pac"   etc/field.bf   "%OUTPUT_PATH%\field\field.bf"   "%OUTPUT_PATH%\field\fldPack.pac"
 %PAKPACK% replace "%INPUT_PATH%\dngPack.pac"   etc/dungeon.bf "%OUTPUT_PATH%\field\dungeon.bf" "%OUTPUT_PATH%\field\dngPack.pac"
