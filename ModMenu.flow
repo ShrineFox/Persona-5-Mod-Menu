@@ -1,5 +1,5 @@
 // Import the MessageScript into the script
-// The compiler will insert constant variables for each of the 
+// The compiler will insert constant variables for each of the
 // window identifiers.
 import( "ModMenu.msg" );
 import( "Math.flow" );
@@ -29,7 +29,7 @@ void ModMenuDisplay()
     ALL_ENABLE_SHARE_PLAY(); //Re-enables screen recording
     BIT_OFF( 4099 ); //Removes your "tired" status
     PrintPosition(); //Logs your current coordinates
-	
+
     while ( true )
     {
         int selection = SEL_GENERIC( -1, ModMenu );
@@ -43,10 +43,10 @@ void ModMenuDisplay()
             case 1:
                 BattleTypeSelect();
                 return;
-            case 2: 
+            case 2:
                 TeleportModeStart();
                 break;
-            case 3: 
+            case 3:
                 BgmSelect();
                 break;
             case 4:
@@ -56,24 +56,26 @@ void ModMenuDisplay()
                 EventSelect();
                 return;
             case 6:
-                CameraEditorDisplay(); 
+                CameraEditorDisplay();
                 break;
             case 7:
-                NpcControlMenuDisplay(); 
+                NpcControlMenuDisplay();
                 break;
-            case 8: 
-                FlagsEditorDisplay(); 
+            case 8:
+                FlagsEditorDisplay();
                 break;
-            case 9: 
-                CalendarEditorDisplay(); 
+            case 9:
+                CalendarEditorDisplay();
                 return;
-            case 10: 
+            case 10:
                 CallOriginalSquareMenu();
                 break;
             case 11:
                 AboutDialogDisplay();
                 break;
         }
+        if ( PAD_CHK_PRESS( PadButton.Square ) // Call original Square menu if player presses Square a second time
+            CallOriginalSquareMenu();
     }
 }
 
@@ -104,7 +106,7 @@ void PlayerEditorDisplay()
             case 1:
                 StatEditorDisplay();
                 break;
-            case 2: 
+            case 2:
                 ItemEditorDisplay();
                 break;
             case 3:
@@ -129,7 +131,7 @@ void PlayerEditorDisplay()
             case 8:
                 PlayerAttachItemModel(FLD_PC_GET_RESHND(0));
                 break;
-            case 9: 
+            case 9:
                 PlayerSetMaxMoney();
                 break;
         }
@@ -137,7 +139,7 @@ void PlayerEditorDisplay()
 }
 
 // Persona Stock Editor
-void PersonaEditorOpen() 
+void PersonaEditorOpen()
 {
     while ( true )
     {
@@ -167,7 +169,7 @@ void PersonaAddMenuOpen()
     while ( true )
     {
         int selection = SEL_GENERIC_NOT_HELP( PersonaAddMenuName, PersonaAddMenu );
-        
+
         switch ( selection )
         {
             case -1:
@@ -187,7 +189,7 @@ void PersonaAddSelect( bool useNumberInput )
     int personaId;
     if ( useNumberInput )
     {
-        personaId = SelectNumberPrompt( PersonaAddPrompt, 3 ); 
+        personaId = SelectNumberPrompt( PersonaAddPrompt, 3 );
         if ( personaId == -1 )
             return;
     }
@@ -197,7 +199,7 @@ void PersonaAddSelect( bool useNumberInput )
         if ( personaId == -1 )
             return;
     }
-    
+
     ADD_PERSONA_STOCK( personaId );
     MSG_SYSTEM( PersonaAdded );
 }
@@ -205,12 +207,12 @@ void PersonaAddSelect( bool useNumberInput )
 void PersonaDeleteAllSelect()
 {
     bool deleteConfirm = SelectNoYesPrompt( PersonaDelPrompt );
-    
+
     if ( deleteConfirm ) {
         CLEAR_PERSONA_STOCK();
         MSG_SYSTEM( PersonaDeleted );
     }
-    
+
 }
 
 void PersonaAddSkillMenuOpen()
@@ -218,7 +220,7 @@ void PersonaAddSkillMenuOpen()
     while ( true )
     {
         int selection = SEL_GENERIC_NOT_HELP( PersonaAddSkillMenuName, PersonaAddSkillMenu );
-        
+
         switch ( selection )
         {
             case -1:
@@ -238,7 +240,7 @@ void PersonaAddSkillSelect( bool useNumberInput )
     int unitId = SEL_GENERIC_NOT_HELP( UnitMenuName, UnitSelect );
     if ( unitId == -1 ) // Cancel
         return;
-        
+
     int skillId;
     if ( useNumberInput )
     {
@@ -252,7 +254,7 @@ void PersonaAddSkillSelect( bool useNumberInput )
         if ( skillId == -1 )
             return;
     }
-        
+
     SKILL_ADD( ( unitId + 1 ), skillId );
     FADEIN( 0, 10 );
     FADE_SYNC();
@@ -260,7 +262,7 @@ void PersonaAddSkillSelect( bool useNumberInput )
     FLD_END_FLASHBACK();
 }
 
-void PersonaAddAllToCompendium() 
+void PersonaAddAllToCompendium()
 {
     for ( int i = 0; i < 463; i++ )
     {
@@ -278,12 +280,12 @@ void StatEditorDisplay()
     while ( true )
     {
         int selection = SEL_GENERIC( StatsMenuName, StatsMenu );
-        
+
         if ( selection == -1 )
             return;
-        
+
         int pointsToAdd = SelectNumberPrompt( StatPrompt, 2 );
-        
+
         if ( pointsToAdd == -1 )
             continue;
 
@@ -317,13 +319,13 @@ void StatAddPointAndDisplay( int p1, int p2, int p3, int p4, int p5 )
 }
 
 // Item Editor
-void ItemEditorDisplay() 
+void ItemEditorDisplay()
 {
     while ( true )
     {
         int itemType = SEL_GENERIC( ItemMenuName, ItemMenu );
-    
-        switch ( itemType ) 
+
+        switch ( itemType )
         {
             case -1:
                 return;
@@ -358,7 +360,7 @@ void ItemEditorDisplay()
     }
 }
 
-void ItemGetSelect( int type ) 
+void ItemGetSelect( int type )
 {
     int itemId = SelectNumberPrompt( ItemPrompt, 4 );
     if (itemId == -1)
@@ -366,7 +368,7 @@ void ItemGetSelect( int type )
     int amount = SelectNumberPrompt( ItemPrompt2, 2 );
     if (amount == -1)
         return;
-    
+
     GET_ITEM_BUF_RESET();
     GET_ITEM_BUF_SET( type + itemId, amount );
     SET_ITEM_NUM( type + itemId, GET_ITEM_NUM( type + itemId ) + amount );
@@ -376,22 +378,22 @@ void ItemGetSelect( int type )
 void CommuSetRankSelect()
 {
     int cmmId = SEL_GENERIC( CommuMenuName, CommuMenu ) + 1;
-    
+
     if ( cmmId <= 0 || cmmId >= 22 )
         return;
-        
+
     DisplayMessagePrompt( CmmDialog2 );
     int lvl = SEL_GENERIC_NOT_HELP( -1, OneThruTen ) + 1;
-    
+
     if ( lvl == 0 )
         return;
-        
+
     CMM_RANKUP( cmmId, lvl, 1 );
-    
+
     if ( !CMM_EXIST( cmmId ) ) {
         CMM_OPEN( cmmId );
     }
-    
+
     CMM_SET_LV( cmmId, lvl );
     CMM_ADD_POINT( cmmId, 9999 );
 }
@@ -401,7 +403,7 @@ void PlayerAnimViewerDisplay()
     while ( true )
     {
         int selection = SEL_GENERIC_NOT_HELP( AnimMenuName, AnimMenu );
-    
+
         switch ( selection )
         {
             case -1:
@@ -438,12 +440,12 @@ void PlayerAnimViewerDisplay()
 }
 
 // Field Model Anim Viewer
-void FieldModelAnimViewerDisplay( int resHandle ) 
+void FieldModelAnimViewerDisplay( int resHandle )
 {
     while ( true )
     {
         int selection = SEL_GENERIC( GAPMenuName, GAPMenu );
-        
+
         switch ( selection )
         {
             case -1:
@@ -466,11 +468,11 @@ void FieldModelAnimViewerDisplay( int resHandle )
             case 5:
                 FieldModelPlayAnim( resHandle, gFldAnimGapId, gFldAnimGapIndex );
                 break;
-        }   
+        }
     }
 }
 
-void FieldModelPlayAnim( int resHandle, int gapid, int index ) 
+void FieldModelPlayAnim( int resHandle, int gapid, int index )
 {
     int clone = FLD_MODEL_CLONE_ADDMOTION( resHandle, gapid );
     FLD_UNIT_WAIT_DISABLE( clone );
@@ -499,21 +501,21 @@ void FieldModelAnimSelectLoop()
     gFldAnimShouldLoop = SelectOffOnPrompt( GapPrompt3 );
 }
 
-void FieldModelAnimSelectSpeed() 
+void FieldModelAnimSelectSpeed()
 {
     float temp = SelectFloatPrompt( GapPrompt5 );
     if ( temp != -1 )
         gFldAnimSpeed = temp / 10;
 }
 
-void FieldModelAnimSelectTime() 
+void FieldModelAnimSelectTime()
 {
     int temp = SelectNumberPrompt( GapPrompt6, 1 );
     if ( temp != -1 )
         gFldAnimTime = temp * 30;
 }
 
-void PlayerSelectModelScale() 
+void PlayerSelectModelScale()
 {
     float temp = SelectFloatPrompt( ScalePrompt );
     if ( temp != -1 )
@@ -541,7 +543,7 @@ void CameraEditorDisplay()
     while ( true )
     {
         int selection = SEL_GENERIC( CameraMenuName, CameraMenu );
-    
+
         switch ( selection )
         {
             case -1:
@@ -568,14 +570,14 @@ void CameraEditorDisplay()
     }
 }
 
-void CameraInputPos() 
+void CameraInputPos()
 {
     DisplayMessagePrompt( CameraPrompt );
-    
+
     while ( !PAD_CHK_PRESS( PadButton.Triangle ) )
     {
         bool anyValueSet = false;
-        
+
         if ( PAD_CHK_PRESS( PadButton.Any ) ) // if any button is pressed
         {
             float x = FLD_CAMERA_GET_X_POS();
@@ -583,103 +585,103 @@ void CameraInputPos()
             float z = FLD_CAMERA_GET_Z_POS();
             float multiplier = 1f;
 
-            if ( PAD_CHK_PRESS( PadButton.Cross ) ) 
+            if ( PAD_CHK_PRESS( PadButton.Cross ) )
                 multiplier = 3f;
 
-            if ( PAD_CHK_PRESS( PadButton.Up ) ) 
+            if ( PAD_CHK_PRESS( PadButton.Up ) )
             {
                 y = y + ( 5f * multiplier );
                 anyValueSet = true;
             }
 
-            if ( PAD_CHK_PRESS( PadButton.Right ) ) 
+            if ( PAD_CHK_PRESS( PadButton.Right ) )
             {
                 x = x + ( 5f * multiplier );
                 anyValueSet = true;
             }
 
-            if ( PAD_CHK_PRESS( PadButton.Down ) ) 
+            if ( PAD_CHK_PRESS( PadButton.Down ) )
             {
                 y = y - ( 5f * multiplier );
                 anyValueSet = true;
             }
 
-            if ( PAD_CHK_PRESS( PadButton.Left ) ) 
+            if ( PAD_CHK_PRESS( PadButton.Left ) )
             {
                 x = x - ( 5f * multiplier );
                 anyValueSet = true;
             }
 
-            if ( anyValueSet ) 
+            if ( anyValueSet )
                 FLD_CAMERA_SET_POS( x, y, z );
         }
-        
+
         WAIT( 3 );
     }
 }
 
-void CameraInputFov() 
+void CameraInputFov()
 {
     DisplayMessagePrompt( CameraPrompt );
-    
+
     while ( !PAD_CHK_PRESS( PadButton.Triangle ) )
     {
         bool anyValueSet = false;
-        
+
         if ( PAD_CHK_PRESS( PadButton.Any ) )
         {
             float fov = FLD_CAMERA_GET_FOVY();
             float multiplier = 1f;
 
-            if ( PAD_CHK_PRESS( PadButton.Cross ) ) 
+            if ( PAD_CHK_PRESS( PadButton.Cross ) )
                 multiplier = 5f;
 
-            if ( PAD_CHK_PRESS( PadButton.Up ) ) 
+            if ( PAD_CHK_PRESS( PadButton.Up ) )
             {
                 fov = fov + ( 1f * multiplier );
                 anyValueSet = true;
             }
 
-            if ( PAD_CHK_PRESS( PadButton.Right ) ) 
+            if ( PAD_CHK_PRESS( PadButton.Right ) )
             {
                 fov = fov + ( 1f * multiplier );
                 anyValueSet = true;
             }
 
-            if ( PAD_CHK_PRESS( PadButton.Down ) ) 
+            if ( PAD_CHK_PRESS( PadButton.Down ) )
             {
                 fov = fov - ( 1f * multiplier );
                 anyValueSet = true;
             }
 
-            if ( PAD_CHK_PRESS( PadButton.Left ) ) 
+            if ( PAD_CHK_PRESS( PadButton.Left ) )
             {
                 fov = fov + ( 1f * multiplier );
                 anyValueSet = true;
             }
 
-            if ( anyValueSet ) 
+            if ( anyValueSet )
                 FLD_CAMERA_SET_FOVY(fov);
         }
-        
+
         WAIT( 3 );
     }
 }
 
-void CameraInputRot() 
+void CameraInputRot()
 {
     const float ADD_VELOCITY_PER_PRESS = 15f;
     float cameraVelocityX = 0f;
     float cameraVelocityY = 0f;
-    float cameraVelocityZ = 0f;  
-    
-    if ( ( gLastCamXRot == 0f ) && ( gLastCamYRot == 0f ) && ( gLastCamZRot == 0f ) ) 
+    float cameraVelocityZ = 0f;
+
+    if ( ( gLastCamXRot == 0f ) && ( gLastCamYRot == 0f ) && ( gLastCamZRot == 0f ) )
     {
         gLastCamXRot = FLD_CAMERA_GET_X_ROT();
         gLastCamYRot = FLD_CAMERA_GET_Y_ROT();
         gLastCamZRot = FLD_CAMERA_GET_Z_ROT();
     }
-    
+
     int runs = 0;
 
     while ( !PAD_CHK_PRESS( PadButton.Triangle ) )
@@ -691,10 +693,10 @@ void CameraInputRot()
             cameraVelocityY /= 2;
             cameraVelocityZ /= 2;
         }
-        
+
         if ( PAD_CHK_PRESS( PadButton.Any ) )
         {
-            if ( PAD_CHK_PRESS( PadButton.Up ) ) 
+            if ( PAD_CHK_PRESS( PadButton.Up ) )
             {
                 if ( PAD_CHK_PRESS( PadButton.Square ) )
                     cameraVelocityZ += ADD_VELOCITY_PER_PRESS;
@@ -702,10 +704,10 @@ void CameraInputRot()
                     cameraVelocityY += ADD_VELOCITY_PER_PRESS;
             }
 
-            if ( PAD_CHK_PRESS( PadButton.Right ) ) 
+            if ( PAD_CHK_PRESS( PadButton.Right ) )
                 cameraVelocityX += ADD_VELOCITY_PER_PRESS;
 
-            if ( PAD_CHK_PRESS( PadButton.Down ) ) 
+            if ( PAD_CHK_PRESS( PadButton.Down ) )
             {
                 if ( PAD_CHK_PRESS( PadButton.Square ) )
                     cameraVelocityZ -= ADD_VELOCITY_PER_PRESS;
@@ -713,10 +715,10 @@ void CameraInputRot()
                     cameraVelocityY -= ADD_VELOCITY_PER_PRESS;
             }
 
-            if ( PAD_CHK_PRESS( PadButton.Left ) ) 
+            if ( PAD_CHK_PRESS( PadButton.Left ) )
                 cameraVelocityX -= ADD_VELOCITY_PER_PRESS;
         }
-        
+
         gLastCamXRot += cameraVelocityX;
         gLastCamYRot += cameraVelocityY;
         gLastCamZRot += cameraVelocityZ;
@@ -755,7 +757,7 @@ void NpcControlMenuDisplay()
     while ( true )
     {
         int selection = SEL_GENERIC( SpawnMenuName, SpawnMenu );
-    
+
         switch ( selection )
         {
             case -1:
@@ -804,24 +806,24 @@ int NpcSpawn( int modelIdMajor, int modelIdMinor, int modelIdSub )
     float xr = FLD_MODEL_GET_X_ROTATE( pcHandle );
     float yr = FLD_MODEL_GET_Y_ROTATE( pcHandle );
     float zr = FLD_MODEL_GET_Z_ROTATE( pcHandle );
-    
+
     int npcHandle = FLD_NPC_MODEL_LOAD( modelIdMajor, modelIdMinor, modelIdSub );
     FLD_MODEL_LOADSYNC( npcHandle );
     FLD_MODEL_SET_TRANSLATE( npcHandle, x, y, z, 0 );
     FLD_MODEL_SET_ROTATE( npcHandle, xr, yr, zr, 0 );
     FLD_MODEL_SET_VISIBLE( npcHandle, 1, 0 );
-    
+
     return npcHandle;
 }
 
-void NpcAnimViewerDisplay( int resHandle ) 
+void NpcAnimViewerDisplay( int resHandle )
 {
     while ( true )
     {
         int selection = SEL_GENERIC( GAPMenuName, GAPMenu );
-        
+
         switch ( selection )
-        { 
+        {
             case -1:
                 return;
             case 0:
@@ -878,14 +880,14 @@ void NpcSpawnObjectModel( int resHandle )
     float xr = FLD_MODEL_GET_X_ROTATE( resHandle );
     float yr = FLD_MODEL_GET_Y_ROTATE( resHandle );
     float zr = FLD_MODEL_GET_Z_ROTATE( resHandle );
-    
+
     int itemModelMajor = SelectNumberPrompt( ObjectSpawnPrompt, 3 );
     int itemModelMinor = SelectNumberPrompt( ObjectSpawnPrompt2, 3 );
-    
+
     int objectModel = FLD_OBJ_MODEL_LOAD( itemModelMajor, itemModelMinor );
     FLD_MODEL_LOADSYNC( objectModel );
     //FLD_OBJ_MODEL_LINKBG( objectModel );
-    
+
     FLD_MODEL_SET_TRANSLATE( objectModel, x, y, z, 0 );
     FLD_MODEL_SET_ROTATE( objectModel, xr, yr, zr, 0 );
     FLD_MODEL_SYNC_TRANSLATE( objectModel );
@@ -897,7 +899,7 @@ void NpcSpawnObjectModel( int resHandle )
 void BattleTypeSelect()
 {
     int selection = SEL_GENERIC_NOT_HELP( BattleTypeName, BattleTypeMenu );
-        
+
     switch ( selection )
     {
         case -1:
@@ -914,13 +916,13 @@ void BattleTypeSelect()
     }
 }
 
-void RegularBattle() 
+void RegularBattle()
 {
     int encount = SelectNumberPrompt( EncounterPrompt, 3 );
-    
+
     if ( encount == -1 )
         return;
-    
+
     CALL_BATTLE( encount );
     WAIT_BATTLE();
     ReloadPreviousField();
@@ -930,7 +932,7 @@ void RegularBattle()
 void BossSelectMenu()
 {
     int selection = SEL_GENERIC_NOT_HELP( PalaceName, PalaceMenu );
-        
+
     switch ( selection )
     {
         case -1:
@@ -969,7 +971,7 @@ void BossSelectMenu()
 void Palace1()
 {
     int selection = SEL_GENERIC_NOT_HELP( -1, Palace1 );
-        
+
     switch ( selection )
     {
         case -1:
@@ -1019,7 +1021,7 @@ void Palace1()
 void Palace2()
 {
     int selection = SEL_GENERIC_NOT_HELP( -1, Palace2 );
-        
+
     switch ( selection )
     {
         case -1:
@@ -1045,7 +1047,7 @@ void Palace2()
 void Palace3()
 {
     int selection = SEL_GENERIC_NOT_HELP( -1, Palace3 );
-        
+
     switch ( selection )
     {
         case -1:
@@ -1077,7 +1079,7 @@ void Palace3()
 void Palace4()
 {
     int selection = SEL_GENERIC_NOT_HELP( -1, Palace4 );
-        
+
     switch ( selection )
     {
         case -1:
@@ -1106,7 +1108,7 @@ void Palace4()
 void Palace5()
 {
     int selection = SEL_GENERIC_NOT_HELP( -1, Palace5 );
-        
+
     switch ( selection )
     {
         case -1:
@@ -1135,7 +1137,7 @@ void Palace5()
 void Palace6()
 {
     int selection = SEL_GENERIC_NOT_HELP( -1, Palace6 );
-        
+
     switch ( selection )
     {
         case -1:
@@ -1179,7 +1181,7 @@ void Palace6()
 void Palace7()
 {
     int selection = SEL_GENERIC_NOT_HELP( -1, Palace7 );
-        
+
     switch ( selection )
     {
         case -1:
@@ -1223,7 +1225,7 @@ void Palace7()
 void Palace8()
 {
     int selection = SEL_GENERIC_NOT_HELP( -1, Palace8 );
-        
+
     switch ( selection )
     {
         case -1:
@@ -1264,7 +1266,7 @@ void Palace8()
 void Misc1()
 {
     int selection = SEL_GENERIC_NOT_HELP( -1, Misc1 );
-        
+
     switch ( selection )
     {
         case -1:
@@ -1311,7 +1313,7 @@ void Misc1()
 void Misc2()
 {
     int selection = SEL_GENERIC_NOT_HELP( -1, Misc2 );
-        
+
     switch ( selection )
     {
         case -1:
@@ -1361,13 +1363,13 @@ void EventBattle()
             case 1:
                 CALL_EVENTBATTLE( 422, 3, 781 );
                 break;
-            case 2: 
+            case 2:
                 CALL_EVENTBATTLE( 448, 1, 786 );
                 break;
             case 3:
                 CALL_EVENTBATTLE( 459, 2, 785 );
                 break;
-            case 4: 
+            case 4:
                 CALL_EVENTBATTLE( 500, 1, 790 );
                 break;
             case 5:
@@ -1375,24 +1377,24 @@ void EventBattle()
                 break;
         }
     }
-    
+
     WAIT_BATTLE();
-    
+
     // TODO(TGE): does not reload the field, stuck on loading screen
     // however the mod menu remains accessible.
     ReloadPreviousField();
 }
 
-// Teleport Mode 
+// Teleport Mode
 void TeleportModeStart()
 {
     const float ADD_VELOCITY_PER_PRESS = 5f;
-    
+
     int playerResHandle = FLD_PC_GET_RESHND( 0 );
-    
+
     float playerVelocityX = 0f;
     float playerVelocityY = 0f;
-    float playerVelocityZ = 0f;    
+    float playerVelocityZ = 0f;
     int runs = 0;
 
     while ( !PAD_CHK_PRESS( PadButton.Triangle ) )
@@ -1405,10 +1407,10 @@ void TeleportModeStart()
             playerVelocityY /= 2;
             playerVelocityZ /= 2;
         }
-        
+
         if ( PAD_CHK_PRESS( PadButton.Any ) )
         {
-            if ( PAD_CHK_PRESS( PadButton.Up ) ) 
+            if ( PAD_CHK_PRESS( PadButton.Up ) )
             {
                 if ( PAD_CHK_PRESS( PadButton.Square ) )
                     playerVelocityZ += ADD_VELOCITY_PER_PRESS;
@@ -1416,12 +1418,12 @@ void TeleportModeStart()
                     playerVelocityY += ADD_VELOCITY_PER_PRESS;
             }
 
-            if ( PAD_CHK_PRESS( PadButton.Right ) ) 
+            if ( PAD_CHK_PRESS( PadButton.Right ) )
             {
                 playerVelocityX += ADD_VELOCITY_PER_PRESS;
             }
 
-            if ( PAD_CHK_PRESS( PadButton.Down ) ) 
+            if ( PAD_CHK_PRESS( PadButton.Down ) )
             {
                 if ( PAD_CHK_PRESS( PadButton.Square ) )
                     playerVelocityZ -= ADD_VELOCITY_PER_PRESS;
@@ -1429,15 +1431,15 @@ void TeleportModeStart()
                     playerVelocityY -= ADD_VELOCITY_PER_PRESS;
             }
 
-            if ( PAD_CHK_PRESS( PadButton.Left ) ) 
+            if ( PAD_CHK_PRESS( PadButton.Left ) )
             {
                 playerVelocityX -= ADD_VELOCITY_PER_PRESS;
             }
         }
-        
+
         float x = FLD_MODEL_GET_X_TRANSLATE( playerResHandle ) + playerVelocityX;
         float y = FLD_MODEL_GET_Y_TRANSLATE( playerResHandle ) + playerVelocityY;
-        float z = FLD_MODEL_GET_Z_TRANSLATE( playerResHandle ) + playerVelocityZ;        
+        float z = FLD_MODEL_GET_Z_TRANSLATE( playerResHandle ) + playerVelocityZ;
         FLD_MODEL_RUN_TRANSLATE( playerResHandle, x, y, z );
 
         SYNC();
@@ -1448,13 +1450,13 @@ void TeleportModeStart()
 void BgmSelect()
 {
     // Display the dialog window
-    MSG_WND_DSP(); 
+    MSG_WND_DSP();
 
     // Display dialog
-    MSG( SelectBgmDialog, 0 ); 
-    
+    MSG( SelectBgmDialog, 0 );
+
     // Close the dialog window
-    MSG_WND_CLS(); 
+    MSG_WND_CLS();
 
     int bgmId = SelectNumber( 3 );
     if ( bgmId == -1 )
@@ -1470,9 +1472,9 @@ void FieldSelect()
     while ( true )
     {
         int selection = SEL_GENERIC( FieldMenuName, FieldMenu );
-        
+
         switch ( selection )
-        { 
+        {
             case -1:
                 return;
             case 0:
@@ -1480,7 +1482,7 @@ void FieldSelect()
                 if ( temp == -1 )
                     break;
                 gFieldMajor = temp;
-                
+
                 temp = SelectNumberPrompt( FieldDlg2, 3 );
                 if ( temp == -1 )
                     break;
@@ -1497,18 +1499,18 @@ void FieldSelect()
 				return;
         }
     }
-    
+
 }
 
 // Event Select
-void EventSelect() 
+void EventSelect()
 {
     while ( true )
     {
         int selection = SEL_GENERIC( EventMenuName, EventMenu );
-        
+
         switch ( selection )
-        { 
+        {
             case -1:
                 return;
             case 0:
@@ -1527,11 +1529,11 @@ void EventSelectIds()
     if ( temp == -1 )
         return;
     gEventMajor = temp;
-    
+
     temp = SelectNumberPrompt( EventDlg2, 3 );
     if ( temp == -1 )
         return;
-        
+
     gEventMinor = temp;
 }
 
@@ -1542,12 +1544,12 @@ void EventLoadSelected()
         MSG_SYSTEM(LoadCheckError);
         return;
     }
-    
+
     CALL_EVENT( gEventMajor, gEventMinor );
     ReloadPreviousField();
 }
 
-void PlayerSetMaxMoney() 
+void PlayerSetMaxMoney()
 {
     GET_MONEY_WINDOW( 999999, 0 );
     CALL_GLOBAL_MONEY_PANEL();
@@ -1556,12 +1558,12 @@ void PlayerSetMaxMoney()
 }
 
 // Calendar Editor
-void CalendarEditorDisplay() 
+void CalendarEditorDisplay()
 {
     while ( true )
     {
         int selection = SEL_GENERIC( CalendarMenuName, CalendarMenu );
-        
+
         switch (selection)
         {
             case -1:
@@ -1582,46 +1584,46 @@ void CalendarEditorDisplay()
 void CalendarSetNextDaySelect()
 {
     int month = SEL_GENERIC_NOT_HELP( MonthMenuName, MonthMenu ) + 1;
-    
+
     if ( month <= 0 )
         return;
-        
+
     PUTS( "Month: " );
     PUT( month );
-    
+
     int day = SelectNumberPrompt( CalendarPrompt2, 2 );
-    
+
     PUTS( "Day: " );
     PUT( day );
-    
+
     if ( day <= 0 )
     {
         // No matter how down you feel on some days, every day is still a positive one.
         MSG_SYSTEM( CalendarError );
         return;
     }
-    
+
     int daysInMonth = 0;
-    
+
     if ( month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12 ) daysInMonth = 31;
     else if ( month == 2 ) daysInMonth = 29;
     else if ( month == 4 || month == 6 || month == 9 || month == 11 ) daysInMonth = 30;
-    
+
     // Verify that the day doesn't exceed the number of possible days in the specified month
     if ( day > daysInMonth )
     {
         MSG_SYSTEM( CalendarError );
         return;
     }
-    
+
     int thisMonth = GET_MONTH();
     int thisDay = GET_DAY();
-    
+
     PUTS( "Current Month: " );
     PUT( thisMonth );
     PUTS( "Current Day: " );
     PUT( thisDay );
-    
+
     // We can only go backwards one day at a time, including jumping from the start of one month to the end of the previous month
     if ( ( ( month == thisMonth ) && ( ( day - thisDay ) < -1 ) ) ||
          ( ( month - thisMonth == -1 ) && ( thisDay == 1 && day != daysInMonth ) ) ||
@@ -1631,7 +1633,7 @@ void CalendarSetNextDaySelect()
         MSG_SYSTEM( CalendarBackwardsError );
         return;
     }
-    
+
     SET_NEXT_DAY( month, day, 1 );
     PUT( month );
     PUT( day );
@@ -1643,10 +1645,10 @@ void CallCalendar()
     CALL_CALENDAR();
 }
 
-void ChangeWeather() 
+void ChangeWeather()
 {
     int selection = SEL_GENERIC_NOT_HELP( WeatherMenuName, WeatherMenu );
-        
+
     switch (selection)
     {
         case -1:
@@ -1658,14 +1660,14 @@ void ChangeWeather()
 }
 
 // Flags Editor
-void FlagsEditorDisplay() 
+void FlagsEditorDisplay()
 {
     // Flags start at 0x2D66 in the save file
     // section is 0x460 bytes long
     while ( true )
     {
         int selection = SEL_GENERIC( FlagMenuName, FlagMenu );
-        
+
         switch (selection)
         {
             case -1:
@@ -1711,7 +1713,7 @@ void FlagMassEditor() {
     while ( true )
     {
         int selection = SEL_GENERIC( FlagMenuName, FlagMassEditor );
-        
+
         switch (selection)
         {
             case -1:
@@ -1733,17 +1735,17 @@ void FlagMassEditor() {
 }
 
 void DisableAllBits() {
-    for ( int i = 0; i < 8960; i++ ) 
+    for ( int i = 0; i < 8960; i++ )
 	{
-		BIT_OFF( i ); 
+		BIT_OFF( i );
     }
 }
 
 void EnableAllBits() {
     for ( int i = 0; i < 8960; i++ ) {
-        if (i != 320) 
-		{ 
-			BIT_ON( i ); 
+        if (i != 320)
+		{
+			BIT_ON( i );
 		}
     }
 }
@@ -1761,7 +1763,7 @@ void ToggleAllBits() {
 
 void PrintEnabledBits() {
     for ( int i = 0; i < 8960; i++ ) {
-        if (BIT_CHK(i)) 
+        if (BIT_CHK(i))
 		{
             PUT(i);
         }
@@ -1773,24 +1775,24 @@ void ToggleRange() {
     int range1 =  SelectNumber( 4 );
     DisplayMessagePrompt( FlagRangePrompt2 );
     int range2 = SelectNumber( 4 );
-    
+
     int onOff = SEL_GENERIC_NOT_HELP( -1, SelectOnOff );
-    
-    switch (onOff) 
+
+    switch (onOff)
     {
         case -1: // Back
             break;
         case 0: // On
-            for ( int i = range1; i < range2; i++ ) 
+            for ( int i = range1; i < range2; i++ )
             {
-				if (i != 320) 
+				if (i != 320)
 				{
 					BIT_ON( i );
 				}
             }
             break;
         case 1: // Off
-            for ( int i = range1; i < range2; i++ ) 
+            for ( int i = range1; i < range2; i++ )
             {
 				BIT_OFF( i );
             }
@@ -1802,7 +1804,7 @@ void SelectHUDDisplayFlag()
 {
     int dateDisplay = SEL_GENERIC_NOT_HELP( -1, DateDisplayDlg );
     int hud = 0;
-    
+
     switch (dateDisplay) {
         case -1:
             return;
@@ -1818,19 +1820,19 @@ void SelectHUDDisplayFlag()
             break;
     }
 
-    MSG_WND_DSP(); 
-    
+    MSG_WND_DSP();
+
     switch ( hud ) {
         case 0:
             break;
         case 1:
-            MSG_SYSTEM( HudTest1); 
+            MSG_SYSTEM( HudTest1);
             break;
         case 2:
-            MSG_SYSTEM( HudTest2); 
+            MSG_SYSTEM( HudTest2);
             break;
     }
-    
+
     MSG_WND_CLS();
 }
 
@@ -1839,7 +1841,7 @@ void SelectAddPartyMember()
     int unit = SEL_GENERIC_NOT_HELP( UnitMenuName, UnitSelect2 ) + 48;
     if ( unit == 47 ) // Cancel
         return;
-        
+
     BIT_ON( 0 + 0x0800 + 0x0800 + 0x1000 + 0x0100 + unit );
 }
 
@@ -1848,13 +1850,13 @@ void SelectRemovePartyMember()
     int unit = SEL_GENERIC_NOT_HELP( UnitMenuName, UnitSelect2 ) + 48;
     if ( unit == 47 ) // Cancel
         return;
-        
+
     BIT_OFF( 0 + 0x0800 + 0x0800 + 0x1000 + 0x0100 + unit );
 }
 
 void EnablePartyEditing()
 {
-	for ( int i = 0; i < 8; i++ ) 
+	for ( int i = 0; i < 8; i++ )
 	{
 		BIT_OFF( 2103 + i );
 	}
@@ -1866,7 +1868,7 @@ void SelectFollowers()
 	unit = unit + 4114;
 	BIT_ON( 4161 );
 	int onOff = SEL_GENERIC_NOT_HELP( -1, SelectOnOff );
-    switch (onOff) 
+    switch (onOff)
     {
         case -1: // Back
             break;
@@ -1882,8 +1884,8 @@ void SelectFollowers()
 void SelectNavigator()
 {
     int navi = SEL_GENERIC_NOT_HELP( NaviMenuName, NaviMenu );
-    
-    switch ( navi ) 
+
+    switch ( navi )
     {
         case -1:
             break;
@@ -1906,7 +1908,7 @@ void SelectRomanceFlags() {
     int lover = SEL_GENERIC_NOT_HELP( LoveMenuName, LoveMenu );
     if ( lover == -1 )
         return;
-    
+
     lover += (0x0800 + 720);
     SelectItemToggle( lover );
 }
@@ -1916,10 +1918,10 @@ void SelectBitToggle()
     int id = SelectNumber( 4 );
     if (id == -1)
         return;
-    
+
     int onOff = SEL_GENERIC_NOT_HELP( -1, SelectOnOff );
-    
-    switch (onOff) 
+
+    switch (onOff)
     {
         case -1: // Back
             break;
@@ -1932,10 +1934,10 @@ void SelectBitToggle()
     }
 }
 
-void SelectItemToggle(int flag) 
+void SelectItemToggle(int flag)
 {
     int selection = SEL_GENERIC_NOT_HELP( -1, DateDisplayDlg );
-    
+
     switch (selection) {
         case -1:
             break;
@@ -1949,23 +1951,23 @@ void SelectItemToggle(int flag)
 }
 
 // Room Editor
-void RoomEditorDisplay() 
+void RoomEditorDisplay()
 {
     while ( true )
     {
         int roomSel = SEL_GENERIC_NOT_HELP( -1, RoomEdit );
 
-        switch (roomSel) 
+        switch (roomSel)
         {
             case -1:
                 return;
             case 0:
                 FurnitureEditorDisplay();
                 break;
-            case 1: 
+            case 1:
                 CollectibleEditorDisplay();
                 break;
-            case 2: 
+            case 2:
                 CleanlinessEditorDisplay();
                 break;
         }
@@ -1973,13 +1975,13 @@ void RoomEditorDisplay()
 }
 
 // Furniture Editor
-void FurnitureEditorDisplay() 
+void FurnitureEditorDisplay()
 {
     while ( true )
     {
         int furnSel = SEL_GENERIC_NOT_HELP( -1, FurnEdit );
-    
-        switch ( furnSel ) 
+
+        switch ( furnSel )
         {
             case -1:
                 return;
@@ -2006,7 +2008,7 @@ void FurnitureEditorDisplay()
                 break;
             case 7: // UFO Game Prizes
                 int ufoPrize = SelectNumber(1);
-                switch (ufoPrize) 
+                switch (ufoPrize)
                 {
                     case 0: //
                         SelectItemToggle(8186);
@@ -2030,13 +2032,13 @@ void FurnitureEditorDisplay()
 }
 
 // Collectible Editor
-void CollectibleEditorDisplay() 
+void CollectibleEditorDisplay()
 {
     while ( true )
     {
         int collSel = SEL_GENERIC_NOT_HELP( -1, CollEdit );
-    
-        switch ( collSel ) 
+
+        switch ( collSel )
         {
             case -1:
                 return;
@@ -2077,13 +2079,13 @@ void CollectibleEditorDisplay()
     }
 }
 
-void CollectibleEditorDisplay2() 
+void CollectibleEditorDisplay2()
 {
     while ( true )
     {
         int collectables = SEL_GENERIC_NOT_HELP( -1, CollEdit2 );
-                
-        switch ( collectables ) 
+
+        switch ( collectables )
         {
             case -1:
                 return;
@@ -2118,12 +2120,12 @@ void CollectibleEditorDisplay2()
 }
 
 // Cleanliness Editor
-void CleanlinessEditorDisplay() 
+void CleanlinessEditorDisplay()
 {
     while ( true )
     {
         int cleanSel = SEL_GENERIC_NOT_HELP( -1, CleanEdit );
-        switch (cleanSel) 
+        switch (cleanSel)
         {
             case -1:
                 return;
@@ -2150,13 +2152,13 @@ void CleanlinessEditorDisplay()
 }
 
 // About Dialog
-void AboutDialogDisplay() 
+void AboutDialogDisplay()
 {
     DisplayMessagePrompt( AboutDlg );
 }
 
 void ReloadPreviousField()
-{   
+{
     if ( FLD_GET_MAJOR() != FLD_GET_PREV_MAJOR() || FLD_GET_MINOR() != FLD_GET_PREV_MINOR() )
     {
         // Reload previous field
@@ -2166,7 +2168,7 @@ void ReloadPreviousField()
 
 void MorganaShowFace()
 {
-    
+
     if ( FLD_CHECK_MORGANA_BAG() == 1 )
     {
         int localVariable35 = FLD_PC_GET_CURRENT_RESHND( 0 );
@@ -2179,7 +2181,7 @@ void MorganaShowFace()
 
 void MorganaReturnBag()
 {
-    
+
     if ( FLD_CHECK_MORGANA_BAG() == 1 )
     {
         int localVariable37 = FLD_PC_GET_CURRENT_RESHND( 0 );
