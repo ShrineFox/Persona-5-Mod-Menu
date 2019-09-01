@@ -21,8 +21,14 @@ global float gLastCamYRot;
 global float gLastCamZRot;
 global int gFieldMajor;
 global int gFieldMinor;
+global int gFieldCoordMajor;
+global int gFieldCoordMinor;
 global int gEventMajor;
 global int gEventMinor;
+global int gKfEventMajor;
+global int gKfEventMinor;
+global int gKfEventCoordMajor;
+global int gKfEventCoordMinor;
 
 void ModMenuDisplay()
 {
@@ -74,7 +80,7 @@ void ModMenuDisplay()
                 AboutDialogDisplay();
                 break;
         }
-        if ( PAD_CHK_PRESS( PadButton.Square ) // Call original Square menu if player presses Square a second time
+        if ( PAD_CHK_PRESS( PadButton.Square ) ) // Call original Square menu if player presses Square a second time
             CallOriginalSquareMenu();
     }
 }
@@ -159,6 +165,9 @@ void PersonaEditorOpen()
                 break;
             case 3:
                 PersonaAddAllToCompendium();
+                break;
+            case 4:
+                EvolvePersona();
                 break;
         }
     }
@@ -272,6 +281,38 @@ void PersonaAddAllToCompendium()
         ADD_PERSONA_STOCK( i );
     }
     CLEAR_PERSONA_STOCK();
+}
+
+void EvolvePersona()
+{
+    int selection = SEL_GENERIC_NOT_HELP( -1, UnitSelect3 );
+
+    switch ( selection )
+    {
+        case -1:
+            break;
+        case 0:
+            PERSONA_EVOLUTION( 2 );
+            break;
+        case 1:
+            PERSONA_EVOLUTION( 3 );
+            break;
+        case 2:
+            PERSONA_EVOLUTION( 4 );
+            break;
+        case 3:
+            PERSONA_EVOLUTION( 5 );
+            break;
+        case 4:
+            PERSONA_EVOLUTION( 6 );
+            break;
+        case 5:
+            PERSONA_EVOLUTION( 7 );
+            break;
+        case 6:
+            PERSONA_EVOLUTION( 8 );
+            break;
+    }
 }
 
 // Stat Editor
@@ -1487,12 +1528,22 @@ void FieldSelect()
                 if ( temp == -1 )
                     break;
                 gFieldMinor = temp;
+
+                temp = SelectNumberPrompt( FieldDlg3, 3 );
+                if ( temp == -1 )
+                    break;
+                gFieldCoordMajor = temp;
+
+                temp = SelectNumberPrompt( FieldDlg4, 3 );
+                if ( temp == -1 )
+                    break;
+                gFieldCoordMinor = temp;
                 break;
             case 1:
                 if (gFieldMajor == 0 && gFieldMinor == 0)
                     MSG_SYSTEM( LoadCheckError );
                 else
-                    CALL_FIELD( gFieldMajor, gFieldMinor, 0, 0 );
+                    CALL_FIELD( gFieldMajor, gFieldMinor, gFieldCoordMajor, gFieldCoordMinor );
                 return;
 			case 2:
 				CALL_FIELD( FLD_GET_PREV_MAJOR(), FLD_GET_PREV_MINOR(), 0, 0 );
@@ -1518,6 +1569,12 @@ void EventSelect()
                 break;
             case 1:
                 EventLoadSelected();
+                return;
+            case 2:
+                KfEventSelectIds();
+                break;
+            case 3:
+                KfEventLoadSelected();
                 return;
         }
     }
@@ -1549,11 +1606,48 @@ void EventLoadSelected()
     ReloadPreviousField();
 }
 
+void KfEventSelectIds()
+{
+    int temp = SelectNumberPrompt( KfEventDlg, 3 );
+    if ( temp == -1 )
+        return;
+    gKfEventMajor = temp;
+
+    temp = SelectNumberPrompt( KfEventDlg2, 3 );
+    if ( temp == -1 )
+        return;
+
+    gKfEventMinor = temp;
+
+    temp = SelectNumberPrompt( KfEventDlg3, 3 );
+    if ( temp == -1 )
+        return;
+
+    gKfEventCoordMajor = temp;
+
+    temp = SelectNumberPrompt( KfEventDlg4, 3 );
+    if ( temp == -1 )
+        return;
+
+    gKfEventCoordMinor = temp;
+}
+
+void KfEventLoadSelected()
+{
+    if ( gKfEventMajor == 0 && gKfEventMinor == 0 )
+    {
+        MSG_SYSTEM(LoadCheckError);
+        return;
+    }
+
+    CALL_KF_EVENT( gKfEventMajor, gKfEventMinor, gKfEventCoordMajor, gKfEventCoordMinor );
+    ReloadPreviousField();
+}
+
 void PlayerSetMaxMoney()
 {
-    GET_MONEY_WINDOW( 999999, 0 );
     CALL_GLOBAL_MONEY_PANEL();
-    CHANGE_GLOBAL_MONEY( 999999, 0 );
+    CHANGE_GLOBAL_MONEY( 9999999, 0 );
     DEL_GLOBAL_MONEY_PANEL();
 }
 

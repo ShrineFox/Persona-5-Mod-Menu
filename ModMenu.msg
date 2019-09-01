@@ -95,7 +95,7 @@ Player Options[w][e]
 [s]Enter an item's model ID[n]to attach it to the[n]protagonist's right hand.[e]
 
 [dlg GENERIC_HELP_116]
-[s]Adds 999,999 yen to your wallet.[e]
+[s]Adds 9,999,999 yen to your[n]wallet.[e]
 
 [dlg ItemMenuName]
 Select Item Type...[w][e]
@@ -386,6 +386,22 @@ Choose the first 3 digits of
 Choose the last 3 digits of
 [n]the event to load.[n](max. 3 digits, press Circle to end)[w][e]
 
+[dlg KfEventDlg [KeyFree Event Select]]
+Choose the first 3 digits of
+[n]the KeyFree event to load.[n](max. 3 digits, press Circle to end)[w][e]
+
+[dlg KfEventDlg2 [KeyFree Event Select]]
+Choose the last 3 digits of
+[n]the KeyFree event to load.[n](max. 3 digits, press Circle to end)[w][e]
+
+[dlg KfEventDlg3 [KeyFree Event Select]]
+Choose the major coordinate
+[n]where you want to spawn.[n](max. 3 digits, press Circle to end)[w][e]
+
+[dlg KfEventDlg4 [KeyFree Event Select]]
+Choose the minor coordinate
+[n]where you want to spawn.[n](max. 3 digits, press Circle to end)[w][e]
+
 [dlg FieldDlg [Field Select]]
 Choose the first 3 digits of
 [n]the field to load.[n](max. 3 digits, press Circle to end)[w][e]
@@ -393,6 +409,14 @@ Choose the first 3 digits of
 [dlg FieldDlg2 [Field Select]]
 Choose the last 3 digits of
 [n]the field to load.[n](max. 3 digits, press Circle to end)[w][e]
+
+[dlg FieldDlg3 [Field Select]]
+Choose the major coordinate
+[n]where you want to spawn.[n](max. 3 digits, press Circle to end)[w][e]
+
+[dlg FieldDlg4 [Field Select]]
+Choose the minor coordinate
+[n]where you want to spawn.[n](max. 3 digits, press Circle to end)[w][e]
 
 [dlg SpawnMenuName]
 NPC Options[w][e]
@@ -418,6 +442,7 @@ Add Persona[f 4 26 0 200][e]
 Delete Personas[f 4 26 1 201][e]
 Add Skill[f 4 26 2 202][e]
 Unlock Full Compendium[f 4 26 3 203][e]
+Evolve Persona[f 4 26 4 204][e]
 
 [dlg GENERIC_HELP_200]
 [s]Input a Persona's name or ID[n]to add it to your stock.[e]
@@ -431,6 +456,8 @@ Unlock Full Compendium[f 4 26 3 203][e]
 [dlg GENERIC_HELP_203]
 [s]Register every Persona in[n]the game by filling your[n]stock with them all.[e]
 
+[dlg GENERIC_HELP_204]
+[s]Evolve a party member's Persona[n]into its Ultimate form.[e]
 
 [dlg UnitMenuName]
 Select Party Member[w][e]
@@ -455,6 +482,15 @@ Makoto[e]
 Haru[e]
 Futaba[e]
 Akechi[e]
+
+[sel UnitSelect3]
+Ryuji[e]
+Morgana[e]
+Ann[e]
+Yusuke[e]
+Makoto[e]
+Haru[e]
+Futaba[e]
 
 [dlg PersonaDelPrompt [Delete Personas]]
 This will permanently remove all
@@ -586,12 +622,20 @@ Event Select[e]
 [sel EventMenu]
 Enter Event ID[f 4 26 0 242][e]
 Load Event[f 4 26 1 243][e]
+Enter KeyFree Event ID[f 4 26 0 244][e]
+Load KeyFree Event[f 4 26 1 245][e]
 
 [dlg GENERIC_HELP_242]
 [s]Input the 6 digits of a[n][clr 9]event pack's[clr 0] filename[n](found in data.cpk/event)[e]
 
 [dlg GENERIC_HELP_243]
 [s]Attempt to load the selected[n]event. [clr 9]WARNING: Some events may[n]softlock the game.[clr 0][e]
+
+[dlg GENERIC_HELP_244]
+[s]Input the 6 digits of a[n][clr 9]event pack's[clr 0] filename[n](found in ps3.cpk/field).[clr 0][e]
+
+[dlg GENERIC_HELP_245]
+[s]Attempt to load the selected[n]KeyFree event. [clr 9]WARNING: Some events may[n]softlock the game.[clr 0][e]
 
 [dlg NaviMenuName]
 Select Navigator[w][e]
@@ -791,7 +835,7 @@ int_CLEAR[e]
 ALERT_CLEAR_EX[e]
 PALACE_CLEAR_SYS[e]
 PALACE_CALL_CALENDAR[e]
-Closest encounter to current position[e]
+Closest encounter to position[e]
 D_ENCOUNT_START[e]
 dungeon_return_calendar[e]
 dungeon_return[e]
