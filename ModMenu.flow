@@ -23,6 +23,7 @@ global int gFieldMajor;
 global int gFieldMinor;
 global int gEventMajor;
 global int gEventMinor;
+global bool loopTime;
 
 void ModMenuDisplay()
 {
@@ -366,11 +367,16 @@ void ItemGetSelect( int type )
     int amount = SelectNumberPrompt( ItemPrompt2, 2 );
     if (amount == -1)
         return;
-    
-    GET_ITEM_BUF_RESET();
+		
+	ItemGet( type, itemId, amount);
+	GET_ITEMS_WINDOW( 0 );
+}
+
+void ItemGet( int type, int itemId, int amount)
+{
+	GET_ITEM_BUF_RESET();
     GET_ITEM_BUF_SET( type + itemId, amount );
     SET_ITEM_NUM( type + itemId, GET_ITEM_NUM( type + itemId ) + amount );
-    GET_ITEMS_WINDOW( 0 );
 }
 
 void CommuSetRankSelect()
@@ -1575,6 +1581,9 @@ void CalendarEditorDisplay()
             case 2:
                 ChangeWeather();
                 break;
+			case 3:
+				LoopCurrentTime();
+				break;
         }
     }
 }
@@ -1641,6 +1650,11 @@ void CallCalendar()
 {
     CalendarFade();
     CALL_CALENDAR();
+}
+
+void LoopCurrentTime()
+{
+	SET_NEXT_DAY( GET_MONTH(), GET_DAY(), GET_TIME());
 }
 
 void ChangeWeather() 
@@ -1728,6 +1742,9 @@ void FlagMassEditor() {
             case 3:
                 ToggleRange();
                 break;
+			case 4:
+				CLEAR_INHERIT_DATA();
+				break;
         }
     }
 }

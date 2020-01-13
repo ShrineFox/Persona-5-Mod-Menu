@@ -1,3 +1,5 @@
+msgReindex.exe ModMenu.msg 91
+
 set PAKPACK="path to PAKPack.exe"
 set COMPILER="path to AtlusScriptCompiler.exe"
 set BUILD_PATH=.\build
