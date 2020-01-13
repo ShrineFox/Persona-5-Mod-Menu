@@ -18,7 +18,8 @@ Once you've added [mod.cpk support](https://shrinefox.github.io/guides/p5/mod-cp
 ## Compiling
 1. Build (from source) the latest version of TGE's [AtlusScriptCompiler](https://github.com/TGEnigma/AtlusScriptToolchain), which you can use to compile the **.flow** and **.msg** scripts in this repository and recompile them into **.bf** format.
 2. Also download [TGE's PAKTools](https://github.com/TGEnigma/AtlusFileSystemLibrary/releases).
-3. Edit the build.bat file with the paths to your AtlusScriptCompiler and PAKTool exe files. Place the PAK files from your copy of the game in the input folder.
+3. Edit the build.bat file with the paths to your AtlusScriptCompiler and PAKTool exe files. Name your edited copy build_local.bat. Place the PAK files from your copy of the game in the input folder.
+4. Run build_local.bat.
 
 When you run the bat, the scripts will be compiled into BF files and packed into new PAK files.
 
