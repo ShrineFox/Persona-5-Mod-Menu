@@ -95,7 +95,7 @@ Player Options[w][e]
 [s]Enter an item's model ID[n]to attach it to the[n]protagonist's right hand.[e]
 
 [dlg GENERIC_HELP_116]
-[s]Adds 999,999 yen to your wallet.[e]
+[s]Adds 9,999,999 yen to your[n]wallet.[e]
 
 [dlg ItemMenuName]
 Select Item Type...[w][e]
@@ -390,6 +390,14 @@ Choose the first 3 digits of
 Choose the last 3 digits of
 [n]the event to load.[n](max. 3 digits, press Circle to end)[w][e]
 
+[dlg KfEventDlg [KeyFree Event Select]]
+Choose the first 3 digits of
+[n]the KeyFree event to load.[n](max. 3 digits, press Circle to end)[w][e]
+
+[dlg KfEventDlg2 [KeyFree Event Select]]
+Choose the last 3 digits of
+[n]the KeyFree event to load.[n](max. 3 digits, press Circle to end)[w][e]
+
 [dlg FieldDlg [Field Select]]
 Choose the first 3 digits of
 [n]the field to load.[n](max. 3 digits, press Circle to end)[w][e]
@@ -402,47 +410,51 @@ Choose the last 3 digits of
 NPC Options[w][e]
 
 [sel SpawnMenu]
-Spawn Model[f 4 26 0 197][e]
-Animate Model[f 4 26 1 198][e]
-Set Model Scale[f 4 26 2 199][e]
-Attach Item Model[f 4 26 3 200][e]
-Spawn Object Model[f 4 26 4 201][e]
-
-[dlg GENERIC_HELP_197]
-[s]Input a [clr 9]GMD filename[clr 0][n]to spawn a character model from.[e]
-
-[dlg GENERIC_HELP_198]
-[s]Apply field animations[n]to the last NPC you spawned.[e]
+Spawn Model[f 4 26 0 199][e]
+Animate Model[f 4 26 1 200][e]
+Set Model Scale[f 4 26 2 201][e]
+Attach Item Model[f 4 26 3 202][e]
+Spawn Object Model[f 4 26 4 203][e]
 
 [dlg GENERIC_HELP_199]
-[s]Set the scale of the[n]NPC model.[e]
+[s]Input a [clr 9]GMD filename[clr 0][n]to spawn a character model from.[e]
 
 [dlg GENERIC_HELP_200]
-[s]Input a [clr 9]GMD filename[clr 0][n]to attach to the NPC.[e]
+[s]Apply field animations[n]to the last NPC you spawned.[e]
 
 [dlg GENERIC_HELP_201]
+[s]Set the scale of the[n]NPC model.[e]
+
+[dlg GENERIC_HELP_202]
+[s]Input a [clr 9]GMD filename[clr 0][n]to attach to the NPC.[e]
+
+[dlg GENERIC_HELP_203]
 [s]Input a [clr 9]GMD filename[clr 0][n]of an object to spawn.[e]
 
 [dlg PersonaMenuName]
 Persona Options[w][e]
 
 [sel PersonaMenu]
-Add Persona[f 4 26 0 204][e]
-Delete Personas[f 4 26 1 205][e]
-Add Skill[f 4 26 2 206][e]
-Unlock Full Compendium[f 4 26 3 207][e]
-
-[dlg GENERIC_HELP_204]
-[s]Input a Persona's name or ID[n]to add it to your stock.[e]
-
-[dlg GENERIC_HELP_205]
-[s]Permanently remove all Personas[n]from your current stock.[e]
+Add Persona[f 4 26 0 206][e]
+Delete Personas[f 4 26 1 207][e]
+Add Skill[f 4 26 2 208][e]
+Unlock Full Compendium[f 4 26 3 209][e]
+Evolve Persona[f 4 26 4 210][e]
 
 [dlg GENERIC_HELP_206]
-[s]Choose a party member and the[n]name or ID of a Skill to add[n]to their current Persona.[e]
+[s]Input a Persona's name or ID[n]to add it to your stock.[e]
 
 [dlg GENERIC_HELP_207]
+[s]Permanently remove all Personas[n]from your current stock.[e]
+
+[dlg GENERIC_HELP_208]
+[s]Choose a party member and the[n]name or ID of a Skill to add[n]to their current Persona.[e]
+
+[dlg GENERIC_HELP_209]
 [s]Register every Persona in[n]the game by filling your[n]stock with them all.[e]
+
+[dlg GENERIC_HELP_210]
+[s]Evolve a party member's Persona[n]into its Ultimate form.[e]
 
 
 [dlg UnitMenuName]
@@ -468,6 +480,15 @@ Makoto[e]
 Haru[e]
 Futaba[e]
 Akechi[e]
+
+[sel UnitSelect3]
+Ryuji[e]
+Morgana[e]
+Ann[e]
+Yusuke[e]
+Makoto[e]
+Haru[e]
+Futaba[e]
 
 [dlg PersonaDelPrompt [Delete Personas]]
 This will permanently remove all 
@@ -531,80 +552,88 @@ Select a bgm to play.[w][e]
 Flag Options[w][e]
 
 [sel FlagMenu]
-HUD Display[f 4 26 0 228][e]
-Add Party Members[f 4 26 1 229][e]
-Remove Party Members[f 4 26 2 230][e]
-Enable Party Editing[f 4 26 3 231][e]
-Add Overworld Follower[f 4 26 4 232][e]
-Navigator[f 4 26 5 233][e]
-Change Romance Route[f 4 26 6 234][e]
-Room Editor[f 4 26 7 235][e]
-Manual Input[f 4 26 8 236][e]
-Print Enabled Flags[f 4 26 9 237][e]
-Mass Flag Editor[f 4 26 10 238][e]
-
-[dlg GENERIC_HELP_228]
-[s]Show or hide the user interface[n]elements, such as the date, time,[n]and mission list.[e]
-
-[dlg GENERIC_HELP_229]
-[s]Make a Persona user available to[n]add to your party.[e]
-
-[dlg GENERIC_HELP_230]
-[s]Revoke a Persona user's[n]availability to be added[n]to your party.[e]
-
-[dlg GENERIC_HELP_231]
-[s]Allow choosing your own[n]party members from the Stats[n]menu in the pause menu.[e]
+HUD Display[f 4 26 0 232][e]
+Add Party Members[f 4 26 1 233][e]
+Remove Party Members[f 4 26 2 234][e]
+Enable Party Editing[f 4 26 3 235][e]
+Add Overworld Follower[f 4 26 4 236][e]
+Navigator[f 4 26 5 237][e]
+Change Romance Route[f 4 26 6 238][e]
+Room Editor[f 4 26 7 239][e]
+Manual Input[f 4 26 8 240][e]
+Print Enabled Flags[f 4 26 9 241][e]
+Mass Flag Editor[f 4 26 10 242][e]
 
 [dlg GENERIC_HELP_232]
-[s]Enable or disable party[n]members following you[n]in the overworld.[e]
+[s]Show or hide the user interface[n]elements, such as the date, time,[n]and mission list.[e]
 
 [dlg GENERIC_HELP_233]
-[s]Change which character[n]currently serves as the Navigator.[e]
+[s]Make a Persona user available to[n]add to your party.[e]
 
 [dlg GENERIC_HELP_234]
-[s]Start or end a relationship with[n]a female Confidant.[e]
+[s]Revoke a Persona user's[n]availability to be added[n]to your party.[e]
 
 [dlg GENERIC_HELP_235]
-[s]Modify the state of the[n]protagonist's bedroom in[n]the Leblanc attic.[e]
+[s]Allow choosing your own[n]party members from the Stats[n]menu in the pause menu.[e]
 
 [dlg GENERIC_HELP_236]
-[s]Enter an 4-digit decimal value[n]of a bit to either[n]enable or disable it.[e]
+[s]Enable or disable party[n]members following you[n]in the overworld.[e]
 
 [dlg GENERIC_HELP_237]
-[s]Print all currently enabled[n]bit flag values to the[n]TTY log.[e]
+[s]Change which character[n]currently serves as the Navigator.[e]
 
 [dlg GENERIC_HELP_238]
+[s]Start or end a relationship with[n]a female Confidant.[e]
+
+[dlg GENERIC_HELP_239]
+[s]Modify the state of the[n]protagonist's bedroom in[n]the Leblanc attic.[e]
+
+[dlg GENERIC_HELP_240]
+[s]Enter an 4-digit decimal value[n]of a bit to either[n]enable or disable it.[e]
+
+[dlg GENERIC_HELP_241]
+[s]Print all currently enabled[n]bit flag values to the[n]TTY log.[e]
+
+[dlg GENERIC_HELP_242]
 [s]Manipulate a selected[n]range of bit flags to[n]toggle or print.[e]
 
 [dlg FieldMenuName]
 Field Select[e]
 
 [sel FieldMenu]
-Enter Field ID[f 4 26 0 241][e]
-Load Field[f 4 26 1 242][e]
-Reload Current Field[f 4 26 2 243][e]
+Enter Field ID[f 4 26 0 245][e]
+Load Field[f 4 26 1 246][e]
+Reload Current Field[f 4 26 2 247][e]
 
-[dlg GENERIC_HELP_241]
+[dlg GENERIC_HELP_245]
 [s]Input the 6 digits of a[n][clr 9]field pack's[clr 0] filename[n](found in ps3.cpk/field)[e]
 
-[dlg GENERIC_HELP_242]
+[dlg GENERIC_HELP_246]
 [s]Attempt to load the selected[n]field. [clr 9]WARNING: Some fields may[n]softlock the game.[clr 0][e]
 
-[dlg GENERIC_HELP_243]
+[dlg GENERIC_HELP_247]
 [s]Reload the field that[n]you're currently on.[e]
 
 [dlg EventMenuName]
 Event Select[e]
 
 [sel EventMenu]
-Enter Event ID[f 4 26 0 246][e]
-Load Event[f 4 26 1 247][e]
+Enter Event ID[f 4 26 0 250][e]
+Load Event[f 4 26 1 251][e]
+Enter KeyFree Event ID[f 4 26 2 252][e]
+Load KeyFree Event[f 4 26 3 253][e]
 
-[dlg GENERIC_HELP_246]
+[dlg GENERIC_HELP_250]
 [s]Input the 6 digits of a[n][clr 9]event pack's[clr 0] filename[n](found in data.cpk/event)[e]
 
-[dlg GENERIC_HELP_247]
+[dlg GENERIC_HELP_251]
 [s]Attempt to load the selected[n]event. [clr 9]WARNING: Some events may[n]softlock the game.[clr 0][e]
+
+[dlg GENERIC_HELP_252]
+[s]Input the 6 digits of a[n][clr 9]event pack's[clr 0] filename[n](found in ps3.cpk/field).[clr 0][e]
+
+[dlg GENERIC_HELP_253]
+[s]Attempt to load the selected[n]KeyFree event. [clr 9]WARNING: Some events may[n]softlock the game.[clr 0][e]
 
 [dlg NaviMenuName]
 Select Navigator[w][e]
@@ -797,14 +826,14 @@ Michael[e]
 Yaldabaoth[e]
 
 [sel Misc1]
-D00_SCENARIO_BATTLE_01[e]
+Prologue Battle[e]
 QUEST_BATTLE[e]
 Yusuke Co-op[e]
 int_CLEAR[e]
 ALERT_CLEAR_EX[e]
 PALACE_CLEAR_SYS[e]
 PALACE_CALL_CALENDAR[e]
-SYMBOL_ENCOUNT_START[e]
+Closest encounter to position[e]
 D_ENCOUNT_START[e]
 dungeon_return_calendar[e]
 dungeon_return[e]
@@ -815,7 +844,7 @@ dungeon_exit_time_set[e]
 dungeon_start_format[e]
 DUNGEON_START_SAVE[e]
 result_counter_clear[e]
-MVP_CHOICE[e]
+MVP_CHOICE (CRASH!)[e]
 D_ENCOUNT_NO_GET[e]
 Dummy[e]
 Dummy[e]
@@ -916,13 +945,13 @@ Add Persona (Manual Input)[e]
 [dlg BagShowHide]
 The bag has been toggled.[n]To see the change, go to a new field[n]or reload the current one.[w][e]
 
-[dlg GENERIC_HELP_295]
+[dlg GENERIC_HELP_301]
 Removes the swaying effect[n]of the camera that's[n]used in dungeons.[w][e]
 
-[dlg GENERIC_HELP_296]
+[dlg GENERIC_HELP_302]
 Select an item's model ID to[n]spawn it and connect it to[n]the character's model.[w][e]
 
-[dlg GENERIC_HELP_297]
+[dlg GENERIC_HELP_303]
 Select a range of flags[n]to either enable or disable.[w][e]
 
 [dlg ItemSpawnPrompt]
@@ -943,5 +972,5 @@ Enter the start of the[n]range to narrow down.[n](Max 4 digits, press Circle to 
 [dlg FlagRangePrompt2]
 Enter the end of the[n]range to narrow down.[n](Max 4 digits, press Circle to end).[w][e]
 
-[dlg GENERIC_HELP_304]
+[dlg GENERIC_HELP_310]
 Unlocks all Personas in the[n]Compendium. [clr 9]This will delete all[n]Personas in your current stock![clr 0][w][e]
