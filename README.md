@@ -16,7 +16,7 @@
 ## Usage
 Once you've added [mod.cpk support](https://shrinefox.github.io/guides/p5/mod-cpk) to your copy of Persona 5 (PS3), you can use the [Mod Compendium](https://shrinefox.github.io/guides/p5/mod-compendium) to run the [latest compiled Release](https://github.com/ShrineFox/Persona-5-Mod-Menu/releases) in-game.
 ## Compiling
-1. Build (from source) the latest version of TGE's [AtlusScriptCompiler](https://github.com/TGEnigma/AtlusScriptToolchain), which you can use to compile the **.flow** and **.msg** scripts in this repository and recompile them into **.bf** format.
+1. Download the latest build of TGE's [AtlusScriptCompiler](https://ci.appveyor.com/project/TGEnigma/atlusscripttoolchain/build/artifacts) ([source](https://github.com/TGEnigma/AtlusScriptToolchain)), which you can use to compile the **.flow** and **.msg** scripts in this repository and recompile them into **.bf** format.
 2. Also download [TGE's PAKTools](https://github.com/TGEnigma/AtlusFileSystemLibrary/releases).
 3. Edit the build.bat file with the paths to your AtlusScriptCompiler and PAKTool exe files. Name your edited copy build_local.bat. Place the PAK files from your copy of the game in the input folder.
 4. Run build_local.bat.
