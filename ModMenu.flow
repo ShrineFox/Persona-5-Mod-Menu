@@ -81,6 +81,7 @@ void ModMenuDisplay()
 
 void PrintPosition()
 {
+	PUTS( "Joker Translation:" );
 	int pcHandle = FLD_PC_GET_RESHND( 0 );
 	PUTS( "X:" );
 	PUT( FLD_MODEL_GET_X_TRANSLATE( pcHandle ) );
@@ -88,6 +89,14 @@ void PrintPosition()
 	PUT( FLD_MODEL_GET_Y_TRANSLATE( pcHandle ) );
 	PUTS( "Z:" );
 	PUT( FLD_MODEL_GET_Z_TRANSLATE( pcHandle ) );
+	
+	PUTS( "Joker Rotation:" );
+	PUTS( "X:" );
+	PUT( FLD_MODEL_GET_X_ROTATE( pcHandle ) );
+	PUTS( "Y:" );
+	PUT( FLD_MODEL_GET_Y_ROTATE( pcHandle ) );
+	PUTS( "Z:" );
+	PUT( FLD_MODEL_GET_Z_ROTATE( pcHandle ) );
 }
 
 // Player Editor
@@ -594,16 +603,19 @@ void CameraEditorDisplay()
             case 1:
                 CameraInputFov();
                 break;
-            case 2:
+			case 2:
+				CameraInputZoom();
+				break;
+            case 3:
                 CameraInputRot();
                 break;
-            case 3:
+            case 4:
                 CameraUnlock();
                 break;
-            case 4:
+            case 5:
                 CameraLock();
                 break;
-            case 5:
+            case 6:
                 CAMERA_SHAKE_STOP();
                 break;
         }
@@ -630,7 +642,10 @@ void CameraInputPos()
 
             if ( PAD_CHK_PRESS( PadButton.Up ) ) 
             {
-                y = y + ( 5f * multiplier );
+				if ( PAD_CHK_PRESS( PadButton.Square ) )
+					z = z + ( 5f * multiplier );
+				else
+					y = y + ( 5f * multiplier );
                 anyValueSet = true;
             }
 
@@ -642,7 +657,10 @@ void CameraInputPos()
 
             if ( PAD_CHK_PRESS( PadButton.Down ) ) 
             {
-                y = y - ( 5f * multiplier );
+				if ( PAD_CHK_PRESS( PadButton.Square ) )
+					z = z - ( 5f * multiplier );
+				else
+					y = y - ( 5f * multiplier );
                 anyValueSet = true;
             }
 
@@ -702,6 +720,54 @@ void CameraInputFov()
 
             if ( anyValueSet ) 
                 FLD_CAMERA_SET_FOVY(fov);
+        }
+        
+        WAIT( 3 );
+    }
+}
+
+void CameraInputZoom() 
+{
+    DisplayMessagePrompt( CameraPrompt );
+    
+    while ( !PAD_CHK_PRESS( PadButton.Triangle ) )
+    {
+        bool anyValueSet = false;
+        
+        if ( PAD_CHK_PRESS( PadButton.Any ) )
+        {
+            int zoom = 1;
+            float multiplier = 1f;
+
+            if ( PAD_CHK_PRESS( PadButton.Cross ) ) 
+                multiplier = 5f;
+
+            if ( PAD_CHK_PRESS( PadButton.Up ) ) 
+            {
+                zoom = zoom + ( 1f * multiplier );
+                anyValueSet = true;
+            }
+
+            if ( PAD_CHK_PRESS( PadButton.Right ) ) 
+            {
+                zoom = zoom + ( 1f * multiplier );
+                anyValueSet = true;
+            }
+
+            if ( PAD_CHK_PRESS( PadButton.Down ) ) 
+            {
+                zoom = zoom - ( 1f * multiplier );
+                anyValueSet = true;
+            }
+
+            if ( PAD_CHK_PRESS( PadButton.Left ) ) 
+            {
+                zoom = zoom + ( 1f * multiplier );
+                anyValueSet = true;
+            }
+
+            if ( anyValueSet ) 
+                FLD_CAMERA_ZOOM(zoom);
         }
         
         WAIT( 3 );

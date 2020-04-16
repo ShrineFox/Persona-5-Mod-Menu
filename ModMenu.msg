@@ -290,7 +290,7 @@ GAP Playback[w][e]
 [sel GAPMenu]
 Set GAP ID[f 4 26 0 168][e]
 Set GAP Index[f 4 26 1 169][e]
-Toggle Loop[f 4 26 5 170][e]
+Toggle Loop[f 4 26 2 170][e]
 Set Speed[f 4 26 3 171][e]
 Set Time[f 4 26 4 172][e]
 Playback animation[f 4 26 5 173][e]
@@ -323,24 +323,28 @@ Camera Options[w][e]
 [sel CameraMenu]
 Reposition Camera[f 4 26 0 177][e]
 Adjust FOV[f 4 26 1 178][e]
-Rotate Camera[f 4 26 2 179][e]
-Unlock Camera[f 4 26 3 180][e]
-Lock Camera[f 4 26 4 181][e]
-Disable Camera Shake[f 4 26 5 182][e]
+Adjust Zoom[f 4 26 2 179][e]
+Rotate Camera[f 4 26 3 180][e]
+Unlock Camera[f 4 26 4 181][e]
+Lock Camera[f 4 26 5 182][e]
+Disable Camera Shake[f 4 26 6 183][e]
 
 [dlg GENERIC_HELP_177]
 [s]Move the camera along the X, Y[n]or Z axis. Hold Square to change[n]the axis.[e]
 
 [dlg GENERIC_HELP_178]
-[s]Zoom the camera in and out by[n]changing the Field of View.[e]
+[s]Adjust the camera's[n]Field of View.[e]
 
 [dlg GENERIC_HELP_179]
-[s]Change the orientation of the[n]camera with the D-pad.[e]
+[s]Zoom the camera in[n]and out.[e]
 
 [dlg GENERIC_HELP_180]
-[s]Make the camera follow the player[n]again if previously locked.[e]
+[s]Change the orientation of the[n]camera with the D-pad.[e]
 
 [dlg GENERIC_HELP_181]
+[s]Make the camera follow the player[n]again if previously locked.[e]
+
+[dlg GENERIC_HELP_182]
 [s]Makes the camera stationary,[n]which is required to modify it.[e]
 
 [sel OneThruTen]
@@ -359,21 +363,21 @@ Disable Camera Shake[f 4 26 5 182][e]
 Calendar Options[w][e]
 
 [sel CalendarMenu]
-Set Next Day[f 4 26 0 185][e]
-Call Calendar[f 4 26 1 186][e]
-Set Weather[f 4 26 2 187][e]
-Loop Current Day[f 4 26 3 188][e]
-
-[dlg GENERIC_HELP_185]
-[s]Choose the day and month[n]to warp to.[e]
+Set Next Day[f 4 26 0 186][e]
+Call Calendar[f 4 26 1 187][e]
+Set Weather[f 4 26 2 188][e]
+Loop Current Day[f 4 26 3 189][e]
 
 [dlg GENERIC_HELP_186]
-[s]End the current day and warp[n]to the next specified day.[e]
+[s]Choose the day and month[n]to warp to.[e]
 
 [dlg GENERIC_HELP_187]
-[s]Change the current weather[n]condition value. Weather should[n]change after reloading map.[e]
+[s]End the current day and warp[n]to the next specified day.[e]
 
 [dlg GENERIC_HELP_188]
+[s]Change the current weather[n]condition value. Weather should[n]change after reloading map.[e]
+
+[dlg GENERIC_HELP_189]
 [s]Sets the current time[n]of day to be next after[n]ending the current day.[e]
 
 [dlg CalendarPrompt[Calendar]]
@@ -410,50 +414,50 @@ Choose the last 3 digits of
 NPC Options[w][e]
 
 [sel SpawnMenu]
-Spawn Model[f 4 26 0 199][e]
-Animate Model[f 4 26 1 200][e]
-Set Model Scale[f 4 26 2 201][e]
-Attach Item Model[f 4 26 3 202][e]
-Spawn Object Model[f 4 26 4 203][e]
-
-[dlg GENERIC_HELP_199]
-[s]Input a [clr 9]GMD filename[clr 0][n]to spawn a character model from.[e]
+Spawn Model[f 4 26 0 200][e]
+Animate Model[f 4 26 1 201][e]
+Set Model Scale[f 4 26 2 202][e]
+Attach Item Model[f 4 26 3 203][e]
+Spawn Object Model[f 4 26 4 204][e]
 
 [dlg GENERIC_HELP_200]
-[s]Apply field animations[n]to the last NPC you spawned.[e]
+[s]Input a [clr 9]GMD filename[clr 0][n]to spawn a character model from.[e]
 
 [dlg GENERIC_HELP_201]
-[s]Set the scale of the[n]NPC model.[e]
+[s]Apply field animations[n]to the last NPC you spawned.[e]
 
 [dlg GENERIC_HELP_202]
-[s]Input a [clr 9]GMD filename[clr 0][n]to attach to the NPC.[e]
+[s]Set the scale of the[n]NPC model.[e]
 
 [dlg GENERIC_HELP_203]
+[s]Input a [clr 9]GMD filename[clr 0][n]to attach to the NPC.[e]
+
+[dlg GENERIC_HELP_204]
 [s]Input a [clr 9]GMD filename[clr 0][n]of an object to spawn.[e]
 
 [dlg PersonaMenuName]
 Persona Options[w][e]
 
 [sel PersonaMenu]
-Add Persona[f 4 26 0 206][e]
-Delete Personas[f 4 26 1 207][e]
-Add Skill[f 4 26 2 208][e]
-Unlock Full Compendium[f 4 26 3 209][e]
-Evolve Persona[f 4 26 4 210][e]
-
-[dlg GENERIC_HELP_206]
-[s]Input a Persona's name or ID[n]to add it to your stock.[e]
+Add Persona[f 4 26 0 207][e]
+Delete Personas[f 4 26 1 208][e]
+Add Skill[f 4 26 2 209][e]
+Unlock Full Compendium[f 4 26 3 210][e]
+Evolve Persona[f 4 26 4 211][e]
 
 [dlg GENERIC_HELP_207]
-[s]Permanently remove all Personas[n]from your current stock.[e]
+[s]Input a Persona's name or ID[n]to add it to your stock.[e]
 
 [dlg GENERIC_HELP_208]
-[s]Choose a party member and the[n]name or ID of a Skill to add[n]to their current Persona.[e]
+[s]Permanently remove all Personas[n]from your current stock.[e]
 
 [dlg GENERIC_HELP_209]
-[s]Register every Persona in[n]the game by filling your[n]stock with them all.[e]
+[s]Choose a party member and the[n]name or ID of a Skill to add[n]to their current Persona.[e]
 
 [dlg GENERIC_HELP_210]
+[s]Register every Persona in[n]the game by filling your[n]stock with them all.[e]
+
+[dlg GENERIC_HELP_211]
 [s]Evolve a party member's Persona[n]into its Ultimate form.[e]
 
 
@@ -552,87 +556,87 @@ Select a bgm to play.[w][e]
 Flag Options[w][e]
 
 [sel FlagMenu]
-HUD Display[f 4 26 0 232][e]
-Add Party Members[f 4 26 1 233][e]
-Remove Party Members[f 4 26 2 234][e]
-Enable Party Editing[f 4 26 3 235][e]
-Add Overworld Follower[f 4 26 4 236][e]
-Navigator[f 4 26 5 237][e]
-Change Romance Route[f 4 26 6 238][e]
-Room Editor[f 4 26 7 239][e]
-Manual Input[f 4 26 8 240][e]
-Print Enabled Flags[f 4 26 9 241][e]
-Mass Flag Editor[f 4 26 10 242][e]
-
-[dlg GENERIC_HELP_232]
-[s]Show or hide the user interface[n]elements, such as the date, time,[n]and mission list.[e]
+HUD Display[f 4 26 0 233][e]
+Add Party Members[f 4 26 1 234][e]
+Remove Party Members[f 4 26 2 235][e]
+Enable Party Editing[f 4 26 3 236][e]
+Add Overworld Follower[f 4 26 4 237][e]
+Navigator[f 4 26 5 238][e]
+Change Romance Route[f 4 26 6 239][e]
+Room Editor[f 4 26 7 240][e]
+Manual Input[f 4 26 8 241][e]
+Print Enabled Flags[f 4 26 9 242][e]
+Mass Flag Editor[f 4 26 10 243][e]
 
 [dlg GENERIC_HELP_233]
-[s]Make a Persona user available to[n]add to your party.[e]
+[s]Show or hide the user interface[n]elements, such as the date, time,[n]and mission list.[e]
 
 [dlg GENERIC_HELP_234]
-[s]Revoke a Persona user's[n]availability to be added[n]to your party.[e]
+[s]Make a Persona user available to[n]add to your party.[e]
 
 [dlg GENERIC_HELP_235]
-[s]Allow choosing your own[n]party members from the Stats[n]menu in the pause menu.[e]
+[s]Revoke a Persona user's[n]availability to be added[n]to your party.[e]
 
 [dlg GENERIC_HELP_236]
-[s]Enable or disable party[n]members following you[n]in the overworld.[e]
+[s]Allow choosing your own[n]party members from the Stats[n]menu in the pause menu.[e]
 
 [dlg GENERIC_HELP_237]
-[s]Change which character[n]currently serves as the Navigator.[e]
+[s]Enable or disable party[n]members following you[n]in the overworld.[e]
 
 [dlg GENERIC_HELP_238]
-[s]Start or end a relationship with[n]a female Confidant.[e]
+[s]Change which character[n]currently serves as the Navigator.[e]
 
 [dlg GENERIC_HELP_239]
-[s]Modify the state of the[n]protagonist's bedroom in[n]the Leblanc attic.[e]
+[s]Start or end a relationship with[n]a female Confidant.[e]
 
 [dlg GENERIC_HELP_240]
-[s]Enter an 4-digit decimal value[n]of a bit to either[n]enable or disable it.[e]
+[s]Modify the state of the[n]protagonist's bedroom in[n]the Leblanc attic.[e]
 
 [dlg GENERIC_HELP_241]
-[s]Print all currently enabled[n]bit flag values to the[n]TTY log.[e]
+[s]Enter an 4-digit decimal value[n]of a bit to either[n]enable or disable it.[e]
 
 [dlg GENERIC_HELP_242]
+[s]Print all currently enabled[n]bit flag values to the[n]TTY log.[e]
+
+[dlg GENERIC_HELP_243]
 [s]Manipulate a selected[n]range of bit flags to[n]toggle or print.[e]
 
 [dlg FieldMenuName]
 Field Select[e]
 
 [sel FieldMenu]
-Enter Field ID[f 4 26 0 245][e]
-Load Field[f 4 26 1 246][e]
-Reload Current Field[f 4 26 2 247][e]
-
-[dlg GENERIC_HELP_245]
-[s]Input the 6 digits of a[n][clr 9]field pack's[clr 0] filename[n](found in ps3.cpk/field)[e]
+Enter Field ID[f 4 26 0 246][e]
+Load Field[f 4 26 1 247][e]
+Reload Current Field[f 4 26 2 248][e]
 
 [dlg GENERIC_HELP_246]
-[s]Attempt to load the selected[n]field. [clr 9]WARNING: Some fields may[n]softlock the game.[clr 0][e]
+[s]Input the 6 digits of a[n][clr 9]field pack's[clr 0] filename[n](found in ps3.cpk/field)[e]
 
 [dlg GENERIC_HELP_247]
+[s]Attempt to load the selected[n]field. [clr 9]WARNING: Some fields may[n]softlock the game.[clr 0][e]
+
+[dlg GENERIC_HELP_248]
 [s]Reload the field that[n]you're currently on.[e]
 
 [dlg EventMenuName]
 Event Select[e]
 
 [sel EventMenu]
-Enter Event ID[f 4 26 0 250][e]
-Load Event[f 4 26 1 251][e]
-Enter KeyFree Event ID[f 4 26 2 252][e]
-Load KeyFree Event[f 4 26 3 253][e]
-
-[dlg GENERIC_HELP_250]
-[s]Input the 6 digits of a[n][clr 9]event pack's[clr 0] filename[n](found in data.cpk/event)[e]
+Enter Event ID[f 4 26 0 251][e]
+Load Event[f 4 26 1 252][e]
+Enter KeyFree Event ID[f 4 26 2 253][e]
+Load KeyFree Event[f 4 26 3 254][e]
 
 [dlg GENERIC_HELP_251]
-[s]Attempt to load the selected[n]event. [clr 9]WARNING: Some events may[n]softlock the game.[clr 0][e]
+[s]Input the 6 digits of a[n][clr 9]event pack's[clr 0] filename[n](found in data.cpk/event)[e]
 
 [dlg GENERIC_HELP_252]
-[s]Input the 6 digits of a[n][clr 9]event pack's[clr 0] filename[n](found in ps3.cpk/field).[clr 0][e]
+[s]Attempt to load the selected[n]event. [clr 9]WARNING: Some events may[n]softlock the game.[clr 0][e]
 
 [dlg GENERIC_HELP_253]
+[s]Input the 6 digits of a[n][clr 9]event pack's[clr 0] filename[n](found in ps3.cpk/field).[clr 0][e]
+
+[dlg GENERIC_HELP_254]
 [s]Attempt to load the selected[n]KeyFree event. [clr 9]WARNING: Some events may[n]softlock the game.[clr 0][e]
 
 [dlg NaviMenuName]
@@ -945,13 +949,13 @@ Add Persona (Manual Input)[e]
 [dlg BagShowHide]
 The bag has been toggled.[n]To see the change, go to a new field[n]or reload the current one.[w][e]
 
-[dlg GENERIC_HELP_301]
+[dlg GENERIC_HELP_302]
 Removes the swaying effect[n]of the camera that's[n]used in dungeons.[w][e]
 
-[dlg GENERIC_HELP_302]
+[dlg GENERIC_HELP_303]
 Select an item's model ID to[n]spawn it and connect it to[n]the character's model.[w][e]
 
-[dlg GENERIC_HELP_303]
+[dlg GENERIC_HELP_304]
 Select a range of flags[n]to either enable or disable.[w][e]
 
 [dlg ItemSpawnPrompt]
@@ -972,5 +976,5 @@ Enter the start of the[n]range to narrow down.[n](Max 4 digits, press Circle to 
 [dlg FlagRangePrompt2]
 Enter the end of the[n]range to narrow down.[n](Max 4 digits, press Circle to end).[w][e]
 
-[dlg GENERIC_HELP_310]
+[dlg GENERIC_HELP_311]
 Unlocks all Personas in the[n]Compendium. [clr 9]This will delete all[n]Personas in your current stock![clr 0][w][e]
