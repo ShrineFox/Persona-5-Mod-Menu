@@ -1066,7 +1066,7 @@ Party Member Cutin Test[w][e]
 [s]Test the dialogue cutins[n]for Goro Akechi.[e]
 
 [dlg GENERIC_HELP_336]
-[s]Test the dialogue cutins[n]for Evil Goro Akechi.[e]
+[s]Test the dialogue cutins[n]for Villain Akechi.[e]
 
 [dlg CutinOrientationMenuName]
 Cutin Orientation[w][e]
