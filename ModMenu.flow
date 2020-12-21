@@ -294,7 +294,7 @@ void PersonaAddAllToCompendium()
 
 void EvolvePersona()
 {
-    int selection = SEL_GENERIC_NOT_HELP( -1, UnitSelect3 );
+    int selection = SEL_GENERIC_NOT_HELP( -1, UnitSelect2 );
 
     switch ( selection )
     {
@@ -320,6 +320,9 @@ void EvolvePersona()
             break;
         case 6:
             PERSONA_EVOLUTION( 8 );
+            break;
+		case 7:
+            PERSONA_EVOLUTION( 9 );
             break;
     }
 }
@@ -1837,24 +1840,27 @@ void FlagsEditorDisplay()
                 EnablePartyEditing();
                 break;
 			case 4:
+				UnlockPersonaSlots();
+				break;
+			case 5:
 				SelectFollowers();
 				break;
-            case 5:
+            case 6:
                 SelectNavigator();
                 break;
-            case 6:
+            case 7:
                 SelectRomanceFlags();
                 break;
-            case 7:
+            case 8:
                 RoomEditorDisplay();
                 break;
-            case 8: // Manual Input
+            case 9: // Manual Input
                 SelectBitToggle();
                 break;
-            case 9:
+            case 10:
                 PrintEnabledBits();
                 break;
-            case 10:
+            case 11:
                 FlagMassEditor();
                 break;
         }
@@ -2007,6 +2013,11 @@ void SelectRemovePartyMember()
         return;
         
     BIT_OFF( 0 + 0x0800 + 0x0800 + 0x1000 + 0x0100 + unit );
+}
+
+void UnlockPersonaSlots()
+{
+	BIT_ON(8514);
 }
 
 void EnablePartyEditing()
