@@ -14,8 +14,9 @@ Amicitia Mod Menu[w][e]
 [s]Calendar[f 4 26 9 102][e]
 [s]Cutin Test[f 4 26 10 103][e]
 [s]Font Test[f 4 26 11 104][e]
-[s]Check Phone/Auto Recover[f 4 26 12 105][e]
-[s]About[f 4 26 13 106][e]
+[s]Particle Test[f 4 26 12 105][e]
+[s]Check Phone/Auto Recover[f 4 26 13 106][e]
+[s]About[f 4 26 14 107][e]
 
 [dlg GENERIC_HELP_93]
 [s]Edit your Personas, items, stats,[n]money, or even your name.[e]
@@ -54,11 +55,13 @@ Amicitia Mod Menu[w][e]
 [s]Test the character placement[n]in the game's font.[e]
 
 [dlg GENERIC_HELP_105]
-[s]View your IM messages[n]or auto heal the party[n]just like the Square Button is[n]supposed to do.[e]
+[s]Spawn particles and[n]manipulate their properties.[e]
 
 [dlg GENERIC_HELP_106]
-[s]Show some info about the[n]development of this mod.[e]
+[s]View your IM messages[n]or auto heal the party[n]just like the Square Button is[n]supposed to do.[e]
 
+[dlg GENERIC_HELP_107]
+[s]Show some info about the[n]development of this mod.[e]
 
 [dlg PlayerMenuName]
 Player Options[w][e]
@@ -1365,3 +1368,46 @@ Cutin Orientation[w][e]
 [dlg GoroExpressionLeft[Goro]]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 10 3 300 1]Cutin Test[n][w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 10 10 300 1]Cutin Test[n][w][e]
+
+
+[dlg ParticleMenuName]
+Particle Menu[w][e]
+
+[sel ParticleMenu]
+[s]Automatic Particle Selection[f 4 26 0 360][e]
+[s]Manual Particle Selection[f 4 26 1 361][e]
+[s]Set Params to Default[f 4 26 2 362][e]
+[s]Set Effect Size[f 4 26 3 363][e]
+[s]Set Effect Speed[f 4 26 4 364][e]
+[s]Set Effect Position[f 4 26 5 365][e]
+[s]Set Effect Translucency[f 4 26 6 366][e]
+
+[dlg GENERIC_HELP_360]
+[s]Preview EPL's placed inside[n]'data.cpk\field\effect\bank'[n][clr 9]MUST BE NAMED fb###.EPL[n]OR THE GAME SOFTLOCKS![clr 0][e]
+
+[dlg GENERIC_HELP_361]
+[s]Select a 3-digit number from the[n]effect bank folder [clr 9](fb###.EPL)[n][clr 0]to preview.[e]
+
+[dlg GENERIC_HELP_362]
+[s]Reset all properties of[n]the current EPL.[n][e]
+
+[dlg GENERIC_HELP_363]
+[s]Set the Size[n]of the current EPL.[n][e]
+
+[dlg GENERIC_HELP_364]
+[s]Set the Speed[n]of the current EPL.[n][e]
+
+[dlg GENERIC_HELP_365]
+[s]Set the Position[n]of the current EPL to the player.[e]
+
+[dlg GENERIC_HELP_366]
+[s]Set the Opacity[n]of the current EPL.[n][e]
+
+[dlg ScaleParticle]
+Set the particles's scale.[n](press Circle to end)[n]Default is 10.[w][e]
+
+[dlg SpeedParticle]
+Set the particles's speed.[n](press Circle to end)[n]Default is 10.[w][e]
+
+[dlg AlphaParticle]
+Set the particles's opacity.[n](press Circle to end)[n]Default is 10.[w][e]
