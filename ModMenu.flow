@@ -2696,3 +2696,123 @@ void GoroCutinMenu()
 		}
 	}
 }
+
+//EPL's located in field/effect/bank with fb###.epl naming scheme
+//I did make the EPL Bank renamer but maybe batch or vbscript could
+//mass incremental renames without my shitty code
+
+//Also for whatever reason, the thing that determines how much bloom
+//and glare an EPL gets is actually in the ENV file per field.
+//I found the places where the glare is generally lowest to be
+//in Mementos and any other dungeons. Dniwe found a "no glare" ENV
+//but he doesn't remember what the original was, supposedly it might
+//be in the first few ENV's in the folder
+
+//For some reason p5 only ever seems to use 4 effect banks according
+//to the dump. Luckily I tested and it seems like there's no real limit
+//to the number of the bank. There IS a limit to how many can be displayed
+//at once, 18 epl's at the same time crashes the game, but individual banks
+//can have any number they want.
+
+//I want to make a BED extractor to test the EPL's embedded in skills, 
+//sadly TGE's template is kinda broken and on most BED's it either fails
+//or mis-categorizes data, making automatic EPL extraction as of now above
+//my skillset. 
+
+void SpawnEPL()
+{
+    PUT( CCParticleNumber );
+    FLD_EFFECT_BANK_LOAD( 1, CCParticleNumber );
+    FLD_EFFECT_BANK_SYNC( 1 );
+    CCParticle = FLD_EFFECT_BANK_START( 1 ); 
+}
+
+void ParticleTest() 
+{
+    while ( true )
+    {
+        int selection = SEL_GENERIC( -1, ParticleMenu );
+        switch ( selection )
+        {
+            case -1:
+                return;
+            case 0:
+                FLD_EFFECT_END( CCParticle ); 
+                FLD_EFFECT_BANK_FREE( 1 );
+                SpawnEPL();
+                while ( !PAD_CHK_PRESS( PadButton.Triangle ) )
+                {
+                    if ( PAD_CHK_PRESS( PadButton.Left ) ) 
+                    {        
+                        if ( CCParticleNumber == 0 )
+                        {
+                            break;
+                        }
+                        else
+                        {            
+                            FLD_EFFECT_END( CCParticle ); 
+                            FLD_EFFECT_BANK_FREE( 1 );
+                            CCParticleNumber = CCParticleNumber - 1;
+                            SpawnEPL();
+                        }
+                    }
+                    if ( PAD_CHK_PRESS( PadButton.Right ) )
+                    {
+                        FLD_EFFECT_END( CCParticle );
+                        FLD_EFFECT_BANK_FREE( 1 );
+                        CCParticleNumber = CCParticleNumber + 1;
+                        SpawnEPL();
+                    }            
+                    WAIT( 3 ); //Prevents crash from excessive tick speed
+                }            
+                return;
+            case 1:
+                CCParticleNumber = SelectNumber( 3 );
+                if (CCParticleNumber == -1)
+                {
+                    CCParticleNumber = 0;
+                    break;
+                }
+                else
+                {
+                    FLD_EFFECT_END( CCParticle );
+                    FLD_EFFECT_BANK_FREE( 1 );                    
+                    SpawnEPL();   
+                }
+                return;
+                
+            case 2:
+                //CCParticleNumber = 0;
+                FLD_EFFECT_SET_POS(CCParticle,0,0,0);
+                FLD_EFFECT_SET_SCALE(CCParticle,1,1,1);
+                FLD_EFFECT_SET_ALPHA(CCParticle,1);
+                FLD_EFFECT_SET_SPEED(CCParticle,1);
+                return;
+            case 3:
+                float CCParticleScale = SelectFloatPrompt( ScaleParticle );
+                if ( CCParticleScale != -1 )
+                {
+                    FLD_EFFECT_SET_SCALE( CCParticle, CCParticleScale/10, CCParticleScale/10, CCParticleScale/10 );
+                }                
+                return;
+            case 4:
+                float CCParticleSpeed = SelectFloatPrompt( SpeedParticle );
+                if ( CCParticleSpeed != -1 )
+                {
+                    FLD_EFFECT_SET_SPEED( CCParticle, CCParticleSpeed/10 );
+                }                
+                return;
+            case 5:
+                FLD_EFFECT_SET_POS(CCParticle,FLD_MODEL_GET_X_TRANSLATE(FLD_PC_GET_RESHND( 0 )),FLD_MODEL_GET_Y_TRANSLATE(FLD_PC_GET_RESHND( 0 )),FLD_MODEL_GET_Z_TRANSLATE(FLD_PC_GET_RESHND( 0 )));
+                return;
+            case 6:
+                float CCParticleAlpha = SelectFloatPrompt( AlphaParticle );
+                if ( CCParticleAlpha != -1 )
+                {
+                    FLD_EFFECT_SET_ALPHA( CCParticle, CCParticleAlpha/10 );
+                }                
+                return;                
+        }
+    }
+
+}
