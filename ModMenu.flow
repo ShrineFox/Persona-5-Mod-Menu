@@ -26,6 +26,9 @@ global int gEventMinor;
 global int gKfEventMajor;
 global int gKfEventMinor;
 
+global int CCParticle;
+global int CCParticleNumber; 
+
 void ModMenuDisplay()
 {
     ALL_ENABLE_SHARE_PLAY(); //Re-enables screen recording
@@ -62,23 +65,29 @@ void ModMenuDisplay()
                 break;
             case 7:
                 NpcControlMenuDisplay(); 
-                break;
+                break;              
             case 8: 
                 FlagsEditorDisplay(); 
                 break;
             case 9: 
                 CalendarEditorDisplay(); 
                 return;
-			case 10: 
+	    case 10: 
                 CutinTestDisplay(); 
                 return;	
-			case 11: 
+	    case 11: 
                 FontTestMenu();	
-				break;
-            case 12: 
+		break;
+	    case 12: 
+                ParticleTest();	
+		break;
+	    case 13: 
+                EditEnviroment();	
+		break;                
+            case 14: 
                 CallOriginalSquareMenu();
                 break;
-            case 13:
+            case 15:
                 AboutDialogDisplay();
                 break;
         }
@@ -2815,4 +2824,186 @@ void ParticleTest()
         }
     }
 
+}
+
+
+//Scenelights just seem to be the basic params you can find 
+//in GFS and GMD materials but applicable to every object in the scene.
+//I.E Ambient (AMB) Diffuse (DIFF) and Specular (SPEC).
+//Each function to control these scenelights has 4 params, 
+//the first 3 are Hue Saturation and Lightness (standard HSL colors)
+//and the last one is time, 0 is instant while 60 is a one-second fade in.
+//The scenelight commands basically override the ENV file temporarily,
+//for example you can turn Mementos into a stark white like Maruki's version
+//despite the ENV making everything reddish
+
+//Fog isn't used that agressively in the game, or at least changed that much.
+//The only real instances of fog commands being used are in Sae's dark room to
+//obscure the distance (Scenelights are also used to make the walls dark)
+//The set fog command has 6 params, the first two being "Near" and "Far" clip.
+//I'm not SURE what these do, but from testing they seem to be the starting 
+//ranges and radius of the fog. The next 3 are similar to scenelight controls,
+//standard Hue Saturation Lightness, however in this case there's also Alpha,
+//so it's HSLA coloring. The last param, like Scenelight, is time to fade in.
+
+//I noticed setting the fog in Shibuya Central Street at night while it's raining
+//has this weird bug with the Near And Far clip that makes the fog invert and start
+//from joker's position and fade off outwards. I'll need to test how rain changes
+//the fog conditions.
+
+
+void PrintScenelights()
+{
+	PUTS( " " );
+    PUTS( "Scenelight Params:" );
+	PUTS( " " );
+    
+	PUTS( "- Ambient -" );    
+	PUTS( "Hue:" );
+	PUT( FLD_GET_SCNLIGHT_AMB_H() );
+	PUTS( "Saturation:" );
+	PUT( FLD_GET_SCNLIGHT_AMB_S() );
+	PUTS( "Lightness:" );
+	PUT( FLD_GET_SCNLIGHT_AMB_L() );
+	PUTS( " " );
+    
+	PUTS( "- Diffuse -" );    
+	PUTS( "Hue:" );
+	PUT( FLD_GET_SCNLIGHT_DIFF_H() );
+	PUTS( "Saturation:" );
+	PUT( FLD_GET_SCNLIGHT_DIFF_S() );
+	PUTS( "Lightness:" );
+	PUT( FLD_GET_SCNLIGHT_DIFF_L() );
+	PUTS( " " );    
+    
+	PUTS( "- Specular -" );    
+	PUTS( "Hue:" );
+	PUT( FLD_GET_SCNLIGHT_SPEC_H() );
+	PUTS( "Saturation:" );
+	PUT( FLD_GET_SCNLIGHT_SPEC_S() );
+	PUTS( "Lightness:" );
+	PUT( FLD_GET_SCNLIGHT_SPEC_L() );
+	PUTS( " " );   
+}
+
+void PrintFog()
+{
+	PUTS( " " );
+    PUTS( "Fog Params:" );
+	PUTS( " " );
+    
+	PUTS( "Near Clip:" );
+	PUT( FLD_GET_FOG_NEAR_CLIP() );
+	PUTS( "Far Clip:" );
+	PUT( FLD_GET_FOG_FAR_CLIP() );
+	PUTS( "Hue:" );
+	PUT( FLD_GET_FOG_HUE() );
+	PUTS( "Saturation:" );
+	PUT( FLD_GET_FOG_SATURATION() );       
+	PUTS( "Lightness:" );
+	PUT( FLD_GET_FOG_LUMINANCE() );  
+	PUTS( "Alpha:" );
+	PUT( FLD_GET_FOG_ALPHA() );      
+}
+
+void SetHSL(int ADSChoice)
+{
+    DisplayMessagePrompt( HueDlg );
+    int Hue = SelectNumber( 3 );
+    DisplayMessagePrompt( SatDlg );
+    int Saturation = SelectNumber( 3 );
+    DisplayMessagePrompt( LumDlg );
+    int Lightness = SelectNumber( 3 );
+    switch ( ADSChoice )
+    {
+        case 0:                
+            FLD_SET_SCNLIGHT_AMB(Hue,Saturation,Lightness,0);
+            return;
+        case 1:                
+            FLD_SET_SCNLIGHT_DIFF(Hue,Saturation,Lightness,0);
+            return;
+        case 2:                
+            FLD_SET_SCNLIGHT_SPEC(Hue,Saturation,Lightness,0);
+            return;            
+    }    
+}
+
+void EditEnviroment()
+{
+    while ( true )
+    {
+        int selection = SEL_GENERIC( -1, EnviromentEditor );
+        switch ( selection )
+        {
+            case -1:
+                return;
+            case 0:                
+                FLD_SET_SCNLIGHT_AMB(255,255,255,0);
+                FLD_SET_SCNLIGHT_DIFF(255,255,255,0);
+                FLD_SET_SCNLIGHT_SPEC(255,255,255,0);
+                return;                
+            case 1:                
+                PrintScenelights();
+                return;
+            case 2:
+                SetHSL(0);
+                return;    
+            case 3:
+                SetHSL(1);
+                return;
+            case 4:
+                SetHSL(2);
+                return;    
+            case 5:
+                PrintFog();
+                return;
+            case 6:
+                float CCFogNearClip = SelectFloatPrompt( NearClipDlg );
+                if ( CCFogNearClip != -1 )
+                {
+                    FLD_SET_FOG( CCFogNearClip, FLD_GET_FOG_FAR_CLIP(), FLD_GET_FOG_HUE(), FLD_GET_FOG_SATURATION(), FLD_GET_FOG_LUMINANCE(), FLD_GET_FOG_ALPHA(), 0 );
+                }                    
+                return;
+            case 7:
+                float CCFogFarClip = SelectFloatPrompt( FarClipDlg );
+                if ( CCFogFarClip != -1 )
+                {
+                    FLD_SET_FOG( FLD_GET_FOG_NEAR_CLIP(), CCFogFarClip, FLD_GET_FOG_HUE(), FLD_GET_FOG_SATURATION(), FLD_GET_FOG_LUMINANCE(), FLD_GET_FOG_ALPHA(), 0 );
+                }                    
+                return;
+            case 8:
+                DisplayMessagePrompt( HueDlg );
+                int CCFogHue = SelectNumber( 3 );
+                if ( CCFogHue != -1 )
+                {
+                    FLD_SET_FOG( FLD_GET_FOG_NEAR_CLIP(), FLD_GET_FOG_FAR_CLIP(), CCFogHue, FLD_GET_FOG_SATURATION(), FLD_GET_FOG_LUMINANCE(), FLD_GET_FOG_ALPHA(), 0 );
+                }                    
+                return;
+            case 9:
+                DisplayMessagePrompt( SatDlg );
+                int CCFogSat = SelectNumber( 3 );
+                if ( CCFogSat != -1 )
+                {
+                    FLD_SET_FOG( FLD_GET_FOG_NEAR_CLIP(), FLD_GET_FOG_FAR_CLIP(), FLD_GET_FOG_HUE(), CCFogSat, FLD_GET_FOG_LUMINANCE(), FLD_GET_FOG_ALPHA(), 0 );
+                }                    
+                return;
+            case 10:
+                DisplayMessagePrompt( LumDlg );
+                int CCFogLum = SelectNumber( 3 );
+                if ( CCFogLum != -1 )
+                {
+                    FLD_SET_FOG( FLD_GET_FOG_NEAR_CLIP(), FLD_GET_FOG_FAR_CLIP(), FLD_GET_FOG_HUE(), FLD_GET_FOG_SATURATION(), CCFogLum, FLD_GET_FOG_ALPHA(), 0 );
+                }                    
+                return;
+            case 11:
+                DisplayMessagePrompt( AlpDlg );
+                int CCFogAlp = SelectNumber( 3 );
+                if ( CCFogAlp != -1 )
+                {
+                    FLD_SET_FOG( FLD_GET_FOG_NEAR_CLIP(), FLD_GET_FOG_FAR_CLIP(), FLD_GET_FOG_HUE(), FLD_GET_FOG_SATURATION(), FLD_GET_FOG_LUMINANCE(), CCFogAlp, 0 );
+                }                    
+                return;                
+        }
+        
+    }
 }

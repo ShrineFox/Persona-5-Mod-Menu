@@ -1411,3 +1411,71 @@ Set the particles's speed.[n](press Circle to end)[n]Default is 10.[w][e]
 
 [dlg AlphaParticle]
 Set the particles's opacity.[n](press Circle to end)[n]Default is 10.[w][e]
+
+[sel EnviromentEditor]
+[s]Set all Scenelights to White[f 4 26 0 373][e]
+[s]Print Scenelights to TTY[f 4 26 1 374][e]
+[s]Set Ambient Scenelight[f 4 26 2 375][e]
+[s]Set Diffuse Scenelight[f 4 26 3 376][e]
+[s]Set Specular Scenelight[f 4 26 4 377][e]
+[s]Print Current Fog Params to TTY[f 4 26 5 378][e]
+[s]Set Near Clip[f 4 26 6 379][e]
+[s]Set Far Clip[f 4 26 7 380][e]
+[s]Set Fog Hue[f 4 26 8 381][e]
+[s]Set Fog Saturation[f 4 26 9 382][e]
+[s]Set Fog Lightness[f 4 26 10 383][e]
+[s]Set Fog Alpha[f 4 26 11 384][e]
+
+[dlg GENERIC_HELP_373]
+[s]Set all Scenelight data on[n]the current field to 255.[e]
+
+[dlg GENERIC_HELP_374]
+[s]Print all Scenelight data on[n]the current field to the TTY Log.[e]
+
+[dlg GENERIC_HELP_375]
+[s]Set the HSL Values for the[n]Ambient Scenelight.[e]
+
+[dlg GENERIC_HELP_376]
+[s]Set the HSL Values for the[n]Diffuse Scenelight.[e]
+
+[dlg GENERIC_HELP_377]
+[s]Set the HSL Values for the[n]Specular Scenelight.[e]
+
+[dlg GENERIC_HELP_378]
+[s]Print all fog params on[n]the current field to the TTY Log.[e]
+
+[dlg GENERIC_HELP_379]
+[s]Set the starting[n]location for the fog.[e]
+
+[dlg GENERIC_HELP_380]
+[s]Set the starting[n]radius for the fog.[e]
+
+[dlg GENERIC_HELP_381]
+[s]Set the current fog's Hue.[e]
+
+[dlg GENERIC_HELP_382]
+[s]Set the current fog's Saturation.[e]
+
+[dlg GENERIC_HELP_383]
+[s]Set the current fog's Lightness.[e]
+
+[dlg GENERIC_HELP_384]
+[s]Set the current fog's Opacity.[e]
+
+[dlg HueDlg]
+Set Hue to a 3 digit number. (Max 255)[w][e]
+
+[dlg SatDlg]
+Set Saturation to a 3 digit number. (Max 255)[w][e]
+
+[dlg LumDlg]
+Set Lightness to a 3 digit number. (Max 255)[w][e]
+
+[dlg AlpDlg]
+Set Opacity to a 3 digit number. (Max 255)[w][e]
+
+[dlg NearClipDlg]
+Set the fog's Near Clip[n](press Circle to end)[w][e]
+
+[dlg FarClipDlg]
+Set the fog's Near Clip[n](press Circle to end)[w][e]

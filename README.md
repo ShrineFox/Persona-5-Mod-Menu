@@ -1,6 +1,4 @@
 # Persona 5 Mod Menu
-## Added Features in Fork
-- Preliminary EPL Support 
 
 **Custom scripts for Persona 5 that replace the square button function with a fully featured trainer**
 ![Image of the menu ingame](https://cdn.discordapp.com/attachments/428021649246388224/447597680018063372/unknown.png)
