@@ -181,70 +181,70 @@ Toranosuke Yoshida[f 4 26 19 153][e]
 Sae Niijima[f 4 26 20 154][e]
 
 [dlg GENERIC_HELP_134]
-[s]Set the desired rank for[n]the Confidant of the [clr 9]Fool[clr 0][n]Arcana.[e]
+[s]Set the desired rank for[n]the Confidant of the [clr 9][f 2 4 1][clr 0][n]Arcana.[e]
 
 [dlg GENERIC_HELP_135]
-[s]Set the desired rank for[n]the Confidant of the [clr 9]Magician[clr 0][n]Arcana.[e]
+[s]Set the desired rank for[n]the Confidant of the [clr 9][f 2 4 2][clr 0][n]Arcana.[e]
 
 [dlg GENERIC_HELP_136]
-[s]Set the desired rank for[n]the Confidant of the [clr 9]Priestess[clr 0][n]Arcana.[e]
+[s]Set the desired rank for[n]the Confidant of the [clr 9][f 2 4 3][clr 0][n]Arcana.[e]
 
 [dlg GENERIC_HELP_137]
-[s]Set the desired rank for[n]the Confidant of the [clr 9]Empress[clr 0][n]Arcana.[e]
+[s]Set the desired rank for[n]the Confidant of the [clr 9][f 2 4 4][clr 0][n]Arcana.[e]
 
 [dlg GENERIC_HELP_138]
-[s]Set the desired rank for[n]the Confidant of the [clr 9]Emperor[clr 0][n]Arcana.[e]
+[s]Set the desired rank for[n]the Confidant of the [clr 9][f 2 4 5][clr 0][n]Arcana.[e]
 
 [dlg GENERIC_HELP_139]
-[s]Set the desired rank for[n]the Confidant of the [clr 9]Heirophant[clr 0][n]Arcana.[e]
+[s]Set the desired rank for[n]the Confidant of the [clr 9][f 2 4 6][clr 0][n]Arcana.[e]
 
 [dlg GENERIC_HELP_140]
-[s]Set the desired rank for[n]the Confidant of the [clr 9]Lovers[clr 0][n]Arcana.[e]
+[s]Set the desired rank for[n]the Confidant of the [clr 9][f 2 4 7][clr 0][n]Arcana.[e]
 
 [dlg GENERIC_HELP_141]
-[s]Set the desired rank for[n]the Confidant of the [clr 9]Chariot[clr 0][n]Arcana.[e]
+[s]Set the desired rank for[n]the Confidant of the [clr 9][f 2 4 8][clr 0][n]Arcana.[e]
 
 [dlg GENERIC_HELP_142]
-[s]Set the desired rank for[n]the Confidant of the [clr 9]Justice[clr 0][n]Arcana.[e]
+[s]Set the desired rank for[n]the Confidant of the [clr 9][f 2 4 9][clr 0][n]Arcana.[e]
 
 [dlg GENERIC_HELP_143]
-[s]Set the desired rank for[n]the Confidant of the [clr 9]Hermit[clr 0][n]Arcana.[e]
+[s]Set the desired rank for[n]the Confidant of the [clr 9][f 2 4 10][clr 0][n]Arcana.[e]
 
 [dlg GENERIC_HELP_144]
-[s]Set the desired rank for[n]the Confidant of the [clr 9]Fortune[clr 0][n]Arcana.[e]
+[s]Set the desired rank for[n]the Confidant of the [clr 9][f 2 4 11][clr 0][n]Arcana.[e]
 
 [dlg GENERIC_HELP_145]
-[s]Set the desired rank for[n]the Confidant of the [clr 9]Strength[clr 0][n]Arcana.[e]
+[s]Set the desired rank for[n]the Confidant of the [clr 9][f 2 4 12][clr 0][n]Arcana.[e]
 
 [dlg GENERIC_HELP_146]
-[s]Set the desired rank for[n]the Confidant of the [clr 9]Hanged Man[clr 0][n]Arcana.[e]
+[s]Set the desired rank for[n]the Confidant of the [clr 9][f 2 4 13][clr 0][n]Arcana.[e]
 
 [dlg GENERIC_HELP_147]
-[s]Set the desired rank for[n]the Confidant of the [clr 9]Death[clr 0][n]Arcana.[e]
+[s]Set the desired rank for[n]the Confidant of the [clr 9][f 2 4 14][clr 0][n]Arcana.[e]
 
 [dlg GENERIC_HELP_148]
-[s]Set the desired rank for[n]the Confidant of the [clr 9]Temperance[clr 0][n]Arcana.[e]
+[s]Set the desired rank for[n]the Confidant of the [clr 9][f 2 4 15][clr 0][n]Arcana.[e]
 
 [dlg GENERIC_HELP_149]
-[s]Set the desired rank for[n]the Confidant of the [clr 9]Devil[clr 0][n]Arcana.[e]
+[s]Set the desired rank for[n]the Confidant of the [clr 9][f 2 4 16][clr 0][n]Arcana.[e]
 
 [dlg GENERIC_HELP_150]
-[s]Set the desired rank for[n]the Confidant of the [clr 9]Tower[clr 0][n]Arcana.[e]
+[s]Set the desired rank for[n]the Confidant of the [clr 9][f 2 4 17][clr 0][n]Arcana.[e]
 
 [dlg GENERIC_HELP_151]
-[s]Set the desired rank for[n]the Confidant of the [clr 9]Star[clr 0][n]Arcana.[e]
+[s]Set the desired rank for[n]the Confidant of the [clr 9][f 2 4 18][clr 0][n]Arcana.[e]
 
 [dlg GENERIC_HELP_152]
-[s]Set the desired rank for[n]the Confidant of the [clr 9]Moon[clr 0][n]Arcana.[e]
+[s]Set the desired rank for[n]the Confidant of the [clr 9][f 2 4 19][clr 0][n]Arcana.[e]
 
 [dlg GENERIC_HELP_153]
-[s]Set the desired rank for[n]the Confidant of the [clr 9]Sun[clr 0][n]Arcana.[e]
+[s]Set the desired rank for[n]the Confidant of the [clr 9][f 2 4 20][clr 0][n]Arcana.[e]
 
 [dlg GENERIC_HELP_154]
-[s]Set the desired rank for[n]the Confidant of the [clr 9]Judgement[clr 0][n]Arcana.[e]
+[s]Set the desired rank for[n]the Confidant of the [clr 9][f 2 4 21][clr 0][n]Arcana.[e]
 
 [dlg UNUSED_HELP_59]
-[s]Set the desired rank for[n]the Confidant of the [clr 9]World[clr 0][n]Arcana.[e]
+[s]Set the desired rank for[n]the Confidant of the [clr 9][f 2 4 24][clr 0][n]Arcana.[e]
 
 [dlg StatsMenuName]
 Select Stat Type...[w][e]
@@ -480,25 +480,25 @@ Evolve Persona[f 4 26 4 215][e]
 Select Party Member[w][e]
 
 [sel UnitSelect]
-Joker[e]
-Ryuji[e]
-Morgana[e]
-Ann[e]
-Yusuke[e]
-Makoto[e]
-Haru[e]
-Futaba[e]
-Akechi[e]
+[f 2 4 1][e]
+[f 2 4 2][e]
+[f 2 4 3][e]
+[f 2 4 4][e]
+[f 2 4 5][e]
+[f 2 4 6][e]
+[f 2 4 7][e]
+[f 2 4 8][e]
+[f 2 4 9][e]
 
 [sel UnitSelect2]
-Ryuji[e]
-Morgana[e]
-Ann[e]
-Yusuke[e]
-Makoto[e]
-Haru[e]
-Futaba[e]
-Akechi[e]
+[f 2 4 2][e]
+[f 2 4 3][e]
+[f 2 4 4][e]
+[f 2 4 5][e]
+[f 2 4 6][e]
+[f 2 4 7][e]
+[f 2 4 8][e]
+[f 2 4 9][e]
 
 [dlg PersonaDelPrompt [Delete Personas]]
 This will permanently remove all 
@@ -653,8 +653,8 @@ Load KeyFree Event[f 4 26 3 258][e]
 Select Navigator[w][e]
 
 [sel NaviMenu]
-Morgana[e]
-Futaba[e]
+[f 2 4 3][e][e]
+[f 2 4 8][e][e]
 None[e]
 
 [sel DateDisplayDlg]

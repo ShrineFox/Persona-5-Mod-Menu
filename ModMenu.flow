@@ -7,6 +7,9 @@ import( "Utilities.flow" );
 import( "SkillSelection.flow" );
 import( "PersonaSelection.flow" );
 import( "CutinSelect.flow" );
+import( "AssignNames.flow" );
+
+// Define Variables
 
 // Store this for animating the last spawned npc
 global int gLastSpawnedNpcModelHandle;
@@ -264,7 +267,9 @@ void PersonaAddSkillMenuOpen()
 }
 
 void PersonaAddSkillSelect( bool useNumberInput )
+
 {
+	SetPartyMemberNames();
     int unitId = SEL_GENERIC_NOT_HELP( UnitMenuName, UnitSelect );
     if ( unitId == -1 ) // Cancel
         return;
@@ -304,6 +309,7 @@ void PersonaAddAllToCompendium()
 
 void EvolvePersona()
 {
+	SetPartyMemberNames();
     int selection = SEL_GENERIC_NOT_HELP( -1, UnitSelect2 );
 
     switch ( selection )
@@ -445,6 +451,7 @@ void ItemGet( int type, int itemId, int amount)
 
 void CommuSetRankSelect()
 {
+	SetArcanaNames();
     int cmmId = SEL_GENERIC( CommuMenuName, CommuMenu ) + 1;
     
     if ( cmmId <= 0 || cmmId >= 22 )
@@ -2009,6 +2016,7 @@ void SelectHUDDisplayFlag()
 
 void SelectAddPartyMember()
 {
+	SetPartyMemberNames();
     int unit = SEL_GENERIC_NOT_HELP( UnitMenuName, UnitSelect2 ) + 48;
     if ( unit == 47 ) // Cancel
         return;
@@ -2018,6 +2026,7 @@ void SelectAddPartyMember()
 
 void SelectRemovePartyMember()
 {
+	SetPartyMemberNames();
     int unit = SEL_GENERIC_NOT_HELP( UnitMenuName, UnitSelect2 ) + 48;
     if ( unit == 47 ) // Cancel
         return;
@@ -2044,6 +2053,7 @@ void EnablePartyEditing()
 
 void SelectFollowers()
 {
+	SetPartyMemberNames();
 	int unit = SEL_GENERIC_NOT_HELP( UnitMenuName, UnitSelect2 );
 	unit = unit + 4114;
 	BIT_ON( 4161 );
@@ -2063,6 +2073,7 @@ void SelectFollowers()
 
 void SelectNavigator()
 {
+	SetPartyMemberNames();
     int navi = SEL_GENERIC_NOT_HELP( NaviMenuName, NaviMenu );
     
     switch ( navi ) 
