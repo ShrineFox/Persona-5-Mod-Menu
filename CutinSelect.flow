@@ -2,6 +2,7 @@ import( "CutinSelect.msg" );
 //Cutin Test
 void CutinTestDisplay()
 {
+	SetConfidantNames();
 	while (true)
 	{
 		MSG_WND_DSP();

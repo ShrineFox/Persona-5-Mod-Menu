@@ -269,7 +269,7 @@ void PersonaAddSkillMenuOpen()
 void PersonaAddSkillSelect( bool useNumberInput )
 
 {
-	SetPartyMemberNames();
+	SetConfidantNames();
     int unitId = SEL_GENERIC_NOT_HELP( UnitMenuName, UnitSelect );
     if ( unitId == -1 ) // Cancel
         return;
@@ -309,7 +309,7 @@ void PersonaAddAllToCompendium()
 
 void EvolvePersona()
 {
-	SetPartyMemberNames();
+	SetConfidantNames();
     int selection = SEL_GENERIC_NOT_HELP( -1, UnitSelect2 );
 
     switch ( selection )
@@ -451,7 +451,7 @@ void ItemGet( int type, int itemId, int amount)
 
 void CommuSetRankSelect()
 {
-	SetArcanaNames();
+	SetConfidantNames();
     int cmmId = SEL_GENERIC( CommuMenuName, CommuMenu ) + 1;
     
     if ( cmmId <= 0 || cmmId >= 22 )
@@ -2016,7 +2016,7 @@ void SelectHUDDisplayFlag()
 
 void SelectAddPartyMember()
 {
-	SetPartyMemberNames();
+	SetConfidantNames();
     int unit = SEL_GENERIC_NOT_HELP( UnitMenuName, UnitSelect2 ) + 48;
     if ( unit == 47 ) // Cancel
         return;
@@ -2026,7 +2026,7 @@ void SelectAddPartyMember()
 
 void SelectRemovePartyMember()
 {
-	SetPartyMemberNames();
+	SetConfidantNames();
     int unit = SEL_GENERIC_NOT_HELP( UnitMenuName, UnitSelect2 ) + 48;
     if ( unit == 47 ) // Cancel
         return;
@@ -2053,7 +2053,7 @@ void EnablePartyEditing()
 
 void SelectFollowers()
 {
-	SetPartyMemberNames();
+	SetConfidantNames();
 	int unit = SEL_GENERIC_NOT_HELP( UnitMenuName, UnitSelect2 );
 	unit = unit + 4114;
 	BIT_ON( 4161 );
@@ -2073,7 +2073,7 @@ void SelectFollowers()
 
 void SelectNavigator()
 {
-	SetPartyMemberNames();
+	SetConfidantNames();
     int navi = SEL_GENERIC_NOT_HELP( NaviMenuName, NaviMenu );
     
     switch ( navi ) 
@@ -2096,6 +2096,7 @@ void SelectNavigator()
 }
 
 void SelectRomanceFlags() {
+	SetConfidantNames();
     int lover = SEL_GENERIC_NOT_HELP( LoveMenuName, LoveMenu );
     if ( lover == -1 )
         return;
