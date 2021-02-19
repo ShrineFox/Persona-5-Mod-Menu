@@ -1,0 +1,55 @@
+// ID 0 is just numbers
+// ID 1 is nothingness
+// ID 2 is Unit Names, there's more than 31 units so it's not included
+void SetArcanaNames() //Not used anywhere :pensive:
+{
+	SET_MSG_VAR( 1,1,3 );   //Fool
+	SET_MSG_VAR( 2,2,3 );   //Magician
+	SET_MSG_VAR( 3,3,3 );   //High Priestess
+	SET_MSG_VAR( 4,4,3 );   //Empress
+	SET_MSG_VAR( 5,5,3 );   //Emperor
+	SET_MSG_VAR( 6,6,3 );   //Hierophant
+	SET_MSG_VAR( 7,7,3 );   //Lovers
+	SET_MSG_VAR( 8,8,3 );   //Chariot
+	SET_MSG_VAR( 9,9,3 );   //Justice
+	SET_MSG_VAR( 10,10,3 ); //Hermit
+	SET_MSG_VAR( 11,11,3 ); //Fortune
+	SET_MSG_VAR( 12,12,3 ); //Strength
+	SET_MSG_VAR( 13,13,3 ); //Hanged Man
+	SET_MSG_VAR( 14,14,3 ); //Death
+	SET_MSG_VAR( 15,15,3 ); //Temperance
+	SET_MSG_VAR( 16,16,3 ); //Devil
+	SET_MSG_VAR( 17,17,3 ); //Tower
+	SET_MSG_VAR( 18,18,3 ); //Star
+	SET_MSG_VAR( 19,19,3 ); //Moon
+	SET_MSG_VAR( 20,20,3 ); //Sun
+	SET_MSG_VAR( 21,21,3 ); //Judgement
+	SET_MSG_VAR( 22,22,3 ); //Aeon
+	SET_MSG_VAR( 23,23,3 ); //???
+	SET_MSG_VAR( 24,24,3 ); //World
+	SET_MSG_VAR( 25,25,3 ); //19
+	SET_MSG_VAR( 26,26,3 ); //1A
+	SET_MSG_VAR( 27,27,3 ); //1B
+	SET_MSG_VAR( 28,28,3 ); //1C
+	SET_MSG_VAR( 29,29,3 ); //1D
+	SET_MSG_VAR( 30,30,3 ); //1E
+	SET_MSG_VAR( 31,31,3 ); //1F
+}
+void SetPartyMemberNames()
+{
+	SET_MSG_VAR( 1,1,4 ); //Protag First and Last names
+	SET_MSG_VAR( 2,2,4 ); //Ryuji
+	SET_MSG_VAR( 3,3,4 ); //Morgana
+	SET_MSG_VAR( 4,4,4 ); //Ann
+	SET_MSG_VAR( 5,5,4 ); //Yusuke
+	SET_MSG_VAR( 6,6,4 ); //Makoto
+	SET_MSG_VAR( 7,7,4 ); //Haru
+	SET_MSG_VAR( 8,8,4 ); //Futaba
+	SET_MSG_VAR( 9,9,4 ); //Akechi
+}
+// ID 5 is Weapon Names, there's more than 31 weapons so it's not included
+// ID 6 is Skill Names, there's more than 31 skills so it's not included
+// ID 7 is Persona Names, there's more than 31 personas so it's not included
+// ID 8 is nothingness
+// ID 9 is nothingness
+// ...
