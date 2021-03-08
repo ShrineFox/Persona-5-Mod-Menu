@@ -8,6 +8,7 @@ import( "SkillSelection.flow" );
 import( "PersonaSelection.flow" );
 import( "CutinSelect.flow" );
 import( "AssignNames.flow" );
+import( "Fields.flow" );
 
 // Define Variables
 
@@ -1620,13 +1621,16 @@ void FieldSelect()
                     break;
                 gFieldMinor = temp;
                 break;
-            case 1:
+			case 1:
+				MMFieldSelectCategories();
+				break;
+            case 2:
                 if (gFieldMajor == 0 && gFieldMinor == 0)
                     MSG_SYSTEM( LoadCheckError );
                 else
                     CALL_FIELD( gFieldMajor, gFieldMinor, 0, 0  );
                 return;
-			case 2:
+			case 3:
 				CALL_FIELD( FLD_GET_PREV_MAJOR(), FLD_GET_PREV_MINOR(), 0, 0 );
 				return;
         }

@@ -1,0 +1,1399 @@
+import( "FieldNames.msg" );
+
+void MMFieldSelectCategories()
+{
+    while ( true )
+    {
+        int selection = SEL_GENERIC_NOT_HELP( MSG_FieldCategories, MSG_FieldSelection );
+        
+        switch ( selection )
+        { 
+			case -1:
+                return;
+			case 0:
+				FieldExtra();
+				break;
+			case 1:
+				FieldShibuya();
+				break;
+			case 2:
+				FieldYongenJaya();
+				break;
+			case 3:
+				FieldSchool();
+				break;
+			case 4:
+				FieldAkihabara();
+				break;
+			case 5:
+				FieldShinjuku();
+				break;
+			case 6:
+				FieldHangoutPlaces();
+				break;
+			case 7:
+				FieldMementos();
+				break;
+			case 8:
+				FieldSmallRooms();
+				break;
+			case 9:
+				FieldEarlyFields();
+				break;
+			case 10:
+				FieldPrologue();
+				break;
+			case 11:
+				FieldCastlePalace();
+				break;
+			case 12:
+				FieldMuseumPalace();
+				break;
+			case 13:
+				FieldBankPalace();
+				break;
+			case 14:
+				FieldSpaceshipPalace();
+				break;
+			case 15:
+				FieldPyramidPalace();
+				break;
+			case 16:
+				FieldCasinoPalace();
+				break;
+			case 17:
+				FieldShipPalace();
+				break;
+			case 18:
+				FieldDepthsPalace();
+				break;
+			case 19:
+				FieldQliphothTree();
+				break;
+        }
+    }
+}
+
+void FieldExtra()
+{
+    while ( true )
+    {
+        int selection = SEL_GENERIC_NOT_HELP( MSG_FieldExtraCat, MSG_FieldExtra );
+        
+        switch ( selection )
+        { 
+			case -1:
+				return;
+			case 0:
+				gFieldMajor = 0;
+				gFieldMinor = 2;
+				return;
+			case 1:
+				gFieldMajor = 0;
+				gFieldMinor = 100;
+				return;
+			case 2:
+				gFieldMajor = 21;
+				gFieldMinor = 1;
+				return;
+		}
+	}
+}
+
+void FieldShibuya()
+{
+    while ( true )
+    {
+        int selection = SEL_GENERIC_NOT_HELP( MSG_FieldShibuyaCat, MSG_FieldShibuya );
+        
+        switch ( selection )
+        { 
+			case -1:
+				return;
+			case 0:
+				gFieldMajor = 1;
+				gFieldMinor = 1;
+				return;
+			case 1:
+				gFieldMajor = 1;
+				gFieldMinor = 2;
+				return;
+			case 2:
+				gFieldMajor = 1;
+				gFieldMinor = 3;
+				return;
+			case 3:
+				gFieldMajor = 1;
+				gFieldMinor = 4;
+				return;
+			case 4:
+				gFieldMajor = 1;
+				gFieldMinor = 5;
+				return;
+			case 5:
+				gFieldMajor = 1;
+				gFieldMinor = 6;
+				return;
+			case 6:
+				gFieldMajor = 1;
+				gFieldMinor = 11;
+				return;
+			case 7:
+				gFieldMajor = 1;
+				gFieldMinor = 13;
+				return;
+			case 8:
+				gFieldMajor = 1;
+				gFieldMinor = 103;
+				return;
+			case 9:
+				gFieldMajor = 1;
+				gFieldMinor = 203;
+				return;
+			case 10:
+				gFieldMajor = 1;
+				gFieldMinor = 204;
+				return;
+			case 11:
+				gFieldMajor = 8;
+				gFieldMinor = 1;
+				return;
+		}
+	}
+}
+
+void FieldYongenJaya()
+{
+    while ( true )
+    {
+        int selection = SEL_GENERIC_NOT_HELP( MSG_FieldYongenJayaCat, MSG_FieldYongenJaya );
+        
+        switch ( selection )
+        { 
+			case -1:
+				return;
+			case 0:
+				gFieldMajor = 3;
+				gFieldMinor = 2;
+				return;
+			case 1:
+				gFieldMajor = 3;
+				gFieldMinor = 102;
+				return;
+			case 2:
+				gFieldMajor = 9;
+				gFieldMinor = 2;
+				return;
+			case 3:
+				gFieldMajor = 9;
+				gFieldMinor = 3;
+				return;
+			case 4:
+				gFieldMajor = 9;
+				gFieldMinor = 4;
+				return;
+			case 5:
+				gFieldMajor = 9;
+				gFieldMinor = 5;
+				return;
+			case 6:
+				gFieldMajor = 9;
+				gFieldMinor = 102;
+				return;
+		}
+	}
+}
+
+void FieldSchool()
+{
+    while ( true )
+    {
+        int selection = SEL_GENERIC_NOT_HELP( MSG_FieldSchoolCat, MSG_FieldSchool );
+        
+        switch ( selection )
+        { 
+			case -1:
+				return;
+			case 0:
+				gFieldMajor = 2;
+				gFieldMinor = 1;
+				return;
+			case 1:
+				gFieldMajor = 2;
+				gFieldMinor = 2;
+				return;
+			case 2:
+				gFieldMajor = 2;
+				gFieldMinor = 3;
+				return;
+			case 3:
+				gFieldMajor = 2;
+				gFieldMinor = 4;
+				return;
+			case 4:
+				gFieldMajor = 2;
+				gFieldMinor = 5;
+				return;
+			case 5:
+				gFieldMajor = 2;
+				gFieldMinor = 6;
+				return;
+			case 6:
+				gFieldMajor = 2;
+				gFieldMinor = 7;
+				return;
+			case 7:
+				gFieldMajor = 2;
+				gFieldMinor = 8;
+				return;
+			case 8:
+				gFieldMajor = 2;
+				gFieldMinor = 9;
+				return;
+			case 9:
+				gFieldMajor = 2;
+				gFieldMinor = 10;
+				return;
+			case 10:
+				gFieldMajor = 2;
+				gFieldMinor = 11;
+				return;
+			case 11:
+				gFieldMajor = 2;
+				gFieldMinor = 12;
+				return;
+			case 12:
+				gFieldMajor = 2;
+				gFieldMinor = 13;
+				return;
+			case 13:
+				gFieldMajor = 2;
+				gFieldMinor = 14;
+				return;
+			case 14:
+				gFieldMajor = 2;
+				gFieldMinor = 20;
+				return;
+			case 15:
+				gFieldMajor = 2;
+				gFieldMinor = 21;
+				return;
+			case 16:
+				gFieldMajor = 2;
+				gFieldMinor = 102;
+				return;
+		}
+	}
+}
+
+void FieldAkihabara()
+{
+    while ( true )
+    {
+        int selection = SEL_GENERIC_NOT_HELP( MSG_FieldAkihabaraCat, MSG_FieldAkihabara );
+        
+        switch ( selection )
+        { 
+			case -1:
+				return;
+			case 0:
+				gFieldMajor = 7;
+				gFieldMinor = 1;
+				return;
+			case 1:
+				gFieldMajor = 7;
+				gFieldMinor = 11;
+				return;
+		}
+	}
+}
+
+void FieldShinjuku()
+{
+    while ( true )
+    {
+        int selection = SEL_GENERIC_NOT_HELP( MSG_FieldShinjukuCat, MSG_FieldShinjuku );
+        
+        switch ( selection )
+        { 
+			case -1:
+				return;
+			case 0:
+				gFieldMajor = 6;
+				gFieldMinor = 1;
+				return;
+			case 1:
+				gFieldMajor = 6;
+				gFieldMinor = 11;
+				return;
+		}	
+	}
+}
+
+void FieldHangoutPlaces()
+{
+    while ( true )
+    {
+        int selection = SEL_GENERIC_NOT_HELP( MSG_FieldHangoutCat, MSG_FieldHangoutPlaces );
+        
+        switch ( selection )
+        { 
+			case -1:
+				return;
+			case 0:
+				gFieldMajor = 20;
+				gFieldMinor = 1;
+				return;
+			case 1:
+				gFieldMajor = 20;
+				gFieldMinor = 2;
+				return;
+			case 2:
+				gFieldMajor = 20;
+				gFieldMinor = 3;
+				return;
+			case 3:
+				gFieldMajor = 20;
+				gFieldMinor = 4;
+				return;
+			case 4:
+				gFieldMajor = 20;
+				gFieldMinor = 5;
+				return;
+			case 5:
+				gFieldMajor = 20;
+				gFieldMinor = 6;
+				return;
+			case 6:
+				gFieldMajor = 20;
+				gFieldMinor = 7;
+				return;
+			case 7:
+				gFieldMajor = 20;
+				gFieldMinor = 8;
+				return;
+			case 8:
+				gFieldMajor = 20;
+				gFieldMinor = 9;
+				return;
+			case 9:
+				gFieldMajor = 20;
+				gFieldMinor = 10;
+				return;
+			case 10:
+				gFieldMajor = 20;
+				gFieldMinor = 11;
+				return;
+			case 11:
+				gFieldMajor = 20;
+				gFieldMinor = 12;
+				return;
+			case 12:
+				gFieldMajor = 20;
+				gFieldMinor = 13;
+				return;
+			case 13:
+				gFieldMajor = 20;
+				gFieldMinor = 14;
+				return;
+			case 14:
+				gFieldMajor = 20;
+				gFieldMinor = 20;
+				return;
+			case 15:
+				gFieldMajor = 20;
+				gFieldMinor = 21;
+				return;
+			case 16:
+				gFieldMajor = 20;
+				gFieldMinor = 22;
+				return;
+		}
+	}
+}
+
+void FieldMementos()
+{
+    while ( true )
+    {
+        int selection = SEL_GENERIC_NOT_HELP( MSG_FieldMementosCat, MSG_FieldMementos );
+        
+        switch ( selection )
+        { 
+			case -1:
+				return;
+			case 0:
+				gFieldMajor = 190;
+				gFieldMinor = 1;
+				return;
+		}	
+	}
+}
+
+void FieldSmallRooms()
+{
+    while ( true )
+    {
+        int selection = SEL_GENERIC_NOT_HELP( MSG_FieldRoomsCat, MSG_FieldSmallRooms );
+        
+        switch ( selection )
+        { 
+			case -1:
+				return;
+			case 0:
+				gFieldMajor = 4;
+				gFieldMinor = 5;
+				return;       
+			case 1:           
+				gFieldMajor = 10;
+				gFieldMinor = 3;
+				return;       
+			case 2:           
+				gFieldMajor = 10;
+				gFieldMinor = 5;
+				return;       
+			case 3:           
+				gFieldMajor = 10;
+				gFieldMinor = 15;
+				return;       
+			case 4:           
+				gFieldMajor = 10;
+				gFieldMinor = 16;
+				return;       
+			case 5:           
+				gFieldMajor = 10;
+				gFieldMinor = 17;
+				return;       
+			case 6:           
+				gFieldMajor = 10;
+				gFieldMinor = 103;
+				return;       
+			case 7:           
+				gFieldMajor = 10;
+				gFieldMinor = 130;
+				return;       
+			case 8:           
+				gFieldMajor = 11;
+				gFieldMinor = 3;
+				return;       
+			case 9:           
+				gFieldMajor = 12;
+				gFieldMinor = 1;
+				return;       
+			case 10:          
+				gFieldMajor = 12;
+				gFieldMinor = 3;
+				return;       
+			case 11:          
+				gFieldMajor = 12;
+				gFieldMinor = 5;
+				return;       
+			case 12:          
+				gFieldMajor = 12;
+				gFieldMinor = 6;
+				return;       
+			case 13:          
+				gFieldMajor = 12;
+				gFieldMinor = 7;
+				return;       
+			case 14:          
+				gFieldMajor = 12;
+				gFieldMinor = 8;
+				return;       
+			case 15:          
+				gFieldMajor = 12;
+				gFieldMinor = 10;
+				return;       
+			case 16:          
+				gFieldMajor = 12;
+				gFieldMinor = 11;
+				return;       
+			case 17:          
+				gFieldMajor = 12;
+				gFieldMinor = 13;
+				return;       
+			case 18:          
+				gFieldMajor = 12;
+				gFieldMinor = 20;
+				return;       
+			case 19:          
+				gFieldMajor = 12;
+				gFieldMinor = 22;
+				return;       
+			case 20:          
+				gFieldMajor = 12;
+				gFieldMinor = 26;
+				return;      
+		}
+	}
+}
+
+void FieldEarlyFields()
+{
+    while ( true )
+    {
+        int selection = SEL_GENERIC_NOT_HELP( MSG_FieldEarlyCat, MSG_FieldEarlyFields );
+        
+        switch ( selection )
+        { 
+			case -1:
+				return;
+			case 0:
+				gFieldMajor = 9;
+				gFieldMinor = 1;
+				return;       
+			case 1:           
+				gFieldMajor = 11;
+				gFieldMinor = 2;
+				return;       
+			case 2:           
+				gFieldMajor = 13;
+				gFieldMinor = 5;
+				return;       
+			case 3:           
+				gFieldMajor = 15;
+				gFieldMinor = 1;
+				return;       
+			case 4:           
+				gFieldMajor = 50;
+				gFieldMinor = 10;
+				return;       
+			case 5:           
+				gFieldMajor = 50;
+				gFieldMinor = 11;
+				return;       
+			case 6:           
+				gFieldMajor = 50;
+				gFieldMinor = 20;
+				return;       
+			case 7:           
+				gFieldMajor = 50;
+				gFieldMinor = 21;
+				return;       
+			case 8:           
+				gFieldMajor = 50;
+				gFieldMinor = 30;
+				return;       
+			case 9:           
+				gFieldMajor = 51;
+				gFieldMinor = 22;
+				return;       
+			case 10:          
+				gFieldMajor = 52;
+				gFieldMinor = 30;
+				return;       
+			case 11:          
+				gFieldMajor = 52;
+				gFieldMinor = 31;
+				return;       
+			case 12:          
+				gFieldMajor = 52;
+				gFieldMinor = 32;
+				return;       
+			case 13:          
+				gFieldMajor = 52;
+				gFieldMinor = 40;
+				return;       
+			case 14:          
+				gFieldMajor = 52;
+				gFieldMinor = 42;
+				return;       
+			case 15:          
+				gFieldMajor = 52;
+				gFieldMinor = 43;
+				return;       
+			case 16:          
+				gFieldMajor = 52;
+				gFieldMinor = 44;
+				return;       
+			case 17:          
+				gFieldMajor = 52;
+				gFieldMinor = 45;
+				return;       
+			case 18:          
+				gFieldMajor = 52;
+				gFieldMinor = 70;
+				return;       
+			case 19:          
+				gFieldMajor = 52;
+				gFieldMinor = 90;
+				return;       
+			case 20:          
+				gFieldMajor = 56;
+				gFieldMinor = 1;
+				return;       
+			case 21:          
+				gFieldMajor = 59;
+				gFieldMinor = 1;
+				return;       
+			case 22:          
+				gFieldMajor = 151;
+				gFieldMinor = 19;
+				return;       
+			case 23:          
+				gFieldMajor = 152;
+				gFieldMinor = 5;
+				return;       
+			case 24:          
+				gFieldMajor = 152;
+				gFieldMinor = 52;
+				return;       
+			case 25:          
+				gFieldMajor = 152;
+				gFieldMinor = 53;
+				return;       
+			case 26:          
+				gFieldMajor = 154;
+				gFieldMinor = 13;
+				return;       
+			case 27:          
+				gFieldMajor = 155;
+				gFieldMinor = 12;
+				return;       
+			case 28:          
+				gFieldMajor = 159;
+				gFieldMinor = 36;
+				return;       
+			case 29:          
+				gFieldMajor = 190;
+				gFieldMinor = 51;
+				return;       
+			case 30:          
+				gFieldMajor = 190;
+				gFieldMinor = 52;
+				return;       
+		}
+	}
+}
+
+void FieldPrologue()
+{
+    while ( true )
+    {
+        int selection = SEL_GENERIC_NOT_HELP( MSG_FieldPrologueCat, MSG_FieldPrologue );
+        
+        switch ( selection )
+        { 
+			case -1:
+				return;
+			case 0:
+				gFieldMajor = 150;
+				gFieldMinor = 1;
+				return;
+			case 1:
+				gFieldMajor = 150;
+				gFieldMinor = 2;
+				return;
+			case 2:
+				gFieldMajor = 150;
+				gFieldMinor = 3;
+				return;
+		}
+	}
+}
+
+void FieldCastlePalace()
+{
+    while ( true )
+    {
+        int selection = SEL_GENERIC_NOT_HELP( MSG_FieldCastleCat, MSG_FieldCastlePalace );
+        
+        switch ( selection )
+        { 
+			case -1:
+				return;
+			case 0:
+				gFieldMajor = 151;
+				gFieldMinor = 1;
+				return;       
+			case 1:           
+				gFieldMajor = 151;
+				gFieldMinor = 2;
+				return;       
+			case 2:           
+				gFieldMajor = 151;
+				gFieldMinor = 3;
+				return;       
+			case 3:           
+				gFieldMajor = 151;
+				gFieldMinor = 4;
+				return;       
+			case 4:           
+				gFieldMajor = 151;
+				gFieldMinor = 5;
+				return;       
+			case 5:           
+				gFieldMajor = 151;
+				gFieldMinor = 6;
+				return;       
+			case 6:           
+				gFieldMajor = 151;
+				gFieldMinor = 7;
+				return;       
+			case 7:           
+				gFieldMajor = 151;
+				gFieldMinor = 8;
+				return;       
+			case 8:           
+				gFieldMajor = 151;
+				gFieldMinor = 9;
+				return;       
+			case 9:           
+				gFieldMajor = 151;
+				gFieldMinor = 10;
+				return;       
+			case 10:          
+				gFieldMajor = 151;
+				gFieldMinor = 11;
+				return;       
+			case 11:          
+				gFieldMajor = 151;
+				gFieldMinor = 12;
+				return;       
+			case 12:          
+				gFieldMajor = 151;
+				gFieldMinor = 13;
+				return;       
+			case 13:          
+				gFieldMajor = 151;
+				gFieldMinor = 14;
+				return;       
+			case 14:          
+				gFieldMajor = 151;
+				gFieldMinor = 15;
+				return;       
+			case 15:          
+				gFieldMajor = 151;
+				gFieldMinor = 16;
+				return;       
+			case 16:          
+				gFieldMajor = 151;
+				gFieldMinor = 17;
+				return;       
+			case 17:          
+				gFieldMajor = 151;
+				gFieldMinor = 51;
+				return;       
+			case 18:          
+				gFieldMajor = 152;
+				gFieldMinor = 1;
+				return;       
+			case 19:          
+				gFieldMajor = 152;
+				gFieldMinor = 2;
+				return;       
+			case 20:          
+				gFieldMajor = 152;
+				gFieldMinor = 4;
+				return;       
+			case 21:          
+				gFieldMajor = 152;
+				gFieldMinor = 6;
+				return;       
+			case 22:          
+				gFieldMajor = 152;
+				gFieldMinor = 51;
+				return;       
+		}
+	}
+}
+
+void FieldMuseumPalace()
+{
+    while ( true )
+    {
+        int selection = SEL_GENERIC_NOT_HELP( MSG_FieldMuseumCat, MSG_FieldMuseumPalace );
+        
+        switch ( selection )
+        { 
+			case -1:
+				return;
+			case 0:
+				gFieldMajor = 153;
+				gFieldMinor = 1;
+				return;       
+			case 1:           
+				gFieldMajor = 153;
+				gFieldMinor = 2;
+				return;       
+			case 2:           
+				gFieldMajor = 153;
+				gFieldMinor = 3;
+				return;       
+			case 3:           
+				gFieldMajor = 153;
+				gFieldMinor = 5;
+				return;       
+			case 4:           
+				gFieldMajor = 153;
+				gFieldMinor = 6;
+				return;       
+			case 5:           
+				gFieldMajor = 153;
+				gFieldMinor = 7;
+				return;       
+			case 6:           
+				gFieldMajor = 153;
+				gFieldMinor = 8;
+				return;       
+			case 7:           
+				gFieldMajor = 153;
+				gFieldMinor = 9;
+				return;       
+			case 8:           
+				gFieldMajor = 153;
+				gFieldMinor = 11;
+				return;       
+			case 9:           
+				gFieldMajor = 153;
+				gFieldMinor = 12;
+				return;       
+			case 10:          
+				gFieldMajor = 153;
+				gFieldMinor = 51;
+				return;
+		}
+	}
+}
+
+void FieldBankPalace()
+{
+    while ( true )
+    {
+        int selection = SEL_GENERIC_NOT_HELP( MSG_FieldBankCat, MSG_FieldBankPalace );
+        
+        switch ( selection )
+        { 
+			case -1:
+				return;
+			case 0:
+				gFieldMajor = 154;
+				gFieldMinor = 1;
+				return;       
+			case 1:           
+				gFieldMajor = 154;
+				gFieldMinor = 2;
+				return;       
+			case 2:           
+				gFieldMajor = 154;
+				gFieldMinor = 3;
+				return;       
+			case 3:           
+				gFieldMajor = 154;
+				gFieldMinor = 5;
+				return;       
+			case 4:           
+				gFieldMajor = 154;
+				gFieldMinor = 7;
+				return;       
+			case 5:           
+				gFieldMajor = 154;
+				gFieldMinor = 8;
+				return;       
+			case 6:           
+				gFieldMajor = 154;
+				gFieldMinor = 9;
+				return;       
+			case 7:           
+				gFieldMajor = 154;
+				gFieldMinor = 10;
+				return;       
+			case 8:           
+				gFieldMajor = 154;
+				gFieldMinor = 11;
+				return;       
+			case 9:           
+				gFieldMajor = 154;
+				gFieldMinor = 12;
+				return;       
+			case 10:          
+				gFieldMajor = 154;
+				gFieldMinor = 14;
+				return;       
+			case 11:          
+				gFieldMajor = 154;
+				gFieldMinor = 15;
+				return;       
+			case 12:          
+				gFieldMajor = 154;
+				gFieldMinor = 16;
+				return;       
+			case 13:          
+				gFieldMajor = 154;
+				gFieldMinor = 51;
+				return;
+		}
+	}
+}
+
+void FieldSpaceshipPalace()
+{
+    while ( true )
+    {
+        int selection = SEL_GENERIC_NOT_HELP( MSG_FieldSpaceshipCat, MSG_FieldSpaceshipPalace );
+        
+        switch ( selection )
+        { 
+			case -1:
+				return;
+			case 0:
+				gFieldMajor = 54;
+				gFieldMinor = 150;
+				return;       
+			case 1:           
+				gFieldMajor = 156;
+				gFieldMinor = 1;
+				return;       
+			case 2:           
+				gFieldMajor = 156;
+				gFieldMinor = 2;
+				return;       
+			case 3:           
+				gFieldMajor = 156;
+				gFieldMinor = 3;
+				return;       
+			case 4:           
+				gFieldMajor = 156;
+				gFieldMinor = 4;
+				return;       
+			case 5:           
+				gFieldMajor = 156;
+				gFieldMinor = 5;
+				return;       
+			case 6:           
+				gFieldMajor = 156;
+				gFieldMinor = 6;
+				return;       
+			case 7:           
+				gFieldMajor = 156;
+				gFieldMinor = 7;
+				return;       
+			case 8:           
+				gFieldMajor = 156;
+				gFieldMinor = 8;
+				return;       
+			case 9:           
+				gFieldMajor = 156;
+				gFieldMinor = 9;
+				return;       
+			case 10:          
+				gFieldMajor = 156;
+				gFieldMinor = 10;
+				return;       
+			case 11:          
+				gFieldMajor = 156;
+				gFieldMinor = 11;
+				return;       
+			case 12:          
+				gFieldMajor = 156;
+				gFieldMinor = 12;
+				return;       
+			case 13:          
+				gFieldMajor = 156;
+				gFieldMinor = 13;
+				return;       
+			case 14:          
+				gFieldMajor = 156;
+				gFieldMinor = 14;
+				return;       
+			case 15:          
+				gFieldMajor = 156;
+				gFieldMinor = 15;
+				return;       
+			case 16:          
+				gFieldMajor = 156;
+				gFieldMinor = 51;
+				return;
+		}
+	}
+}
+
+void FieldPyramidPalace()
+{
+    while ( true )
+    {
+        int selection = SEL_GENERIC_NOT_HELP( MSG_FieldPyramidCat, MSG_FieldPyramidPalace );
+        
+        switch ( selection )
+        { 
+			case -1:
+				return;
+			case 0:
+				gFieldMajor = 55;
+				gFieldMinor = 220;
+				return;       
+			case 1:           
+				gFieldMajor = 155;
+				gFieldMinor = 1;
+				return;       
+			case 2:           
+				gFieldMajor = 155;
+				gFieldMinor = 2;
+				return;       
+			case 3:           
+				gFieldMajor = 155;
+				gFieldMinor = 3;
+				return;       
+			case 4:           
+				gFieldMajor = 155;
+				gFieldMinor = 4;
+				return;       
+			case 5:           
+				gFieldMajor = 155;
+				gFieldMinor = 5;
+				return;       
+			case 6:           
+				gFieldMajor = 155;
+				gFieldMinor = 6;
+				return;       
+			case 7:           
+				gFieldMajor = 155;
+				gFieldMinor = 7;
+				return;       
+			case 8:           
+				gFieldMajor = 155;
+				gFieldMinor = 8;
+				return;       
+			case 9:           
+				gFieldMajor = 155;
+				gFieldMinor = 9;
+				return;       
+			case 10:          
+				gFieldMajor = 155;
+				gFieldMinor = 10;
+				return;       
+			case 11:          
+				gFieldMajor = 155;
+				gFieldMinor = 11;
+				return;       
+			case 12:          
+				gFieldMajor = 155;
+				gFieldMinor = 13;
+				return;       
+			case 13:          
+				gFieldMajor = 155;
+				gFieldMinor = 51;
+				return;       
+		}
+	}
+}
+
+void FieldCasinoPalace()
+{
+    while ( true )
+    {
+        int selection = SEL_GENERIC_NOT_HELP( MSG_FieldCasinoCat, MSG_FieldCasinoPalace );
+        
+        switch ( selection )
+        { 
+			case -1:
+				return;
+			case 0:
+				gFieldMajor = 157;
+				gFieldMinor = 1;
+				return;       
+			case 1:           
+				gFieldMajor = 157;
+				gFieldMinor = 4;
+				return;       
+			case 2:           
+				gFieldMajor = 157;
+				gFieldMinor = 5;
+				return;       
+			case 3:           
+				gFieldMajor = 157;
+				gFieldMinor = 6;
+				return;       
+			case 4:           
+				gFieldMajor = 157;
+				gFieldMinor = 7;
+				return;       
+			case 5:           
+				gFieldMajor = 157;
+				gFieldMinor = 8;
+				return;       
+			case 6:           
+				gFieldMajor = 157;
+				gFieldMinor = 9;
+				return;       
+			case 7:           
+				gFieldMajor = 157;
+				gFieldMinor = 10;
+				return;       
+			case 8:           
+				gFieldMajor = 157;
+				gFieldMinor = 11;
+				return;       
+			case 9:           
+				gFieldMajor = 157;
+				gFieldMinor = 12;
+				return;       
+			case 10:          
+				gFieldMajor = 157;
+				gFieldMinor = 13;
+				return;       
+			case 11:          
+				gFieldMajor = 157;
+				gFieldMinor = 15;
+				return;       
+			case 12:          
+				gFieldMajor = 157;
+				gFieldMinor = 16;
+				return;       
+			case 13:          
+				gFieldMajor = 157;
+				gFieldMinor = 18;
+				return;       
+			case 14:          
+				gFieldMajor = 157;
+				gFieldMinor = 51;
+				return;       
+			case 15:          
+				gFieldMajor = 157;
+				gFieldMinor = 52;
+				return;       
+		}
+	}
+}
+
+void FieldShipPalace()
+{
+    while ( true )
+    {
+        int selection = SEL_GENERIC_NOT_HELP( MSG_FieldShipCat, MSG_FieldShipPalace );
+        
+        switch ( selection )
+        { 
+			case -1:
+				return;
+			case 0:
+				gFieldMajor = 59;
+				gFieldMinor = 131;
+				return;       
+			case 1:           
+				gFieldMajor = 59;
+				gFieldMinor = 132;
+				return;       
+			case 2:           
+				gFieldMajor = 59;
+				gFieldMinor = 170;
+				return;       
+			case 3:           
+				gFieldMajor = 59;
+				gFieldMinor = 180;
+				return;       
+			case 4:           
+				gFieldMajor = 59;
+				gFieldMinor = 181;
+				return;       
+			case 5:           
+				gFieldMajor = 59;
+				gFieldMinor = 182;
+				return;       
+			case 6:           
+				gFieldMajor = 159;
+				gFieldMinor = 1;
+				return;       
+			case 7:           
+				gFieldMajor = 159;
+				gFieldMinor = 2;
+				return;       
+			case 8:           
+				gFieldMajor = 159;
+				gFieldMinor = 3;
+				return;       
+			case 9:           
+				gFieldMajor = 159;
+				gFieldMinor = 4;
+				return;       
+			case 10:          
+				gFieldMajor = 159;
+				gFieldMinor = 6;
+				return;       
+			case 11:          
+				gFieldMajor = 159;
+				gFieldMinor = 7;
+				return;       
+			case 12:          
+				gFieldMajor = 159;
+				gFieldMinor = 8;
+				return;       
+			case 13:          
+				gFieldMajor = 159;
+				gFieldMinor = 9;
+				return;       
+			case 14:          
+				gFieldMajor = 159;
+				gFieldMinor = 10;
+				return;       
+			case 15:          
+				gFieldMajor = 159;
+				gFieldMinor = 11;
+				return;       
+			case 16:          
+				gFieldMajor = 159;
+				gFieldMinor = 12;
+				return;       
+			case 17:          
+				gFieldMajor = 159;
+				gFieldMinor = 13;
+				return;       
+			case 18:          
+				gFieldMajor = 159;
+				gFieldMinor = 20;
+				return;       
+			case 19:          
+				gFieldMajor = 159;
+				gFieldMinor = 21;
+				return;       
+			case 20:          
+				gFieldMajor = 159;
+				gFieldMinor = 22;
+				return;       
+			case 21:          
+				gFieldMajor = 159;
+				gFieldMinor = 25;
+				return;       
+			case 22:          
+				gFieldMajor = 159;
+				gFieldMinor = 26;
+				return;       
+			case 23:          
+				gFieldMajor = 159;
+				gFieldMinor = 27;
+				return;       
+			case 24:          
+				gFieldMajor = 159;
+				gFieldMinor = 30;
+				return;       
+			case 25:          
+				gFieldMajor = 159;
+				gFieldMinor = 31;
+				return;       
+			case 26:          
+				gFieldMajor = 159;
+				gFieldMinor = 32;
+				return;       
+			case 27:          
+				gFieldMajor = 159;
+				gFieldMinor = 33;
+				return;       
+			case 28:          
+				gFieldMajor = 159;
+				gFieldMinor = 35;
+				return;       
+			case 29:          
+				gFieldMajor = 159;
+				gFieldMinor = 51;
+				return;       
+		}
+	}
+}
+
+void FieldDepthsPalace()
+{
+    while ( true )
+    {
+        int selection = SEL_GENERIC_NOT_HELP( MSG_FieldDepthsCat, MSG_FieldDepthsPalace );
+        
+        switch ( selection )
+        { 
+			case -1:
+				return;
+			case 0:
+				gFieldMajor = 161;
+				gFieldMinor = 1;
+				return;       
+			case 1:           
+				gFieldMajor = 161;
+				gFieldMinor = 2;
+				return;       
+			case 2:           
+				gFieldMajor = 161;
+				gFieldMinor = 3;
+				return;       
+			case 3:           
+				gFieldMajor = 161;
+				gFieldMinor = 4;
+				return;       
+			case 4:           
+				gFieldMajor = 161;
+				gFieldMinor = 5;
+				return;       
+			case 5:           
+				gFieldMajor = 161;
+				gFieldMinor = 6;
+				return;       
+			case 6:           
+				gFieldMajor = 161;
+				gFieldMinor = 7;
+				return;       
+			case 7:           
+				gFieldMajor = 161;
+				gFieldMinor = 8;
+				return;       
+			case 8:           
+				gFieldMajor = 161;
+				gFieldMinor = 9;
+				return;       
+			case 9:           
+				gFieldMajor = 161;
+				gFieldMinor = 10;
+				return;       
+			case 10:          
+				gFieldMajor = 161;
+				gFieldMinor = 11;
+				return;       
+			case 11:          
+				gFieldMajor = 161;
+				gFieldMinor = 51;
+				return;            
+		}
+	}
+}
+
+void FieldQliphothTree()
+{
+    while ( true )
+    {
+        int selection = SEL_GENERIC_NOT_HELP( MSG_FieldQliphothCat, MSG_FieldQliphothTree );
+        
+        switch ( selection )
+        { 
+			case -1:
+				return;
+			case 0:
+				gFieldMajor = 60;
+				gFieldMinor = 100;
+				return;       
+			case 1:           
+				gFieldMajor = 160;
+				gFieldMinor = 1;
+				return;       
+			case 2:           
+				gFieldMajor = 160;
+				gFieldMinor = 2;
+				return;       
+			case 3:           
+				gFieldMajor = 160;
+				gFieldMinor = 3;
+				return;       
+			case 4:           
+				gFieldMajor = 160;
+				gFieldMinor = 4;
+				return;       
+			case 5:           
+				gFieldMajor = 160;
+				gFieldMinor = 5;
+				return;       
+			case 6:           
+				gFieldMajor = 160;
+				gFieldMinor = 6;
+				return;       
+			case 7:           
+				gFieldMajor = 160;
+				gFieldMinor = 10;
+				return;       
+		}
+	}
+}
