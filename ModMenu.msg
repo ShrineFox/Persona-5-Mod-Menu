@@ -616,37 +616,41 @@ Field Select[e]
 
 [sel FieldMenu]
 Enter Field ID[f 4 26 0 250][e]
-Load Field[f 4 26 1 251][e]
-Reload Current Field[f 4 26 2 252][e]
+Select by name[f 4 26 1 251][e]
+Load Field[f 4 26 2 252][e]
+Reload Current Field[f 4 26 3 253][e]
 
 [dlg GENERIC_HELP_250]
 [s]Input the 6 digits of a[n][clr 9]field pack's[clr 0] filename[n](found in ps3.cpk/field)[e]
 
 [dlg GENERIC_HELP_251]
-[s]Attempt to load the selected[n]field. [clr 9]WARNING: Some fields may[n]softlock the game.[clr 0][e]
+[s]Select a field by name[e]
 
 [dlg GENERIC_HELP_252]
+[s]Attempt to load the selected[n]field. [clr 9]WARNING: Some fields may[n]softlock the game.[clr 0][e]
+
+[dlg GENERIC_HELP_253]
 [s]Reload the field that[n]you're currently on.[e]
 
 [dlg EventMenuName]
 Event Select[e]
 
 [sel EventMenu]
-Enter Event ID[f 4 26 0 255][e]
-Load Event[f 4 26 1 256][e]
-Enter KeyFree Event ID[f 4 26 2 257][e]
-Load KeyFree Event[f 4 26 3 258][e]
-
-[dlg GENERIC_HELP_255]
-[s]Input the 6 digits of a[n][clr 9]event pack's[clr 0] filename[n](found in data.cpk/event)[e]
+Enter Event ID[f 4 26 0 256][e]
+Load Event[f 4 26 1 257][e]
+Enter KeyFree Event ID[f 4 26 2 258][e]
+Load KeyFree Event[f 4 26 3 259][e]
 
 [dlg GENERIC_HELP_256]
-[s]Attempt to load the selected[n]event. [clr 9]WARNING: Some events may[n]softlock the game.[clr 0][e]
+[s]Input the 6 digits of a[n][clr 9]event pack's[clr 0] filename[n](found in data.cpk/event)[e]
 
 [dlg GENERIC_HELP_257]
-[s]Input the 6 digits of a[n][clr 9]event pack's[clr 0] filename[n](found in ps3.cpk/field).[clr 0][e]
+[s]Attempt to load the selected[n]event. [clr 9]WARNING: Some events may[n]softlock the game.[clr 0][e]
 
 [dlg GENERIC_HELP_258]
+[s]Input the 6 digits of a[n][clr 9]event pack's[clr 0] filename[n](found in ps3.cpk/field).[clr 0][e]
+
+[dlg GENERIC_HELP_259]
 [s]Attempt to load the selected[n]KeyFree event. [clr 9]WARNING: Some events may[n]softlock the game.[clr 0][e]
 
 [dlg NaviMenuName]
@@ -959,13 +963,13 @@ Add Persona (Manual Input)[e]
 [dlg BagShowHide]
 The bag has been toggled.[n]To see the change, go to a new field[n]or reload the current one.[w][e]
 
-[dlg GENERIC_HELP_306]
+[dlg GENERIC_HELP_307]
 Removes the swaying effect[n]of the camera that's[n]used in dungeons.[w][e]
 
-[dlg GENERIC_HELP_307]
+[dlg GENERIC_HELP_308]
 Select an item's model ID to[n]spawn it and connect it to[n]the character's model.[w][e]
 
-[dlg GENERIC_HELP_308]
+[dlg GENERIC_HELP_309]
 Select a range of flags[n]to either enable or disable.[w][e]
 
 [dlg ItemSpawnPrompt]
@@ -986,32 +990,32 @@ Enter the start of the[n]range to narrow down.[n](Max 4 digits, press Circle to 
 [dlg FlagRangePrompt2]
 Enter the end of the[n]range to narrow down.[n](Max 4 digits, press Circle to end).[w][e]
 
-[dlg GENERIC_HELP_315]
+[dlg GENERIC_HELP_316]
 Unlocks all Personas in the[n]Compendium. [clr 9]This will delete all[n]Personas in your current stock![clr 0][w][e]
 
 [dlg FontMenuName]
 Font Test Options[w][e]
 
 [sel FontTestMenu]
-[s]Sample text[f 4 26 0 318][e]
-[s]Uppercase[f 4 26 1 319][e]
-[s]Lowercase[f 4 26 2 320][e]
-[s]Symbols[f 4 26 3 321][e]
-[s]All-in-One[f 4 26 4 322][e]
-
-[dlg GENERIC_HELP_318]
-[s]Print a sample sentence[n]for font testing.[e]
+[s]Sample text[f 4 26 0 319][e]
+[s]Uppercase[f 4 26 1 320][e]
+[s]Lowercase[f 4 26 2 321][e]
+[s]Symbols[f 4 26 3 322][e]
+[s]All-in-One[f 4 26 4 323][e]
 
 [dlg GENERIC_HELP_319]
-[s]Print a text message with[n]uppercase letters.[e]
+[s]Print a sample sentence[n]for font testing.[e]
 
 [dlg GENERIC_HELP_320]
-[s]Print a text message with[n]lowercase letters.[e]
+[s]Print a text message with[n]uppercase letters.[e]
 
 [dlg GENERIC_HELP_321]
-[s]Print a text message with[n]numbers and special[n]characters.[e]
+[s]Print a text message with[n]lowercase letters.[e]
 
 [dlg GENERIC_HELP_322]
+[s]Print a text message with[n]numbers and special[n]characters.[e]
+
+[dlg GENERIC_HELP_323]
 [s]Print a text message with[n]all the characters.[e]
 
 [dlg FontTest0[The Font Guy]]
@@ -1033,74 +1037,74 @@ Font Test Options[w][e]
 Party Member Cutin Test[w][e]
 
 [sel PartyCharacterSelect]
-[s][f 2 4 2][f 4 26 0 330][e]
-[s][f 2 4 3][f 4 26 1 331][e]
-[s][f 2 4 4][f 4 26 2 332][e]
-[s][f 2 4 5][f 4 26 3 333][e]
-[s][f 2 4 6][f 4 26 4 334][e]
-[s][f 2 4 7][f 4 26 5 335][e]
-[s][f 2 4 8][f 4 26 6 336][e]
-[s][f 2 4 9][f 4 26 7 337][e]
-[s]Villain [f 2 4 9][f 4 26 8 338][e]
-
-[dlg GENERIC_HELP_330]
-[s]Test the dialogue cutins[n]for [f 2 4 2].[e]
+[s][f 2 4 2][f 4 26 0 331][e]
+[s][f 2 4 3][f 4 26 1 332][e]
+[s][f 2 4 4][f 4 26 2 333][e]
+[s][f 2 4 5][f 4 26 3 334][e]
+[s][f 2 4 6][f 4 26 4 335][e]
+[s][f 2 4 7][f 4 26 5 336][e]
+[s][f 2 4 8][f 4 26 6 337][e]
+[s][f 2 4 9][f 4 26 7 338][e]
+[s]Villain [f 2 4 9][f 4 26 8 339][e]
 
 [dlg GENERIC_HELP_331]
-[s]Test the dialogue cutins[n]for [f 2 4 3].[e]
+[s]Test the dialogue cutins[n]for [f 2 4 2].[e]
 
 [dlg GENERIC_HELP_332]
-[s]Test the dialogue cutins[n]for [f 2 4 4].[e]
+[s]Test the dialogue cutins[n]for [f 2 4 3].[e]
 
 [dlg GENERIC_HELP_333]
-[s]Test the dialogue cutins[n]for [f 2 4 5].[e]
+[s]Test the dialogue cutins[n]for [f 2 4 4].[e]
 
 [dlg GENERIC_HELP_334]
-[s]Test the dialogue cutins[n]for [f 2 4 6].[e]
+[s]Test the dialogue cutins[n]for [f 2 4 5].[e]
 
 [dlg GENERIC_HELP_335]
-[s]Test the dialogue cutins[n]for [f 2 4 7].[e]
+[s]Test the dialogue cutins[n]for [f 2 4 6].[e]
 
 [dlg GENERIC_HELP_336]
-[s]Test the dialogue cutins[n]for [f 2 4 8].[e]
+[s]Test the dialogue cutins[n]for [f 2 4 7].[e]
 
 [dlg GENERIC_HELP_337]
-[s]Test the dialogue cutins[n]for [f 2 4 9].[e]
+[s]Test the dialogue cutins[n]for [f 2 4 8].[e]
 
 [dlg GENERIC_HELP_338]
+[s]Test the dialogue cutins[n]for [f 2 4 9].[e]
+
+[dlg GENERIC_HELP_339]
 [s]Test the dialogue cutins[n]for Villain [f 2 4 9].[e]
 
 [dlg ParticleMenuName]
 Particle Menu[w][e]
 
 [sel ParticleMenu]
-[s]Automatic Particle Selection[f 4 26 0 341][e]
-[s]Manual Particle Selection[f 4 26 1 342][e]
-[s]Set Params to Default[f 4 26 2 343][e]
-[s]Set Effect Size[f 4 26 3 344][e]
-[s]Set Effect Speed[f 4 26 4 345][e]
-[s]Set Effect Position[f 4 26 5 346][e]
-[s]Set Effect Translucency[f 4 26 6 347][e]
-
-[dlg GENERIC_HELP_341]
-[s]Preview EPL's placed inside[n]'data.cpk\field\effect\bank'[n][clr 9]MUST BE NAMED fb###.EPL[n]OR THE GAME SOFTLOCKS![clr 0][e]
+[s]Automatic Particle Selection[f 4 26 0 342][e]
+[s]Manual Particle Selection[f 4 26 1 343][e]
+[s]Set Params to Default[f 4 26 2 344][e]
+[s]Set Effect Size[f 4 26 3 345][e]
+[s]Set Effect Speed[f 4 26 4 346][e]
+[s]Set Effect Position[f 4 26 5 347][e]
+[s]Set Effect Translucency[f 4 26 6 348][e]
 
 [dlg GENERIC_HELP_342]
-[s]Select a 3-digit number from the[n]effect bank folder [clr 9](fb###.EPL)[n][clr 0]to preview.[e]
+[s]Preview EPL's placed inside[n]'data.cpk\field\effect\bank'[n][clr 9]MUST BE NAMED fb###.EPL[n]OR THE GAME SOFTLOCKS![clr 0][e]
 
 [dlg GENERIC_HELP_343]
-[s]Reset all properties of[n]the current EPL.[n][e]
+[s]Select a 3-digit number from the[n]effect bank folder [clr 9](fb###.EPL)[n][clr 0]to preview.[e]
 
 [dlg GENERIC_HELP_344]
-[s]Set the Size[n]of the current EPL.[n][e]
+[s]Reset all properties of[n]the current EPL.[n][e]
 
 [dlg GENERIC_HELP_345]
-[s]Set the Speed[n]of the current EPL.[n][e]
+[s]Set the Size[n]of the current EPL.[n][e]
 
 [dlg GENERIC_HELP_346]
-[s]Set the Position[n]of the current EPL to the player.[e]
+[s]Set the Speed[n]of the current EPL.[n][e]
 
 [dlg GENERIC_HELP_347]
+[s]Set the Position[n]of the current EPL to the player.[e]
+
+[dlg GENERIC_HELP_348]
 [s]Set the Opacity[n]of the current EPL.[n][e]
 
 [dlg ScaleParticle]
@@ -1113,53 +1117,53 @@ Set the particles's speed.[n](press Circle to end)[n]Default is 10.[w][e]
 Set the particles's opacity.[n](press Circle to end)[n]Default is 10.[w][e]
 
 [sel EnviromentEditor]
-[s]Set all Scenelights to White[f 4 26 0 352][e]
-[s]Print Scenelights to TTY[f 4 26 1 353][e]
-[s]Set Ambient Scenelight[f 4 26 2 354][e]
-[s]Set Diffuse Scenelight[f 4 26 3 355][e]
-[s]Set Specular Scenelight[f 4 26 4 356][e]
-[s]Print Current Fog Params to TTY[f 4 26 5 357][e]
-[s]Set Near Clip[f 4 26 6 358][e]
-[s]Set Far Clip[f 4 26 7 359][e]
-[s]Set Fog Hue[f 4 26 8 360][e]
-[s]Set Fog Saturation[f 4 26 9 361][e]
-[s]Set Fog Lightness[f 4 26 10 362][e]
-[s]Set Fog Alpha[f 4 26 11 363][e]
-
-[dlg GENERIC_HELP_352]
-[s]Set all Scenelight data on[n]the current field to 255.[e]
+[s]Set all Scenelights to White[f 4 26 0 353][e]
+[s]Print Scenelights to TTY[f 4 26 1 354][e]
+[s]Set Ambient Scenelight[f 4 26 2 355][e]
+[s]Set Diffuse Scenelight[f 4 26 3 356][e]
+[s]Set Specular Scenelight[f 4 26 4 357][e]
+[s]Print Current Fog Params to TTY[f 4 26 5 358][e]
+[s]Set Near Clip[f 4 26 6 359][e]
+[s]Set Far Clip[f 4 26 7 360][e]
+[s]Set Fog Hue[f 4 26 8 361][e]
+[s]Set Fog Saturation[f 4 26 9 362][e]
+[s]Set Fog Lightness[f 4 26 10 363][e]
+[s]Set Fog Alpha[f 4 26 11 364][e]
 
 [dlg GENERIC_HELP_353]
-[s]Print all Scenelight data on[n]the current field to the TTY Log.[e]
+[s]Set all Scenelight data on[n]the current field to 255.[e]
 
 [dlg GENERIC_HELP_354]
-[s]Set the HSL Values for the[n]Ambient Scenelight.[e]
+[s]Print all Scenelight data on[n]the current field to the TTY Log.[e]
 
 [dlg GENERIC_HELP_355]
-[s]Set the HSL Values for the[n]Diffuse Scenelight.[e]
+[s]Set the HSL Values for the[n]Ambient Scenelight.[e]
 
 [dlg GENERIC_HELP_356]
-[s]Set the HSL Values for the[n]Specular Scenelight.[e]
+[s]Set the HSL Values for the[n]Diffuse Scenelight.[e]
 
 [dlg GENERIC_HELP_357]
-[s]Print all fog params on[n]the current field to the TTY Log.[e]
+[s]Set the HSL Values for the[n]Specular Scenelight.[e]
 
 [dlg GENERIC_HELP_358]
-[s]Set the starting[n]location for the fog.[e]
+[s]Print all fog params on[n]the current field to the TTY Log.[e]
 
 [dlg GENERIC_HELP_359]
-[s]Set the starting[n]radius for the fog.[e]
+[s]Set the starting[n]location for the fog.[e]
 
 [dlg GENERIC_HELP_360]
-[s]Set the current fog's Hue.[e]
+[s]Set the starting[n]radius for the fog.[e]
 
 [dlg GENERIC_HELP_361]
-[s]Set the current fog's Saturation.[e]
+[s]Set the current fog's Hue.[e]
 
 [dlg GENERIC_HELP_362]
-[s]Set the current fog's Lightness.[e]
+[s]Set the current fog's Saturation.[e]
 
 [dlg GENERIC_HELP_363]
+[s]Set the current fog's Lightness.[e]
+
+[dlg GENERIC_HELP_364]
 [s]Set the current fog's Opacity.[e]
 
 [dlg HueDlg]
