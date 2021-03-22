@@ -33,6 +33,7 @@ global int gKfEventMinor;
 
 global int CCParticle;
 global int CCParticleNumber; 
+global int unitId;
 
 void ModMenuDisplay()
 {
@@ -212,6 +213,10 @@ void PersonaAddMenuOpen()
             case 1:
                 PersonaAddSelect( true );
                 break;
+            case 2:
+                ReservePersonasPage1();
+				MSG_SYSTEM( PersonaAdded );
+                break;
         }
     }
 }
@@ -263,6 +268,17 @@ void PersonaAddSkillMenuOpen()
             case 1:
                 PersonaAddSkillSelect( true );
                 break;
+            case 2:
+				SetConfidantNames();
+				unitId = SEL_GENERIC_NOT_HELP( UnitMenuName, UnitSelect );
+				if ( unitId == -1 ) // Cancel
+					return;
+                ReserveSkillsPage1();
+				FADEIN( 0, 10 );
+				FADE_SYNC();
+				FLD_REQ_FLASHBACK( 152, 51 );
+				FLD_END_FLASHBACK();
+                break;
         }
     }
 }
@@ -271,7 +287,7 @@ void PersonaAddSkillSelect( bool useNumberInput )
 
 {
 	SetConfidantNames();
-    int unitId = SEL_GENERIC_NOT_HELP( UnitMenuName, UnitSelect );
+    unitId = SEL_GENERIC_NOT_HELP( UnitMenuName, UnitSelect );
     if ( unitId == -1 ) // Cancel
         return;
         
