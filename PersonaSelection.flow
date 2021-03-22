@@ -1,4 +1,5 @@
 import( "PersonaSelection.msg" );
+import( "ReservePersonaNames.flow" );
 
 int PersonaSelectByName()
 {
@@ -592,4 +593,308 @@ int PersonaNameSelectionIndexToPersonaIndex( int menuIndex, int selIndex )
     }
 
     return -1;
+}
+void ReservePersonasPage1()
+{
+	ReservePersonas1();
+	int ReserveSelection1 = SEL_GENERIC_NOT_HELP(ReservePersonaSelect, SelReservePersonas1);
+	switch ( ReserveSelection1 )
+	{
+		case -1:
+			return;
+		case 00: ADD_PERSONA_STOCK(071); return;
+		case 01: ADD_PERSONA_STOCK(083); return;
+		case 02: ADD_PERSONA_STOCK(103); return;
+		case 03: ADD_PERSONA_STOCK(114); return;
+		case 04: ADD_PERSONA_STOCK(115); return;
+		case 05: ADD_PERSONA_STOCK(116); return;
+		case 06: ADD_PERSONA_STOCK(117); return;
+		case 07: ADD_PERSONA_STOCK(118); return;
+		case 08: ADD_PERSONA_STOCK(119); return;
+		case 09: ADD_PERSONA_STOCK(120); return;
+		case 10: ADD_PERSONA_STOCK(145); return;  
+		case 11: ADD_PERSONA_STOCK(146); return;  
+		case 12: ADD_PERSONA_STOCK(147); return;  
+		case 13: ADD_PERSONA_STOCK(148); return;  
+		case 14: ADD_PERSONA_STOCK(149); return;  
+		case 15: ADD_PERSONA_STOCK(150); return;  
+		case 16: ADD_PERSONA_STOCK(155); return;  
+		case 17: ADD_PERSONA_STOCK(165); return;  
+		case 18: ADD_PERSONA_STOCK(171); return;  
+		case 19: ADD_PERSONA_STOCK(172); return;  
+		case 20: ADD_PERSONA_STOCK(173); return;  
+		case 21: ADD_PERSONA_STOCK(174); return;  
+		case 22: ADD_PERSONA_STOCK(175); return;  
+		case 23: ADD_PERSONA_STOCK(176); return;  
+		case 24: ADD_PERSONA_STOCK(177); return;  
+		case 25: ADD_PERSONA_STOCK(178); return;  
+		case 26: ADD_PERSONA_STOCK(179); return;  
+		case 27: ADD_PERSONA_STOCK(180); return;  
+		case 28: ADD_PERSONA_STOCK(229); return;  
+		case 29: ADD_PERSONA_STOCK(239); return;
+		case 30: ADD_PERSONA_STOCK(240); return;
+		case 31:
+			ReservePersonasPage2();
+			return;
+	}
+}
+void ReservePersonasPage2()
+{
+	ReservePersonas2();
+	int ReserveSelection2 = SEL_GENERIC_NOT_HELP(ReservePersonaSelect, SelReservePersonas2);
+	switch ( ReserveSelection2 )
+	{
+		case -1:
+			return;
+		case 00: ADD_PERSONA_STOCK(241); return;
+		case 01: ADD_PERSONA_STOCK(242); return;
+		case 02: ADD_PERSONA_STOCK(243); return;
+		case 03: ADD_PERSONA_STOCK(244); return;
+		case 04: ADD_PERSONA_STOCK(245); return;
+		case 05: ADD_PERSONA_STOCK(246); return;
+		case 06: ADD_PERSONA_STOCK(247); return;
+		case 07: ADD_PERSONA_STOCK(248); return;
+		case 08: ADD_PERSONA_STOCK(249); return;
+		case 09: ADD_PERSONA_STOCK(250); return;
+		case 10: ADD_PERSONA_STOCK(251); return;  
+		case 11: ADD_PERSONA_STOCK(257); return;  
+		case 12: ADD_PERSONA_STOCK(258); return;  
+		case 13: ADD_PERSONA_STOCK(260); return;  
+		case 14: ADD_PERSONA_STOCK(263); return;  
+		case 15: ADD_PERSONA_STOCK(267); return;  
+		case 16: ADD_PERSONA_STOCK(268); return;  
+		case 17: ADD_PERSONA_STOCK(270); return;  
+		case 18: ADD_PERSONA_STOCK(288); return;  
+		case 19: ADD_PERSONA_STOCK(290); return;  
+		case 20: ADD_PERSONA_STOCK(291); return;  
+		case 21: ADD_PERSONA_STOCK(294); return;  
+		case 22: ADD_PERSONA_STOCK(302); return;  
+		case 23: ADD_PERSONA_STOCK(306); return;  
+		case 24: ADD_PERSONA_STOCK(309); return;  
+		case 25: ADD_PERSONA_STOCK(322); return;  
+		case 26: ADD_PERSONA_STOCK(323); return;  
+		case 27: ADD_PERSONA_STOCK(324); return;  
+		case 28: ADD_PERSONA_STOCK(325); return;  
+		case 29: ADD_PERSONA_STOCK(326); return;
+		case 30:
+			ReservePersonasPage3();
+			return;
+		case 31:
+			ReservePersonasPage1();
+			return;
+	}
+}
+void ReservePersonasPage3()
+{
+	ReservePersonas3();
+	int ReserveSelection3 = SEL_GENERIC_NOT_HELP(ReservePersonaSelect, SelReservePersonas3);
+	switch ( ReserveSelection3 )
+	{
+		case -1:
+			return;
+		case 00: ADD_PERSONA_STOCK(327); return;
+		case 01: ADD_PERSONA_STOCK(328); return;
+		case 02: ADD_PERSONA_STOCK(329); return;
+		case 03: ADD_PERSONA_STOCK(330); return;
+		case 04: ADD_PERSONA_STOCK(331); return;
+		case 05: ADD_PERSONA_STOCK(332); return;
+		case 06: ADD_PERSONA_STOCK(333); return;
+		case 07: ADD_PERSONA_STOCK(334); return;
+		case 08: ADD_PERSONA_STOCK(335); return;
+		case 09: ADD_PERSONA_STOCK(336); return;
+		case 10: ADD_PERSONA_STOCK(337); return;  
+		case 11: ADD_PERSONA_STOCK(338); return;  
+		case 12: ADD_PERSONA_STOCK(339); return;  
+		case 13: ADD_PERSONA_STOCK(340); return;  
+		case 14: ADD_PERSONA_STOCK(341); return;  
+		case 15: ADD_PERSONA_STOCK(342); return;  
+		case 16: ADD_PERSONA_STOCK(343); return;  
+		case 17: ADD_PERSONA_STOCK(344); return;  
+		case 18: ADD_PERSONA_STOCK(345); return;  
+		case 19: ADD_PERSONA_STOCK(346); return;  
+		case 20: ADD_PERSONA_STOCK(347); return;  
+		case 21: ADD_PERSONA_STOCK(348); return;  
+		case 22: ADD_PERSONA_STOCK(349); return;  
+		case 23: ADD_PERSONA_STOCK(350); return;  
+		case 24: ADD_PERSONA_STOCK(351); return;  
+		case 25: ADD_PERSONA_STOCK(352); return;  
+		case 26: ADD_PERSONA_STOCK(353); return;  
+		case 27: ADD_PERSONA_STOCK(354); return;  
+		case 28: ADD_PERSONA_STOCK(355); return;  
+		case 29: ADD_PERSONA_STOCK(356); return;
+		case 30:
+			ReservePersonasPage4();
+			return;
+		case 31:
+			ReservePersonasPage2();
+			return;
+	}
+}
+void ReservePersonasPage4()
+{
+	ReservePersonas4();
+	int ReserveSelection4 = SEL_GENERIC_NOT_HELP(ReservePersonaSelect, SelReservePersonas4);
+	switch ( ReserveSelection4 )
+	{
+		case -1:
+			return;
+		case 00: ADD_PERSONA_STOCK(357); return;
+		case 01: ADD_PERSONA_STOCK(358); return;
+		case 02: ADD_PERSONA_STOCK(359); return;
+		case 03: ADD_PERSONA_STOCK(360); return;
+		case 04: ADD_PERSONA_STOCK(361); return;
+		case 05: ADD_PERSONA_STOCK(362); return;
+		case 06: ADD_PERSONA_STOCK(363); return;
+		case 07: ADD_PERSONA_STOCK(364); return;
+		case 08: ADD_PERSONA_STOCK(365); return;
+		case 09: ADD_PERSONA_STOCK(366); return;
+		case 10: ADD_PERSONA_STOCK(367); return;  
+		case 11: ADD_PERSONA_STOCK(368); return;  
+		case 12: ADD_PERSONA_STOCK(369); return;  
+		case 13: ADD_PERSONA_STOCK(370); return;  
+		case 14: ADD_PERSONA_STOCK(371); return;  
+		case 15: ADD_PERSONA_STOCK(372); return;  
+		case 16: ADD_PERSONA_STOCK(373); return;  
+		case 17: ADD_PERSONA_STOCK(374); return;  
+		case 18: ADD_PERSONA_STOCK(375); return;  
+		case 19: ADD_PERSONA_STOCK(376); return;  
+		case 20: ADD_PERSONA_STOCK(377); return;  
+		case 21: ADD_PERSONA_STOCK(378); return;  
+		case 22: ADD_PERSONA_STOCK(379); return;  
+		case 23: ADD_PERSONA_STOCK(380); return;  
+		case 24: ADD_PERSONA_STOCK(381); return;  
+		case 25: ADD_PERSONA_STOCK(382); return;  
+		case 26: ADD_PERSONA_STOCK(383); return;  
+		case 27: ADD_PERSONA_STOCK(384); return;  
+		case 28: ADD_PERSONA_STOCK(385); return;  
+		case 29: ADD_PERSONA_STOCK(386); return;
+		case 30:
+			ReservePersonasPage5();
+			return;
+		case 31:
+			ReservePersonasPage3();
+			return;
+	}
+}
+void ReservePersonasPage5()
+{
+	ReservePersonas5();
+	int ReserveSelection5 = SEL_GENERIC_NOT_HELP(ReservePersonaSelect, SelReservePersonas5);
+	switch ( ReserveSelection5 )
+	{
+		case -1:
+			return;
+		case 00: ADD_PERSONA_STOCK(387); return;
+		case 01: ADD_PERSONA_STOCK(388); return;
+		case 02: ADD_PERSONA_STOCK(389); return;
+		case 03: ADD_PERSONA_STOCK(390); return;
+		case 04: ADD_PERSONA_STOCK(391); return;
+		case 05: ADD_PERSONA_STOCK(392); return;
+		case 06: ADD_PERSONA_STOCK(393); return;
+		case 07: ADD_PERSONA_STOCK(394); return;
+		case 08: ADD_PERSONA_STOCK(395); return;
+		case 09: ADD_PERSONA_STOCK(396); return;
+		case 10: ADD_PERSONA_STOCK(397); return;  
+		case 11: ADD_PERSONA_STOCK(398); return;  
+		case 12: ADD_PERSONA_STOCK(399); return;  
+		case 13: ADD_PERSONA_STOCK(400); return;  
+		case 14: ADD_PERSONA_STOCK(401); return;  
+		case 15: ADD_PERSONA_STOCK(402); return;  
+		case 16: ADD_PERSONA_STOCK(403); return;  
+		case 17: ADD_PERSONA_STOCK(404); return;  
+		case 18: ADD_PERSONA_STOCK(405); return;  
+		case 19: ADD_PERSONA_STOCK(406); return;  
+		case 20: ADD_PERSONA_STOCK(407); return;  
+		case 21: ADD_PERSONA_STOCK(408); return;  
+		case 22: ADD_PERSONA_STOCK(409); return;  
+		case 23: ADD_PERSONA_STOCK(410); return;  
+		case 24: ADD_PERSONA_STOCK(411); return;  
+		case 25: ADD_PERSONA_STOCK(412); return;  
+		case 26: ADD_PERSONA_STOCK(413); return;  
+		case 27: ADD_PERSONA_STOCK(414); return;  
+		case 28: ADD_PERSONA_STOCK(415); return;  
+		case 29: ADD_PERSONA_STOCK(416); return;
+		case 30:
+			ReservePersonasPage6();
+			return;
+		case 31:
+			ReservePersonasPage4();
+			return;
+	}
+}
+void ReservePersonasPage6()
+{
+	ReservePersonas6();
+	int ReserveSelection6 = SEL_GENERIC_NOT_HELP(ReservePersonaSelect, SelReservePersonas6);
+	switch ( ReserveSelection6 )
+	{
+		case -1:
+			return;
+		case 00: ADD_PERSONA_STOCK(417); return;
+		case 01: ADD_PERSONA_STOCK(418); return;
+		case 02: ADD_PERSONA_STOCK(419); return;
+		case 03: ADD_PERSONA_STOCK(420); return;
+		case 04: ADD_PERSONA_STOCK(421); return;
+		case 05: ADD_PERSONA_STOCK(422); return;
+		case 06: ADD_PERSONA_STOCK(423); return;
+		case 07: ADD_PERSONA_STOCK(424); return;
+		case 08: ADD_PERSONA_STOCK(425); return;
+		case 09: ADD_PERSONA_STOCK(426); return;
+		case 10: ADD_PERSONA_STOCK(427); return;  
+		case 11: ADD_PERSONA_STOCK(428); return;  
+		case 12: ADD_PERSONA_STOCK(429); return;  
+		case 13: ADD_PERSONA_STOCK(430); return;  
+		case 14: ADD_PERSONA_STOCK(431); return;  
+		case 15: ADD_PERSONA_STOCK(432); return;  
+		case 16: ADD_PERSONA_STOCK(433); return;  
+		case 17: ADD_PERSONA_STOCK(434); return;  
+		case 18: ADD_PERSONA_STOCK(435); return;  
+		case 19: ADD_PERSONA_STOCK(436); return;  
+		case 20: ADD_PERSONA_STOCK(437); return;  
+		case 21: ADD_PERSONA_STOCK(438); return;  
+		case 22: ADD_PERSONA_STOCK(439); return;  
+		case 23: ADD_PERSONA_STOCK(440); return;  
+		case 24: ADD_PERSONA_STOCK(441); return;  
+		case 25: ADD_PERSONA_STOCK(442); return;  
+		case 26: ADD_PERSONA_STOCK(443); return;  
+		case 27: ADD_PERSONA_STOCK(444); return;  
+		case 28: ADD_PERSONA_STOCK(445); return;  
+		case 29: ADD_PERSONA_STOCK(446); return;
+		case 30:
+			ReservePersonasPage7();
+			return;
+		case 31:
+			ReservePersonasPage5();
+			return;
+	}
+}
+void ReservePersonasPage7()
+{
+	ReservePersonas7();
+	int ReserveSelection7 = SEL_GENERIC_NOT_HELP(ReservePersonaSelect, SelReservePersonas7);
+	switch ( ReserveSelection7 )
+	{
+		case -1:
+			return;
+		case 00: ADD_PERSONA_STOCK(447); return;
+		case 01: ADD_PERSONA_STOCK(448); return;
+		case 02: ADD_PERSONA_STOCK(449); return;
+		case 03: ADD_PERSONA_STOCK(450); return;
+		case 04: ADD_PERSONA_STOCK(451); return;
+		case 05: ADD_PERSONA_STOCK(452); return;
+		case 06: ADD_PERSONA_STOCK(453); return;
+		case 07: ADD_PERSONA_STOCK(454); return;
+		case 08: ADD_PERSONA_STOCK(455); return;
+		case 09: ADD_PERSONA_STOCK(456); return;
+		case 10: ADD_PERSONA_STOCK(457); return;  
+		case 11: ADD_PERSONA_STOCK(458); return;  
+		case 12: ADD_PERSONA_STOCK(459); return;  
+		case 13: ADD_PERSONA_STOCK(460); return;  
+		case 14: ADD_PERSONA_STOCK(461); return;  
+		case 15: ADD_PERSONA_STOCK(462); return;  
+		case 16: ADD_PERSONA_STOCK(463); return;  
+		case 17:
+			ReservePersonasPage6();
+			return;
+	}
 }
