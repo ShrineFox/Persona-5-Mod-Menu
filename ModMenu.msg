@@ -1184,4 +1184,4 @@ Set Opacity to a 3 digit number. (Max 255)[w][e]
 Set the fog's Near Clip[n](press Circle to end)[w][e]
 
 [dlg FarClipDlg]
-Set the fog's Near Clip[n](press Circle to end)[w][e]
+Set the fog's Far Clip[n](press Circle to end)[w][e]
