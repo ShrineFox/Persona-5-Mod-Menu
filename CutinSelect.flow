@@ -2,287 +2,54 @@ import( "CutinSelect.msg" );
 //Cutin Test
 void CutinTestDisplay()
 {
-	SetConfidantNames();
-	while (true)
-	{
-		MSG_WND_DSP();
-		int  selection  = SEL_GENERIC(PartyMemberCutinMenuName, PartyCharacterSelect);
-		MSG_WND_CLS();
-		
-		switch ( selection ) 
-		{
-			case -1:
-				return;
-			case 0:
-				RyujiCutinMenu();
-				break;
-			case 1:
-				MorganaCutinMenu();
-				break;
-			case 2:
-				AnnCutinMenu();
-				break;
-			case 3:
-				YusukeCutinMenu();
-				break;	
-			case 4:
-				MakotoCutinMenu();
-				break;
-			case 5:
-				HaruCutinMenu();
-				break;	
-			case 6:
-				FutabaCutinMenu();
-				break;
-			case 7:
-				AkechiCutinMenu();
-				break;	
-			case 8:
-				GoroCutinMenu();
-				break;	
-		}
-	}
+    SetConfidantNames();
+    while (true)
+    {
+        MSG_WND_DSP();
+        int selection = SEL_GENERIC(PartyMemberCutinMenuName, PartyCharacterSelect);
+        MSG_WND_CLS();
+        switch ( selection ) 
+        {
+            case -1:
+                return;
+            case 0:
+                CutinMenu( RyujiExpressionRight );
+                break;
+            case 1:
+                CutinMenu( MorganaExpressionRight );
+                break;
+            case 2:
+                CutinMenu( AnnExpressionRight );
+                break;
+            case 3:
+                CutinMenu( YusukeExpressionRight );
+                break;    
+            case 4:
+                CutinMenu( MakotoExpressionRight );
+                break;
+            case 5:
+                CutinMenu( HaruExpressionRight );
+                break;    
+            case 6:
+                CutinMenu( FutabaExpressionRight );
+                break;
+            case 7:
+                CutinMenu( AkechiExpressionRight );
+                break;    
+            case 8:
+                CutinMenu( GoroExpressionRight );
+                break;    
+        }
+    }
 }
 
-//Ryuji Cutin Select
-void RyujiCutinMenu()
+void CutinMenu(int msgID)
 {
-	while (true)
-	{
-		MSG_WND_DSP();
-		int  selection = SEL_GENERIC_NOT_HELP(CutinOrientationMenuName, CutinOrientation);
-		MSG_WND_CLS();
-		
-		switch ( selection ) 
-		{
-			case -1:
-				return;
-			case 0:
-				MSG_WND_DSP();
-				MSG( RyujiExpressionRight, 0 );
-				MSG_WND_CLS();	
-				break;
-			case 1:
-				MSG_WND_DSP();
-				MSG( RyujiExpressionLeft, 0 );
-				MSG_WND_CLS();	
-				break;	
-		}
-	}
-}	
-
-//Morgana Cutin Select
-void MorganaCutinMenu()
-{
-	while (true)
-	{
-		MSG_WND_DSP();
-		int  selection = SEL_GENERIC_NOT_HELP(CutinOrientationMenuName, CutinOrientation);
-		MSG_WND_CLS();
-		
-		switch ( selection ) 
-		{
-			case -1:
-				return;
-			case 0:
-				MSG_WND_DSP();
-				MSG( MorganaExpressionRight, 0 );
-				MSG_WND_CLS();	
-				break;
-			case 1:
-				MSG_WND_DSP();
-				MSG( MorganaExpressionLeft, 0 );
-				MSG_WND_CLS();	
-				break;	
-		}
-	}
-}	
-
-//Ann Cutin Select
-void AnnCutinMenu()
-{
-	while (true)
-	{
-		MSG_WND_DSP();
-		int  selection = SEL_GENERIC_NOT_HELP(CutinOrientationMenuName, CutinOrientation);
-		MSG_WND_CLS();
-		
-		switch ( selection ) 
-		{
-			case -1:
-				return;
-			case 0:
-				MSG_WND_DSP();
-				MSG( AnnExpressionRight, 0 );
-				MSG_WND_CLS();	
-				break;
-			case 1:
-				MSG_WND_DSP();
-				MSG( AnnExpressionLeft, 0 );
-				MSG_WND_CLS();	
-				break;	
-		}
-	}
-}	
-
-//Yusuke Cutin Select
-void YusukeCutinMenu()
-{
-	while (true)
-	{
-		MSG_WND_DSP();
-		int  selection = SEL_GENERIC_NOT_HELP(CutinOrientationMenuName, CutinOrientation);
-		MSG_WND_CLS();
-		
-		switch ( selection ) 
-		{
-			case -1:
-				return;
-			case 0:
-				MSG_WND_DSP();
-				MSG( YusukeExpressionRight, 0 );
-				MSG_WND_CLS();	
-				break;
-			case 1:
-				MSG_WND_DSP();
-				MSG( YusukeExpressionLeft, 0 );
-				MSG_WND_CLS();	
-				break;	
-		}
-	}
-}	
-
-//Makoto Cutin Select
-void MakotoCutinMenu()
-{
-	while (true)
-	{
-		MSG_WND_DSP();
-		int  selection = SEL_GENERIC_NOT_HELP(CutinOrientationMenuName, CutinOrientation);
-		MSG_WND_CLS();
-		
-		switch ( selection ) 
-		{
-			case -1:
-				return;
-			case 0:
-				MSG_WND_DSP();
-				MSG( MakotoExpressionRight, 0 );
-				MSG_WND_CLS();	
-				break;
-			case 1:
-				MSG_WND_DSP();
-				MSG( MakotoExpressionLeft, 0 );
-				MSG_WND_CLS();	
-				break;	
-		}
-	}
-}	
-
-//Haru Cutin Select
-void HaruCutinMenu()
-{
-	while (true)
-	{
-		MSG_WND_DSP();
-		int  selection = SEL_GENERIC_NOT_HELP(CutinOrientationMenuName, CutinOrientation);
-		MSG_WND_CLS();
-		
-		switch ( selection ) 
-		{
-			case -1:
-				return;
-			case 0:
-				MSG_WND_DSP();
-				MSG( HaruExpressionRight, 0 );
-				MSG_WND_CLS();	
-				break;
-			case 1:
-				MSG_WND_DSP();
-				MSG( HaruExpressionLeft, 0 );
-				MSG_WND_CLS();	
-				break;	
-		}
-	}
-}	
-
-//Futaba Cutin Select
-void FutabaCutinMenu()
-{
-	while (true)
-	{
-		MSG_WND_DSP();
-		int  selection = SEL_GENERIC_NOT_HELP(CutinOrientationMenuName, CutinOrientation);
-		MSG_WND_CLS();
-		
-		switch ( selection ) 
-		{
-			case -1:
-				return;
-			case 0:
-				MSG_WND_DSP();
-				MSG( FutabaExpressionRight, 0 );
-				MSG_WND_CLS();	
-				break;
-			case 1:
-				MSG_WND_DSP();
-				MSG( FutabaExpressionLeft, 0 );
-				MSG_WND_CLS();	
-				break;	
-		}
-	}
-}	
-
-//Akechi Cutin Select
-void AkechiCutinMenu()
-{
-	while (true)
-	{
-		MSG_WND_DSP();
-		int  selection = SEL_GENERIC_NOT_HELP(CutinOrientationMenuName, CutinOrientation);
-		MSG_WND_CLS();
-		
-		switch ( selection ) 
-		{
-			case -1:
-				return;
-			case 0:
-				MSG_WND_DSP();
-				MSG( AkechiExpressionRight, 0 );
-				MSG_WND_CLS();	
-				break;
-			case 1:
-				MSG_WND_DSP();
-				MSG( AkechiExpressionLeft, 0 );
-				MSG_WND_CLS();	
-				break;	
-		}
-	}
-}	
-
-//Goro Cutin Select
-void GoroCutinMenu()
-{
-	while (true)
-	{
-		MSG_WND_DSP();
-		int  selection = SEL_GENERIC_NOT_HELP(CutinOrientationMenuName, CutinOrientation);
-		MSG_WND_CLS();
-		
-		switch ( selection ) 
-		{
-			case -1:
-				return;
-			case 0:
-				MSG_WND_DSP();
-				MSG( GoroExpressionRight, 0 );
-				MSG_WND_CLS();	
-				break;
-			case 1:
-				MSG_WND_DSP();
-				MSG( GoroExpressionLeft, 0 );
-				MSG_WND_CLS();	
-				break;	
-		}
-	}
+    while (true)
+    {
+        int selection = SEL_GENERIC_NOT_HELP(CutinOrientationMenuName, CutinOrientation);
+        if ( selection == -1 )
+            return;
+        DisplayMessagePrompt( msgID + selection );
+    }
 }

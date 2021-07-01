@@ -56,49 +56,49 @@ void D00_e100_101()
     if ( BIT_CHK( 0 + 0x0800 + 0x0800 + 2591 ) && !BIT_CHK( 0 + 0x0800 + 0x0800 + 2590 ) )
     {
         MSG_WND_DSP();
-        MSG( D00_01_e100_101_mes01, 0 );
+        MSG( D00_01_e100_101_mes01 );
         MSG_WND_CLS();
         MSG_WND_DSP();
-        MSG( D00_01_e100_101_mes02, 0 );
+        MSG( D00_01_e100_101_mes02 );
         MSG_WND_CLS();
         MSG_WND_DSP();
-        MSG( D00_01_e100_101_mes03, 0 );
+        MSG( D00_01_e100_101_mes03 );
         MSG_WND_CLS();
         MSG_WND_DSP();
-        MSG( D00_01_e100_101_mes04, 0 );
+        MSG( D00_01_e100_101_mes04 );
         MSG_WND_CLS();
         MSG_WND_DSP();
-        MSG( D00_01_e100_101_mes05, 0 );
+        MSG( D00_01_e100_101_mes05 );
         MSG_WND_CLS();
         MSG_WND_DSP();
-        MSG( D00_01_e100_101_mes06, 0 );
+        MSG( D00_01_e100_101_mes06 );
         MSG_WND_CLS();
         MSG_WND_DSP();
-        MSG( D00_01_e100_101_mes07, 0 );
+        MSG( D00_01_e100_101_mes07 );
         MSG_WND_CLS();
     }
     else 
     {
         MSG_WND_DSP();
-        MSG( D06_01_e100_101_mes01, 0 );
+        MSG( D06_01_e100_101_mes01 );
         MSG_WND_CLS();
         MSG_WND_DSP();
-        MSG( D06_01_e100_101_mes02, 0 );
+        MSG( D06_01_e100_101_mes02 );
         MSG_WND_CLS();
         MSG_WND_DSP();
-        MSG( D06_01_e100_101_mes03, 0 );
+        MSG( D06_01_e100_101_mes03 );
         MSG_WND_CLS();
         MSG_WND_DSP();
-        MSG( D06_01_e100_101_mes04, 0 );
+        MSG( D06_01_e100_101_mes04 );
         MSG_WND_CLS();
         MSG_WND_DSP();
-        MSG( D06_01_e100_101_mes05, 0 );
+        MSG( D06_01_e100_101_mes05 );
         MSG_WND_CLS();
         MSG_WND_DSP();
-        MSG( D06_01_e100_101_mes06, 0 );
+        MSG( D06_01_e100_101_mes06 );
         MSG_WND_CLS();
         MSG_WND_DSP();
-        MSG( D06_01_e100_101_mes07, 0 );
+        MSG( D06_01_e100_101_mes07 );
         MSG_WND_CLS();
     }
 

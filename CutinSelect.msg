@@ -1,11 +1,14 @@
-[dlg CutinOrientationMenuName]
+// index 0
+[msg CutinOrientationMenuName]
 Cutin Orientation[w][e]
 
-[sel CutinOrientation]
+// index 1
+[sel CutinOrientation top]
 [s]Right[e]
 [s]Left[e]
 
-[dlg RyujiExpressionRight[Ryuji]]
+// index 2
+[msg RyujiExpressionRight [Ryuji]]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 2 0 301 1]Cutin Test[n][w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 2 1 301 1]Cutin Test[n][w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 2 2 301 1]Cutin Test[n][w][e]
@@ -23,7 +26,8 @@ Cutin Orientation[w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 2 16 301 1]Cutin Test[n][w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 2 17 301 1]Cutin Test[n][w][e]
 
-[dlg RyujiExpressionLeft[Ryuji]]
+// index 3
+[msg RyujiExpressionLeft [Ryuji]]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 2 0 300 1]Cutin Test[n][w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 2 1 300 1]Cutin Test[n][w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 2 2 300 1]Cutin Test[n][w][e]
@@ -41,7 +45,8 @@ Cutin Orientation[w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 2 16 300 1]Cutin Test[n][w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 2 17 300 1]Cutin Test[n][w][e]
 
-[dlg MorganaExpressionRight[Morgana]]
+// index 4
+[msg MorganaExpressionRight [Morgana]]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 3 0 301 1]Cutin Test[n][w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 3 1 301 1]Cutin Test[n][w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 3 2 301 1]Cutin Test[n][w][e]
@@ -59,7 +64,8 @@ Cutin Orientation[w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 3 16 301 1]Cutin Test[n][w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 3 17 301 1]Cutin Test[n][w][e]
 
-[dlg MorganaExpressionLeft[Morgana]]
+// index 5
+[msg MorganaExpressionLeft [Morgana]]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 3 0 300 1]Cutin Test[n][w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 3 1 300 1]Cutin Test[n][w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 3 2 300 1]Cutin Test[n][w][e]
@@ -77,7 +83,8 @@ Cutin Orientation[w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 3 16 300 1]Cutin Test[n][w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 3 17 300 1]Cutin Test[n][w][e]
 
-[dlg AnnExpressionRight[Ann]]
+// index 6
+[msg AnnExpressionRight [Ann]]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 4 0 301 1]Cutin Test[n][w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 4 1 301 1]Cutin Test[n][w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 4 2 301 1]Cutin Test[n][w][e]
@@ -95,7 +102,8 @@ Cutin Orientation[w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 4 16 301 1]Cutin Test[n][w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 4 17 301 1]Cutin Test[n][w][e]
 
-[dlg AnnExpressionLeft[Ann]]
+// index 7
+[msg AnnExpressionLeft [Ann]]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 4 0 300 1]Cutin Test[n][w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 4 1 300 1]Cutin Test[n][w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 4 2 300 1]Cutin Test[n][w][e]
@@ -113,7 +121,8 @@ Cutin Orientation[w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 4 16 300 1]Cutin Test[n][w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 4 17 300 1]Cutin Test[n][w][e]
 
-[dlg YusukeExpressionRight[Yusuke]]
+// index 8
+[msg YusukeExpressionRight [Yusuke]]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 5 0 301 1]Cutin Test[n][w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 5 1 301 1]Cutin Test[n][w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 5 2 301 1]Cutin Test[n][w][e]
@@ -131,7 +140,8 @@ Cutin Orientation[w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 5 16 301 1]Cutin Test[n][w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 5 17 301 1]Cutin Test[n][w][e]
 
-[dlg YusukeExpressionLeft[Yusuke]]
+// index 9
+[msg YusukeExpressionLeft [Yusuke]]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 5 0 300 1]Cutin Test[n][w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 5 1 300 1]Cutin Test[n][w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 5 2 300 1]Cutin Test[n][w][e]
@@ -149,7 +159,8 @@ Cutin Orientation[w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 5 16 300 1]Cutin Test[n][w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 5 17 300 1]Cutin Test[n][w][e]
 
-[dlg MakotoExpressionRight[Makoto]]
+// index 10
+[msg MakotoExpressionRight [Makoto]]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 6 0 301 1]Cutin Test[n][w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 6 1 301 1]Cutin Test[n][w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 6 2 301 1]Cutin Test[n][w][e]
@@ -167,7 +178,8 @@ Cutin Orientation[w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 6 16 301 1]Cutin Test[n][w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 6 17 301 1]Cutin Test[n][w][e]
 
-[dlg MakotoExpressionLeft[Makoto]]
+// index 11
+[msg MakotoExpressionLeft [Makoto]]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 6 0 300 1]Cutin Test[n][w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 6 1 300 1]Cutin Test[n][w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 6 2 300 1]Cutin Test[n][w][e]
@@ -185,7 +197,8 @@ Cutin Orientation[w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 6 16 300 1]Cutin Test[n][w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 6 17 300 1]Cutin Test[n][w][e]
 
-[dlg HaruExpressionRight[Haru]]
+// index 12
+[msg HaruExpressionRight [Haru]]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 7 0 301 1]Cutin Test[n][w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 7 1 301 1]Cutin Test[n][w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 7 2 301 1]Cutin Test[n][w][e]
@@ -203,7 +216,8 @@ Cutin Orientation[w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 7 16 301 1]Cutin Test[n][w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 7 17 301 1]Cutin Test[n][w][e]
 
-[dlg HaruExpressionLeft[Haru]]
+// index 13
+[msg HaruExpressionLeft [Haru]]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 7 0 300 1]Cutin Test[n][w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 7 1 300 1]Cutin Test[n][w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 7 2 300 1]Cutin Test[n][w][e]
@@ -221,7 +235,8 @@ Cutin Orientation[w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 7 16 300 1]Cutin Test[n][w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 7 17 300 1]Cutin Test[n][w][e]
 
-[dlg FutabaExpressionRight[Futaba]]
+// index 14
+[msg FutabaExpressionRight [Futaba]]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 8 0 301 1]Cutin Test[n][w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 8 1 301 1]Cutin Test[n][w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 8 2 301 1]Cutin Test[n][w][e]
@@ -239,7 +254,8 @@ Cutin Orientation[w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 8 16 301 1]Cutin Test[n][w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 8 17 301 1]Cutin Test[n][w][e]
 
-[dlg FutabaExpressionLeft[Futaba]]
+// index 15
+[msg FutabaExpressionLeft [Futaba]]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 8 0 300 1]Cutin Test[n][w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 8 1 300 1]Cutin Test[n][w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 8 2 300 1]Cutin Test[n][w][e]
@@ -257,7 +273,8 @@ Cutin Orientation[w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 8 16 300 1]Cutin Test[n][w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 8 17 300 1]Cutin Test[n][w][e]
 
-[dlg AkechiExpressionRight[Akechi]]
+// index 16
+[msg AkechiExpressionRight [Akechi]]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 9 0 301 1]Cutin Test[n][w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 9 1 301 1]Cutin Test[n][w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 9 2 301 1]Cutin Test[n][w][e]
@@ -275,7 +292,8 @@ Cutin Orientation[w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 9 16 301 1]Cutin Test[n][w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 9 17 301 1]Cutin Test[n][w][e]
 
-[dlg AkechiExpressionLeft[Akechi]]
+// index 17
+[msg AkechiExpressionLeft [Akechi]]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 9 0 300 1]Cutin Test[n][w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 9 1 300 1]Cutin Test[n][w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 9 2 300 1]Cutin Test[n][w][e]
@@ -293,10 +311,13 @@ Cutin Orientation[w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 9 16 300 1]Cutin Test[n][w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 9 17 300 1]Cutin Test[n][w][e]
 
-[dlg GoroExpressionRight[Goro]]
+// index 18
+[msg GoroExpressionRight [Goro]]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 10 3 301 1]Cutin Test[n][w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 10 10 301 1]Cutin Test[n][w][e]
 
-[dlg GoroExpressionLeft[Goro]]
+// index 19
+[msg GoroExpressionLeft [Goro]]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 10 3 300 1]Cutin Test[n][w][e]
 [s][f 4 17 1 -1 -1 -1 -1 -1 -1 -1 10 10 300 1]Cutin Test[n][w][e]
+
