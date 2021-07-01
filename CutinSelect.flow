@@ -13,31 +13,31 @@ void CutinTestDisplay()
             case -1:
                 return;
             case 0:
-                CutinMenu( 2 );
+                CutinMenu( RyujiExpressionRight );
                 break;
             case 1:
-                CutinMenu( 4 );
+                CutinMenu( MorganaExpressionRight );
                 break;
             case 2:
-                CutinMenu( 6 );
+                CutinMenu( AnnExpressionRight );
                 break;
             case 3:
-                CutinMenu( 8 );
+                CutinMenu( YusukeExpressionRight );
                 break;    
             case 4:
-                CutinMenu( 10 );
+                CutinMenu( MakotoExpressionRight );
                 break;
             case 5:
-                CutinMenu( 12 );
+                CutinMenu( HaruExpressionRight );
                 break;    
             case 6:
-                CutinMenu( 14 );
+                CutinMenu( FutabaExpressionRight );
                 break;
             case 7:
-                CutinMenu( 16 );
+                CutinMenu( AkechiExpressionRight );
                 break;    
             case 8:
-                CutinMenu( 18 );
+                CutinMenu( GoroExpressionRight );
                 break;    
         }
     }
@@ -48,6 +48,8 @@ void CutinMenu(int msgID)
     while (true)
     {
         int selection = SEL_GENERIC_NOT_HELP(CutinOrientationMenuName, CutinOrientation);
+        if ( selection == -1 )
+            return;
         DisplayMessagePrompt( msgID + selection );
     }
 }

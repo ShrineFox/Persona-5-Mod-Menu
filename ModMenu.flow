@@ -2122,6 +2122,8 @@ void FontTestMenu()
     while (true)
     {
         int FontTestSel = SEL_GENERIC(FontMenuName, FontTestMenu);
+        if ( FontTestSel == -1 )
+            return;
         DisplayMessagePrompt( FontTest0 + FontTestSel );
     }
 }
