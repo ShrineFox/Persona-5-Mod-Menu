@@ -1,5 +1,5 @@
 import( "SkillSelection.msg" );
-import( "ReserveSkillNames.msg" );
+import( "ReserveSkillNames.flow" );
 
 int SkillSelectByName()
 {
@@ -1453,7 +1453,7 @@ int SkillNameSelectionIndexToSkillIndex( int menuIndex, int selIndex )
 }
 void ReserveSkillsPage1()
 {
-	SetSkillNames();
+	ReserveSkills1();
 	int ReserveSSelection1 = SEL_GENERIC_NOT_HELP(ReserveSkillSelect, SelReserveSkills1);
 	switch ( ReserveSSelection1 )
 	{
@@ -1497,7 +1497,7 @@ void ReserveSkillsPage1()
 }
 void ReserveSkillsPage2()
 {
-	SetSkillNames();
+	ReserveSkills2();
 	int ReserveSSelection2 = SEL_GENERIC_NOT_HELP(ReserveSkillSelect, SelReserveSkills2);
 	switch ( ReserveSSelection2 )
 	{
@@ -1543,7 +1543,7 @@ void ReserveSkillsPage2()
 }
 void ReserveSkillsPage3()
 {
-	SetSkillNames();
+	ReserveSkills3();
 	int ReserveSSelection3 = SEL_GENERIC_NOT_HELP(ReserveSkillSelect, SelReserveSkills3);
 	switch ( ReserveSSelection3 )
 	{
@@ -1589,7 +1589,7 @@ void ReserveSkillsPage3()
 }
 void ReserveSkillsPage4()
 {
-	SetSkillNames();
+	ReserveSkills4();
 	int ReserveSSelection4 = SEL_GENERIC_NOT_HELP(ReserveSkillSelect, SelReserveSkills4);
 	switch ( ReserveSSelection4 )
 	{
@@ -1635,7 +1635,7 @@ void ReserveSkillsPage4()
 }
 void ReserveSkillsPage5()
 {
-	SetSkillNames();
+	ReserveSkills5();
 	int ReserveSSelection5 = SEL_GENERIC_NOT_HELP(ReserveSkillSelect, SelReserveSkills5);
 	switch ( ReserveSSelection5 )
 	{
@@ -1681,7 +1681,7 @@ void ReserveSkillsPage5()
 }
 void ReserveSkillsPage6()
 {
-	SetSkillNames();
+	ReserveSkills6();
 	int ReserveSSelection6 = SEL_GENERIC_NOT_HELP(ReserveSkillSelect, SelReserveSkills6);
 	switch ( ReserveSSelection6 )
 	{
@@ -1727,7 +1727,7 @@ void ReserveSkillsPage6()
 }
 void ReserveSkillsPage7()
 {
-	SetSkillNames();
+	ReserveSkills7();
 	int ReserveSSelection7 = SEL_GENERIC_NOT_HELP(ReserveSkillSelect, SelReserveSkills7);
 	switch ( ReserveSSelection7 )
 	{
@@ -1773,7 +1773,7 @@ void ReserveSkillsPage7()
 }
 void ReserveSkillsPage8()
 {
-	SetSkillNames();
+	ReserveSkills8();
 	int ReserveSSelection8 = SEL_GENERIC_NOT_HELP(ReserveSkillSelect, SelReserveSkills8);
 	switch ( ReserveSSelection8 )
 	{

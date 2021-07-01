@@ -1,5 +1,5 @@
 import( "PersonaSelection.msg" );
-import( "ReservePersonaNames.msg" );
+import( "ReservePersonaNames.flow" );
 
 int PersonaSelectByName()
 {
@@ -596,7 +596,7 @@ int PersonaNameSelectionIndexToPersonaIndex( int menuIndex, int selIndex )
 }
 void ReservePersonasPage1()
 {
-	SetPersonaNames();
+	ReservePersonas1();
 	int ReserveSelection1 = SEL_GENERIC_NOT_HELP(ReservePersonaSelect, SelReservePersonas1);
 	switch ( ReserveSelection1 )
 	{
@@ -640,7 +640,7 @@ void ReservePersonasPage1()
 }
 void ReservePersonasPage2()
 {
-	SetPersonaNames();
+	ReservePersonas2();
 	int ReserveSelection2 = SEL_GENERIC_NOT_HELP(ReservePersonaSelect, SelReservePersonas2);
 	switch ( ReserveSelection2 )
 	{
@@ -686,7 +686,7 @@ void ReservePersonasPage2()
 }
 void ReservePersonasPage3()
 {
-	SetPersonaNames();
+	ReservePersonas3();
 	int ReserveSelection3 = SEL_GENERIC_NOT_HELP(ReservePersonaSelect, SelReservePersonas3);
 	switch ( ReserveSelection3 )
 	{
@@ -732,7 +732,7 @@ void ReservePersonasPage3()
 }
 void ReservePersonasPage4()
 {
-	SetPersonaNames();
+	ReservePersonas4();
 	int ReserveSelection4 = SEL_GENERIC_NOT_HELP(ReservePersonaSelect, SelReservePersonas4);
 	switch ( ReserveSelection4 )
 	{
@@ -778,7 +778,7 @@ void ReservePersonasPage4()
 }
 void ReservePersonasPage5()
 {
-	SetPersonaNames();
+	ReservePersonas5();
 	int ReserveSelection5 = SEL_GENERIC_NOT_HELP(ReservePersonaSelect, SelReservePersonas5);
 	switch ( ReserveSelection5 )
 	{
@@ -824,7 +824,7 @@ void ReservePersonasPage5()
 }
 void ReservePersonasPage6()
 {
-	SetPersonaNames();
+	ReservePersonas6();
 	int ReserveSelection6 = SEL_GENERIC_NOT_HELP(ReservePersonaSelect, SelReservePersonas6);
 	switch ( ReserveSelection6 )
 	{
@@ -870,7 +870,7 @@ void ReservePersonasPage6()
 }
 void ReservePersonasPage7()
 {
-	SetPersonaNames();
+	ReservePersonas7();
 	int ReserveSelection7 = SEL_GENERIC_NOT_HELP(ReservePersonaSelect, SelReservePersonas7);
 	switch ( ReserveSelection7 )
 	{

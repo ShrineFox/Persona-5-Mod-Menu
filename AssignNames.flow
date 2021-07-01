@@ -1,14 +1,6 @@
-void SetMsgVarNumbers()
-{
-    for ( int i = 0; i < 9999; i++ )
-        SET_MSG_VAR( i, i, 0 );
-}
-
-void SetUnitNames()
-{
-    for ( int i = 0; i < 350; i++ )
-        SET_MSG_VAR( i, i, 2 );
-}
+// ID 0 is just numbers
+// ID 1 is nothingness
+// ID 2 is Unit Names, there's more than 31 units so it's not included
 
 void SetArcanaNames()
 {
@@ -22,20 +14,9 @@ void SetConfidantNames()
         SET_MSG_VAR( i, i, 4 );
 }
 
-void SetWeaponNames()
-{
-    for ( int i = 0; i < 255; i++ )
-        SET_MSG_VAR( i, i, 5 );
-}
-
-void SetSkillNames()
-{
-    for ( int i = 0; i < 999; i++ )
-        SET_MSG_VAR( i, i, 6 );
-}
-
-void SetPersonaNames()
-{
-    for ( int i = 0; i < 463; i++ )
-        SET_MSG_VAR( i, i, 7 );
-}
+// ID 5 is Weapon Names, there's more than 31 weapons so it's not included
+// ID 6 is Skill Names, there's more than 31 skills so it's not included
+// ID 7 is Persona Names, there's more than 31 personas so it's not included
+// ID 8 is nothingness
+// ID 9 is nothingness
+// ...
