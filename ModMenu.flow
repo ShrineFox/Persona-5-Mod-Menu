@@ -45,7 +45,7 @@ void ModMenuDisplay()
     ALL_ENABLE_SHARE_PLAY(); //Re-enables screen recording
     BIT_OFF( 4099 ); //Removes your "tired" status
     PrintPosition(); //Logs your current coordinates
-	
+    
     while ( true )
     {
         int selection = SEL_GENERIC( -1, ModMenu );
@@ -53,53 +53,56 @@ void ModMenuDisplay()
         {
             case -1:
                 return;
-            case 0:
-                PlayerEditorDisplay();
-                break;
-            case 1:
-                BattleTypeSelect();
-                return;
-            case 2: 
-                TeleportModeStart();
-                break;
-            case 3: 
-                BgmSelect();
-                break;
-            case 4:
-                FieldSelect();
-                return;
-            case 5:
-                EventSelect();
-                return;
-            case 6:
-                CameraEditorDisplay(); 
-                break;
-            case 7:
-                NpcControlMenuDisplay(); 
-                break;              
-            case 8: 
-                FlagsEditorDisplay(); 
-                break;
-            case 9: 
-                CalendarEditorDisplay(); 
-                return;
-            case 10: 
-                CutinTestDisplay(); 
-                return;	
-            case 11: 
-                FontTestMenu();	
-                break;
-            case 12: 
-                ParticleTest();	
-                break;
-            case 13: 
-                EditEnviroment();	
-                break;                
-            case 14: 
+            case 0: 
                 CallOriginalSquareMenu();
                 break;
+            case 1:
+                PlayerEditorDisplay();
+                break;
+            case 2:
+                BattleTypeSelect();
+                return;
+            case 3: 
+                TeleportModeStart();
+                break;
+            case 4: 
+                int bgmId = SelectNumberPrompt( SelectBgmDialog, 3 );
+                if ( bgmId == -1 )
+                    return;
+                BGM( bgmId );
+                break;
+            case 5:
+                FieldSelect();
+                return;
+            case 6:
+                EventSelect();
+                return;
+            case 7:
+                CameraEditorDisplay(); 
+                break;
+            case 8:
+                NpcControlMenuDisplay(); 
+                break;              
+            case 9: 
+                FlagsEditorDisplay(); 
+                break;
+            case 10: 
+                CalendarEditorDisplay(); 
+                return;
+            case 11: 
+                CutinTestDisplay(); 
+                return;    
+            case 12: 
+                FontTestMenu();    
+                break;
+            case 13: 
+                ParticleTest();    
+                break;
+            case 14: 
+                EditEnviroment();    
+                break;                
             case 15:
-                AboutDialogDisplay();
+                DisplayMessagePrompt( AboutDlg );
                 break;
         }
     }
@@ -107,22 +110,22 @@ void ModMenuDisplay()
 
 void PrintPosition()
 {
-	PUTS( "Joker Translation:" );
-	int pcHandle = FLD_PC_GET_RESHND( 0 );
-	PUTS( "X:" );
-	PUT( FLD_MODEL_GET_X_TRANSLATE( pcHandle ) );
-	PUTS( "Y:" );
-	PUT( FLD_MODEL_GET_Y_TRANSLATE( pcHandle ) );
-	PUTS( "Z:" );
-	PUT( FLD_MODEL_GET_Z_TRANSLATE( pcHandle ) );
-	
-	PUTS( "Joker Rotation:" );
-	PUTS( "X:" );
-	PUT( FLD_MODEL_GET_X_ROTATE( pcHandle ) );
-	PUTS( "Y:" );
-	PUT( FLD_MODEL_GET_Y_ROTATE( pcHandle ) );
-	PUTS( "Z:" );
-	PUT( FLD_MODEL_GET_Z_ROTATE( pcHandle ) );
+    PUTS( "Joker Translation:" );
+    int pcHandle = FLD_PC_GET_RESHND( 0 );
+    PUTS( "X:" );
+    PUT( FLD_MODEL_GET_X_TRANSLATE( pcHandle ) );
+    PUTS( "Y:" );
+    PUT( FLD_MODEL_GET_Y_TRANSLATE( pcHandle ) );
+    PUTS( "Z:" );
+    PUT( FLD_MODEL_GET_Z_TRANSLATE( pcHandle ) );
+    
+    PUTS( "Joker Rotation:" );
+    PUTS( "X:" );
+    PUT( FLD_MODEL_GET_X_ROTATE( pcHandle ) );
+    PUTS( "Y:" );
+    PUT( FLD_MODEL_GET_Y_ROTATE( pcHandle ) );
+    PUTS( "Z:" );
+    PUT( FLD_MODEL_GET_Z_ROTATE( pcHandle ) );
 }
 
 // Player Editor
@@ -195,7 +198,7 @@ void PersonaEditorOpen()
             case 3:
                 PersonaAddAllToCompendium();
                 break;
-			case 4:
+            case 4:
                 EvolvePersona();
                 break;
         }
@@ -220,7 +223,7 @@ void PersonaAddMenuOpen()
                 break;
             case 2:
                 ReservePersonasPage1();
-				MSG_SYSTEM( PersonaAdded );
+                MSG_SYSTEM( PersonaAdded );
                 break;
         }
     }
@@ -274,15 +277,15 @@ void PersonaAddSkillMenuOpen()
                 PersonaAddSkillSelect( true );
                 break;
             case 2:
-				SetConfidantNames();
-				unitId = SEL_GENERIC_NOT_HELP( UnitMenuName, UnitSelect );
-				if ( unitId == -1 ) // Cancel
-					return;
+                SetConfidantNames();
+                unitId = SEL_GENERIC_NOT_HELP( UnitMenuName, UnitSelect );
+                if ( unitId == -1 ) // Cancel
+                    return;
                 ReserveSkillsPage1();
-				FADEIN( 0, 10 );
-				FADE_SYNC();
-				FLD_REQ_FLASHBACK( 152, 51 );
-				FLD_END_FLASHBACK();
+                FADEIN( 0, 10 );
+                FADE_SYNC();
+                FLD_REQ_FLASHBACK( 152, 51 );
+                FLD_END_FLASHBACK();
                 break;
         }
     }
@@ -291,7 +294,7 @@ void PersonaAddSkillMenuOpen()
 void PersonaAddSkillSelect( bool useNumberInput )
 
 {
-	SetConfidantNames();
+    SetConfidantNames();
     unitId = SEL_GENERIC_NOT_HELP( UnitMenuName, UnitSelect );
     if ( unitId == -1 ) // Cancel
         return;
@@ -331,7 +334,7 @@ void PersonaAddAllToCompendium()
 
 void EvolvePersona()
 {
-	SetConfidantNames();
+    SetConfidantNames();
     int selection = SEL_GENERIC_NOT_HELP( -1, UnitSelect2 );
 
     switch ( selection )
@@ -359,7 +362,7 @@ void EvolvePersona()
         case 6:
             PERSONA_EVOLUTION( 8 );
             break;
-		case 7:
+        case 7:
             PERSONA_EVOLUTION( 9 );
             break;
     }
@@ -459,21 +462,21 @@ void ItemGetSelect( int type )
     int amount = SelectNumberPrompt( ItemPrompt2, 2 );
     if (amount == -1)
         return;
-		
-	ItemGet( type, itemId, amount);
-	GET_ITEMS_WINDOW( 0 );
+        
+    ItemGet( type, itemId, amount);
+    GET_ITEMS_WINDOW( 0 );
 }
 
 void ItemGet( int type, int itemId, int amount)
 {
-	GET_ITEM_BUF_RESET();
+    GET_ITEM_BUF_RESET();
     GET_ITEM_BUF_SET( type + itemId, amount );
     SET_ITEM_NUM( type + itemId, GET_ITEM_NUM( type + itemId ) + amount );
 }
 
 void CommuSetRankSelect()
 {
-	SetConfidantNames();
+    SetConfidantNames();
     int cmmId = SEL_GENERIC( CommuMenuName, CommuMenu ) + 1;
     
     if ( cmmId <= 0 || cmmId >= 22 )
@@ -651,9 +654,9 @@ void CameraEditorDisplay()
             case 1:
                 CameraInputFov();
                 break;
-			case 2:
-				CameraInputZoom();
-				break;
+            case 2:
+                CameraInputZoom();
+                break;
             case 3:
                 CameraInputRot();
                 break;
@@ -690,10 +693,10 @@ void CameraInputPos()
 
             if ( PAD_CHK_PRESS( PadButton.Up ) ) 
             {
-				if ( PAD_CHK_PRESS( PadButton.Square ) )
-					z = z + ( 5f * multiplier );
-				else
-					y = y + ( 5f * multiplier );
+                if ( PAD_CHK_PRESS( PadButton.Square ) )
+                    z = z + ( 5f * multiplier );
+                else
+                    y = y + ( 5f * multiplier );
                 anyValueSet = true;
             }
 
@@ -705,10 +708,10 @@ void CameraInputPos()
 
             if ( PAD_CHK_PRESS( PadButton.Down ) ) 
             {
-				if ( PAD_CHK_PRESS( PadButton.Square ) )
-					z = z - ( 5f * multiplier );
-				else
-					y = y - ( 5f * multiplier );
+                if ( PAD_CHK_PRESS( PadButton.Square ) )
+                    z = z - ( 5f * multiplier );
+                else
+                    y = y - ( 5f * multiplier );
                 anyValueSet = true;
             }
 
@@ -918,7 +921,7 @@ void NpcControlMenuDisplay()
                 return;
             case 0: // Spawn Model
                 NpcSpawnSelect();
-				PrintPosition();
+                PrintPosition();
                 break;
             case 1: // Animate Model
                 NpcAnimViewerDisplay( gLastSpawnedNpcModelHandle );
@@ -931,7 +934,7 @@ void NpcControlMenuDisplay()
                 break;
             case 4: // Spawn Object
                 NpcSpawnObjectModel(FLD_PC_GET_RESHND(0));
-				PrintPosition();
+                PrintPosition();
                 break;
         }
     }
@@ -1600,26 +1603,6 @@ void TeleportModeStart()
     }
 }
 
-// BGM Select
-void BgmSelect()
-{
-    // Display the dialog window
-    MSG_WND_DSP(); 
-
-    // Display dialog
-    MSG( SelectBgmDialog, 0 ); 
-    
-    // Close the dialog window
-    MSG_WND_CLS(); 
-
-    int bgmId = SelectNumber( 3 );
-    if ( bgmId == -1 )
-        return;
-
-    // Play bgm
-    BGM( bgmId );
-}
-
 // Field Select
 void FieldSelect()
 {
@@ -1642,18 +1625,18 @@ void FieldSelect()
                     break;
                 gFieldMinor = temp;
                 break;
-			case 1:
-				MMFieldSelectCategories();
-				break;
+            case 1:
+                MMFieldSelectCategories();
+                break;
             case 2:
                 if (gFieldMajor == 0 && gFieldMinor == 0)
                     MSG_SYSTEM( LoadCheckError );
                 else
                     CALL_FIELD( gFieldMajor, gFieldMinor, 0, 0  );
                 return;
-			case 3:
-				CALL_FIELD( FLD_GET_PREV_MAJOR(), FLD_GET_PREV_MINOR(), 0, 0 );
-				return;
+            case 3:
+                CALL_FIELD( FLD_GET_PREV_MAJOR(), FLD_GET_PREV_MINOR(), 0, 0 );
+                return;
         }
     }
     
@@ -1676,7 +1659,7 @@ void EventSelect()
             case 1:
                 EventLoadSelected();
                 return;
-			case 2:
+            case 2:
                 KfEventSelectIds();
                 break;
             case 3:
@@ -1766,9 +1749,9 @@ void CalendarEditorDisplay()
             case 2:
                 ChangeWeather();
                 break;
-			case 3:
-				LoopCurrentTime();
-				break;
+            case 3:
+                LoopCurrentTime();
+                break;
         }
     }
 }
@@ -1839,7 +1822,7 @@ void CallCalendar()
 
 void LoopCurrentTime()
 {
-	SET_NEXT_DAY( GET_MONTH(), GET_DAY(), GET_TIME());
+    SET_NEXT_DAY( GET_MONTH(), GET_DAY(), GET_TIME());
 }
 
 void ChangeWeather() 
@@ -1881,12 +1864,12 @@ void FlagsEditorDisplay()
             case 3:
                 EnablePartyEditing();
                 break;
-			case 4:
-				UnlockPersonaSlots();
-				break;
-			case 5:
-				SelectFollowers();
-				break;
+            case 4:
+                BIT_ON(8514); // Unlock Persona Slots
+                break;
+            case 5:
+                SelectFollowers();
+                break;
             case 6:
                 SelectNavigator();
                 break;
@@ -1913,53 +1896,40 @@ void FlagMassEditor() {
     while ( true )
     {
         int selection = SEL_GENERIC( FlagMenuName, FlagMassEditor );
-        
         switch (selection)
         {
             case -1:
                 return;
             case 0:
-                DisableAllBits();
+                for ( int i = 0; i < 8960; i++ ) 
+                    BIT_OFF( i ); 
                 break;
             case 1:
-                EnableAllBits();
+                for ( int i = 0; i < 8960; i++ )
+                {
+                    if (i != 320) 
+                    { 
+                        BIT_ON( i ); 
+                    }
+                }
                 break;
             case 2:
-                ToggleAllBits();
+                for ( int i = 0; i < 8960; i++ ) 
+                {
+                    if (BIT_CHK(i)) {
+                        BIT_OFF(i);
+                    }
+                    else if (i != 320) {
+                        BIT_ON(i);
+                    }
+                }
                 break;
             case 3:
                 ToggleRange();
                 break;
-			case 4:
-				CLEAR_INHERIT_DATA();
-				break;
-        }
-    }
-}
-
-void DisableAllBits() {
-    for ( int i = 0; i < 8960; i++ ) 
-	{
-		BIT_OFF( i ); 
-    }
-}
-
-void EnableAllBits() {
-    for ( int i = 0; i < 8960; i++ ) {
-        if (i != 320) 
-		{ 
-			BIT_ON( i ); 
-		}
-    }
-}
-
-void ToggleAllBits() {
-    for ( int i = 0; i < 8960; i++ ) {
-        if (BIT_CHK(i)) {
-            BIT_OFF(i);
-        }
-        else if (i != 320) {
-            BIT_ON(i);
+            case 4:
+                CLEAR_INHERIT_DATA();
+                break;
         }
     }
 }
@@ -1967,7 +1937,7 @@ void ToggleAllBits() {
 void PrintEnabledBits() {
     for ( int i = 0; i < 8960; i++ ) {
         if (BIT_CHK(i)) 
-		{
+        {
             PUT(i);
         }
     }
@@ -1988,16 +1958,16 @@ void ToggleRange() {
         case 0: // On
             for ( int i = range1; i < range2; i++ ) 
             {
-				if (i != 320) 
-				{
-					BIT_ON( i );
-				}
+                if (i != 320) 
+                {
+                    BIT_ON( i );
+                }
             }
             break;
         case 1: // Off
             for ( int i = range1; i < range2; i++ ) 
             {
-				BIT_OFF( i );
+                BIT_OFF( i );
             }
             break;
     }
@@ -2041,7 +2011,7 @@ void SelectHUDDisplayFlag()
 
 void SelectAddPartyMember()
 {
-	SetConfidantNames();
+    SetConfidantNames();
     int unit = SEL_GENERIC_NOT_HELP( UnitMenuName, UnitSelect2 ) + 48;
     if ( unit == 47 ) // Cancel
         return;
@@ -2051,7 +2021,7 @@ void SelectAddPartyMember()
 
 void SelectRemovePartyMember()
 {
-	SetConfidantNames();
+    SetConfidantNames();
     int unit = SEL_GENERIC_NOT_HELP( UnitMenuName, UnitSelect2 ) + 48;
     if ( unit == 47 ) // Cancel
         return;
@@ -2059,30 +2029,25 @@ void SelectRemovePartyMember()
     BIT_OFF( 0 + 0x0800 + 0x0800 + 0x1000 + 0x0100 + unit );
 }
 
-void UnlockPersonaSlots()
-{
-	BIT_ON(8514);
-}
-
 void EnablePartyEditing()
 {
-	BIT_OFF( 0 + 0x0800 + 0x0800 + 0x1000 + 0x0103 + 0);
-	BIT_OFF( 0 + 0x0800 + 0x0800 + 0x1000 + 0x0103 + 1);
-	BIT_OFF( 0 + 0x0800 + 0x0800 + 0x1000 + 0x0103 + 2);
-	BIT_OFF( 0 + 0x0800 + 0x0800 + 0x1000 + 0x0103 + 3);
-	BIT_OFF( 0 + 0x0800 + 0x0800 + 0x1000 + 0x0103 + 4);
-	BIT_OFF( 0 + 0x0800 + 0x0800 + 0x1000 + 0x0103 + 5);
-	BIT_OFF( 0 + 0x0800 + 0x0800 + 0x1000 + 0x0103 + 6);
-	BIT_OFF( 0 + 0x0800 + 0x0800 + 0x1000 + 0x0103 + 7);
+    BIT_OFF( 0 + 0x0800 + 0x0800 + 0x1000 + 0x0103 + 0);
+    BIT_OFF( 0 + 0x0800 + 0x0800 + 0x1000 + 0x0103 + 1);
+    BIT_OFF( 0 + 0x0800 + 0x0800 + 0x1000 + 0x0103 + 2);
+    BIT_OFF( 0 + 0x0800 + 0x0800 + 0x1000 + 0x0103 + 3);
+    BIT_OFF( 0 + 0x0800 + 0x0800 + 0x1000 + 0x0103 + 4);
+    BIT_OFF( 0 + 0x0800 + 0x0800 + 0x1000 + 0x0103 + 5);
+    BIT_OFF( 0 + 0x0800 + 0x0800 + 0x1000 + 0x0103 + 6);
+    BIT_OFF( 0 + 0x0800 + 0x0800 + 0x1000 + 0x0103 + 7);
 }
 
 void SelectFollowers()
 {
-	SetConfidantNames();
-	int unit = SEL_GENERIC_NOT_HELP( UnitMenuName, UnitSelect2 );
-	unit = unit + 4114;
-	BIT_ON( 4161 );
-	int onOff = SEL_GENERIC_NOT_HELP( -1, SelectOnOff );
+    SetConfidantNames();
+    int unit = SEL_GENERIC_NOT_HELP( UnitMenuName, UnitSelect2 );
+    unit = unit + 4114;
+    BIT_ON( 4161 );
+    int onOff = SEL_GENERIC_NOT_HELP( -1, SelectOnOff );
     switch (onOff) 
     {
         case -1: // Back
@@ -2098,7 +2063,7 @@ void SelectFollowers()
 
 void SelectNavigator()
 {
-	SetConfidantNames();
+    SetConfidantNames();
     int navi = SEL_GENERIC_NOT_HELP( NaviMenuName, NaviMenu );
     
     switch ( navi ) 
@@ -2121,7 +2086,7 @@ void SelectNavigator()
 }
 
 void SelectRomanceFlags() {
-	SetConfidantNames();
+    SetConfidantNames();
     int lover = SEL_GENERIC_NOT_HELP( LoveMenuName, LoveMenu );
     if ( lover == -1 )
         return;
@@ -2154,43 +2119,11 @@ void SelectBitToggle()
 //Font Test
 void FontTestMenu()
 {
-	while (true)
-	{
-		MSG_WND_DSP();
-		int FontTestSel = SEL_GENERIC(FontMenuName, FontTestMenu);
-		MSG_WND_CLS();
-		
-		switch (FontTestSel) 
-		{
-			case -1:
-				return;
-			case 0:
-				MSG_WND_DSP();
-				MSG( FontTest0, 0 );
-				MSG_WND_CLS();
-				break;
-			case 1:
-				MSG_WND_DSP();
-				MSG( FontTest1, 0 );
-				MSG_WND_CLS();
-				break;
-			case 2:
-				MSG_WND_DSP();
-				MSG( FontTest2, 0 );
-				MSG_WND_CLS();
-				break;
-			case 3:
-				MSG_WND_DSP();
-				MSG( FontTest3, 0 );
-				MSG_WND_CLS();
-				break;
-			case 4:
-				MSG_WND_DSP();
-				MSG( FontTest4, 0 );
-				MSG_WND_CLS();
-				break;
-		}
-	}
+    while (true)
+    {
+        int FontTestSel = SEL_GENERIC(FontMenuName, FontTestMenu);
+        DisplayMessagePrompt( FontTest0 + FontTestSel );
+    }
 }
 
 void SelectItemToggle(int flag) 
@@ -2410,12 +2343,6 @@ void CleanlinessEditorDisplay()
     }
 }
 
-// About Dialog
-void AboutDialogDisplay() 
-{
-    DisplayMessagePrompt( AboutDlg );
-}
-
 void ReloadPreviousField()
 {   
     if ( FLD_GET_MAJOR() != FLD_GET_PREV_MAJOR() || FLD_GET_MINOR() != FLD_GET_PREV_MINOR() )
@@ -2562,52 +2489,52 @@ void ParticleTest()
 
 void PrintScenelights()
 {
-	PUTS( " " );
+    PUTS( " " );
     PUTS( "Scenelight Params:" );
-	PUTS( " " );
-	PUTS( "- Ambient -" );    
-	PUTS( "Hue:" );
-	PUT( FLD_GET_SCNLIGHT_AMB_H() );
-	PUTS( "Saturation:" );
-	PUT( FLD_GET_SCNLIGHT_AMB_S() );
-	PUTS( "Lightness:" );
-	PUT( FLD_GET_SCNLIGHT_AMB_L() );
-	PUTS( " " );
-	PUTS( "- Diffuse -" );    
-	PUTS( "Hue:" );
-	PUT( FLD_GET_SCNLIGHT_DIFF_H() );
-	PUTS( "Saturation:" );
-	PUT( FLD_GET_SCNLIGHT_DIFF_S() );
-	PUTS( "Lightness:" );
-	PUT( FLD_GET_SCNLIGHT_DIFF_L() );
-	PUTS( " " );    
-	PUTS( "- Specular -" );    
-	PUTS( "Hue:" );
-	PUT( FLD_GET_SCNLIGHT_SPEC_H() );
-	PUTS( "Saturation:" );
-	PUT( FLD_GET_SCNLIGHT_SPEC_S() );
-	PUTS( "Lightness:" );
-	PUT( FLD_GET_SCNLIGHT_SPEC_L() );
-	PUTS( " " );   
+    PUTS( " " );
+    PUTS( "- Ambient -" );    
+    PUTS( "Hue:" );
+    PUT( FLD_GET_SCNLIGHT_AMB_H() );
+    PUTS( "Saturation:" );
+    PUT( FLD_GET_SCNLIGHT_AMB_S() );
+    PUTS( "Lightness:" );
+    PUT( FLD_GET_SCNLIGHT_AMB_L() );
+    PUTS( " " );
+    PUTS( "- Diffuse -" );    
+    PUTS( "Hue:" );
+    PUT( FLD_GET_SCNLIGHT_DIFF_H() );
+    PUTS( "Saturation:" );
+    PUT( FLD_GET_SCNLIGHT_DIFF_S() );
+    PUTS( "Lightness:" );
+    PUT( FLD_GET_SCNLIGHT_DIFF_L() );
+    PUTS( " " );    
+    PUTS( "- Specular -" );    
+    PUTS( "Hue:" );
+    PUT( FLD_GET_SCNLIGHT_SPEC_H() );
+    PUTS( "Saturation:" );
+    PUT( FLD_GET_SCNLIGHT_SPEC_S() );
+    PUTS( "Lightness:" );
+    PUT( FLD_GET_SCNLIGHT_SPEC_L() );
+    PUTS( " " );   
 }
 
 void PrintFog()
 {
-	PUTS( " " );
+    PUTS( " " );
     PUTS( "Fog Params:" );
-	PUTS( " " );
-	PUTS( "Near Clip:" );
-	PUT( FLD_GET_FOG_NEAR_CLIP() );
-	PUTS( "Far Clip:" );
-	PUT( FLD_GET_FOG_FAR_CLIP() );
-	PUTS( "Hue:" );
-	PUT( FLD_GET_FOG_HUE() );
-	PUTS( "Saturation:" );
-	PUT( FLD_GET_FOG_SATURATION() );       
-	PUTS( "Lightness:" );
-	PUT( FLD_GET_FOG_LUMINANCE() );  
-	PUTS( "Alpha:" );
-	PUT( FLD_GET_FOG_ALPHA() );      
+    PUTS( " " );
+    PUTS( "Near Clip:" );
+    PUT( FLD_GET_FOG_NEAR_CLIP() );
+    PUTS( "Far Clip:" );
+    PUT( FLD_GET_FOG_FAR_CLIP() );
+    PUTS( "Hue:" );
+    PUT( FLD_GET_FOG_HUE() );
+    PUTS( "Saturation:" );
+    PUT( FLD_GET_FOG_SATURATION() );       
+    PUTS( "Lightness:" );
+    PUT( FLD_GET_FOG_LUMINANCE() );  
+    PUTS( "Alpha:" );
+    PUT( FLD_GET_FOG_ALPHA() );      
 }
 
 void SetHSL(int ADSChoice)
