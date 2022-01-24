@@ -1,0 +1,22 @@
+// ID 0 is just numbers
+// ID 1 is nothingness
+// ID 2 is Unit Names, there's more than 31 units so it's not included
+
+void SetArcanaNames()
+{
+    for ( int i = 0; i < 31; i++ )
+        SET_MSG_VAR( i, i, 3 );
+}
+
+void SetConfidantNames()
+{
+    for ( int i = 0; i < 31; i++ )
+        SET_MSG_VAR( i, i, 4 );
+}
+
+// ID 5 is Weapon Names, there's more than 31 weapons so it's not included
+// ID 6 is Skill Names, there's more than 31 skills so it's not included
+// ID 7 is Persona Names, there's more than 31 personas so it's not included
+// ID 8 is nothingness
+// ID 9 is nothingness
+// ...

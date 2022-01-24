@@ -1,0 +1,22 @@
+import( "../build/input/extracted/etc/dungeon.bf" );
+import( "placeholderRoyal.msg" );
+import( "../ModMenu.flow" );
+
+void CallOriginalSquareMenu()
+{
+    auto_recover();
+}
+
+void dng_square_menu_hook()
+{
+    ModMenuDisplay();
+}
+
+void dng_start_menu_hook()
+{
+	FLD_PANEL_DISP( 0 );
+	SAVE();
+	SAVE_UI_SYNC();
+	SAVE_SYNC();
+	FLD_PANEL_DISP( 1 );
+}

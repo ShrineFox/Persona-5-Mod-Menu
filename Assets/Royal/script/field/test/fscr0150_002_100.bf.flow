@@ -1,0 +1,113 @@
+
+// 
+// FlowScript decompiled using Atlus Script Tools by TGE (2017-2021)
+// In the unfortunate case of any bugs, please report them back to me.
+// 
+
+
+// 
+// Imports
+// 
+
+import( "fscr0150_002_100.bf.msg" );
+
+// 
+// Procedure declarations
+// 
+
+// Procedure Index: 0
+void General_0150_002_100()
+{
+    
+    if ( ( GET_COUNT( 144 ) == 10050 ) || ( GET_COUNT( 150 ) == 80050 ) )
+    {
+        D00_e100_101();
+    }
+
+}
+
+
+// Procedure Index: 1
+void D00_e100_101()
+{
+    int var0;
+    var0 = FLD_PC_GET_RESHND( 0 );
+    
+    if ( var0 >= 0 )
+    {
+        FLD_MODEL_SET_TRANSLATE( var0, -50.00f, 1200.00f, 8700.00f, 0 );
+        FLD_MODEL_SET_ROTATE( var0, 0, 180, 0, 0 );
+        MDL_ANIM( var0, 28, 1, 0, 1.00f );
+    }
+
+    FLD_CAMERA_LOCK();
+    FLD_CAMERA_LOCK_INTERP( -218.2029f, 1186.26f, 9266.92f, -0.0108f, -0.0872f, -0.0009f, 0.9961f, 0 );
+    SYNC();
+    FLD_SMP_EVENT_BEGIN( 0 );
+    EVT_FAST_PROC_START();
+    FADEIN( 0, 10 );
+    FLD_CAMERA_SYNC_INTERP();
+    FLD_CAMERA_LOCK_INTERP( -218.2029f, 1186.26f, 9266.921f, -0.0435f, -0.0871f, -0.0038f, 0.9952f, 10 );
+    FLD_MODEL_SET_TRANSLATE( var0, -50.00f, 1000.00f, 8700.00f, 10 );
+    FLD_WAIT( 10 );
+    MDL_ANIM( var0, 29, 0, 0, 1.00f );
+    MDL_ANIM_NEXT( var0, 0, 1, 0, 1.00f );
+    FLD_WAIT( 15 );
+    // bit id (536870912) + (2591) = 8735
+    // bit id (536870912) + (2590) = 8734
+    
+    if ( ( BIT_CHK( ( 0x20000000 + 2591 ) ) == 1 ) && ( BIT_CHK( ( 0x20000000 + 2590 ) ) == 0 ) )
+    {
+        MSG_WND_DSP();
+        MSG( D00_01_e100_101_mes01 );
+        MSG_WND_CLS();
+        MSG_WND_DSP();
+        MSG( D00_01_e100_101_mes02 );
+        MSG_WND_CLS();
+        MSG_WND_DSP();
+        MSG( D00_01_e100_101_mes03 );
+        MSG_WND_CLS();
+        MSG_WND_DSP();
+        MSG( D00_01_e100_101_mes04 );
+        MSG_WND_CLS();
+        MSG_WND_DSP();
+        MSG( D00_01_e100_101_mes05 );
+        MSG_WND_CLS();
+        MSG_WND_DSP();
+        MSG( D00_01_e100_101_mes06 );
+        MSG_WND_CLS();
+        MSG_WND_DSP();
+        MSG( D00_01_e100_101_mes07 );
+        MSG_WND_CLS();
+    }
+    else 
+    {
+        MSG_WND_DSP();
+        MSG( D06_01_e100_101_mes01 );
+        MSG_WND_CLS();
+        MSG_WND_DSP();
+        MSG( D06_01_e100_101_mes02 );
+        MSG_WND_CLS();
+        MSG_WND_DSP();
+        MSG( D06_01_e100_101_mes03 );
+        MSG_WND_CLS();
+        MSG_WND_DSP();
+        MSG( D06_01_e100_101_mes04 );
+        MSG_WND_CLS();
+        MSG_WND_DSP();
+        MSG( D06_01_e100_101_mes05 );
+        MSG_WND_CLS();
+        MSG_WND_DSP();
+        MSG( D06_01_e100_101_mes06 );
+        MSG_WND_CLS();
+        MSG_WND_DSP();
+        MSG( D06_01_e100_101_mes07 );
+        MSG_WND_CLS();
+    }
+
+    EVT_FAST_PROC_END();
+    FLD_SMP_EVENT_END( 0 );
+    FLD_CAMERA_SYNC_INTERP();
+    FLD_CAMERA_UNLOCK();
+}
+
