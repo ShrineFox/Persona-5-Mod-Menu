@@ -15,11 +15,9 @@ namespace ModMenuBuilder
         public static void Build()
         {
             UnpackPACs(); // Get .bf files from .PAC files
-            if (Program.Options.Game.ToUpper().Equals("P5R"))
-                RoyalifyScripts(); // Enable Royal-only elements of Mod Menu .flow/.msg
-            else
-                RemoveRoyalMsgComments(); // Removes lines with a "// Royal" comment from Mod Menu .msg
-            MsgPlaceHolders(); // Remove or update .msg placeholder lines depending on if Royal or Vanilla
+            RoyalifyScripts(); // Enable Royal-only elements of Mod Menu .flow/.msg
+            RemoveRoyalMsgComments(); // Removes lines with a "// Royal" comment from Mod Menu .msg
+            UpdateImportPaths(); // Remove or update .flow/.msg import paths depending on if Royal or Vanilla
             ReindexMsgs(); // Update .msg indexes of files depending on if Royal or Vanilla
             CompileScripts(); // Create new .bf files from modified .flow
             RepackPACs(); // Pack changed .bf files back into .PAC
@@ -34,112 +32,86 @@ namespace ModMenuBuilder
 
         private static void CopyToOutput()
         {
-            string game = "Vanilla";
-            if (Program.Options.Game.ToUpper().Equals("P5R"))
-                game = "Royal";
-
-            // Replace UI spritesheet file for appropriate game version
-            string outputDir = Path.Combine(Program.Options.Output, "camp\\shared");
-            Console.WriteLine($"Copying sharedUI.spd to {outputDir}");
-            Directory.CreateDirectory(outputDir);
-            File.Copy($"./Assets/{game}/camp/shared/sharedUI.spd", Path.Combine(outputDir, "sharedUI.spd"), true);
-
-            // Replace intro fieldscript for appropriate game version
-            outputDir = Path.Combine(Program.Options.Output, "script\\field");
-            Console.WriteLine($"Copying fscr0150_002_100.bf to {outputDir}");
-            Directory.CreateDirectory(outputDir);
-            File.Copy($"./Assets/{game}/script/field/fscr0150_002_100.bf", Path.Combine(outputDir, "fscr0150_002_100.bf"), true);
+            // Move non-PAC files for appropriate game version to output directory
+            foreach (InputFile inputFile in Program.InputFiles.Where(x => !x.Archive.EndsWith(".pac")))
+            {
+                string inputPath = $"Assets/{Program.SelectedGame.Type}/{inputFile.Path}/{inputFile.Name}";
+                string outputPath = Path.Combine(Program.Options.Output, Path.Combine(inputFile.Path, inputFile.Name));
+                Directory.CreateDirectory(Path.GetDirectoryName(outputPath));
+                File.Copy(inputPath, outputPath, true);
+            }
         }
 
         private static void RepackPACs()
         {
-            // Check that input path exists and has necessary files
-            string game = "Vanilla";
-            if (Program.Options.Game.ToUpper().Equals("P5R"))
-                game = "Royal";
-
-            // Extract .bf files from each PAC in Assets folder
-            foreach (var file in InputFiles.PAC)
+            // Replace .bf files in each PAC with ones from Assets folder
+            foreach (InputFile inputFile in Program.InputFiles.Where(x => x.Name.EndsWith(".bf") && x.Archive.EndsWith(".pac")))
             {
-                string pacFilePath = Path.Combine($".\\Assets\\{game}\\field", file);
-                string bfFilePath = "";
-                switch (file)
-                {
-                    case "atDngPack.pac":
-                        bfFilePath = Path.Combine($".\\Assets\\{game}\\field", "at_dng.bf");
-                        break;
-                    case "dngPack.pac":
-                        bfFilePath = Path.Combine($".\\Assets\\{game}\\field", "dungeon.bf");
-                        break;
-                    case "fldPack.pac":
-                        bfFilePath = Path.Combine($".\\Assets\\{game}\\field", "field.bf");
-                        break;
-                }
+                string pacPath = Path.Combine($".\\Assets\\{Program.SelectedGame.Type}\\{inputFile.Path}", inputFile.Archive);
+                string bfPath = Path.Combine($".\\Assets\\{Program.SelectedGame.Type}\\{inputFile.Path}", inputFile.Name + ".flow.bf");
 
-                if (File.Exists(pacFilePath))
+                if (File.Exists(pacPath))
                 {
-                    Console.WriteLine($"Repacking {file}...");
-
-                    if (File.Exists(bfFilePath))
+                    if (File.Exists(bfPath))
                     {
-                        Console.WriteLine($"Replacing {Path.GetFileName(bfFilePath)}...");
-                        PAKFileSystem pak = new PAKFileSystem();
-                        List<string> pakFiles = new List<string>();
+                        Console.WriteLine($"Attempting to replace {inputFile.Name} in {inputFile.Archive} with: {bfPath}");
 
-                        if (PAKFileSystem.TryOpen(pacFilePath, out pak))
+                        PAKFileSystem pak = new PAKFileSystem();
+                        if (PAKFileSystem.TryOpen(pacPath, out pak))
                         {
-                            pakFiles = pak.EnumerateFiles().ToList();
                             PAKFileSystem newPak = pak;
 
-                            foreach (var pakFile in pakFiles)
+                            if (pak.EnumerateFiles().Any(x => x.EndsWith(inputFile.Name)))
                             {
-                                if (pakFile.EndsWith(file))
-                                {
-                                    string normalizedFilePath = pakFile.Replace("../", ""); //Remove backwards relative path
+                                string pakFilePath = pak.EnumerateFiles().First(x => x.EndsWith(inputFile.Name));
+                                newPak.AddFile(pakFilePath, bfPath, ConflictPolicy.Replace);
+                                Console.WriteLine($"  Replaced {inputFile.Name} in {inputFile.Archive}");
 
-                                    Console.WriteLine($"Replacing {normalizedFilePath}");
-                                    newPak.AddFile(normalizedFilePath.Replace("\\", "/"), bfFilePath, ConflictPolicy.Replace);
-                                }
+                                string outputPath = Path.Combine(Program.Options.Output, Path.Combine(inputFile.Path, inputFile.Archive));
+                                newPak.Save(outputPath);
+                                Console.WriteLine($"Saved repacked PAC to output folder: {outputPath}");
                             }
-                            string outputPath = Path.Combine(Program.Options.Output, Path.Combine("field", Path.GetFileName(file)));
-                            newPak.Save(outputPath);
-                            Console.WriteLine($"Saving repacked PAC to output folder: {outputPath}");
+                            else
+                                Console.WriteLine($"Could not find any file ending with {inputFile.Name} in: {pacPath}");
                         }
+                        else
+                            Console.WriteLine($"Failed to open {pacPath} for repacking.");
                     }
                     else
-                        Console.WriteLine($"Failed to open {Path.GetFileName(bfFilePath)}. Skipping...");
+                        Console.WriteLine($"Failed to replace {inputFile.Name} in {inputFile.Archive}, could not find compiled BF: {bfPath}");
                 }
                 else
-                    Console.WriteLine($"Failed to open {file}. Skipping...");
+                    Console.WriteLine($"Failed to repack PAC, could not find archive: {pacPath}");
             }
         }
 
         private static void CompileScripts()
         {
-            string assetDir = "Vanilla";
-            if (Program.Options.Game.ToUpper().Equals("P5R"))
-                assetDir = "Royal";
-
-            // Compile ModMenu hook scripts and overwrite output in Assets folder
-            foreach (var file in Directory.GetFiles("./Scripts/", "*.flow", SearchOption.AllDirectories))
+            // Compile Mod Menu hook scripts and output to Assets folder
+            foreach (InputFile inputFile in Program.InputFiles.Where(x => x.Name.EndsWith(".bf")))
             {
-                if (InputFiles.BF.Any(x => file.Contains(x)))
+                string flowPath = $"Scripts/Hooks/{inputFile.HookPath}/{inputFile.Name}.flow";
+                if (File.Exists(flowPath))
                 {
-                    string[] args = new string[] { InputFiles.BF.First(x => file.Contains(x)), "-Compile", "-OutFormat", "V3BE", "-Library", 
-                        Program.Options.Game, "-Out", 
-                        Directory.GetFiles($"./Assets/{assetDir}", "*.bf", SearchOption.AllDirectories).First(x => x.Contains(Path.GetFileName(file.Replace(".flow","")))), 
-                        "-Hook" };
+                    string[] args = new string[] { $"\"{flowPath}\"", "-Compile",
+                    "-OutFormat", "V3BE",
+                    "-Library", Program.SelectedGame.ShortName,
+                    "-Out", $"\"Assets/{Program.SelectedGame.Type}/{inputFile.Path}/{inputFile.Name}.flow.bf\"",
+                    "-Hook" };
 
                     AtlusScriptCompiler.Program.Main(args);
                 }
+                else
+                    Console.WriteLine($"Failed to compile {inputFile.Name}.flow.bf, could not find script: {flowPath}");
+                
             }
         }
 
         public static void ReindexMsgs()
         {
-            string path = "./Scripts/ModMenu.flow";
+            string path = "Scripts/ModMenu.msg";
             int startIndex = 91;
-            if (Program.Options.Game.ToUpper().Equals("P5R"))
+            if (Program.SelectedGame.Type.Equals("Royal"))
                 startIndex = 182;
 
             // Update parameters of msg functions that displays description for menu selection
@@ -183,117 +155,124 @@ namespace ModMenuBuilder
             File.WriteAllText(path, string.Join("\n", msgLines));
         }
 
-        private static void MsgPlaceHolders()
+        private static void UpdateImportPaths()
         {
-            // Remove or update .msg placeholder lines depending on if Royal or Vanilla
-            string game = "Vanilla";
-            if (Program.Options.Game.ToUpper().Equals("P5R"))
-                game = "Royal";
+            // Update .msg/.flow import paths for Royal
+            foreach (InputFile inputFile in Program.InputFiles.Where(x => x.Name.EndsWith(".bf")))
+            {
+                string flowPath = $"Scripts/Hooks/{inputFile.HookPath}/{inputFile.Name}.flow";
 
-            string filePath = ".Scripts/Hooks/dungeon/dungeon.bf.flow";
-            if (File.Exists(filePath) && game == "Vanilla")
-                File.WriteAllText(filePath, File.ReadAllText(filePath).Replace("import(\"placeholderRoyal.msg\");", "// import( \"placeholderRoyal.msg\" );"));
-
-            filePath = ".Scripts/Hooks/dungeon/field.bf.flow";
-            if (File.Exists(filePath) && game == "Royal")
-                File.WriteAllText(filePath, File.ReadAllText(filePath).Replace("placeholder.msg", "placeholderRoyal.msg"));
+                if (Program.SelectedGame.Type.Equals("Royal"))
+                {
+                    if (File.Exists(flowPath))
+                    {
+                        Console.WriteLine($"Updated import paths in script: {flowPath}");
+                        File.WriteAllText(flowPath, File.ReadAllText(flowPath).Replace("placeholder.msg", "placeholderRoyal.msg").Replace("/Vanilla/", "/Royal/"));
+                    }
+                    else
+                        Console.WriteLine($"Failed to update import paths. Could not find script: {flowPath}");
+                }
+            }
         }
 
         private static void RemoveRoyalMsgComments()
         {
-            // Remove "// Royal" lines from Mod Menu .msg
-            if (File.Exists("./Scripts/ModMenu.flow"))
+            // If game type is "Vanilla"...
+            if (Program.SelectedGame.Type.Equals("Vanilla"))
             {
-                var lines = File.ReadAllLines("./Scripts/ModMenu.msg");
-                List<string> newLines = new List<string>();
-                for (int i = 0; i < lines.Length; i++)
-                    if (!lines[i].Contains("// Royal"))
-                        newLines.Add(lines[i]);
+                // Remove "// Royal" lines from Mod Menu .msg
+                if (File.Exists("Scripts/ModMenu.flow"))
+                {
+                    var lines = File.ReadAllLines("Scripts/ModMenu.msg");
+                    List<string> newLines = new List<string>();
+                    for (int i = 0; i < lines.Length; i++)
+                        if (!lines[i].Contains("// Royal"))
+                            newLines.Add(lines[i]);
 
-                File.WriteAllText("./Scripts/ModMenu.msg", String.Join("\n", newLines));
+                    File.WriteAllText("Scripts/ModMenu.msg", String.Join("\n", newLines));
+                }
+                else
+                    Console.WriteLine("Could not find script: Scripts/ModMenu.msg!");
             }
-            else
-                Console.WriteLine("Could not find script: ./Scripts/ModMenu.msg!");
         }
 
         private static void RoyalifyScripts()
         {
-            // Replace vanilla-specific stuff with Royal stuff
-            Console.WriteLine("Royal-ifying Mod Menu scripts...");
-            
-            if (File.Exists("./Scripts/ModMenu.flow"))
+            // If game type is "Royal"...
+            if (Program.SelectedGame.Type.Equals("Royal"))
             {
-                var lines = File.ReadAllLines("./Scripts/ModMenu.flow");
-                List<string> newLines = new List<string>();
+                // Replace vanilla-specific stuff with Royal stuff
+                Console.WriteLine("Royal-ifying Mod Menu scripts...");
 
-                for (int i = 0; i < lines.Length; i++)
+                if (File.Exists("Scripts/ModMenu.flow"))
                 {
-                    var line = lines[i].Trim();
-                    if (line.StartsWith("import(\"./Vanilla")) // Replace vanilla import script with Royal equivalent
-                        newLines.Add(lines[i].Replace("import(\"./Vanilla", "import(\"./Royal"));
-                    else if (line.StartsWith("BIT_OFF(") || line.StartsWith("BIT_ON("))
-                    {
-                        // Attempt to convert vanilla bitflag to Royal flag
-                        string flag = Flag.Get(line);
-                        int convertedFlag = -1;
-                        try
-                        {
-                            convertedFlag = Flag.ConvertToRoyal(Convert.ToInt32(flag));
-                        }
-                        catch { }
+                    var lines = File.ReadAllLines("Scripts/ModMenu.flow");
+                    List<string> newLines = new List<string>();
 
-                        if (convertedFlag != -1) // Replace line and notify user of this change
+                    for (int i = 0; i < lines.Length; i++)
+                    {
+                        var line = lines[i].Trim();
+                        if (line.StartsWith("import(\"./Vanilla")) // Replace vanilla import script with Royal equivalent
+                            newLines.Add(lines[i].Replace("import(\"./Vanilla", "import(\"./Royal"));
+                        else if (line.StartsWith("BIT_OFF(") || line.StartsWith("BIT_ON("))
                         {
-                            Console.WriteLine($"Replaced Vanilla bitflag ({flag}) with Royal bitflag ({convertedFlag}).");
-                            newLines.Add(lines[i].Replace(flag, convertedFlag.ToString()));
+                            // Attempt to convert vanilla bitflag to Royal flag
+                            string flag = Flag.Get(line);
+                            int convertedFlag = -1;
+                            try
+                            {
+                                convertedFlag = Flag.ConvertToRoyal(Convert.ToInt32(flag));
+                            }
+                            catch { }
+
+                            if (convertedFlag != -1) // Replace line and notify user of this change
+                            {
+                                Console.WriteLine($"Replaced Vanilla bitflag ({flag}) with Royal bitflag ({convertedFlag}).");
+                                newLines.Add(lines[i].Replace(flag, convertedFlag.ToString()));
+                            }
+                            else // Use original flag if flag could not be converted to Royal
+                                newLines.Add(lines[i]);
                         }
-                        else // Use original flag if flag could not be converted to Royal
+                        else if (line.Contains("/* Royal")) // Remove opening comments from Royal-only code
+                            newLines.Add(lines[i].Replace("/* Royal", ""));
+                        else if (line.Contains("*/ Royal")) // Remove closing comments from Royal-only code
+                            newLines.Add(lines[i].Replace("*/ Royal", ""));
+                        else // Add original line if no changes needed
                             newLines.Add(lines[i]);
                     }
-                    else if (line.Contains("/* Royal")) // Remove opening comments from Royal-only code
-                        newLines.Add(lines[i].Replace("/* Royal", ""));
-                    else if (line.Contains("*/ Royal")) // Remove closing comments from Royal-only code
-                        newLines.Add(lines[i].Replace("*/ Royal", ""));
-                    else // Add original line if no changes needed
-                        newLines.Add(lines[i]);
+
+                    File.WriteAllText("Scripts/ModMenu.flow", String.Join("\n", newLines));
                 }
+                else
+                    Console.WriteLine("Could not find script: Scripts/ModMenu.flow!");
 
-                File.WriteAllText("./Scripts/ModMenu.flow", String.Join("\n", newLines));
+
+                if (File.Exists("Scripts/ModMenu.flow")) // Remove comments from .msg
+                    File.WriteAllText("Scripts/ModMenu.msg", File.ReadAllText("Scripts/ModMenu.msg").Replace("// Royal", ""));
+                else
+                    Console.WriteLine("Could not find script: Scripts/ModMenu.msg!");
             }
-            else
-                Console.WriteLine("Could not find script: ./Scripts/ModMenu.flow!");
-
-
-            if (File.Exists("./Scripts/ModMenu.flow")) // Remove comments from .msg
-                File.WriteAllText("./Scripts/ModMenu.msg", File.ReadAllText("./Scripts/ModMenu.msg").Replace("// Royal",""));
-            else
-                Console.WriteLine("Could not find script: ./Scripts/ModMenu.msg!");
         }
 
         public static void UnpackPACs() 
         {
-            // Check that input path exists and has necessary files
-            string game = "Vanilla";
-            if (Program.Options.Game.ToUpper().Equals("P5R"))
-                game = "Royal";
-
             // Extract .bf files from each PAC in Assets folder
-            foreach (var file in InputFiles.PAC)
+            foreach (InputFile inputFile in Program.InputFiles.Where(x => x.Name.EndsWith(".bf") && x.Archive.EndsWith(".pac")))
             {
-                string pacFilePath = Path.Combine($".\\Assets\\{game}\\field", file);
+                string pacFilePath = Path.Combine($"Assets\\{Program.SelectedGame.Type}\\{inputFile.Path}", inputFile.Archive);
                 if (File.Exists(pacFilePath))
                 {
-                    Console.WriteLine($"Unpacking {file}...");
-
                     PAKFileSystem pak = new PAKFileSystem();
                     if (PAKFileSystem.TryOpen(pacFilePath, out pak))
                     {
+                        Console.WriteLine($"Unpacking {inputFile.Archive}...");
+
                         foreach (var fileInPAC in pak.EnumerateFiles())
                         {
-                            if (fileInPAC.EndsWith(".bf"))
+                            if (fileInPAC.EndsWith(inputFile.Name))
                             {
                                 string normalizedFilePath = fileInPAC.Replace("../", ""); //Remove backwards relative path
-                                string outputPath = Path.Combine(Path.GetDirectoryName(pacFilePath), Path.GetFileName(normalizedFilePath));
+                                string outputPath = Path.Combine(Path.GetDirectoryName(pacFilePath), inputFile.Name);
 
                                 using (var stream = FileUtils.Create(outputPath))
                                 using (var inputStream = pak.OpenFile(fileInPAC))

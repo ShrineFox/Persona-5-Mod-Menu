@@ -1,4 +1,5 @@
 import( "ReservePersonas.msg" );
+
 void ReservePersonas1()
 {
 	SET_MSG_VAR( 01,071,7 );

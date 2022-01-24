@@ -11,6 +11,16 @@ namespace ModMenuBuilder
     public class Program
     {
         public static ProgramOptions Options { get; private set; }
+        public static Game SelectedGame { get; private set; } = new Game();
+
+        public static List<InputFile> InputFiles = new List<InputFile>()
+        {
+            new InputFile() { Name = "at_dng.bf", Path = "field", Archive = "atDngPack.pac", HookPath = "mementos" },
+            new InputFile() { Name = "dungeon.bf", Path = "field", Archive = "dngPack.pac", HookPath = "palace" },
+            new InputFile() { Name = "field.bf", Path = "field", Archive = "fldPack.pac", HookPath = "overworld" },
+            new InputFile() { Name = "fscr0150_002_100.bf", Path = "script/field", Archive = "", HookPath = "introduction" },
+            new InputFile() { Name = "sharedUI.spd", Path = "camp/shared", Archive = "", HookPath = "" }
+        };
 
         static void Main(string[] args)
         {
@@ -26,15 +36,22 @@ namespace ModMenuBuilder
                 // Validate input arguments, or show usage information if no arguments
                 Options = SimpleCommandLineParser.Default.Parse<ProgramOptions>(args);
 
-                // Begin building Mod Menu output
-                MenuBuilder.Build();
+                // Set game abbreviation and type depending on if Royal or Vanilla
+                if (Options.Game.ToUpper().Equals("P5R"))
+                {
+                    SelectedGame.ShortName = "P5R";
+                    SelectedGame.Type = "Royal";
+                }
             }
             catch (Exception e)
             {
-                // Show error if arguments are invalid
+                // Show error if arguments are invalid and quit processing
                 Console.WriteLine(e.Message);
                 return;
             }
+
+            // Begin building Mod Menu output
+            MenuBuilder.Build();
         }
     }
 
@@ -50,9 +67,18 @@ namespace ModMenuBuilder
         public string Output { get; set; } = ".\\Output";
     }
 
-    public static class InputFiles
+    public class InputFile
     {
-        public static string[] PAC = new string[] { "atDngPack.pac", "dngPack.pac", "fldPack.pac" };
-        public static string[] BF = new string[] { "at_dng.bf", "dungeon.bf", "field.bf", "fscr0150_002_100.bf" };
+        public string Name { get; set; } = "";
+        public string Path { get; set; } = "";
+        public string Archive { get; set; } = "";
+        public string HookPath { get; set; } = "";
+
+    }
+
+    public class Game
+    {
+        public string Type { get; set; } = "Vanilla";
+        public string ShortName { get; set; } = "P5";
     }
 }

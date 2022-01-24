@@ -1,18 +1,20 @@
-import( "../build/input/extracted/etc/field.bf" );
-import( "placeholder.msg" );
+import( "../../../../../Assets/Vanilla/field/dungeon.bf" );
+/*
+import( "placeholderRoyal.msg" );
+*/
 import( "../ModMenu.flow" );
 
 void CallOriginalSquareMenu()
 {
-    SUB_Call_GroupChat();
+    auto_recover();
 }
 
-void fld_square_menu_hook()
+void dng_square_menu_hook()
 {
     ModMenuDisplay();
 }
 
-void fld_start_menu_hook()
+void dng_start_menu_hook()
 {
 	FLD_PANEL_DISP( 0 );
 	SAVE();
