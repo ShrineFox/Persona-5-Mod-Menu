@@ -60,7 +60,7 @@ namespace ModMenuBuilder
         [Option("g", "game", "P5|P5R", "Specifies the game to generate output for. Will use P5 if not specified.")]
         public string Game { get; set; } = "P5";
 
-        [Option("e", "encoding", "P5|SJ", "Specifies the encoding to compile with. Will use P5 if not specified.")]
+        [Option("e", "encoding", "P5|P5R_EFIGS|SJ", "Specifies the encoding to compile with. Will use P5 if not specified.")]
         public string Encoding { get; set; } = "P5";
 
         [Option("o", "output", "path", "Specifies the path to the directory to use as output.")]

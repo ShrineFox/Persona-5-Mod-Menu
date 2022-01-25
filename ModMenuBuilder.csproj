@@ -44,13 +44,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\Flag.cs" />
-    <Compile Include="Classes\MenuBuilder.cs" />
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Builder\Classes\Flag.cs" />
+    <Compile Include="Builder\Classes\MenuBuilder.cs" />
+    <Compile Include="Builder\Program.cs" />
+    <Compile Include="Builder\Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="Builder\App.config" />
     <None Include="Assets\Royal\camp\shared\sharedUI.spd">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -81,19 +81,79 @@
     <None Include="Assets\Vanilla\script\field\fscr0150_002_100.bf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Scripts\Hooks\dungeon\dungeon.bf.flow">
+    <None Include="Charsets\P5.tsv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Scripts\Hooks\dungeon\placeholderRoyal.msg">
+    <None Include="Charsets\P5R_EFIGS.tsv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Scripts\Hooks\field\field.bf.flow">
+    <None Include="Charsets\P5_Chinese.tsv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Scripts\Hooks\field\placeholderRoyal.msg">
+    <None Include="Libraries\Persona5.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Scripts\Hooks\field\placeholder.msg">
+    <None Include="Libraries\Persona5Royal.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Libraries\Persona5Royal\FlowScriptModules.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Libraries\Persona5Royal\MessageScriptLibrary.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Libraries\Persona5Royal\Modules\AI\Functions.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Libraries\Persona5Royal\Modules\Common\Enums.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Libraries\Persona5Royal\Modules\Common\Functions.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Libraries\Persona5Royal\Modules\Facility\Functions.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Libraries\Persona5Royal\Modules\Field\Functions.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Libraries\Persona5Royal\Modules\Net\Functions.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Libraries\Persona5Royal\Modules\Social\Functions.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Libraries\Persona5\FlowScriptModules.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Libraries\Persona5\MessageScriptLibrary.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Libraries\Persona5\Modules\AI\Enums.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Libraries\Persona5\Modules\AI\Functions.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Libraries\Persona5\Modules\Common\Enums.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Libraries\Persona5\Modules\Common\Functions.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Libraries\Persona5\Modules\Facility\Functions.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Libraries\Persona5\Modules\Field\Enums.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Libraries\Persona5\Modules\Field\Functions.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Libraries\Persona5\Modules\Net\Functions.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Libraries\Persona5\Modules\Social\Functions.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Scripts\Hooks\introduction\fscr0150_002_100.bf.flow">
@@ -103,6 +163,21 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Scripts\Hooks\mementos\at_dng.bf.flow">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Scripts\Hooks\overworld\field.bf.flow">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Scripts\Hooks\overworld\placeholder.msg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Scripts\Hooks\overworld\placeholderRoyal.msg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Scripts\Hooks\palace\dungeon.bf.flow">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Scripts\Hooks\palace\placeholderRoyal.msg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Scripts\ModMenu.flow">

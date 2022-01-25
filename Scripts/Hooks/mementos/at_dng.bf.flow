@@ -1,5 +1,5 @@
-import( "../../../../../Assets/Vanilla/field//at_dng.bf" );
-import( "../ModMenu.flow" );
+import("../../../Assets/Vanilla/field/at_dng.bf");
+import("../../ModMenu.flow");
 
 void CallOriginalSquareMenu()
 {

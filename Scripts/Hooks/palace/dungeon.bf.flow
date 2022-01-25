@@ -1,8 +1,6 @@
-import( "../../../../../Assets/Vanilla/field/dungeon.bf" );
-/*
-import( "placeholderRoyal.msg" );
-*/
-import( "../ModMenu.flow" );
+import("../../../Assets/Vanilla/field/dungeon.bf");
+import("placeholderRoyal.msg");
+import("../../ModMenu.flow");
 
 void CallOriginalSquareMenu()
 {

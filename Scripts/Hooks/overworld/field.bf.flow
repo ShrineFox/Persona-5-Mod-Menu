@@ -1,6 +1,6 @@
-import( "../../../../../Assets/Vanilla/field/field.bf" );
-import( "placeholder.msg" );
-import( "../ModMenu.flow" );
+import("../../../Assets/Vanilla/field/field.bf");
+import("placeholder.msg");
+import("../../ModMenu.flow");
 
 void CallOriginalSquareMenu()
 {

@@ -69,15 +69,19 @@ namespace ModMenuBuilder
 
         public static string Get(string line)
         {
-            try
+            // Not sure why this won't match...
+            /* string pattern = @"^(?<WhiteSpace>\s+?)BIT_(?<Mode>\w+?)\( (?<BitFlag>\d+?)(?<Operators>\D+?)\);";
+            if (Regex.IsMatch(line, pattern))
             {
-                Regex regex = new Regex(@"^(?<WhiteSpace>\s+?)BIT_(?<Mode>\w+?)\( (?<BitFlag>\d+?)(?<Operators>\D+?)\);");
-                GroupCollection groups = regex.Match(line).Groups;
-            
-                return groups["BitFlag"].Value;
-            } catch { }
+                var match = Regex.Match(line, pattern);
+                string value = match.Groups["BitFlag"].Value;
+                return value;
+            } */
 
-            return "";
+            string value = "";
+            value = line.Trim().Replace("BIT_ON(","").Replace("BIT_OFF(","").Trim().Split(' ', ')', '+', '-', '*', '/')[0];
+
+            return value;
         }
     }
 }

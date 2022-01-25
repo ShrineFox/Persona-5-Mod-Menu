@@ -1,9 +1,9 @@
 import("ModMenu.msg");
 import("./Utilities/Math.flow");
 import("./Utilities/Utilities.flow");
-import("./Vanilla/SkillSelection.flow");
-import("./Vanilla/PersonaSelection.flow");
-import("./Vanilla/CutinSelect.flow");
+import("./Vanilla/Skills.flow");
+import("./Vanilla/Personas.flow");
+import("./Vanilla/Cutins.flow");
 import("./Utilities/AssignNames.flow");
 import("./Vanilla/Fields.flow");
 
@@ -24,14 +24,20 @@ global int gEventMajor;
 global int gEventMinor;
 global int gKfEventMajor;
 global int gKfEventMinor;
-global int CCParticle;
-global int CCParticleNumber; 
-global int CCParticleX;
-global int CCParticleY;
-global int CCParticleZ;
-global float CCParticleScale;
-global float CCParticleSpeed;
-global float CCParticleAlpha;
+global int particle;
+global int particleNumber; 
+global int particleX;
+global int particleY;
+global int particleZ;
+global float particleScale;
+global float particleSpeed;
+global float particleAlpha;
+global float fogNearClip;
+global float fogFarClip;
+global int fogHue;
+global int fogSat;
+global int fogLight;
+global int fogAlp;
 global int unitId;
 
 void ModMenuDisplay()
@@ -2387,27 +2393,27 @@ void CalendarFade()
 
 void SpawnEPL()
 {
-    FLD_EFFECT_END( CCParticle ); 
+    FLD_EFFECT_END( particle ); 
     FLD_EFFECT_BANK_FREE( 1 );
-    PUT( CCParticleNumber );
-    FLD_EFFECT_BANK_LOAD( 1, CCParticleNumber );
+    PUT( particleNumber );
+    FLD_EFFECT_BANK_LOAD( 1, particleNumber );
     FLD_EFFECT_BANK_SYNC( 1 );
-    CCParticle = FLD_EFFECT_BANK_START( 1 );
+    particle = FLD_EFFECT_BANK_START( 1 );
     SetEPL();
 }
 
 void SetEPL()
 {
-    if ( CCParticleScale == 0 && CCParticleAlpha == 0 && CCParticleSpeed == 0 )
+    if ( particleScale == 0 && particleAlpha == 0 && particleSpeed == 0 )
     {
-        CCParticleScale = 1;
-        CCParticleAlpha = 1;
-        CCParticleSpeed = 1;
+        particleScale = 1;
+        particleAlpha = 1;
+        particleSpeed = 1;
     }
-    FLD_EFFECT_SET_POS( CCParticle, CCParticleX, CCParticleY, CCParticleZ );
-    FLD_EFFECT_SET_SCALE( CCParticle, CCParticleScale, CCParticleScale, CCParticleScale );
-    FLD_EFFECT_SET_ALPHA( CCParticle, CCParticleAlpha );
-    FLD_EFFECT_SET_SPEED( CCParticle, CCParticleSpeed );  
+    FLD_EFFECT_SET_POS( particle, particleX, particleY, particleZ );
+    FLD_EFFECT_SET_SCALE( particle, particleScale, particleScale, particleScale );
+    FLD_EFFECT_SET_ALPHA( particle, particleAlpha );
+    FLD_EFFECT_SET_SPEED( particle, particleSpeed );  
 }
 
 void ParticleTest() 
@@ -2426,29 +2432,29 @@ void ParticleTest()
                 {
                     if ( PAD_CHK_PRESS( PadButton.Left ) ) 
                     {        
-                        if ( CCParticleNumber == 0 )
+                        if ( particleNumber == 0 )
                         {
                             break;
                         }
                         else
                         {            
-                            CCParticleNumber = CCParticleNumber - 1;
+                            particleNumber = particleNumber - 1;
                             SpawnEPL();
                         }
                     }
                     if ( PAD_CHK_PRESS( PadButton.Right ) )
                     {
-                        CCParticleNumber = CCParticleNumber + 1;
+                        particleNumber = particleNumber + 1;
                         SpawnEPL();
                     }            
                     WAIT( 3 ); //Prevents crash from excessive tick speed
                 }            
                 break;
             case 1:
-                CCParticleNumber = SelectNumber( 3 );
-                if (CCParticleNumber == -1)
+                particleNumber = SelectNumber( 3 );
+                if (particleNumber == -1)
                 {
-                    CCParticleNumber = 0;
+                    particleNumber = 0;
                     break;
                 }
                 else
@@ -2457,30 +2463,30 @@ void ParticleTest()
                 }
                 break;
             case 2:
-                CCParticleX = 0;
-                CCParticleY = 0;
-                CCParticleZ = 0;
-                CCParticleScale = 1;
-                CCParticleAlpha = 1;
-                CCParticleSpeed = 1;
+                particleX = 0;
+                particleY = 0;
+                particleZ = 0;
+                particleScale = 1;
+                particleAlpha = 1;
+                particleSpeed = 1;
                 SetEPL();
                 break;
             case 3:
-                CCParticleScale = SelectFloatPrompt( ScaleParticle )/10;             
+                particleScale = SelectFloatPrompt( ScaleParticle )/10;             
                 SetEPL();
                 break;
             case 4:
-                CCParticleSpeed = SelectFloatPrompt( SpeedParticle )/10;              
+                particleSpeed = SelectFloatPrompt( SpeedParticle )/10;              
                 SetEPL();
                 break;
             case 5:
-                CCParticleX = FLD_MODEL_GET_X_TRANSLATE(FLD_PC_GET_RESHND( 0 ));
-                CCParticleY = FLD_MODEL_GET_Y_TRANSLATE(FLD_PC_GET_RESHND( 0 ));
-                CCParticleZ = FLD_MODEL_GET_Z_TRANSLATE(FLD_PC_GET_RESHND( 0 ));
+                particleX = FLD_MODEL_GET_X_TRANSLATE(FLD_PC_GET_RESHND( 0 ));
+                particleY = FLD_MODEL_GET_Y_TRANSLATE(FLD_PC_GET_RESHND( 0 ));
+                particleZ = FLD_MODEL_GET_Z_TRANSLATE(FLD_PC_GET_RESHND( 0 ));
                 SetEPL();
                 break;
             case 6:
-                CCParticleAlpha = SelectFloatPrompt( AlphaParticle )/10;
+                particleAlpha = SelectFloatPrompt( AlphaParticle )/10;
                 SetEPL();
                 break;
         }
@@ -2490,6 +2496,7 @@ void ParticleTest()
 
 void PrintScenelights()
 {
+    /* Start Vanilla */
     PUTS( " " );
     PUTS( "Scenelight Params:" );
     PUTS( " " );
@@ -2516,11 +2523,13 @@ void PrintScenelights()
     PUT( FLD_GET_SCNLIGHT_SPEC_S() );
     PUTS( "Lightness:" );
     PUT( FLD_GET_SCNLIGHT_SPEC_L() );
-    PUTS( " " );   
+    PUTS( " " );
+    /* End Vanilla */
 }
 
 void PrintFog()
 {
+    /* Start Vanilla */
     PUTS( " " );
     PUTS( "Fog Params:" );
     PUTS( " " );
@@ -2535,61 +2544,66 @@ void PrintFog()
     PUTS( "Lightness:" );
     PUT( FLD_GET_FOG_LUMINANCE() );  
     PUTS( "Alpha:" );
-    PUT( FLD_GET_FOG_ALPHA() );      
+    PUT( FLD_GET_FOG_ALPHA() );
+    /* End Vanilla */
 }
 
-void SetHSL(int ADSChoice)
+void SetHSL(int adsChoice)
 {
     DisplayMessagePrompt( HueDlg );
-    int CCSceneHue = SelectNumber( 3 );
+    int sceneHue = SelectNumber( 3 );
     DisplayMessagePrompt( SatDlg );
-    int CCSceneSat = SelectNumber( 3 );
+    int sceneSat = SelectNumber( 3 );
     DisplayMessagePrompt( LumDlg );
-    int CCSceneLight = SelectNumber( 3 );
-    switch ( ADSChoice )
+    int sceneLight = SelectNumber( 3 );
+
+    switch (adsChoice)
     {
         case 0:                
-            FLD_SET_SCNLIGHT_AMB(CCSceneHue,CCSceneSat,CCSceneLight,0);
+            FLD_SET_SCNLIGHT_AMB(sceneHue,sceneSat,sceneLight,0);
             return;
         case 1:                
-            FLD_SET_SCNLIGHT_DIFF(CCSceneHue,CCSceneSat,CCSceneLight,0);
+            FLD_SET_SCNLIGHT_DIFF(sceneHue,sceneSat,sceneLight,0);
             return;
         case 2:                
-            FLD_SET_SCNLIGHT_SPEC(CCSceneHue,CCSceneSat,CCSceneLight,0);
+            FLD_SET_SCNLIGHT_SPEC(sceneHue,sceneSat,sceneLight,0);
             return;            
     }    
 }
 
-void SetFog(int FogChoice)
+void SetFog(int fogChoice)
 {
-    float CCFogNearClip = FLD_GET_FOG_NEAR_CLIP();
-    float CCFogFarClip = FLD_GET_FOG_FAR_CLIP();
-    int CCFogHue = FLD_GET_FOG_HUE();
-    int CCFogSat = FLD_GET_FOG_SATURATION();
-    int CCFogLight = FLD_GET_FOG_LUMINANCE();
-    int CCFogAlp = FLD_GET_FOG_ALPHA();
-    switch ( FogChoice )
+    /* Start Vanilla */
+    fogNearClip = FLD_GET_FOG_NEAR_CLIP();
+    fogFarClip = FLD_GET_FOG_FAR_CLIP();
+    fogHue = FLD_GET_FOG_HUE();
+    fogSat = FLD_GET_FOG_SATURATION();
+    fogLight = FLD_GET_FOG_LUMINANCE();
+    fogAlp = FLD_GET_FOG_ALPHA();
+    /* End Vanilla */
+
+    switch (fogChoice)
     {
         case 0:
-            CCFogNearClip = SelectFloatPrompt( NearClipDlg );
+            fogNearClip = SelectFloatPrompt( NearClipDlg );
             break;
         case 1:
-            CCFogFarClip = SelectFloatPrompt( FarClipDlg );
+            fogFarClip = SelectFloatPrompt( FarClipDlg );
             break;            
         case 2:
-            CCFogHue = SelectNumberPrompt( HueDlg, 3 );
+            fogHue = SelectNumberPrompt( HueDlg, 3 );
             break;            
         case 3:
-            CCFogSat = SelectNumberPrompt( SatDlg, 3 );
+            fogSat = SelectNumberPrompt( SatDlg, 3 );
             break;            
         case 4:
-            CCFogLight = SelectNumberPrompt( LumDlg, 3 );
+            fogLight = SelectNumberPrompt( LumDlg, 3 );
             break;            
         case 5:
-            CCFogAlp = SelectNumberPrompt( AlpDlg, 3 );
+            fogAlp = SelectNumberPrompt( AlpDlg, 3 );
             break;               
     }
-    FLD_SET_FOG( CCFogNearClip, CCFogFarClip, CCFogHue, CCFogSat, CCFogLight, CCFogAlp, 0 );
+    FLD_SET_FOG( fogNearClip, fogFarClip, fogHue, fogSat, fogLight, fogAlp, 0 );
     return;
 }
 

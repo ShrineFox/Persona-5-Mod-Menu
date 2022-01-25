@@ -1,5 +1,5 @@
-import( "../../../../../Assets/Vanilla/script/field/fscr0150_002_100.bf");
-import( "introduction.msg" );
+import("../../../Assets/Vanilla/script/field/fscr0150_002_100.bf");
+import("introduction.msg");
 
 // 
 // Procedure declarations

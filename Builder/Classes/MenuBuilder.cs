@@ -16,14 +16,15 @@ namespace ModMenuBuilder
         {
             UnpackPACs(); // Get .bf files from .PAC files
             RoyalifyScripts(); // Enable Royal-only elements of Mod Menu .flow/.msg
-            RemoveRoyalMsgComments(); // Removes lines with a "// Royal" comment from Mod Menu .msg
+            RemoveFlowComments(); // Removes lines with a "/* Royal */" or "/* Vanilla */" comment from Mod Menu .flow depending on version
+            RemoveMsgComments(); // Removes lines with a "// Royal" or "// Vanilla" comment from Mod Menu .msg depending on version
             UpdateImportPaths(); // Remove or update .flow/.msg import paths depending on if Royal or Vanilla
             ReindexMsgs(); // Update .msg indexes of files depending on if Royal or Vanilla
             CompileScripts(); // Create new .bf files from modified .flow
             RepackPACs(); // Pack changed .bf files back into .PAC
             CopyToOutput(); // Copy changed files to output folder
 
-            Console.WriteLine("Done!");
+            Console.WriteLine("\nDone!");
 
             #if DEBUG
                 Console.ReadKey(); // wait for input before closing if debug build
@@ -68,11 +69,12 @@ namespace ModMenuBuilder
                                 Console.WriteLine($"  Replaced {inputFile.Name} in {inputFile.Archive}");
 
                                 string outputPath = Path.Combine(Program.Options.Output, Path.Combine(inputFile.Path, inputFile.Archive));
+                                Directory.CreateDirectory(Path.GetDirectoryName(outputPath));
                                 newPak.Save(outputPath);
-                                Console.WriteLine($"Saved repacked PAC to output folder: {outputPath}");
+                                Console.WriteLine($"  Saved repacked PAC to output folder: {outputPath}");
                             }
                             else
-                                Console.WriteLine($"Could not find any file ending with {inputFile.Name} in: {pacPath}");
+                                Console.WriteLine($"  Could not find any file ending with {inputFile.Name} in: {pacPath}");
                         }
                         else
                             Console.WriteLine($"Failed to open {pacPath} for repacking.");
@@ -90,16 +92,20 @@ namespace ModMenuBuilder
             // Compile Mod Menu hook scripts and output to Assets folder
             foreach (InputFile inputFile in Program.InputFiles.Where(x => x.Name.EndsWith(".bf")))
             {
-                string flowPath = $"Scripts/Hooks/{inputFile.HookPath}/{inputFile.Name}.flow";
+                string flowPath = $"./Scripts/Hooks/{inputFile.HookPath}/{inputFile.Name}.flow";
                 if (File.Exists(flowPath))
                 {
-                    string[] args = new string[] { $"\"{flowPath}\"", "-Compile",
+                    string[] args = new string[] { $"{flowPath}", "-Compile",
                     "-OutFormat", "V3BE",
+                    "-Encoding", Program.Options.Encoding,
                     "-Library", Program.SelectedGame.ShortName,
-                    "-Out", $"\"Assets/{Program.SelectedGame.Type}/{inputFile.Path}/{inputFile.Name}.flow.bf\"",
+                    "-Out", $"Assets/{Program.SelectedGame.Type}/{inputFile.Path}/{inputFile.Name}.flow.bf",
                     "-Hook" };
 
+                    Console.WriteLine($"Compiling with the arguments: {string.Join(" ", args)}");
+
                     AtlusScriptCompiler.Program.Main(args);
+                    AtlusScriptCompiler.Program.IsActionAssigned = false;
                 }
                 else
                     Console.WriteLine($"Failed to compile {inputFile.Name}.flow.bf, could not find script: {flowPath}");
@@ -172,28 +178,59 @@ namespace ModMenuBuilder
                     else
                         Console.WriteLine($"Failed to update import paths. Could not find script: {flowPath}");
                 }
+                else if (inputFile.Name.Equals("dungeon.bf"))
+                {
+                    if (File.Exists(flowPath))
+                    {
+                        Console.WriteLine($"Updated import paths in script: {flowPath}");
+                        File.WriteAllText(flowPath, File.ReadAllText(flowPath).Replace("import(\"placeholderRoyal.msg\");", ""));
+                    }
+                    else
+                        Console.WriteLine($"Failed to update import paths. Could not find script: {flowPath}");
+                }
             }
         }
 
-        private static void RemoveRoyalMsgComments()
+        private static void RemoveFlowComments()
         {
-            // If game type is "Vanilla"...
-            if (Program.SelectedGame.Type.Equals("Vanilla"))
-            {
-                // Remove "// Royal" lines from Mod Menu .msg
-                if (File.Exists("Scripts/ModMenu.flow"))
-                {
-                    var lines = File.ReadAllLines("Scripts/ModMenu.msg");
-                    List<string> newLines = new List<string>();
-                    for (int i = 0; i < lines.Length; i++)
-                        if (!lines[i].Contains("// Royal"))
-                            newLines.Add(lines[i]);
+            // Remove lines with the opposite game type's comment from Mod Menu .flow
+            string removeType = "Royal";
+            if (Program.SelectedGame.Type.Equals("Royal"))
+                removeType = "Vanilla";
 
-                    File.WriteAllText("Scripts/ModMenu.msg", String.Join("\n", newLines));
-                }
-                else
-                    Console.WriteLine("Could not find script: Scripts/ModMenu.msg!");
+            if (File.Exists("Scripts/ModMenu.flow"))
+            {
+                // Comment out blocks for opposing game type
+                File.WriteAllText("Scripts/ModMenu.flow", File.ReadAllText("Scripts/ModMenu.flow")
+                    .Replace($"/* Start {removeType} */", $"/* Start {removeType} ")
+                    .Replace($"/* End {removeType} */", $" End {removeType} */"));
             }
+            else
+                Console.WriteLine("Could not find script: Scripts/ModMenu.flow!");
+        }
+
+        private static void RemoveMsgComments()
+        {
+            // Remove lines with the opposite game type's comment from Mod Menu .msg
+            string removeType = "Royal";
+            if (Program.SelectedGame.Type.Equals("Royal"))
+                removeType = "Vanilla";
+
+            if (File.Exists("Scripts/ModMenu.msg"))
+            {
+                // Remove entire line if opposite type
+                var lines = File.ReadAllLines("Scripts/ModMenu.msg");
+                List<string> newLines = new List<string>();
+                for (int i = 0; i < lines.Length; i++)
+                    if (!lines[i].Contains($"// {removeType}") && !lines[i].Contains($"//{removeType}"))
+                        newLines.Add(lines[i]);
+
+                // Remove comments from line for matching type and overwrite file
+                File.WriteAllText("Scripts/ModMenu.msg", String.Join("\n", newLines)
+                    .Replace($"// {Program.SelectedGame.Type}", "").Replace($"//{Program.SelectedGame.Type}",""));
+            }
+            else
+                Console.WriteLine("Could not find script: Scripts/ModMenu.msg!");
         }
 
         private static void RoyalifyScripts()
@@ -204,53 +241,52 @@ namespace ModMenuBuilder
                 // Replace vanilla-specific stuff with Royal stuff
                 Console.WriteLine("Royal-ifying Mod Menu scripts...");
 
-                if (File.Exists("Scripts/ModMenu.flow"))
+                // Get list of scripts to Royal-ify
+                List<string> scripts = new List<string>();
+                foreach (var script in Program.InputFiles.Where(x => x.Name.EndsWith(".bf")))
+                    scripts.Add($"Scripts/Hooks/{script.HookPath}/{script.Name}.flow");
+                scripts.Add("Scripts/ModMenu.flow");
+
+                foreach (var script in scripts)
                 {
-                    var lines = File.ReadAllLines("Scripts/ModMenu.flow");
-                    List<string> newLines = new List<string>();
-
-                    for (int i = 0; i < lines.Length; i++)
+                    if (File.Exists(script))
                     {
-                        var line = lines[i].Trim();
-                        if (line.StartsWith("import(\"./Vanilla")) // Replace vanilla import script with Royal equivalent
-                            newLines.Add(lines[i].Replace("import(\"./Vanilla", "import(\"./Royal"));
-                        else if (line.StartsWith("BIT_OFF(") || line.StartsWith("BIT_ON("))
-                        {
-                            // Attempt to convert vanilla bitflag to Royal flag
-                            string flag = Flag.Get(line);
-                            int convertedFlag = -1;
-                            try
-                            {
-                                convertedFlag = Flag.ConvertToRoyal(Convert.ToInt32(flag));
-                            }
-                            catch { }
+                        var lines = File.ReadAllLines(script);
+                        List<string> newLines = new List<string>();
 
-                            if (convertedFlag != -1) // Replace line and notify user of this change
+                        for (int i = 0; i < lines.Length; i++)
+                        {
+                            var line = lines[i].Trim();
+                            if (line.StartsWith("import(\"./Vanilla")) // Replace vanilla import script with Royal equivalent
+                                newLines.Add(lines[i].Replace("import(\"./Vanilla", "import(\"./Royal"));
+                            else if (line.StartsWith("BIT_OFF(") || line.StartsWith("BIT_ON("))
                             {
-                                Console.WriteLine($"Replaced Vanilla bitflag ({flag}) with Royal bitflag ({convertedFlag}).");
-                                newLines.Add(lines[i].Replace(flag, convertedFlag.ToString()));
+                                // Attempt to convert vanilla bitflag to Royal flag
+                                string flag = Flag.Get(line);
+                                int convertedFlag = -1;
+                                try
+                                {
+                                    convertedFlag = Flag.ConvertToRoyal(Convert.ToInt32(flag));
+                                }
+                                catch { }
+
+                                if (convertedFlag != -1) // Replace line and notify user of this change
+                                {
+                                    Console.WriteLine($"Replaced Vanilla bitflag ({flag}) with Royal bitflag ({convertedFlag}).");
+                                    newLines.Add(lines[i].Replace(flag, convertedFlag.ToString()));
+                                }
+                                else // Use original flag if flag could not be converted to Royal
+                                    newLines.Add(lines[i]);
                             }
-                            else // Use original flag if flag could not be converted to Royal
+                            else // Add original line if no changes needed
                                 newLines.Add(lines[i]);
                         }
-                        else if (line.Contains("/* Royal")) // Remove opening comments from Royal-only code
-                            newLines.Add(lines[i].Replace("/* Royal", ""));
-                        else if (line.Contains("*/ Royal")) // Remove closing comments from Royal-only code
-                            newLines.Add(lines[i].Replace("*/ Royal", ""));
-                        else // Add original line if no changes needed
-                            newLines.Add(lines[i]);
+
+                        File.WriteAllText(script, String.Join("\n", newLines));
                     }
-
-                    File.WriteAllText("Scripts/ModMenu.flow", String.Join("\n", newLines));
+                    else
+                        Console.WriteLine($"Could not find script: {script}");
                 }
-                else
-                    Console.WriteLine("Could not find script: Scripts/ModMenu.flow!");
-
-
-                if (File.Exists("Scripts/ModMenu.flow")) // Remove comments from .msg
-                    File.WriteAllText("Scripts/ModMenu.msg", File.ReadAllText("Scripts/ModMenu.msg").Replace("// Royal", ""));
-                else
-                    Console.WriteLine("Could not find script: Scripts/ModMenu.msg!");
             }
         }
 
