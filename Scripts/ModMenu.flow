@@ -7,6 +7,7 @@ import("./Vanilla/Cutins.flow");
 import("./Utilities/AssignNames.flow");
 import("./Vanilla/Fields.flow");
 
+global int gBitFlagAmount;
 global int gLastSpawnedNpcModelHandle;
 global int gFldAnimGapId;
 global int gFldAnimGapIndex;
@@ -45,7 +46,14 @@ void ModMenuDisplay()
     ALL_ENABLE_SHARE_PLAY(); // Re-enables screen recording
     BIT_OFF( 4099 ); // Removes your "tired" status
     PrintPosition(); // Logs your current coordinates
-    
+
+    /* Vanilla Start */
+    gBitFlagAmount = 8960;
+    /* Vanilla End */
+    /* Royal Start */
+    gBitFlagAmount = 12800;
+    /* Royal End */
+
     while ( true )
     {
         int selection = SEL_GENERIC( -1, ModMenu );
@@ -1905,27 +1913,21 @@ void FlagMassEditor() {
             case -1:
                 return;
             case 0:
-                for ( int i = 0; i < 8960; i++ ) 
+                for ( int i = 0; i < gBitFlagAmount; i++ ) 
                     BIT_OFF( i ); 
                 break;
             case 1:
-                for ( int i = 0; i < 8960; i++ )
-                {
+                for ( int i = 0; i < gBitFlagAmount; i++ )
                     if (i != 320) 
-                    { 
-                        BIT_ON( i ); 
-                    }
-                }
+                        BIT_ON( i ); // Prevent disabling mod menu
                 break;
             case 2:
-                for ( int i = 0; i < 8960; i++ ) 
+                for ( int i = 0; i < gBitFlagAmount; i++ ) 
                 {
-                    if (BIT_CHK(i)) {
+                    if (BIT_CHK(i))
                         BIT_OFF(i);
-                    }
-                    else if (i != 320) {
-                        BIT_ON(i);
-                    }
+                    else if (i != 320)
+                        BIT_ON(i); // Prevent disabling mod menu
                 }
                 break;
             case 3:
@@ -1939,7 +1941,7 @@ void FlagMassEditor() {
 }
 
 void PrintEnabledBits() {
-    for ( int i = 0; i < 8960; i++ ) {
+    for ( int i = 0; i < gBitFlagAmount; i++ ) {
         if (BIT_CHK(i)) 
         {
             PUT(i);
@@ -1949,10 +1951,27 @@ void PrintEnabledBits() {
 
 void ToggleRange() {
     DisplayMessagePrompt( FlagRangePrompt );
-    int range1 =  SelectNumber( 4 );
-    DisplayMessagePrompt( FlagRangePrompt2 );
-    int range2 = SelectNumber( 4 );
-    
+    /* Royal Start */
+    int range1 =  SelectNumber(5);
+    /* Royal End */
+    /* Vanilla Start */
+    int range1 = SelectNumber(4);
+    /* Vanilla End */
+
+    DisplayMessagePrompt(FlagRangePrompt2);
+    /* Royal Start */
+    int range2 = SelectNumber(5);
+    /* Royal End */
+    /* Vanilla Start */
+    int range2 = SelectNumber(4);
+    /* Vanilla End */
+
+    // Prevent going beyond max flag range
+    if (range1 > gBitFlagAmount)
+        range1 = gBitFlagAmount;
+    if (range2 > gBitFlagAmount)
+        range2 = gBitFlagAmount;
+
     int onOff = SEL_GENERIC_NOT_HELP( -1, SelectOnOff );
     
     switch (onOff) 
@@ -1962,17 +1981,14 @@ void ToggleRange() {
         case 0: // On
             for ( int i = range1; i < range2; i++ ) 
             {
+                // Prevent disabling mod menu
                 if (i != 320) 
-                {
                     BIT_ON( i );
-                }
             }
             break;
         case 1: // Off
             for ( int i = range1; i < range2; i++ ) 
-            {
                 BIT_OFF( i );
-            }
             break;
     }
 }
@@ -2102,12 +2118,22 @@ void SelectRomanceFlags()
 
 void SelectBitToggle()
 {
-    int id = SelectNumber( 4 );
+    /* Royal Start */
+    int id = SelectNumber(5);
+    /* Royal End */
+    /* Vanilla Start */
+    int id = SelectNumber(4);
+    /* Vanilla End */
+
+    // Prevent going beyond max flag range
+    if (id > gBitFlagAmount)
+        id = gBitFlagAmount;
+
+    // Immediately go back if cancelled
     if (id == -1)
         return;
     
     int onOff = SEL_GENERIC_NOT_HELP( -1, SelectOnOff );
-    
     switch (onOff) 
     {
         case -1: // Back
@@ -2496,7 +2522,7 @@ void ParticleTest()
 
 void PrintScenelights()
 {
-    /* Start Vanilla */
+    /* Vanilla Start */
     PUTS( " " );
     PUTS( "Scenelight Params:" );
     PUTS( " " );
@@ -2529,7 +2555,7 @@ void PrintScenelights()
 
 void PrintFog()
 {
-    /* Start Vanilla */
+    /* Vanilla Start */
     PUTS( " " );
     PUTS( "Fog Params:" );
     PUTS( " " );
@@ -2552,28 +2578,34 @@ void SetHSL(int adsChoice)
 {
     DisplayMessagePrompt( HueDlg );
     int sceneHue = SelectNumber( 3 );
+    if (sceneHue > 255)
+        sceneHue = 255;
     DisplayMessagePrompt( SatDlg );
     int sceneSat = SelectNumber( 3 );
+    if (sceneSat > 255)
+        sceneSat = 255;
     DisplayMessagePrompt( LumDlg );
     int sceneLight = SelectNumber( 3 );
+    if (sceneLight > 255)
+        sceneLight = 255;
 
     switch (adsChoice)
     {
         case 0:                
-            FLD_SET_SCNLIGHT_AMB(sceneHue,sceneSat,sceneLight,0);
+            FLD_SET_SCNLIGHT_AMB(sceneHue, sceneSat, sceneLight, 0);
             return;
         case 1:                
-            FLD_SET_SCNLIGHT_DIFF(sceneHue,sceneSat,sceneLight,0);
+            FLD_SET_SCNLIGHT_DIFF(sceneHue, sceneSat, sceneLight, 0);
             return;
         case 2:                
-            FLD_SET_SCNLIGHT_SPEC(sceneHue,sceneSat,sceneLight,0);
+            FLD_SET_SCNLIGHT_SPEC(sceneHue, sceneSat, sceneLight, 0);
             return;            
     }    
 }
 
 void SetFog(int fogChoice)
 {
-    /* Start Vanilla */
+    /* Vanilla Start */
     fogNearClip = FLD_GET_FOG_NEAR_CLIP();
     fogFarClip = FLD_GET_FOG_FAR_CLIP();
     fogHue = FLD_GET_FOG_HUE();

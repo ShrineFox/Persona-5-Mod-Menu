@@ -679,15 +679,16 @@ Select Relationship[w][e]
 [f 2 4 23][e]
 [f 2 4 25][e]
 
-[dlg AboutDlg[About this menu]]
-Created by [clr 6]ShrineFox[clr 0] using [clr 1]TGE[clr 0]'s
-[n][clr 1]Atlus-Script-Tools[clr 0].
-[n]github.com/tge-was-taken/Atlus-Script-Tools[w][e]
+[dlg AboutDlg [About this menu]]
+[clr 9]Persona 5 Mod Menu[clr 0] by [clr 6]ShrineFox[clr 0]
+[n][n]github.com/Shrinefox/Persona-5-Mod-Menu[w][e]
+Created using [clr 1]TGE[clr 0]'s [clr 1]Atlus-Script-Tools[clr 0].
+[n][n]github.com/tge-was-taken/Atlus-Script-Tools[w][e]
 Special thanks to [clr 1]@regularpanties[clr 0] // Royal
 [n]for providing a 6.72 PS4 for testing and // Royal
 [n][clr 9]RayFirefist[clr 0] for initial P5R dev.[w][e] // Royal
-Visit[clr 1]shrinefox.com[clr 0] for
-[n]more information![w][e]
+For more information, visit:
+[n][n][clr 1]shrinefox.com[clr 0]
 
 [sel RoomEdit]
 Furniture[e]
@@ -980,22 +981,24 @@ Select an item's model ID to[n]spawn it and connect it to[n]the character's mode
 Select a range of flags[n]to either enable or disable.[w][e]
 
 [dlg ItemSpawnPrompt]
-Enter the first half of the model's[n]ID from data.cpk/model/item.[n](Max 4 digits, [clr 2]○ button[clr 0] to end).[w][e]
+Enter the first half of the model's[n]ID from data.cpk/model/item.[n](4 digits, [clr 2]○ button[clr 0] to end).[w][e]
 
 [dlg ItemSpawnPrompt2]
-Enter the last half of the model's[n]ID from data.cpk/model/item.[n](Max 3 digits, [clr 2]○ button[clr 0] to end).[w][e]
+Enter the last half of the model's[n]ID from data.cpk/model/item.[n](3 digits, [clr 2]○ button[clr 0] to end).[w][e]
 
 [dlg ObjectSpawnPrompt]
-Enter the first half of the[n]model's ID from data.cpk/model/field_tex/object.[n](Max 3 digits, [clr 2]○ button[clr 0] to end).[w][e]
+Enter the first half of the[n]model's ID from data.cpk/model/field_tex/object.[n](3 digits, [clr 2]○ button[clr 0] to end).[w][e]
 
 [dlg ObjectSpawnPrompt2]
-Enter the last half of the[n]model's ID from data.cpk/model/field_tex/object.[n](Max 3 digits, [clr 2]○ button[clr 0] to end).[w][e]
+Enter the last half of the[n]model's ID from data.cpk/model/field_tex/object.[n](3 digits, [clr 2]○ button[clr 0] to end).[w][e]
 
 [dlg FlagRangePrompt]
-Enter the start of the[n]range to narrow down.[n](Max 4 digits, [clr 2]○ button[clr 0] to end).[w][e]
+Enter the start of the[n]range to narrow down.[n](5 digits, [clr 2]○ button[clr 0] to end).[w][e] // Royal
+Enter the start of the[n]range to narrow down.[n](4 digits, [clr 2]○ button[clr 0] to end).[w][e] // Vanilla
 
 [dlg FlagRangePrompt2]
-Enter the end of the[n]range to narrow down.[n](Max 4 digits, [clr 2]○ button[clr 0] to end).[w][e]
+Enter the end of the[n]range to narrow down.[n](5 digits, [clr 2]○ button[clr 0] to end).[w][e] // Royal
+Enter the end of the[n]range to narrow down.[n](4 digits, [clr 2]○ button[clr 0] to end).[w][e] // Vanilla
 
 [dlg GENERIC_HELP_316]
 Unlocks all Personas in the[n]Compendium. [clr 9]This will delete all[n]Personas in your current stock![clr 0][w][e]
@@ -1174,16 +1177,16 @@ Set the particles's opacity.[n]([clr 2]○ button[clr 0] to end)[n]Default is 10
 [s]Set the current fog's Opacity.[e]
 
 [dlg HueDlg]
-Set Hue to a 3 digit number. (Max 255)[w][e]
+Set Hue to a 3 digit number. (0 - 255)[w][e]
 
 [dlg SatDlg]
-Set Saturation to a 3 digit number. (Max 255)[w][e]
+Set Saturation to a 3 digit number. (0 - 255)[w][e]
 
 [dlg LumDlg]
-Set Lightness to a 3 digit number. (Max 255)[w][e]
+Set Lightness to a 3 digit number. (0 - 255)[w][e]
 
 [dlg AlpDlg]
-Set Opacity to a 3 digit number. (Max 255)[w][e]
+Set Opacity to a 3 digit number. (0 - 255)[w][e]
 
 [dlg NearClipDlg]
 Set the fog's Near Clip[n]([clr 2]○ button[clr 0] to end)[w][e]

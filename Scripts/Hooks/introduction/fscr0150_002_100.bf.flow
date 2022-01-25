@@ -5,7 +5,7 @@ import("introduction.msg");
 // Procedure declarations
 // 
 
-void General_0150_002_100()
+void General_0150_002_100_hook()
 {
 	BIT_OFF( 8453 );
 	BIT_OFF( 320 );

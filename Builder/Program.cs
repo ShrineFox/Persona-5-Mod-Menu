@@ -25,11 +25,11 @@ namespace ModMenuBuilder
         static void Main(string[] args)
         {
             // Show about message
-            SimpleCommandLineFormatter.Default.FormatAbout<ProgramOptions>("ShrineFox", 
-                "Generates Mod Menu output for P5/P5R." +
-                "\nUsing TGE's AtlusScriptCompiler and AtlusFileSystemLibrary." +
-                "\ngithub.com/ShrineFox/Persona-5-Mod-Menu" +
-                "\n");
+            Console.Write(SimpleCommandLineFormatter.Default.FormatAbout<ProgramOptions>("ShrineFox", 
+                "\nGenerates Mod Menu output for P5/P5R." +
+                "\nUsing TGE's SimpleCommandLine and AtlusFileSystemLibrary." +
+                "\n\ngithub.com/ShrineFox/Persona-5-Mod-Menu" +
+                "\n"));
 
             try
             {
@@ -42,11 +42,21 @@ namespace ModMenuBuilder
                     SelectedGame.ShortName = "P5R";
                     SelectedGame.Type = "Royal";
                 }
+
+                if (!File.Exists(Options.Compiler))
+                {
+                    Console.WriteLine($"Could not find AtlusScriptCompiler.exe at path: {Options.Compiler}");
+                    Console.ReadKey();
+                    return;
+                }
             }
             catch (Exception e)
             {
                 // Show error if arguments are invalid and quit processing
                 Console.WriteLine(e.Message);
+                #if DEBUG
+                    Console.ReadKey();
+                #endif
                 return;
             }
 
@@ -57,6 +67,9 @@ namespace ModMenuBuilder
 
     public class ProgramOptions
     {
+        [Option("c", "compiler", "path", "The path to AtlusScriptCompiler.exe.", Required = true)]
+        public string Compiler { get; set; }
+
         [Option("g", "game", "P5|P5R", "Specifies the game to generate output for. Will use P5 if not specified.")]
         public string Game { get; set; } = "P5";
 
