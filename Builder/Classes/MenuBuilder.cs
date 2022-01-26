@@ -220,46 +220,49 @@ namespace ModMenuBuilder
         public static void ReindexMsgs()
         {
             string path = "Temp/Scripts/ModMenu.msg";
-            int startIndex = 91;
+            int startIndex = 90;
             if (Program.SelectedGame.Type.Equals("Royal"))
-                startIndex = 182;
+                startIndex = 181;
 
             // Update parameters of msg functions that displays description for menu selection
             Console.WriteLine($"Updating msg index parameters in {Path.GetFileName(path)} starting from {startIndex}");
 
-            List<string> msgLines = new List<string>();
-            int msgCount = startIndex;
+            var msgLines = File.ReadAllLines(path);
+            int msgCount = startIndex; // Keep track of total number of messages
+            int refCount = 0; // Keep track of total number of references per selection block
 
-            foreach (string line in File.ReadAllLines(path))
+            for (int i = 0; i < msgLines.Length; i++)
             {
-                string newLine = null;
-
-                if (line.Contains("[dlg ") || line.Contains("[sel "))
-                    msgCount = startIndex;
-
-                if (line.Contains("[f 4 26 "))
-                {
+                // Increase total number of messages so far
+                if (msgLines[i].Contains("[dlg ") || msgLines[i].Contains("[sel "))
                     msgCount++;
-                    int index = line.IndexOf("[f 4 26 ") + 8;
-                    string substring = line.Substring(index);
-                    string[] subParts = substring.Split(' ');
-                    string newString = $"{msgCount}][e]";
-                    newLine = line.Remove(index + subParts[0].Length);
-                    newLine = newLine + " " + newString;
-                }
-                else if (line.Contains("[dlg GENERIC_HELP_"))
+
+                // If current line contains "[ref "...
+                if (msgLines[i].Contains("[ref "))
                 {
-                    int index = line.IndexOf("[dlg GENERIC_HELP_");
-                    newLine = $"[dlg GENERIC_HELP_{msgCount}]";
+                    // Reset reference count
+                    refCount = 0;
+
+                    // For each line containing "[ref " until file ends or a line doesn't contain "[ref "...
+                    while (i + 1 < msgLines.Length && msgLines[i].Contains("[ref "))
+                    {
+                        // Separate part of string after "[ref "
+                        int index = msgLines[i].IndexOf("[ref ");
+                        string substring = msgLines[i].Substring(index);
+                        // Create new second half of string
+                        string newString = $"[ref {refCount} {msgCount + refCount + 1}][e]";
+                        string newLine = msgLines[i].Remove(index);
+                        // Update line with new data
+                        msgLines[i] = newLine + newString;
+                        // Increase number of ref lines read so far for this sel block
+                        refCount++;
+                        // Increase current line number
+                        i++;
+                    }
                 }
-
-                if (newLine != null)
-                    msgLines.Add(newLine);
-                else
-                    msgLines.Add(line);
-
-                if (line.Contains("[dlg ") || line.Contains("[sel "))
-                    msgCount++;
+                
+                if (msgLines[i].Contains("[dlg GENERIC_HELP_"))
+                    msgLines[i] = $"[dlg GENERIC_HELP_{msgCount}]";
             }
 
             File.WriteAllText(path, string.Join("\n", msgLines));
