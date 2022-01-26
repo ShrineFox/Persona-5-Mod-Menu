@@ -4,7 +4,12 @@ import("../../ModMenu.flow");
 
 void CallOriginalSquareMenu()
 {
+	/* Vanilla Start */
     auto_recover();
+	/* Vanilla End */
+	/* Royal Start */
+	shortcut_item();
+	/* Royal End */
 }
 
 void dng_square_menu_hook()

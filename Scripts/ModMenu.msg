@@ -18,6 +18,7 @@ Amicitia Mod Menu[w][e]
 [s]Particle Test[ref 13 106][e]
 [s]Edit Environment[ref 14 107][e]
 [s]About[ref 15 108][e]
+[s]Royal Stuff[ref 15 109][e] // Royal
 
 [dlg GENERIC_HELP_93]
 [s]View your IM messages[n]or auto heal the party[n]just like the [clr 18]□ button[clr 0][n]normally does.[e]
@@ -67,6 +68,9 @@ Amicitia Mod Menu[w][e]
 [dlg GENERIC_HELP_108]
 [s]Show some info about the[n]development of this mod.[e]
 
+[dlg GENERIC_HELP_109]
+[s]View options exclusive[n]to Persona 5 Royal on PS4.[e]
+
 [dlg PlayerMenuName]
 Player Options[w][e]
 
@@ -77,10 +81,8 @@ Player Options[w][e]
 [s]Set Confidant Rank[ref 3 114][e]
 [s]Set Protag Name[ref 4 115][e]
 [s]Set Team Name[ref 5 116][e]
-[s]Animation Test[ref 6 117][e]
-[s]Set Scale[ref 7 118][e]
-[s]Attach Item Model[ref 8 119][e]
-[s]Max Money[ref 9 120][e]
+[s]Set Scale[ref 7 117][e]
+[s]Max Money[ref 9 118][e]
 
 [dlg GENERIC_HELP_111]
 [s]Add or remove your Personas, or[n]give you or your party[n]members new Skills.[e]
@@ -101,16 +103,51 @@ Player Options[w][e]
 [s]Change the group name of the[n]Phantom Thieves at any[n]point in the game.[n][e]
 
 [dlg GENERIC_HELP_117]
-[s]Select one of the protagonist's[n]Field GAP files and view[n]its animations.[e]
+[s]Change Joker's field GAP/GMD,[n]attach item models, or[n]preview animations.[n][e]
 
 [dlg GENERIC_HELP_118]
+[s]Adds 9,999,999 yen to your[n]wallet.[e]
+
+[dlg PlayerAppearanceMenuName]
+Player Appearance[w][e]
+
+[sel PlayerAppearanceMenu]
+[s]Set Joker Model[ref 6 121][e]
+[s]Set Joker GAP[ref 6 122][e]
+[s]Animation Test[ref 6 123][e]
+[s]Set Scale[ref 7 124][e]
+[s]Attach Item Model[ref 8 125][e]
+
+[dlg GENERIC_HELP_121]
+[s]Select one of the protagonist's[n]GMD models to use[n]in the field.[e]
+
+[dlg GENERIC_HELP_122]
+[s]Select one of the protagonist's[n]Field GAP files to use[n]in the field.[e]
+
+[dlg GENERIC_HELP_123]
+[s]Select one of the protagonist's[n]Field GAP files and view[n]its animations.[e]
+
+[dlg GENERIC_HELP_124]
 [s]Change the size of the[n]selected model.[e]
 
-[dlg GENERIC_HELP_119]
+[dlg GENERIC_HELP_125]
 [s]Enter an item's model ID[n]to attach it to the[n]protagonist's right hand.[e]
 
-[dlg GENERIC_HELP_120]
-[s]Adds 9,999,999 yen to your[n]wallet.[e]
+[dlg MiddleDigitsGMD [Model Select]]
+Set the middle (3 digits) of the
+[n]Joker GMD to load. ([clr 2]○ button[clr 0] to end)[w][e]
+
+[dlg LastDigitsGMD [Model Select]]
+Set the last (2 digits) of the
+[n]Joker GMD to load. ([clr 2]○ button[clr 0] to end)[w][e]
+
+[dlg LastDigitsGAP [GAP Select]]
+Set the last (3 digits) of the
+[n]Joker field GAP to load. ([clr 2]○ button[clr 0] to end)[w][e]
+
+[dlg ReloadConfirm [Confirm Reload]]
+The field needs to reload to
+[n]take effect. Do it now?[w][e]
 
 [dlg ItemMenuName]
 Select Item Type...[w][e]
@@ -285,7 +322,6 @@ Enter the Confidant's Arcana ID.[n](2 digits, [clr 2]○ button[clr 0] to end)[w
 
 [dlg CmmDialog2 [Confidant Rank]]
 Enter the desired Confidant rank.[w][e]
-
 
 [dlg AnimMenuName]
 Player Animation[w][e]
@@ -489,6 +525,7 @@ Select Party Member[w][e]
 [f 2 4 7][e]
 [f 2 4 8][e]
 [f 2 4 9][e]
+[f 2 4 10][e] // Royal
 
 [sel UnitSelect2]
 [f 2 4 2][e]
@@ -499,6 +536,7 @@ Select Party Member[w][e]
 [f 2 4 7][e]
 [f 2 4 8][e]
 [f 2 4 9][e]
+[f 2 4 10][e] // Royal
 
 [dlg PersonaDelPrompt [Delete Personas]]
 This will permanently remove all 
@@ -1193,3 +1231,14 @@ Set the fog's Near Clip[n]([clr 2]○ button[clr 0] to end)[w][e]
 
 [dlg FarClipDlg]
 Set the fog's Far Clip[n]([clr 2]○ button[clr 0] to end)[w][e]
+
+[dlg RoyalMenuName]
+Royal Menu[w][e]
+
+[sel RoyalMenu]
+[s]Go to Thieves Den[e]
+[s]Change Character[e]
+[s]View Videos[e]
+[s]View Music[e]
+[s]View Images[e]
+[s]Play Tycoon[e]

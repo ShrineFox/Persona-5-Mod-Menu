@@ -3,7 +3,12 @@ import("../../ModMenu.flow");
 
 void CallOriginalSquareMenu()
 {
-    auto_recover();
+	/* Vanilla Start */
+	auto_recover();
+	/* Vanilla End */
+	/* Royal Start */
+	at_dng_square_menu();
+	/* Royal End */
 }
 
 void at_dng_square_menu_hook()

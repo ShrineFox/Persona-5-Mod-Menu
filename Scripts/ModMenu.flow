@@ -108,13 +108,57 @@ void ModMenuDisplay()
                 break;
             case 14: 
                 EditEnviroment();    
-                break;                
+                break;
             case 15:
                 DisplayMessagePrompt( AboutDlg );
+                break;
+            /* Royal Start */
+            case 16:
+                RoyalMenu();
+                break;
+            /* Royal End */
+        }
+    }
+}
+
+/* Royal Start */
+void RoyalMenu()
+{
+    while (true)
+    {
+        int selection = SEL_GENERIC_NOT_HELP(RoyalMenuName, RoyalMenu);
+
+        switch (selection)
+        {
+            case -1:
+                return;
+            case 0:
+                FLD_MY_PALACE_ENTER();
+                break;
+            case 1:
+                unitId = SEL_GENERIC_NOT_HELP(UnitMenuName, UnitSelect);
+                if (unitId != -1)
+                {
+                    FLD_SET_TRANSFORM(unitId);
+                    FLD_SET_TRANSFORM(unitId);
+                }
+                break;
+            case 2:
+                START_VIDEO_VIEWER();
+                break;
+            case 3:
+                START_SOUND_VIEWER();
+                break;
+            case 4:
+                START_IMAGE_VIEWER();
+                break;
+            case 5:
+                CALL_DAIFUGOU();
                 break;
         }
     }
 }
+/* Royal End */
 
 void PrintPosition()
 {
@@ -169,20 +213,70 @@ void PlayerEditorDisplay()
                 END_IME_DRIVER();
                 break;
             case 6:
-                PlayerAnimViewerDisplay();
-                break;
-            case 7:
-                PlayerSelectModelScale();
-                break;
-            case 8:
-                PlayerAttachItemModel(FLD_PC_GET_RESHND(0));
-                break;
-            case 9: 
+                PlayerAppearanceMenu();
+            case 7: 
                 PlayerSetMaxMoney();
                 break;
         }
     }
 }
+
+// Player Appearance Editor
+void PlayerAppearanceMenu()
+{
+    while (true)
+    {
+        int selection = SEL_GENERIC(PlayerAppearanceMenuName, PlayerAppearanceMenu);
+        switch (selection)
+        {
+            case -1:
+                return;
+            case 0:
+                PlayerSetJokerModel();
+                break;
+            case 1:
+                PlayerSetJokerGAP();
+                break;
+            case 2:
+                PlayerAnimViewerDisplay();
+                break;
+            case 3:
+                PlayerSelectModelScale();
+                break;
+            case 4:
+                PlayerAttachItemModel(FLD_PC_GET_RESHND(0));
+                break;
+        }
+    }
+}
+
+// Joker Model
+void PlayerSetJokerModel()
+{
+    int modelStart = 100000;
+    int modelMiddle = SelectNumberPrompt(MiddleDigitsGMD, 3) * 100;
+    int modelLast = SelectNumberPrompt(LastDigitsGMD, 2);
+    SET_COUNT(18, modelStart + modelMiddle + modelLast);
+    if (SelectNoYesPrompt(ReloadConfirm))
+    {
+        CALL_FIELD(FLD_GET_MAJOR(), FLD_GET_MINOR(), 0, 0);
+        return;
+    }
+        
+}
+
+// Joker GAP
+void PlayerSetJokerGAP()
+{
+    int gapLast = SelectNumberPrompt(LastDigitsGAP, 3);
+    SET_COUNT(22, gapLast);
+    if (SelectNoYesPrompt(ReloadConfirm))
+    {
+        CALL_FIELD(FLD_GET_MAJOR(), FLD_GET_MINOR(), 0, 0);
+        return;
+    }
+}
+
 
 // Persona Stock Editor
 void PersonaEditorOpen() 
