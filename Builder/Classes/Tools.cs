@@ -17,7 +17,7 @@ namespace ModMenuBuilder
             cmdInfo.UseShellExecute = false;
             cmdInfo.FileName = $"\"{program}\"";
             cmdInfo.WindowStyle = ProcessWindowStyle.Hidden;
-            cmdInfo.WorkingDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
+            cmdInfo.WorkingDirectory = Program.exeDir;
             cmdInfo.Arguments = string.Join(" ", args);
 
             using (Process process = new Process())

@@ -1,6 +1,12 @@
+/* Vanilla Start */
 import("../../../Assets/Vanilla/field/field.bf");
 import("placeholder.msg");
-import("../../ModMenu.flow");
+/* Vanilla End */
+/* Royal Start */
+import("../../../Assets/Royal/field/field.bf");
+import("placeholderRoyal.msg");
+/* Royal End */
+import("../../ModMenu/ModMenu.flow");
 
 void CallOriginalSquareMenu()
 {

@@ -12,18 +12,72 @@ namespace ModMenuBuilder
     {
         public static ProgramOptions Options { get; private set; }
         public static Game SelectedGame { get; private set; } = new Game();
+        public static string exeDir;
 
         public static List<InputFile> InputFiles = new List<InputFile>()
         {
             new InputFile() { Name = "at_dng.bf", Path = "field", Archive = "atDngPack.pac", HookPath = "mementos" },
             new InputFile() { Name = "dungeon.bf", Path = "field", Archive = "dngPack.pac", HookPath = "palace" },
             new InputFile() { Name = "field.bf", Path = "field", Archive = "fldPack.pac", HookPath = "overworld" },
-            new InputFile() { Name = "fscr0150_002_100.bf", Path = "script/field", Archive = "", HookPath = "introduction" },
-            new InputFile() { Name = "sharedUI.spd", Path = "camp/shared", Archive = "", HookPath = "" }
+            new InputFile() { Name = "fscr0150_002_100.bf", Path = "script\\field", Archive = "", HookPath = "introduction" },
+            new InputFile() { Name = "sharedUI.spd", Path = "camp\\shared", Archive = "", HookPath = "" }
+        };
+
+        public static List<string> Scripts = new List<string>()
+        {
+            "ModMenu\\Calendar\\Calendar.flow",
+
+            "ModMenu\\Call\\Battle\\Battle.flow",
+            "ModMenu\\Call\\Cutins\\Cutins.flow",
+            "ModMenu\\Call\\Events\\Events.flow",
+            "ModMenu\\Call\\Fields\\Fields.flow",
+            "ModMenu\\Call\\Font\\Font.flow",
+            "ModMenu\\Call\\Sound\\Sound.flow",
+            "ModMenu\\Call\\Call.flow",
+
+            "ModMenu\\Camera\\Environment\\Environment.flow",
+            "ModMenu\\Camera\\Camera.flow",
+
+            "ModMenu\\Flags\\Category\\HUD\\HUDFlags.flow",
+            "ModMenu\\Flags\\Category\\Party\\PartyFlags.flow",
+            "ModMenu\\Flags\\Category\\Personas\\PersonaFlags.flow",
+            "ModMenu\\Flags\\Category\\Room\\RoomFlags.flow",
+            "ModMenu\\Flags\\Category\\FlagCategories.flow",
+            "ModMenu\\Flags\\Flags.flow",
+
+            "ModMenu\\Player\\Appearance\\Animation\\PlayerAnimation.flow",
+            "ModMenu\\Player\\Appearance\\Model\\PlayerModel.flow",
+            "ModMenu\\Player\\Appearance\\PlayerAppearance.flow",
+            "ModMenu\\Player\\Confidants\\Confidants.flow",
+            "ModMenu\\Player\\Items\\Items.flow",
+            "ModMenu\\Player\\Personas\\Reserve\\ReservePersonas.flow",
+            "ModMenu\\Player\\Personas\\Select\\PersonaSelect.flow",
+            "ModMenu\\Player\\Personas\\Personas.flow",
+            "ModMenu\\Player\\Skills\\Reserve\\ReserveSkills.flow",
+            "ModMenu\\Player\\Skills\\Select\\SkillSelect.flow",
+            "ModMenu\\Player\\Skills\\Skills.flow",
+            "ModMenu\\Player\\Stats\\Stats.flow",
+            "ModMenu\\Player\\Player.flow",
+
+            "ModMenu\\Royal\\Royal.flow",
+
+            "ModMenu\\Spawn\\FieldModels\\FieldModels.flow",
+            "ModMenu\\Spawn\\NPCs\\Animation\\NPCAnimation.flow",
+            "ModMenu\\Spawn\\NPCs\\NPCs.flow",
+            "ModMenu\\Spawn\\Particles\\Particles.flow",
+
+            "Utilities\\AssignNames.flow",
+            "Utilities\\Math.flow",
+            "Utilities\\Utilities.flow",
+
+            "ModMenu\\ModMenu.flow",
         };
 
         static void Main(string[] args)
         {
+            // Get executing directory
+            exeDir = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
+
             // Show about message
             Console.Write(SimpleCommandLineFormatter.Default.FormatAbout<ProgramOptions>("ShrineFox", 
                 "\nGenerates Mod Menu output for P5/P5R." +
@@ -77,7 +131,7 @@ namespace ModMenuBuilder
         public string Encoding { get; set; } = "P5";
 
         [Option("o", "output", "path", "Specifies the path to the directory to use as output.")]
-        public string Output { get; set; } = ".\\Output";
+        public string Output { get; set; } = "";
     }
 
     public class InputFile
@@ -86,7 +140,6 @@ namespace ModMenuBuilder
         public string Path { get; set; } = "";
         public string Archive { get; set; } = "";
         public string HookPath { get; set; } = "";
-
     }
 
     public class Game

@@ -1,0 +1,43 @@
+﻿import("Battle/Battle.flow");
+import("Cutins/Cutins.flow");
+import("Events/Events.flow");
+import("Fields/Fields.flow");
+import("Font/Font.flow");
+import("Sound/Sound.flow");
+import("Call.msg");
+
+void CallMenu()
+{
+    while (true)
+    {
+        switch (DescriptionMenu(Title_Call, Options_Call))
+        {
+            case -1:
+                return;
+            case 0:
+                // Battle/Battle.flow
+                BattleMenu();
+                break;
+            case 1:
+                // Fields/Fields.flow
+                FieldMenu();
+                break;
+            case 2:
+                // Events/Events.flow
+                EventMenu();
+                break;
+            case 3:
+                // Cutins/Cutins.flow
+                CutinsMenu();
+                break;
+            case 4:
+                // Font/Font.flow
+                FontMenu();
+                break;
+            case 5:
+                // Sound/Sound.flow
+                SoundMenu();
+                break;
+        }
+    }
+}

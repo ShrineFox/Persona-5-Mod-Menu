@@ -1,0 +1,592 @@
+import( "ReserveSkills.msg" );
+
+void ReserveSkillsPage1()
+{
+	ReserveSkills1();
+
+	int ReserveSSelection1 = NameMenu(ReserveSkillSelect, SelReserveSkills1);
+	switch (ReserveSSelection1)
+	{
+		case -1:
+			return;
+		case 00: SKILL_ADD((unitId + 1), 001); return;
+		case 01: SKILL_ADD((unitId + 1), 002); return;
+		case 02: SKILL_ADD((unitId + 1), 003); return;
+		case 03: SKILL_ADD((unitId + 1), 004); return;
+		case 04: SKILL_ADD((unitId + 1), 005); return;
+		case 05: SKILL_ADD((unitId + 1), 006); return;
+		case 06: SKILL_ADD((unitId + 1), 007); return;
+		case 07: SKILL_ADD((unitId + 1), 008); return;
+		case 08: SKILL_ADD((unitId + 1), 009); return;
+		case 09: SKILL_ADD((unitId + 1), 018); return;
+		case 10: SKILL_ADD((unitId + 1), 019); return;
+		case 11: SKILL_ADD((unitId + 1), 028); return;
+		case 12: SKILL_ADD((unitId + 1), 029); return;
+		case 13: SKILL_ADD((unitId + 1), 037); return;
+		case 14: SKILL_ADD((unitId + 1), 038); return;
+		case 15: SKILL_ADD((unitId + 1), 039); return;
+		case 16: SKILL_ADD((unitId + 1), 048); return;
+		case 17: SKILL_ADD((unitId + 1), 049); return;
+		case 18: SKILL_ADD((unitId + 1), 079); return;
+		case 19: SKILL_ADD((unitId + 1), 099); return;
+		case 20: SKILL_ADD((unitId + 1), 108); return;
+		case 21: SKILL_ADD((unitId + 1), 109); return;
+		case 22: SKILL_ADD((unitId + 1), 114); return;
+		case 23: SKILL_ADD((unitId + 1), 115); return;
+		case 24: SKILL_ADD((unitId + 1), 116); return;
+		case 25: SKILL_ADD((unitId + 1), 117); return;
+		case 26: SKILL_ADD((unitId + 1), 118); return;
+		case 27: SKILL_ADD((unitId + 1), 119); return;
+		case 28: SKILL_ADD((unitId + 1), 166); return;
+		case 29: SKILL_ADD((unitId + 1), 167); return;
+		case 30: SKILL_ADD((unitId + 1), 168); return;
+		case 31:
+			ReserveSkillsPage2();
+			return;
+	}
+}
+void ReserveSkillsPage2()
+{
+	ReserveSkills2();
+	int ReserveSSelection2 = NameMenu(ReserveSkillSelect, SelReserveSkills2);
+	switch (ReserveSSelection2)
+	{
+		case -1:
+			return;
+		case 00: SKILL_ADD((unitId + 1), 169); return;
+		case 01: SKILL_ADD((unitId + 1), 172); return;
+		case 02: SKILL_ADD((unitId + 1), 173); return;
+		case 03: SKILL_ADD((unitId + 1), 174); return;
+		case 04: SKILL_ADD((unitId + 1), 175); return;
+		case 05: SKILL_ADD((unitId + 1), 178); return;
+		case 06: SKILL_ADD((unitId + 1), 179); return;
+		case 07: SKILL_ADD((unitId + 1), 182); return;
+		case 08: SKILL_ADD((unitId + 1), 183); return;
+		case 09: SKILL_ADD((unitId + 1), 184); return;
+		case 10: SKILL_ADD((unitId + 1), 185); return;
+		case 11: SKILL_ADD((unitId + 1), 186); return;
+		case 12: SKILL_ADD((unitId + 1), 187); return;
+		case 13: SKILL_ADD((unitId + 1), 188); return;
+		case 14: SKILL_ADD((unitId + 1), 189); return;
+		case 15: SKILL_ADD((unitId + 1), 196); return;
+		case 16: SKILL_ADD((unitId + 1), 199); return;
+		case 17: SKILL_ADD((unitId + 1), 207); return;
+		case 18: SKILL_ADD((unitId + 1), 208); return;
+		case 19: SKILL_ADD((unitId + 1), 209); return;
+		case 20: SKILL_ADD((unitId + 1), 214); return;
+		case 21: SKILL_ADD((unitId + 1), 217); return;
+		case 22: SKILL_ADD((unitId + 1), 218); return;
+		case 23: SKILL_ADD((unitId + 1), 219); return;
+		case 24: SKILL_ADD((unitId + 1), 223); return;
+		case 25: SKILL_ADD((unitId + 1), 228); return;
+		case 26: SKILL_ADD((unitId + 1), 229); return;
+		case 27: SKILL_ADD((unitId + 1), 232); return;
+		case 28: SKILL_ADD((unitId + 1), 233); return;
+		case 29: SKILL_ADD((unitId + 1), 234); return;
+		case 30:
+			ReserveSkillsPage3();
+			return;
+		case 31:
+			ReserveSkillsPage1();
+			return;
+	}
+}
+void ReserveSkillsPage3()
+{
+	ReserveSkills3();
+	int ReserveSSelection3 = NameMenu(ReserveSkillSelect, SelReserveSkills3);
+	switch (ReserveSSelection3)
+	{
+		case -1:
+			return;
+		case 00: SKILL_ADD((unitId + 1), 238); return;
+		case 01: SKILL_ADD((unitId + 1), 239); return;
+		case 02: SKILL_ADD((unitId + 1), 240); return;
+		case 03: SKILL_ADD((unitId + 1), 245); return;
+		case 04: SKILL_ADD((unitId + 1), 246); return;
+		case 05: SKILL_ADD((unitId + 1), 249); return;
+		case 06: SKILL_ADD((unitId + 1), 251); return;
+		case 07: SKILL_ADD((unitId + 1), 252); return;
+		case 08: SKILL_ADD((unitId + 1), 255); return;
+		case 09: SKILL_ADD((unitId + 1), 256); return;
+		case 10: SKILL_ADD((unitId + 1), 257); return;
+		case 11: SKILL_ADD((unitId + 1), 258); return;
+		case 12: SKILL_ADD((unitId + 1), 259); return;
+		case 13: SKILL_ADD((unitId + 1), 269); return;
+		case 14: SKILL_ADD((unitId + 1), 279); return;
+		case 15: SKILL_ADD((unitId + 1), 288); return;
+		case 16: SKILL_ADD((unitId + 1), 289); return;
+		case 17: SKILL_ADD((unitId + 1), 290); return;
+		case 18: SKILL_ADD((unitId + 1), 291); return;
+		case 19: SKILL_ADD((unitId + 1), 292); return;
+		case 20: SKILL_ADD((unitId + 1), 293); return;
+		case 21: SKILL_ADD((unitId + 1), 294); return;
+		case 22: SKILL_ADD((unitId + 1), 295); return;
+		case 23: SKILL_ADD((unitId + 1), 296); return;
+		case 24: SKILL_ADD((unitId + 1), 297); return;
+		case 25: SKILL_ADD((unitId + 1), 298); return;
+		case 26: SKILL_ADD((unitId + 1), 303); return;
+		case 27: SKILL_ADD((unitId + 1), 304); return;
+		case 28: SKILL_ADD((unitId + 1), 308); return;
+		case 29: SKILL_ADD((unitId + 1), 309); return;
+		case 30:
+			ReserveSkillsPage4();
+			return;
+		case 31:
+			ReserveSkillsPage2();
+			return;
+	}
+}
+void ReserveSkillsPage4()
+{
+	ReserveSkills4();
+	int ReserveSSelection4 = NameMenu(ReserveSkillSelect, SelReserveSkills4);
+	switch (ReserveSSelection4)
+	{
+		case -1:
+			return;
+		case 00: SKILL_ADD((unitId + 1), 313); return;
+		case 01: SKILL_ADD((unitId + 1), 314); return;
+		case 02: SKILL_ADD((unitId + 1), 317); return;
+		case 03: SKILL_ADD((unitId + 1), 319); return;
+		case 04: SKILL_ADD((unitId + 1), 320); return;
+		case 05: SKILL_ADD((unitId + 1), 321); return;
+		case 06: SKILL_ADD((unitId + 1), 322); return;
+		case 07: SKILL_ADD((unitId + 1), 323); return;
+		case 08: SKILL_ADD((unitId + 1), 324); return;
+		case 09: SKILL_ADD((unitId + 1), 326); return;
+		case 10: SKILL_ADD((unitId + 1), 332); return;
+		case 11: SKILL_ADD((unitId + 1), 333); return;
+		case 12: SKILL_ADD((unitId + 1), 334); return;
+		case 13: SKILL_ADD((unitId + 1), 339); return;
+		case 14: SKILL_ADD((unitId + 1), 344); return;
+		case 15: SKILL_ADD((unitId + 1), 349); return;
+		case 16: SKILL_ADD((unitId + 1), 353); return;
+		case 17: SKILL_ADD((unitId + 1), 354); return;
+		case 18: SKILL_ADD((unitId + 1), 357); return;
+		case 19: SKILL_ADD((unitId + 1), 358); return;
+		case 20: SKILL_ADD((unitId + 1), 359); return;
+		case 21: SKILL_ADD((unitId + 1), 362); return;
+		case 22: SKILL_ADD((unitId + 1), 363); return;
+		case 23: SKILL_ADD((unitId + 1), 364); return;
+		case 24: SKILL_ADD((unitId + 1), 367); return;
+		case 25: SKILL_ADD((unitId + 1), 368); return;
+		case 26: SKILL_ADD((unitId + 1), 369); return;
+		case 27: SKILL_ADD((unitId + 1), 373); return;
+		case 28: SKILL_ADD((unitId + 1), 374); return;
+		case 29: SKILL_ADD((unitId + 1), 377); return;
+		case 30:
+			ReserveSkillsPage5();
+			return;
+		case 31:
+			ReserveSkillsPage3();
+			return;
+	}
+}
+void ReserveSkillsPage5()
+{
+	ReserveSkills5();
+	int ReserveSSelection5 = NameMenu(ReserveSkillSelect, SelReserveSkills5);
+	switch (ReserveSSelection5)
+	{
+		case -1:
+			return;
+		case 00: SKILL_ADD((unitId + 1), 378); return;
+		case 01: SKILL_ADD((unitId + 1), 379); return;
+		case 02: SKILL_ADD((unitId + 1), 384); return;
+		case 03: SKILL_ADD((unitId + 1), 389); return;
+		case 04: SKILL_ADD((unitId + 1), 392); return;
+		case 05: SKILL_ADD((unitId + 1), 397); return;
+		case 06: SKILL_ADD((unitId + 1), 398); return;
+		case 07: SKILL_ADD((unitId + 1), 399); return;
+		case 08: SKILL_ADD((unitId + 1), 599); return;
+		case 09: SKILL_ADD((unitId + 1), 650); return;
+		case 10: SKILL_ADD((unitId + 1), 651); return;
+		case 11: SKILL_ADD((unitId + 1), 652); return;
+		case 12: SKILL_ADD((unitId + 1), 653); return;
+		case 13: SKILL_ADD((unitId + 1), 664); return;
+		case 14: SKILL_ADD((unitId + 1), 703); return;
+		case 15: SKILL_ADD((unitId + 1), 713); return;
+		case 16: SKILL_ADD((unitId + 1), 714); return;
+		case 17: SKILL_ADD((unitId + 1), 715); return;
+		case 18: SKILL_ADD((unitId + 1), 716); return;
+		case 19: SKILL_ADD((unitId + 1), 717); return;
+		case 20: SKILL_ADD((unitId + 1), 718); return;
+		case 21: SKILL_ADD((unitId + 1), 719); return;
+		case 22: SKILL_ADD((unitId + 1), 728); return;
+		case 23: SKILL_ADD((unitId + 1), 729); return;
+		case 24: SKILL_ADD((unitId + 1), 734); return;
+		case 25: SKILL_ADD((unitId + 1), 735); return;
+		case 26: SKILL_ADD((unitId + 1), 761); return;
+		case 27: SKILL_ADD((unitId + 1), 762); return;
+		case 28: SKILL_ADD((unitId + 1), 763); return;
+		case 29: SKILL_ADD((unitId + 1), 764); return;
+		case 30:
+			ReserveSkillsPage6();
+			return;
+		case 31:
+			ReserveSkillsPage4();
+			return;
+	}
+}
+void ReserveSkillsPage6()
+{
+	ReserveSkills6();
+	int ReserveSSelection6 = NameMenu(ReserveSkillSelect, SelReserveSkills6);
+	switch (ReserveSSelection6)
+	{
+		case -1:
+			return;
+		case 00: SKILL_ADD((unitId + 1), 765); return;
+		case 01: SKILL_ADD((unitId + 1), 766); return;
+		case 02: SKILL_ADD((unitId + 1), 767); return;
+		case 03: SKILL_ADD((unitId + 1), 777); return;
+		case 04: SKILL_ADD((unitId + 1), 778); return;
+		case 05: SKILL_ADD((unitId + 1), 779); return;
+		case 06: SKILL_ADD((unitId + 1), 780); return;
+		case 07: SKILL_ADD((unitId + 1), 781); return;
+		case 08: SKILL_ADD((unitId + 1), 782); return;
+		case 09: SKILL_ADD((unitId + 1), 783); return;
+		case 10: SKILL_ADD((unitId + 1), 784); return;
+		case 11: SKILL_ADD((unitId + 1), 785); return;
+		case 12: SKILL_ADD((unitId + 1), 786); return;
+		case 13: SKILL_ADD((unitId + 1), 787); return;
+		case 14: SKILL_ADD((unitId + 1), 788); return;
+		case 15: SKILL_ADD((unitId + 1), 789); return;
+		case 16: SKILL_ADD((unitId + 1), 790); return;
+		case 17: SKILL_ADD((unitId + 1), 791); return;
+		case 18: SKILL_ADD((unitId + 1), 792); return;
+		case 19: SKILL_ADD((unitId + 1), 793); return;
+		case 20: SKILL_ADD((unitId + 1), 794); return;
+		case 21: SKILL_ADD((unitId + 1), 795); return;
+		case 22: SKILL_ADD((unitId + 1), 796); return;
+		case 23: SKILL_ADD((unitId + 1), 797); return;
+		case 24: SKILL_ADD((unitId + 1), 798); return;
+		case 25: SKILL_ADD((unitId + 1), 799); return;
+		case 26: SKILL_ADD((unitId + 1), 803); return;
+		case 27: SKILL_ADD((unitId + 1), 804); return;
+		case 28: SKILL_ADD((unitId + 1), 807); return;
+		case 29: SKILL_ADD((unitId + 1), 808); return;
+		case 30:
+			ReserveSkillsPage7();
+			return;
+		case 31:
+			ReserveSkillsPage5();
+			return;
+	}
+}
+void ReserveSkillsPage7()
+{
+	ReserveSkills7();
+	int ReserveSSelection7 = NameMenu(ReserveSkillSelect, SelReserveSkills7);
+	switch (ReserveSSelection7)
+	{
+		case -1:
+			return;
+		case 00: SKILL_ADD((unitId + 1), 842); return;
+		case 01: SKILL_ADD((unitId + 1), 845); return;
+		case 02: SKILL_ADD((unitId + 1), 848); return;
+		case 03: SKILL_ADD((unitId + 1), 849); return;
+		case 04: SKILL_ADD((unitId + 1), 854); return;
+		case 05: SKILL_ADD((unitId + 1), 859); return;
+		case 06: SKILL_ADD((unitId + 1), 866); return;
+		case 07: SKILL_ADD((unitId + 1), 874); return;
+		case 08: SKILL_ADD((unitId + 1), 879); return;
+		case 09: SKILL_ADD((unitId + 1), 884); return;
+		case 10: SKILL_ADD((unitId + 1), 889); return;
+		case 11: SKILL_ADD((unitId + 1), 894); return;
+		case 12: SKILL_ADD((unitId + 1), 899); return;
+		case 13: SKILL_ADD((unitId + 1), 904); return;
+		case 14: SKILL_ADD((unitId + 1), 908); return;
+		case 15: SKILL_ADD((unitId + 1), 909); return;
+		case 16: SKILL_ADD((unitId + 1), 917); return;
+		case 17: SKILL_ADD((unitId + 1), 919); return;
+		case 18: SKILL_ADD((unitId + 1), 927); return;
+		case 19: SKILL_ADD((unitId + 1), 929); return;
+		case 20: SKILL_ADD((unitId + 1), 937); return;
+		case 21: SKILL_ADD((unitId + 1), 939); return;
+		case 22: SKILL_ADD((unitId + 1), 943); return;
+		case 23: SKILL_ADD((unitId + 1), 948); return;
+		case 24: SKILL_ADD((unitId + 1), 952); return;
+		case 25: SKILL_ADD((unitId + 1), 960); return;
+		case 26: SKILL_ADD((unitId + 1), 965); return;
+		case 27: SKILL_ADD((unitId + 1), 968); return;
+		case 28: SKILL_ADD((unitId + 1), 971); return;
+		case 29: SKILL_ADD((unitId + 1), 974); return;
+		case 30:
+			ReserveSkillsPage8();
+			return;
+		case 31:
+			ReserveSkillsPage6();
+			return;
+	}
+}
+void ReserveSkillsPage8()
+{
+	ReserveSkills8();
+	int ReserveSSelection8 = NameMenu(ReserveSkillSelect, SelReserveSkills8);
+	switch (ReserveSSelection8)
+	{
+		case -1:
+			return;
+		case 00: SKILL_ADD((unitId + 1), 977); return;
+		case 01: SKILL_ADD((unitId + 1), 980); return;
+		case 02: SKILL_ADD((unitId + 1), 983); return;
+		case 03: SKILL_ADD((unitId + 1), 993); return;
+		case 04: SKILL_ADD((unitId + 1), 994); return;
+		case 05: SKILL_ADD((unitId + 1), 995); return;
+		case 06: SKILL_ADD((unitId + 1), 996); return;
+		case 07: SKILL_ADD((unitId + 1), 997); return;
+		case 08: SKILL_ADD((unitId + 1), 998); return;
+		case 09: SKILL_ADD((unitId + 1), 999); return;
+		case 10:
+			ReserveSkillsPage7();
+			return;
+	}
+}
+
+void ReserveSkills1()
+{
+	SET_MSG_VAR( 01,001,6 );
+	SET_MSG_VAR( 02,002,6 );
+	SET_MSG_VAR( 03,003,6 );
+	SET_MSG_VAR( 04,004,6 );
+	SET_MSG_VAR( 05,005,6 );
+	SET_MSG_VAR( 06,006,6 );
+	SET_MSG_VAR( 07,007,6 );
+	SET_MSG_VAR( 08,008,6 );
+	SET_MSG_VAR( 09,009,6 );
+	SET_MSG_VAR( 10,018,6 );
+	SET_MSG_VAR( 11,019,6 );
+	SET_MSG_VAR( 12,028,6 );
+	SET_MSG_VAR( 13,029,6 );
+	SET_MSG_VAR( 14,037,6 );
+	SET_MSG_VAR( 15,038,6 );
+	SET_MSG_VAR( 16,039,6 );
+	SET_MSG_VAR( 17,048,6 );
+	SET_MSG_VAR( 18,049,6 );
+	SET_MSG_VAR( 19,079,6 );
+	SET_MSG_VAR( 20,099,6 );
+	SET_MSG_VAR( 21,108,6 );
+	SET_MSG_VAR( 22,109,6 );
+	SET_MSG_VAR( 23,114,6 );
+	SET_MSG_VAR( 24,115,6 );
+	SET_MSG_VAR( 25,116,6 );
+	SET_MSG_VAR( 26,117,6 );
+	SET_MSG_VAR( 27,118,6 );
+	SET_MSG_VAR( 28,119,6 );
+	SET_MSG_VAR( 29,166,6 );
+	SET_MSG_VAR( 30,167,6 );
+	SET_MSG_VAR( 31,168,6 );
+}
+void ReserveSkills2()
+{
+	SET_MSG_VAR( 01,169,6 );
+	SET_MSG_VAR( 02,172,6 );
+	SET_MSG_VAR( 03,173,6 );
+	SET_MSG_VAR( 04,174,6 );
+	SET_MSG_VAR( 05,175,6 );
+	SET_MSG_VAR( 06,178,6 );
+	SET_MSG_VAR( 07,179,6 );
+	SET_MSG_VAR( 08,182,6 );
+	SET_MSG_VAR( 09,183,6 );
+	SET_MSG_VAR( 10,184,6 );
+	SET_MSG_VAR( 11,185,6 );
+	SET_MSG_VAR( 12,186,6 );
+	SET_MSG_VAR( 13,187,6 );
+	SET_MSG_VAR( 14,188,6 );
+	SET_MSG_VAR( 15,189,6 );
+	SET_MSG_VAR( 16,196,6 );
+	SET_MSG_VAR( 17,199,6 );
+	SET_MSG_VAR( 18,207,6 );
+	SET_MSG_VAR( 19,208,6 );
+	SET_MSG_VAR( 20,209,6 );
+	SET_MSG_VAR( 21,214,6 );
+	SET_MSG_VAR( 22,217,6 );
+	SET_MSG_VAR( 23,218,6 );
+	SET_MSG_VAR( 24,219,6 );
+	SET_MSG_VAR( 25,223,6 );
+	SET_MSG_VAR( 26,228,6 );
+	SET_MSG_VAR( 27,229,6 );
+	SET_MSG_VAR( 28,232,6 );
+	SET_MSG_VAR( 29,233,6 );
+	SET_MSG_VAR( 30,234,6 );
+}
+void ReserveSkills3()
+{
+	SET_MSG_VAR( 01,238,6 );
+	SET_MSG_VAR( 02,239,6 );
+	SET_MSG_VAR( 03,240,6 );
+	SET_MSG_VAR( 04,245,6 );
+	SET_MSG_VAR( 05,246,6 );
+	SET_MSG_VAR( 06,249,6 );
+	SET_MSG_VAR( 07,251,6 );
+	SET_MSG_VAR( 08,252,6 );
+	SET_MSG_VAR( 09,255,6 );
+	SET_MSG_VAR( 10,256,6 );
+	SET_MSG_VAR( 11,257,6 );
+	SET_MSG_VAR( 12,258,6 );
+	SET_MSG_VAR( 13,259,6 );
+	SET_MSG_VAR( 14,269,6 );
+	SET_MSG_VAR( 15,279,6 );
+	SET_MSG_VAR( 16,288,6 );
+	SET_MSG_VAR( 17,289,6 );
+	SET_MSG_VAR( 18,290,6 );
+	SET_MSG_VAR( 19,291,6 );
+	SET_MSG_VAR( 20,292,6 );
+	SET_MSG_VAR( 21,293,6 );
+	SET_MSG_VAR( 22,294,6 );
+	SET_MSG_VAR( 23,295,6 );
+	SET_MSG_VAR( 24,296,6 );
+	SET_MSG_VAR( 25,297,6 );
+	SET_MSG_VAR( 26,298,6 );
+	SET_MSG_VAR( 27,303,6 );
+	SET_MSG_VAR( 28,304,6 );
+	SET_MSG_VAR( 29,308,6 );
+	SET_MSG_VAR( 30,309,6 );
+}
+void ReserveSkills4()
+{
+	SET_MSG_VAR( 01,313,6 );
+	SET_MSG_VAR( 02,314,6 );
+	SET_MSG_VAR( 03,317,6 );
+	SET_MSG_VAR( 04,319,6 );
+	SET_MSG_VAR( 05,320,6 );
+	SET_MSG_VAR( 06,321,6 );
+	SET_MSG_VAR( 07,322,6 );
+	SET_MSG_VAR( 08,323,6 );
+	SET_MSG_VAR( 09,324,6 );
+	SET_MSG_VAR( 10,326,6 );
+	SET_MSG_VAR( 11,332,6 );
+	SET_MSG_VAR( 12,333,6 );
+	SET_MSG_VAR( 13,334,6 );
+	SET_MSG_VAR( 14,339,6 );
+	SET_MSG_VAR( 15,344,6 );
+	SET_MSG_VAR( 16,349,6 );
+	SET_MSG_VAR( 17,353,6 );
+	SET_MSG_VAR( 18,354,6 );
+	SET_MSG_VAR( 19,357,6 );
+	SET_MSG_VAR( 20,358,6 );
+	SET_MSG_VAR( 21,359,6 );
+	SET_MSG_VAR( 22,362,6 );
+	SET_MSG_VAR( 23,363,6 );
+	SET_MSG_VAR( 24,364,6 );
+	SET_MSG_VAR( 25,367,6 );
+	SET_MSG_VAR( 26,368,6 );
+	SET_MSG_VAR( 27,369,6 );
+	SET_MSG_VAR( 28,373,6 );
+	SET_MSG_VAR( 29,374,6 );
+	SET_MSG_VAR( 30,377,6 );
+}
+void ReserveSkills5()
+{
+	SET_MSG_VAR( 01,378,6 );
+	SET_MSG_VAR( 02,379,6 );
+	SET_MSG_VAR( 03,384,6 );
+	SET_MSG_VAR( 04,389,6 );
+	SET_MSG_VAR( 05,392,6 );
+	SET_MSG_VAR( 06,397,6 );
+	SET_MSG_VAR( 07,398,6 );
+	SET_MSG_VAR( 08,399,6 );
+	SET_MSG_VAR( 09,599,6 );
+	SET_MSG_VAR( 10,650,6 );
+	SET_MSG_VAR( 11,651,6 );
+	SET_MSG_VAR( 12,652,6 );
+	SET_MSG_VAR( 13,653,6 );
+	SET_MSG_VAR( 14,664,6 );
+	SET_MSG_VAR( 15,703,6 );
+	SET_MSG_VAR( 16,713,6 );
+	SET_MSG_VAR( 17,714,6 );
+	SET_MSG_VAR( 18,715,6 );
+	SET_MSG_VAR( 19,716,6 );
+	SET_MSG_VAR( 20,717,6 );
+	SET_MSG_VAR( 21,718,6 );
+	SET_MSG_VAR( 22,719,6 );
+	SET_MSG_VAR( 23,728,6 );
+	SET_MSG_VAR( 24,729,6 );
+	SET_MSG_VAR( 25,734,6 );
+	SET_MSG_VAR( 26,735,6 );
+	SET_MSG_VAR( 27,761,6 );
+	SET_MSG_VAR( 28,762,6 );
+	SET_MSG_VAR( 29,763,6 );
+	SET_MSG_VAR( 30,764,6 );
+}
+void ReserveSkills6()
+{
+	SET_MSG_VAR( 01,765,6 );
+	SET_MSG_VAR( 02,766,6 );
+	SET_MSG_VAR( 03,767,6 );
+	SET_MSG_VAR( 04,777,6 );
+	SET_MSG_VAR( 05,778,6 );
+	SET_MSG_VAR( 06,779,6 );
+	SET_MSG_VAR( 07,780,6 );
+	SET_MSG_VAR( 08,781,6 );
+	SET_MSG_VAR( 09,782,6 );
+	SET_MSG_VAR( 10,783,6 );
+	SET_MSG_VAR( 11,784,6 );
+	SET_MSG_VAR( 12,785,6 );
+	SET_MSG_VAR( 13,786,6 );
+	SET_MSG_VAR( 14,787,6 );
+	SET_MSG_VAR( 15,788,6 );
+	SET_MSG_VAR( 16,789,6 );
+	SET_MSG_VAR( 17,790,6 );
+	SET_MSG_VAR( 18,791,6 );
+	SET_MSG_VAR( 19,792,6 );
+	SET_MSG_VAR( 20,793,6 );
+	SET_MSG_VAR( 21,794,6 );
+	SET_MSG_VAR( 22,795,6 );
+	SET_MSG_VAR( 23,796,6 );
+	SET_MSG_VAR( 24,797,6 );
+	SET_MSG_VAR( 25,798,6 );
+	SET_MSG_VAR( 26,799,6 );
+	SET_MSG_VAR( 27,803,6 );
+	SET_MSG_VAR( 28,804,6 );
+	SET_MSG_VAR( 29,807,6 );
+	SET_MSG_VAR( 30,808,6 );
+}
+void ReserveSkills7()
+{
+	SET_MSG_VAR( 01,842,6 );
+	SET_MSG_VAR( 02,845,6 );
+	SET_MSG_VAR( 03,848,6 );
+	SET_MSG_VAR( 04,849,6 );
+	SET_MSG_VAR( 05,854,6 );
+	SET_MSG_VAR( 06,859,6 );
+	SET_MSG_VAR( 07,866,6 );
+	SET_MSG_VAR( 08,874,6 );
+	SET_MSG_VAR( 09,879,6 );
+	SET_MSG_VAR( 10,884,6 );
+	SET_MSG_VAR( 11,889,6 );
+	SET_MSG_VAR( 12,894,6 );
+	SET_MSG_VAR( 13,899,6 );
+	SET_MSG_VAR( 14,904,6 );
+	SET_MSG_VAR( 15,908,6 );
+	SET_MSG_VAR( 16,909,6 );
+	SET_MSG_VAR( 17,917,6 );
+	SET_MSG_VAR( 18,919,6 );
+	SET_MSG_VAR( 19,927,6 );
+	SET_MSG_VAR( 20,929,6 );
+	SET_MSG_VAR( 21,937,6 );
+	SET_MSG_VAR( 22,939,6 );
+	SET_MSG_VAR( 23,943,6 );
+	SET_MSG_VAR( 24,948,6 );
+	SET_MSG_VAR( 25,952,6 );
+	SET_MSG_VAR( 26,960,6 );
+	SET_MSG_VAR( 27,965,6 );
+	SET_MSG_VAR( 28,968,6 );
+	SET_MSG_VAR( 29,971,6 );
+	SET_MSG_VAR( 30,974,6 );
+}
+void ReserveSkills8()
+{
+	SET_MSG_VAR( 01,977,6 );
+	SET_MSG_VAR( 02,980,6 );
+	SET_MSG_VAR( 03,983,6 );
+	SET_MSG_VAR( 04,993,6 );
+	SET_MSG_VAR( 05,994,6 );
+	SET_MSG_VAR( 06,995,6 );
+	SET_MSG_VAR( 07,996,6 );
+	SET_MSG_VAR( 08,997,6 );
+	SET_MSG_VAR( 09,998,6 );
+	SET_MSG_VAR( 10,999,6 );
+}

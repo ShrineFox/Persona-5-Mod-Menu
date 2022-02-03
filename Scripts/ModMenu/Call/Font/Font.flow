@@ -1,0 +1,12 @@
+﻿import("Font.msg");
+
+void FontMenu()
+{
+    while (true)
+    {
+        int selection = SEL_GENERIC(Title_FontTest, Options_FontTest);
+        if (selection == -1)
+            return;
+        Message(Message_FontTest_Sample + selection);
+    }
+}

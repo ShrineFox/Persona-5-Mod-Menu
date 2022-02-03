@@ -1,0 +1,195 @@
+﻿import("Environment.msg");
+
+// Global Variables
+global float fogNearClip;
+global float fogFarClip;
+global int fogHue;
+global int fogSat;
+global int fogLight;
+global int fogAlp;
+
+void EnvironmentMenu()
+{
+    while (true)
+    {
+        switch (DescriptionMenu(Title_Env, Options_Env))
+        {
+            case -1:
+                return;
+            case 0:
+                // Set Scenelights to White
+                FLD_SET_SCNLIGHT_AMB(255, 255, 255, 0);
+                FLD_SET_SCNLIGHT_DIFF(255, 255, 255, 0);
+                FLD_SET_SCNLIGHT_SPEC(255, 255, 255, 0);
+                break;
+            case 1:
+                PrintScenelights();
+                break;
+            case 2:
+                // Set Ambient Scenelight
+                SetHSL(0);
+                break;
+            case 3:
+                // Set Diffuse Scenelight
+                SetHSL(1);
+                break;
+            case 4:
+                // Set Specular Scenelight
+                SetHSL(2);
+                break;
+            case 5:
+                PrintFog();
+                break;
+            case 6:
+                // Set Near Clip
+                SetFog(0);
+                break;
+            case 7:
+                // Set Far Clip
+                SetFog(1);
+                break;
+            case 8:
+                // Set Fog Hue
+                SetFog(2);
+                break;
+            case 9:
+                // Set Fog Saturation
+                SetFog(3);
+                break;
+            case 10:
+                // Set Fog Lightness
+                SetFog(4);
+                break;
+            case 11:
+                // Set Fog Alpha
+                SetFog(5);
+                break;
+        }
+
+    }
+}
+
+void PrintScenelights()
+{
+    /* Vanilla Start */
+    PUTS(" ");
+    PUTS("Scenelight Params:");
+    PUTS(" ");
+    PUTS("- Ambient -");
+    PUTS("Hue:");
+    PUT(FLD_GET_SCNLIGHT_AMB_H());
+    PUTS("Saturation:");
+    PUT(FLD_GET_SCNLIGHT_AMB_S());
+    PUTS("Lightness:");
+    PUT(FLD_GET_SCNLIGHT_AMB_L());
+    PUTS(" ");
+    PUTS("- Diffuse -");
+    PUTS("Hue:");
+    PUT(FLD_GET_SCNLIGHT_DIFF_H());
+    PUTS("Saturation:");
+    PUT(FLD_GET_SCNLIGHT_DIFF_S());
+    PUTS("Lightness:");
+    PUT(FLD_GET_SCNLIGHT_DIFF_L());
+    PUTS(" ");
+    PUTS("- Specular -");
+    PUTS("Hue:");
+    PUT(FLD_GET_SCNLIGHT_SPEC_H());
+    PUTS("Saturation:");
+    PUT(FLD_GET_SCNLIGHT_SPEC_S());
+    PUTS("Lightness:");
+    PUT(FLD_GET_SCNLIGHT_SPEC_L());
+    PUTS(" ");
+    /* End Vanilla */
+}
+
+void PrintFog()
+{
+    /* Vanilla Start */
+    PUTS(" ");
+    PUTS("Fog Params:");
+    PUTS(" ");
+    PUTS("Near Clip:");
+    PUT(FLD_GET_FOG_NEAR_CLIP());
+    PUTS("Far Clip:");
+    PUT(FLD_GET_FOG_FAR_CLIP());
+    PUTS("Hue:");
+    PUT(FLD_GET_FOG_HUE());
+    PUTS("Saturation:");
+    PUT(FLD_GET_FOG_SATURATION());
+    PUTS("Lightness:");
+    PUT(FLD_GET_FOG_LUMINANCE());
+    PUTS("Alpha:");
+    PUT(FLD_GET_FOG_ALPHA());
+    /* End Vanilla */
+}
+
+void SetHSL(int adsChoice)
+{
+    SystemMessage(Message_Hue);
+    int sceneHue = NumberMenu(3);
+    if (sceneHue > 255)
+        sceneHue = 255;
+    SystemMessage(Message_Sat);
+    int sceneSat = NumberMenu(3);
+    if (sceneSat > 255)
+        sceneSat = 255;
+    SystemMessage(Message_Lum);
+    int sceneLight = NumberMenu(3);
+    if (sceneLight > 255)
+        sceneLight = 255;
+
+    switch (adsChoice)
+    {
+        case 0:
+            FLD_SET_SCNLIGHT_AMB(sceneHue, sceneSat, sceneLight, 0);
+            return;
+        case 1:
+            FLD_SET_SCNLIGHT_DIFF(sceneHue, sceneSat, sceneLight, 0);
+            return;
+        case 2:
+            FLD_SET_SCNLIGHT_SPEC(sceneHue, sceneSat, sceneLight, 0);
+            return;
+    }
+}
+
+void SetFog(int fogChoice)
+{
+    /* Vanilla Start */
+    fogNearClip = FLD_GET_FOG_NEAR_CLIP();
+    fogFarClip = FLD_GET_FOG_FAR_CLIP();
+    fogHue = FLD_GET_FOG_HUE();
+    fogSat = FLD_GET_FOG_SATURATION();
+    fogLight = FLD_GET_FOG_LUMINANCE();
+    fogAlp = FLD_GET_FOG_ALPHA();
+    /* End Vanilla */
+
+    switch (fogChoice)
+    {
+        case 0:
+            SystemMessage(Message_NearClip);
+            fogNearClip = FloatMenu();
+            break;
+        case 1:
+            SystemMessage(Message_FarClip);
+            fogFarClip = FloatMenu();
+            break;
+        case 2:
+            SystemMessage(Message_Hue);
+            fogHue = NumberMenu(3);
+            break;
+        case 3:
+            SystemMessage(Message_Sat);
+            fogSat = NumberMenu(3);
+            break;
+        case 4:
+            SystemMessage(Message_Lum);
+            fogLight = NumberMenu(3);
+            break;
+        case 5:
+            SystemMessage(Message_Alp);
+            fogAlp = NumberMenu(3);
+            break;
+    }
+    FLD_SET_FOG(fogNearClip, fogFarClip, fogHue, fogSat, fogLight, fogAlp, 0);
+    return;
+}

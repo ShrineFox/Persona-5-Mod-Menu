@@ -36,16 +36,16 @@ float PowF( int x, int n )
     return number;
 }
 
-void QuaternionFromEulerDegrees( float x, float y, float z, out float qX, out float qY, out float qZ, out float qW )
+void EulerToQuaternionDegrees( float x, float y, float z, out float qX, out float qY, out float qZ, out float qW )
 {
     x = DegreesToRadians( x );
     y = DegreesToRadians( y );
     z = DegreesToRadians( z );
-    
-    QuaternionFromEuler( x, y, z, out qX, out qY, out qZ, out qW );
+
+    EulerToQuaternion( x, y, z, out qX, out qY, out qZ, out qW );
 }
 
-void QuaternionFromEuler( float x, float y, float z, out float qX, out float qY, out float qZ, out float qW )
+void EulerToQuaternion( float x, float y, float z, out float qX, out float qY, out float qZ, out float qW )
 {
     x *= 0.5f;
     y *= 0.5f;
@@ -64,7 +64,48 @@ void QuaternionFromEuler( float x, float y, float z, out float qX, out float qY,
     qZ = c1 * c2 * s3 + s1 * s2 * c3;
 }
 
+void QuaternionToEuler(float qX, float qY, float qZ, float qW, out float x, out float y, out float z)
+{
+    float heading = 0f;
+    float attitude = 0f;
+    float bank = 0f;
+
+    float test = qX * qY + qZ * qW;
+    if (test > 0.499f)
+    {
+        // singularity at north pole
+        heading = 2f * ATAN2(qX, qW);
+        attitude = PI / 2f;
+        bank = 0f;
+    }
+    if (test < -0.499f)
+    {
+        // singularity at south pole
+        heading = -2f * ATAN2(qX, qW);
+        attitude = PI * -1 / 2f;
+        bank = 0f;
+    }
+    if (heading == 0f)
+    {
+        float sqX = qX * qX;
+        float sqY = qY * qY;
+        float sqZ = qZ * qZ;
+        heading = ATAN2(2f * qY * qW - 2 * qX * qZ, 1f - 2f * sqY - 2f * sqZ);
+        attitude = ASIN(2f * test);
+        bank = ATAN2(2 * qX * qW - 2f * qY * qZ, 1f - 2f * sqX - 2f * sqZ);
+    }
+
+    x = RadiansToDegrees(bank);
+    y = RadiansToDegrees(heading);
+    z = RadiansToDegrees(attitude);
+}
+
 float DegreesToRadians( float degrees )
 {
     return degrees * PI / 180f;
+}
+
+float RadiansToDegrees(float radians)
+{
+    return radians / PI * 180f;
 }

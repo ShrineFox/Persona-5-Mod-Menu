@@ -110,7 +110,7 @@ void ModMenuDisplay()
                 EditEnviroment();    
                 break;
             case 15:
-                DisplayMessagePrompt( AboutDlg );
+                SystemMessage( AboutDlg );
                 break;
             /* Royal Start */
             case 16:

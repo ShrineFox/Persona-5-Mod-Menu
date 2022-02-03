@@ -1,0 +1,130 @@
+﻿import("Animation/NPCAnimation.flow");
+import("NPCs.msg");
+
+// Global Variables
+global int gLastSpawnedNpcModelHandle;
+
+void SpawnNPCsMenu()
+{
+    while (true)
+    {
+        int selection = DescriptionMenu(Title_SpawnNPCs, Options_SpawnNPCs);
+
+        switch (selection)
+        {
+            case -1:
+                return;
+            case 0: // Spawn Model
+                NpcSpawnSelect();
+                break;
+            case 1: // Animate Model
+                // ./Animation/NPCAnimation.flow
+                NPCAnimationMenu(gLastSpawnedNpcModelHandle);
+                break;
+            case 2: // Scale Model
+                NpcScale();
+                break;
+            case 3: // Attach Item Model
+                NpcAttachItemModel();
+                break;
+            case 4: // Spawn Object
+                NpcSpawnObjectModel();
+                break;
+        }
+    }
+}
+
+void NpcSpawnSelect()
+{
+    SystemMessage(Message_SpawnNPC_First);
+    int modelIdMajor = NumberMenu(4);
+    if (modelIdMajor == -1)
+        return;
+
+    SystemMessage(Message_SpawnNPC_Middle);
+    int modelIdMinor = NumberMenu(3);
+    if (modelIdMinor == -1)
+        return;
+
+    SystemMessage(Message_SpawnNPC_Last);
+    int modelIdSub = NumberMenu(2);
+    if (modelIdSub == -1)
+        return;
+
+    gLastSpawnedNpcModelHandle = NpcSpawn(modelIdMajor, modelIdMinor, modelIdSub);
+}
+
+int NpcSpawn(int modelIdMajor, int modelIdMinor, int modelIdSub)
+{
+    int pcHandle = FLD_PC_GET_RESHND(0);
+    float x = FLD_MODEL_GET_X_TRANSLATE(pcHandle);
+    float y = FLD_MODEL_GET_Y_TRANSLATE(pcHandle);
+    float z = FLD_MODEL_GET_Z_TRANSLATE(pcHandle);
+    float xr = FLD_MODEL_GET_X_ROTATE(pcHandle);
+    float yr = FLD_MODEL_GET_Y_ROTATE(pcHandle);
+    float zr = FLD_MODEL_GET_Z_ROTATE(pcHandle);
+
+    int npcHandle = FLD_NPC_MODEL_LOAD(modelIdMajor, modelIdMinor, modelIdSub);
+    FLD_MODEL_LOADSYNC(npcHandle);
+    FLD_MODEL_SET_TRANSLATE(npcHandle, x, y, z, 0);
+    FLD_MODEL_SET_ROTATE(npcHandle, xr, yr, zr, 0);
+    FLD_MODEL_SET_VISIBLE(npcHandle, 1, 0);
+
+    return npcHandle;
+}
+
+void NpcScale()
+{
+    SystemMessage(Message_NPCScale);
+    float temp = FloatMenu();
+    if (temp == -1)
+        return;
+    float modelScale = temp / 10;
+    FLD_MODEL_SET_SCALE(gLastSpawnedNpcModelHandle, modelScale);
+}
+
+void NpcAttachItemModel()
+{
+    SystemMessage(Message_NPCItem_First);
+    int itemModelMajor = NumberMenu(4);
+    if (itemModelMajor == -1)
+        return;
+    SystemMessage(Message_NPCItem_Last);
+    int itemModelMinor = NumberMenu(3);
+    if (itemModelMinor == -1)
+        return;
+    //FLD_PC_MODEL_ATTACH_ITEM( resHandle, itemModelMajor, itemModelMinor );
+    int itemModel = FLD_ITEM_MODEL_LOAD(itemModelMajor, itemModelMinor);
+    FLD_MODEL_LOADSYNC(itemModel);
+    FLD_MODEL_SET_VISIBLE(itemModel, 1, 0);
+    FLD_MODEL_ATTACH_TRANSLATE(itemModel, gLastSpawnedNpcModelHandle, 101);
+    FLD_MODEL_ATTACH_ROTATE(itemModel, gLastSpawnedNpcModelHandle, 101);
+}
+
+void NpcSpawnObjectModel()
+{
+    float x = FLD_MODEL_GET_X_TRANSLATE(gLastSpawnedNpcModelHandle);
+    float y = FLD_MODEL_GET_Y_TRANSLATE(gLastSpawnedNpcModelHandle);
+    float z = FLD_MODEL_GET_Z_TRANSLATE(gLastSpawnedNpcModelHandle);
+    float xr = FLD_MODEL_GET_X_ROTATE(gLastSpawnedNpcModelHandle);
+    float yr = FLD_MODEL_GET_Y_ROTATE(gLastSpawnedNpcModelHandle);
+    float zr = FLD_MODEL_GET_Z_ROTATE(gLastSpawnedNpcModelHandle);
+
+    SystemMessage(Message_NPCObject_First);
+    int objModelMajor = NumberMenu(3);
+    if (objModelMajor == -1)
+        return;
+    SystemMessage(Message_NPCObject_Last);
+    int objModelMinor = NumberMenu(3);
+    if (objModelMinor == -1)
+        return;
+
+    int objectModel = FLD_OBJ_MODEL_LOAD(objModelMajor, objModelMinor);
+    FLD_MODEL_LOADSYNC(objectModel);
+    //FLD_OBJ_MODEL_LINKBG( objectModel );
+    FLD_MODEL_SET_TRANSLATE(objectModel, x, y, z, 0);
+    FLD_MODEL_SET_ROTATE(objectModel, xr, yr, zr, 0);
+    FLD_MODEL_SYNC_TRANSLATE(objectModel);
+    FLD_MODEL_SYNC_ROTATE(objectModel);
+    FLD_MODEL_SET_VISIBLE(objectModel, 1, 0);
+}

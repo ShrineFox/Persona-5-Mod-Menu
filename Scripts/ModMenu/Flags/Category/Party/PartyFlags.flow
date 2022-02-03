@@ -1,0 +1,213 @@
+﻿import("PartyFlags.msg");
+
+void PartyFlagsMenu()
+{
+    while (true)
+    {
+        switch (DescriptionMenu(Title_PartyFlags, Options_PartyFlags))
+        {
+            case -1:
+                return;
+            case 0:
+                TogglePartyMemberUnlocked();
+                break;
+            case 1:
+                TogglePartyEditing();
+                break;
+            case 2:
+                SetNavigator();
+                break;
+            case 3:
+                TogglePartyFollowers();
+                break;
+            case 4:
+                ActivateBlackMaskAkechi();
+                break;
+            case 5:
+                ToggleYoshizawaName();
+                break;
+            // TODO: Add Showtimes
+        }
+    }
+}
+
+void TogglePartyMemberUnlocked()
+{
+    while (true)
+    {
+        SetConfidantNames();
+        int selection = NameMenu(Title_Units, Options_UnitsNoJoker);
+        if (selection == -1)
+            return;
+        ToggleFlag(48 + selection, true);
+    }
+}
+
+void TogglePartyEditing()
+{
+    bool enable = true;
+    if (BIT_CHK(8451))
+    {
+        enable = false;
+    }
+    for (int i = 8451; i < 8459; i++)
+    {
+        if (enable)
+            BIT_ON(i);
+        else
+            BIT_OFF(i);
+    }
+}
+
+void SetNavigator()
+{
+    while (true)
+    {
+        SetConfidantNames();
+        switch (NameMenu(Title_UnitsNavi, Options_UnitsNavi))
+        {
+            case -1:
+                return;
+            case 0: // Morgana
+                BIT_ON(8204);
+                BIT_OFF(8205);
+                /* Royal Start */
+                BIT_OFF(11543);
+                /* Royal End */
+                break;
+            case 1: // Futaba
+                BIT_OFF(8204);
+                BIT_ON(8205);
+                /* Royal Start */
+                BIT_OFF(11543);
+                /* Royal End */
+                break;
+            case 2: // Akechi
+                BIT_OFF(8204);
+                BIT_OFF(8205);
+                /* Royal Start */
+                BIT_ON(11543);
+                /* Royal End */
+                break;
+        }
+    }
+}
+
+void TogglePartyFollowers()
+{
+    BIT_ON(4161);
+    while (true)
+    {
+        SetConfidantNames();
+        int selection = NameMenu(Title_Units, Options_UnitsNoJoker);
+        if (selection == -1)
+            return;
+        ToggleFlag(4114 + selection, true);
+    }
+}
+
+void ActivateBlackMaskAkechi()
+{
+    /* Royal Start */
+    if (BIT_CHK(12048))
+    {
+        // Revert Black Mask Akechi Appearance
+        int selection = SystemMenu(Message_BlackMaskActive, Options_YesNo);
+        if (selection == 0) // Yes
+            BIT_OFF(12048);
+    }
+    else
+    {
+        // Update To Black Mask Appearance
+        BIT_ON(12048);
+        int selection = SystemMenu(Message_BlackMaskInactive, Options_YesNo);
+        if (selection == 0) // Yes
+        {
+            SET_PERSONA_LV(10, 240, 75);
+            REMOVE_PERSONA_SKILL(10, 240, 253);
+            REMOVE_PERSONA_SKILL(10, 240, 58);
+            ADD_PERSONA_SKILL(10, 240, 213);
+            ADD_PERSONA_SKILL(10, 240, 56);
+            ADD_PERSONA_SKILL(10, 240, 59);
+            ADD_PERSONA_SKILL(10, 240, 302);
+            ADD_PERSONA_SKILL(10, 240, 979);
+            ADD_PERSONA_SKILL(10, 240, 857);
+
+            if (CHANGE_EQUIP_ITEM(10, (0x00008000 + 255)) == -2)
+            {
+                SET_EQUIP(10, 4, (0x00008000 + 255));
+            }
+            else
+            {
+                SET_ITEM_NUM((0x00008000 + 253), 0);
+                SET_ITEM_NUM((0x00008000 + 254), 0);
+            }
+            SET_EQUIP(10, 0, (0 + 251));
+            SET_EQUIP(10, 1, (0x1000 + 11));
+
+            if (GET_PLAYER_LV(9, 1) <= 74)
+            {
+                SET_PERSONA_LV(9, 209, 75);
+            }
+            else
+            {
+                SET_PERSONA_LV(9, 209, GET_PLAYER_LV(9, 1));
+            }
+            PERSONA_EVOLUTION(9);
+            REMOVE_PERSONA_SKILL(9, 239, 71);
+            REMOVE_PERSONA_SKILL(9, 239, 202);
+            REMOVE_PERSONA_SKILL(9, 239, 55);
+            REMOVE_PERSONA_SKILL(9, 239, 65);
+            REMOVE_PERSONA_SKILL(9, 239, 51);
+            REMOVE_PERSONA_SKILL(9, 239, 61);
+            REMOVE_PERSONA_SKILL(9, 239, 985);
+            REMOVE_PERSONA_SKILL(9, 239, 56);
+            REMOVE_PERSONA_SKILL(9, 239, 66);
+            REMOVE_PERSONA_SKILL(9, 239, 840);
+            REMOVE_PERSONA_SKILL(9, 239, 311);
+            REMOVE_PERSONA_SKILL(9, 239, 53);
+            REMOVE_PERSONA_SKILL(9, 239, 63);
+            REMOVE_PERSONA_SKILL(9, 239, 72);
+            REMOVE_PERSONA_SKILL(9, 239, 348);
+            REMOVE_PERSONA_SKILL(9, 239, 279);
+            REMOVE_PERSONA_SKILL(9, 239, 227);
+            REMOVE_PERSONA_SKILL(9, 239, 350);
+            REMOVE_PERSONA_SKILL(9, 239, 351);
+            REMOVE_PERSONA_SKILL(9, 239, 371);
+            ADD_PERSONA_SKILL(9, 239, 279);
+            ADD_PERSONA_SKILL(9, 239, 72);
+            ADD_PERSONA_SKILL(9, 239, 348);
+            ADD_PERSONA_SKILL(9, 239, 227);
+            ADD_PERSONA_SKILL(9, 239, 66);
+            ADD_PERSONA_SKILL(9, 239, 985);
+            ADD_PERSONA_SKILL(9, 239, 840);
+            ADD_PERSONA_SKILL(9, 239, 838);
+
+            if (CHANGE_EQUIP_ITEM(9, (0x00008000 + 249)) == -2)
+            {
+                SET_EQUIP(9, 4, (0x00008000 + 249));
+            }
+            else
+            {
+                SET_ITEM_NUM((0x00008000 + 224), 0);
+            }
+            SET_EQUIP(9, 0, (0 + 246));
+            SET_EQUIP(9, 1, (0x1000 + 12));
+            SET_EQUIP(9, 2, (0x2000 + 9));
+            SET_EQUIP(9, 3, (28672 + 13));
+            RECOVERY_ALL();
+
+            if (!BIT_CHK(11790))
+            {
+                SET_ITEM_NUM(28672 + 24, 0);
+            }
+        }
+    }
+    /* Royal End */
+}
+
+void ToggleYoshizawaName()
+{
+    ToggleFlag(11931, true);
+    BIT_OFF(11277);
+}

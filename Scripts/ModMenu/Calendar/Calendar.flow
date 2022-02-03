@@ -1,0 +1,105 @@
+﻿import("Calendar.msg");
+
+void CalendarMenu()
+{
+    while (true)
+    {
+        switch (DescriptionMenu(Title_Calendar, Options_Calendar))
+        {
+            case -1:
+                return;
+            case 0:
+                CalendarSetNextDaySelect();
+                break;
+            case 1:
+                CallCalendar();
+                return;
+            case 2:
+                ChangeWeather();
+                break;
+            case 3:
+                LoopCurrentTime();
+                break;
+        }
+    }
+}
+
+void CalendarSetNextDaySelect()
+{
+    SystemMessage(Message_CalendarMonth);
+    int month = NameMenu(Title_CalendarMonth, Options_CalendarMonth) + 1;
+
+    if (month <= 0)
+        return;
+
+    SystemMessage(Message_CalendarDay);
+    int day = NumberMenu(2);
+
+    if (day <= 0)
+        return;
+
+    // Verify that the day doesn't exceed the number of possible days in the specified month
+    int daysInMonth = 0;
+    if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12)
+    {
+        daysInMonth = 31;
+    }
+    else if (month == 2)
+    {
+        daysInMonth = 29;
+    }
+    else if (month == 4 || month == 6 || month == 9 || month == 11)
+    {
+        daysInMonth = 30;
+    }
+
+    if (day > daysInMonth)
+    {
+        SystemMessage(Message_CalendarInvalidDay);
+        return;
+    }
+
+    int thisMonth = GET_MONTH();
+    int thisDay = GET_DAY();
+
+    // You can only go backwards one day at a time
+    if (((month == thisMonth) && ((day - thisDay) < -1)) ||
+         ((month - thisMonth == -1) && (thisDay == 1 && day != daysInMonth)) ||
+         (month - thisMonth < -1)
+       )
+    {
+        SystemMessage(Message_CalendarTooFarBack);
+        return;
+    }
+
+    SET_NEXT_DAY(month, day, 1);
+}
+
+void CallCalendar()
+{
+    CalendarFade();
+    CALL_CALENDAR();
+}
+
+void LoopCurrentTime()
+{
+    SET_NEXT_DAY(GET_MONTH(), GET_DAY(), GET_TIME());
+}
+
+void ChangeWeather()
+{
+    int selection = NameMenu(Title_Weather, Options_Weather);
+
+    if (selection != -1)
+    {
+        CLEAR_WEATHER();
+        PUSH_WEATHER(selection);
+        POP_WEATHER();
+    }
+}
+
+void CalendarFade()
+{
+    FADEOUT(15, 10);
+    FADE_SYNC();
+}

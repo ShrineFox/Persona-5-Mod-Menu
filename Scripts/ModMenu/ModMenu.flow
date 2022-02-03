@@ -1,0 +1,80 @@
+// Import Utility Scripts
+import("../Utilities/Utilities.flow");
+// Import Submenu Scripts
+import("Calendar/Calendar.flow");
+import("Call/Call.flow");
+import("Camera/Camera.flow");
+import("Flags/Flags.flow");
+import("Player/Player.flow");
+/* Royal Start */
+import("Royal/Royal.flow");
+/* Royal End */
+import("Spawn/Spawn.flow");
+// Import Menu Option Text
+import("ModMenu.msg");
+
+// Global Variables
+global int unitId;
+global int gFieldMajor;
+global int gFieldMinor;
+global int gBitFlagAmount;
+
+// Procedures
+void ModMenuDisplay()
+{
+    ALL_ENABLE_SHARE_PLAY(); // Re-enables screen recording
+    BIT_OFF( 4099 ); // Removes your "tired" status
+    PrintPosition(); // Logs your current coordinates
+
+    /* Vanilla Start */
+    gBitFlagAmount = 8960;
+    /* Vanilla End */
+    /* Royal Start */
+    gBitFlagAmount = 12800;
+    /* Royal End */
+
+    while ( true )
+    {
+        switch ( DescriptionMenu(-1, Options_ModMenu) )
+        {
+            case -1:
+                return;
+            case 0:
+                CallOriginalSquareMenu();
+                break;
+            case 1:
+                // ModMenu/Player/Player.flow
+                PlayerMenu();
+                break;
+            case 2:
+                // ModMenu/Call/Call.flow
+                CallMenu();
+                break;
+            case 3:
+                // ModMenu/Calendar/Calendar.flow
+                CalendarMenu();
+                break;
+            case 4:
+                // ModMenu/Camera/Camera.flow
+                CameraMenu();
+                break;
+            case 5:
+                // ModMenu/Flags/Flags.flow
+                FlagsMenu();
+                break;
+            case 6:
+                // ModMenu/Spawn/Spawn.flow
+                SpawnMenu();
+                break;
+            case 7:
+                SystemMessage( Message_About );
+                break;
+            /* Royal Start */
+            case 8:
+                // ModMenu/Royal/Royal.flow
+                RoyalMenu();
+                break;
+            /* Royal End */
+        }
+    }
+}

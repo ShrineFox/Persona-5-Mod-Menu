@@ -1,45 +1,66 @@
-import( "Utilities.msg" );
-import( "Math.flow" );
+import("AssignNames.flow");
+import("Math.flow");
+import("Utilities.msg");
 
-int SelectDigit()
+// Regular text window
+void Message(int messageId)
 {
-    while ( true )
-    {
-        int temp = SEL_GENERIC_NOT_HELP( -1, Select0to4Dialog );
-        if ( temp == -1 )
-            break;
-            
-        if ( temp == 5 ) // higher
-        {
-            temp = SEL_GENERIC_NOT_HELP( -1, Select5to9Dialog );
-            if ( temp == -1 )
-                break;
-                
-            if ( temp == 5 ) // lower
-                continue;
-
-            return temp + 5;
-        }
-
-        return temp;
-    }
-    
-    return -1;
+    MSG_WND_DSP();
+    MSG(messageId);
+    MSG_WND_CLS();
 }
 
-int SelectNumber( int digitCount )
+// System text window
+void SystemMessage(int messageId)
+{
+    MSG_WND_DSP();
+    MSG_SYSTEM(messageId);
+    MSG_WND_CLS();
+}
+
+// System text window with options
+int SystemMenu(int messageId, int optionsMsgId)
+{
+    MSG_WND_DSP();
+    MSG_SYSTEM(messageId);
+    int selection = SEL(optionsMsgId);
+    MSG_WND_CLS();
+
+    return selection;
+}
+
+// "What Should I Do?" style menu
+int Menu(int optionsMsgId)
+{
+    return SEL_GENERIC_NOT_HELP(-1, optionsMsgId);
+}
+
+// "What Should I Do?" style menu with caption
+int NameMenu(int nameMsgId, int optionsMsgId)
+{
+    return SEL_GENERIC_NOT_HELP(nameMsgId, optionsMsgId);
+}
+
+// "What Should I Do?" style menu with caption and descriptions
+int DescriptionMenu(int nameMsgId, int optionsMsgId)
+{
+    return SEL_GENERIC(nameMsgId, optionsMsgId);
+}
+
+// "What Should I Do?" style menu with 0-9 digit entry, 
+// returns int with a set number of digits
+int NumberMenu(int digitCount)
 {
     int number = 0;
-    
-    for ( int i = 0; i < digitCount; i++ )
+
+    for (int i = 0; i < digitCount; i++)
     {
-        int digit = SEL_GENERIC_NOT_HELP( -1, Select0to9Dialog );
-        
-        if ( digit == -1 )
+        int digit = Menu(Options_Digits);
+
+        if (digit == -1)
         {
-            // Number should only equal negative one if we cancel
-            // before entering anything.
-            if ( i == 0 )
+            // Returns -1 if cancelled before any number has been entered
+            if (i == 0)
             {
                 number = -1;
                 break;
@@ -47,155 +68,180 @@ int SelectNumber( int digitCount )
             else
                 break;
         }
-        
+
         number *= 10;
         number += digit;
     }
-    
-    PUTS( "SelectNumber returned: " );
-    PUT( number );
+
+    PUTS("NumberMenu returned: ");
+    PUT(number);
+
+    if (ConfirmNumber(number) == 0)
+    {
+        return -1;
+    }
+
     return number;
 }
 
-float SelectFloat()
+// Same as above but goes up to 10, only selected once
+// with no confirmation. Used for Confidant Rank
+int NumberMenuTen()
 {
-    DisplayMessagePrompt( SelectFloatInteger );
-    
+    return Menu(Options_DigitsTen);
+}
+
+// "What Should I Do?" style menu with 0-9 digit entry, 
+// returns float with decimal value
+float FloatMenu()
+{
     int i = 0;
     float ipart = 0;
-    while ( true )
+    while (true)
     {
-        float digit = SEL_GENERIC_NOT_HELP( -1, Select0to9Dialog );
-        
-        if ( digit == -1 )
+        float digit = Menu(Options_Digits);
+
+        if (digit == -1)
         {
             // Number should only equal negative one if we cancel
             // before entering anything.
-            if ( i == 0 )
+            if (i == 0)
                 return -1;
             else
                 break;
         }
-        
+
         ipart *= 10;
         ipart += digit;
         i++;
     }
-    PUTS( "SelectFloat integer part: " );
-    PUT( ipart );
-    
-    
-    DisplayMessagePrompt( SelectFloatFractional );
-    
+
     i = 0;
     float fpart = 0;
-    while ( true )
+    while (true)
     {
-        float digit = SEL_GENERIC_NOT_HELP( -1, Select0to9Dialog );
-        
-        if ( digit == -1 )
+        float digit = Menu(Options_Digits);
+
+        if (digit == -1)
             break;
-        
+
         fpart *= 10;
         fpart += digit;
         i++;
     }
-    PUTS( "SelectFloat fractional part: " );
-    PUT( fpart );
-    
-    fpart = fpart / Pow( 10, i );
-    
-    
-    float number = ipart + fpart;
+
+    if (ConfirmFloat(ipart, fpart) == 0)
+    {
+        return -1;
+    }
+
+    float number = ipart + (fpart / Pow(10, i));
     return number;
 }
 
-int SelectYesNo()
+int ConfirmNumber(int number)
 {
-    int selection = SEL_GENERIC_NOT_HELP( -1, SelectYesNo );
-    return selection;
+    SET_MSG_VAR(number, number, 0);
+    if (SystemMenu(Message_ConfirmNumberInput, Options_YesNo) == 0)
+        return 1;
+    else
+        return 0;
+
+    return -1;
 }
 
-int SelectNoYes()
+int ConfirmFloat(int number, int fractionalPart)
 {
-    int selection = SEL_GENERIC_NOT_HELP( -1, SelectOffOn );
-    return selection;
+    SET_MSG_VAR(number, number, 0);
+    SET_MSG_VAR(fractionalPart, fractionalPart, 1);
+    if (SystemMenu(Message_ConfirmFloatInput, Options_YesNo) == 0)
+        return 1;
+    else
+        return 0;
+
+    return -1;
 }
 
-int SelectOnOff()
+// Show XYZ values of player's current translation/rotation in debug log
+void PrintPosition()
 {
-    int selection = SEL_GENERIC_NOT_HELP( -1, SelectOnOff );
-    return selection;
+    PUTS("Joker Translation:");
+    int pcHandle = FLD_PC_GET_RESHND(0);
+    PUTS("X:");
+    PUT(FLD_MODEL_GET_X_TRANSLATE(pcHandle));
+    PUTS("Y:");
+    PUT(FLD_MODEL_GET_Y_TRANSLATE(pcHandle));
+    PUTS("Z:");
+    PUT(FLD_MODEL_GET_Z_TRANSLATE(pcHandle));
+
+    PUTS("Joker Rotation:");
+    PUTS("X:");
+    PUT(FLD_MODEL_GET_X_ROTATE(pcHandle));
+    PUTS("Y:");
+    PUT(FLD_MODEL_GET_Y_ROTATE(pcHandle));
+    PUTS("Z:");
+    PUT(FLD_MODEL_GET_Z_ROTATE(pcHandle));
 }
 
-int SelectOffOn()
+// Turn a flag on or off (depending on user input, if confirm == true)
+void ToggleFlag(int flagId, bool confirm)
 {
-    int selection = SEL_GENERIC_NOT_HELP( -1, SelectOffOn );
-    return selection;
+    // Prevent disabling Mod Menu
+    if (flagId != 320 && flagId != 11781)
+    {
+        // If no confirmation dialog, silently toggle flag
+        if (!confirm)
+        {
+            if (BIT_CHK(flagId))
+                BIT_OFF(flagId);
+            else
+                BIT_ON(flagId);
+        }
+        else
+        {
+            // Display flag number and status, ask user whether to turn on or off
+            SET_MSG_VAR(flagId, flagId, 0);
+            if (BIT_CHK(flagId) == 1)
+            {
+                if (SystemMenu(Message_ToggleActiveFlag, Options_OnOff) == 1)
+                    BIT_OFF(flagId);
+            }
+            else if (BIT_CHK(flagId) == 0)
+            {
+                if (SystemMenu(Message_ToggleInactiveFlag, Options_OnOff) == 0)
+                    BIT_ON(flagId);
+            }
+        }
+    }
 }
 
-void DisplayMessagePrompt( int messageId )
+// Confirms if the user wants to reload the field right now if required
+bool ConfirmReloadField()
 {
-    MSG_WND_DSP(); 
-    MSG( messageId ); 
-    MSG_WND_CLS();
+    if (SystemMenu(Message_ReloadConfirm, Options_NoYes) == 1)
+    {
+        /* Royal Start */
+        if (FLD_GET_MAJOR() != 21 && FLD_GET_MINOR() != 1)
+        {
+            /* Royal End */
+            CALL_FIELD(FLD_GET_MAJOR(), FLD_GET_MINOR(), 0, 0);
+            /* Royal Start */
+        }
+        else
+        {
+            FLD_MY_PALACE_ENTER();
+        }
+        /* Royal End */
+        return true;
+    }
+
+    return false;
 }
 
-int SelectNumberPrompt( int messageId, int digits )
+void ReloadPreviousField()
 {
-    DisplayMessagePrompt( messageId );
-    int i = SelectNumber( digits );
-    return i;
-}
-
-float SelectFloatPrompt( int messageId )
-{
-    DisplayMessagePrompt( messageId );
-    float i = SelectFloat();
-    return i;
-}
-
-int SelectPrompt( int promptMessageId, int selectMessageId )
-{
-    MSG_WND_DSP(); 
-    MSG( promptMessageId );
-    int selection = SEL_GENERIC_NOT_HELP( -1, selectMessageId );
-    MSG_WND_CLS();
-    return selection;
-}
-
-int SelectYesNoPrompt( int promptMessageId )
-{
-    MSG_WND_DSP(); 
-    MSG( promptMessageId );
-    int selection = SelectYesNo();
-    MSG_WND_CLS();
-    return selection;
-}
-
-int SelectNoYesPrompt( int promptMessageId )
-{
-    MSG_WND_DSP(); 
-    MSG( promptMessageId );
-    int selection = SelectNoYes();
-    MSG_WND_CLS();
-    return selection;
-}
-
-int SelectOnOffPrompt( int promptMessageId )
-{
-    MSG_WND_DSP(); 
-    MSG( promptMessageId );
-    int selection = SelectOnOff();
-    MSG_WND_CLS();
-    return selection;
-}
-
-int SelectOffOnPrompt( int promptMessageId )
-{
-    MSG_WND_DSP(); 
-    MSG( promptMessageId );
-    int selection = SelectOffOn();
-    MSG_WND_CLS();
-    return selection;
+    if (FLD_GET_MAJOR() != FLD_GET_PREV_MAJOR() || FLD_GET_MINOR() != FLD_GET_PREV_MINOR())
+    {
+        CALL_FIELD(FLD_GET_PREV_MAJOR(), FLD_GET_PREV_MINOR(), 0, 0);
+    }
 }

@@ -1,0 +1,32 @@
+﻿import("Sound.msg");
+
+void SoundMenu()
+{
+    while (true)
+    {
+        int selection = NameMenu(Title_SoundTest, Options_SoundTest);
+        switch (selection)
+        {
+            case -1:
+                return;
+            case 0:
+                SelectBGM();
+                break;
+            case 1:
+                BGM_STOP(30);
+                break;
+            case 2:
+                BGM_FADEIN(30);
+                break;
+        }
+    }
+}
+
+void SelectBGM()
+{
+    SystemMessage(Message_BGMSelect);
+    int bgmId = NumberMenu(3);
+    if (bgmId == -1)
+        return;
+    BGM(bgmId);
+}

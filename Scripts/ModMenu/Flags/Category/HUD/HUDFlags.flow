@@ -1,0 +1,32 @@
+﻿import("HUDFlags.msg");
+
+void HUDFlagsMenu()
+{
+    while (true)
+    {
+        switch (DescriptionMenu(Title_HUDFlags, Options_HUDFlags))
+        {
+            case -1:
+                return;
+            case 0:
+                ToggleHUD();
+                break;
+        }
+    }
+}
+
+void ToggleHUD()
+{
+    if (SystemMenu(Message_ToggleHUD, Options_OnOff) 
+    {
+        // Turn Off HUD
+        DATE_DISP(0);
+        FLD_PANEL_DISP(0);
+    }
+    else
+    {
+        // Turn On HUD
+        DATE_DISP(1);
+        FLD_PANEL_DISP(1);
+    }
+}

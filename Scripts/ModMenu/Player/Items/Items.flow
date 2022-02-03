@@ -1,0 +1,64 @@
+﻿import("Items.msg");
+
+void ItemsMenu()
+{
+    while (true)
+    {
+        int itemType = DescriptionMenu(Title_Items, Options_Items);
+
+        switch (itemType)
+        {
+            case -1:
+                return;
+            case 0: // Consumables
+                ItemGetSelect(0x3000);
+                break;
+            case 1: // Accessories
+                ItemGetSelect(0x2000);
+                break;
+            case 2: // Key Items
+                ItemGetSelect(0x4000);
+                break;
+            case 3: // Ranged Weapons
+                ItemGetSelect(0x8000);
+                break;
+            case 4: // Melee Weapons
+                ItemGetSelect(0x0000);
+                break;
+            case 5: // Outfits
+                ItemGetSelect(0x7000);
+                break;
+            case 6: // Armor
+                ItemGetSelect(0x1000);
+                break;
+            case 7: // Materials
+                ItemGetSelect(0x5000);
+                break;
+            case 8: // Skill Cards
+                ItemGetSelect(0x6000);
+                break;
+        }
+    }
+}
+
+void ItemGetSelect(int type)
+{
+    SystemMessage(Message_ItemID);
+    int itemId = NumberMenu(4);
+    if (itemId == -1)
+        return;
+    SystemMessage(Message_ItemAmount);
+    int amount = NumberMenu(2);
+    if (amount == -1)
+        return;
+
+    ItemGet(type, itemId, amount);
+    GET_ITEMS_WINDOW(0);
+}
+
+void ItemGet(int type, int itemId, int amount)
+{
+    GET_ITEM_BUF_RESET();
+    GET_ITEM_BUF_SET(type + itemId, amount);
+    SET_ITEM_NUM(type + itemId, GET_ITEM_NUM(type + itemId) + amount);
+}

@@ -1,0 +1,48 @@
+﻿[sel Options_ModMenu]
+[s]Phone/Auto-Recover[ref 0 1][e]
+[s]Player[ref 1 2][e]
+[s]Call...[ref 2 3][e]
+[s]Calendar[ref 3 4][e]
+[s]Camera[ref 4 5][e]
+[s]Flags[ref 5 6][e]
+[s]Spawn[ref 6 7][e]
+[s]About[ref 7 8][e]
+[s]Royal[ref 8 9][e] // Royal
+
+[dlg GENERIC_HELP_1]
+[s]View your IM messages[n]or auto heal the party[n]just like the [clr 18]□ button[clr 0][n]normally does.[e]
+
+[dlg GENERIC_HELP_2]
+[s]Change social stats, items,[n]Personas, Skills, model,[n]animations, money or name.[e]
+
+[dlg GENERIC_HELP_3]
+[s]Call battles, fields, & events,[n]Cut-ins, particles, calendar,[n]or sounds by ID.[e]
+
+[dlg GENERIC_HELP_4]
+[s]Set a date and time to[n]travel to, or alter[n]the weather.[e]
+
+[dlg GENERIC_HELP_5]
+[s]Set camera position, FOV,[n]zoom & rotation, or[n]modify field lighting.[e]
+
+[dlg GENERIC_HELP_6]
+[s]Change various toggles[n]in the game's memory.[e]
+
+[dlg GENERIC_HELP_7]
+[s]Spawn NPCs and preview[n]their animations, or spawn[n]or attach item models.[e]
+
+[dlg GENERIC_HELP_8]
+[s]Show some info about the[n]development of this mod.[e]
+
+[dlg GENERIC_HELP_9]
+[s]View options exclusive[n]to Persona 5 Royal on PS4.[e]
+
+[dlg Message_About [About this menu]]
+[clr 9]Persona 5 Mod Menu[clr 0] by [clr 6]ShrineFox[clr 0]
+[n]github.com/Shrinefox/Persona-5-Mod-Menu[w][e]
+Created using [clr 1]TGE[clr 0]'s [clr 1]Atlus-Script-Tools[clr 0].
+[n]github.com/tge-was-taken/Atlus-Script-Tools[w][e]
+Special thanks to [clr 1]@regularpanties[clr 0] // Royal
+[n]for providing a 6.72 PS4 for testing and // Royal
+[n][clr 9]RayFirefist[clr 0] for initial P5R dev.[w][e] // Royal
+For more information, visit:
+[n][clr 1]shrinefox.com[clr 0][w][e]

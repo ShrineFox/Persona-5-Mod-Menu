@@ -1,0 +1,466 @@
+﻿import("Battle.msg");
+
+void BattleMenu()
+{
+    int selection = DescriptionMenu(Title_Battle, Options_Battle);
+
+    switch (selection)
+    {
+        case -1:
+            return;
+        case 0:
+            RegularBattle();
+            break;
+        case 1:
+            BossPalaceMenu();
+            break;
+        case 2:
+            EventBattle();
+            break;
+    }
+}
+
+void RegularBattle()
+{
+    SystemMessage(Message_EncounterID);
+    int id = NumberMenu(3);
+
+    if (id == -1)
+        return;
+
+    CALL_BATTLE(id);
+    WAIT_BATTLE();
+    ReloadPreviousField();
+}
+
+// Boss Select
+void BossPalaceMenu()
+{
+    int selection = NameMenu(Title_Palace, Options_Palace);
+
+    switch (selection)
+    {
+        case -1:
+            break;
+        case 0:
+            CastleBossMenu();
+            break;
+        case 1:
+            MuseumBossMenu();
+            break;
+        case 2:
+            BankBossMenu();
+            break;
+        case 3:
+            PyramidBossMenu();
+            break;
+        case 4:
+            SpaceBossMenu();
+            break;
+        case 5:
+            CasinoBossMenu();
+            break;
+        case 6:
+            CruiseBossMenu();
+            break;
+        case 7:
+            MementosBossMenu();
+            break;
+        case 8:
+            MiscBossMenu();
+            break;
+    }
+}
+
+void CastleBossMenu()
+{
+    switch (NameMenu(Title_CastleBattles, Options_CastleBattles))
+    {
+        case -1:
+            break;
+        case 0:
+            FLD_START_BOSS(1);
+            break;
+        case 1:
+            FLD_START_BOSS(2);
+            break;
+        case 2:
+            FLD_START_BOSS(3);
+            break;
+        case 3:
+            FLD_START_BOSS(4);
+            break;
+        case 4:
+            FLD_START_BOSS(5);
+            break;
+        case 5:
+            FLD_START_BOSS(6);
+            break;
+        case 6:
+            FLD_START_BOSS(7);
+            break;
+        case 7:
+            FLD_START_BOSS(8);
+            break;
+        case 8:
+            FLD_START_BOSS(9);
+            break;
+        case 9:
+            FLD_START_BOSS(10);
+            break;
+        case 10:
+            FLD_START_BOSS(11);
+            break;
+        case 11:
+            FLD_START_BOSS(12);
+            break;
+        case 12:
+            FLD_START_BOSS(13);
+            break;
+    }
+}
+
+void MuseumBossMenu()
+{
+    switch (NameMenu(Title_MuseumBattles, Options_MuseumBattles))
+    {
+        case -1:
+            break;
+        case 0:
+            FLD_START_BOSS(14);
+            break;
+        case 1:
+            FLD_START_BOSS(15);
+            break;
+        case 2:
+            FLD_START_BOSS(16);
+            break;
+        case 3:
+            FLD_START_BOSS(17);
+            break;
+        case 4:
+            FLD_START_BOSS(18);
+            break;
+    }
+}
+
+void BankBossMenu()
+{
+    switch (NameMenu(Title_BankBattles, Options_BankBattles))
+    {
+        case -1:
+            break;
+        case 0:
+            FLD_START_BOSS(19);
+            break;
+        case 1:
+            FLD_START_BOSS(20);
+            break;
+        case 2:
+            FLD_START_BOSS(21);
+            break;
+        case 3:
+            FLD_START_BOSS(22);
+            break;
+        case 4:
+            FLD_START_BOSS(23);
+            break;
+        case 5:
+            FLD_START_BOSS(24);
+            break;
+        case 6:
+            FLD_START_BOSS(25);
+            break;
+    }
+}
+
+void PyramidBossMenu()
+{
+    switch (NameMenu(Title_PyramidBattles, Options_PyramidBattles))
+    {
+        case -1:
+            break;
+        case 0:
+            FLD_START_BOSS(26);
+            break;
+        case 1:
+            FLD_START_BOSS(27);
+            break;
+        case 2:
+            FLD_START_BOSS(28);
+            break;
+        case 3:
+            FLD_START_BOSS(29);
+            break;
+        case 4:
+            FLD_START_BOSS(30);
+            break;
+        case 5:
+            FLD_START_BOSS(31);
+            break;
+    }
+}
+
+void SpaceBossMenu()
+{
+    switch (NameMenu(Title_SpaceBattles, Options_SpaceBattles))
+    {
+        case -1:
+            break;
+        case 0:
+            FLD_START_BOSS(32);
+            break;
+        case 1:
+            FLD_START_BOSS(33);
+            break;
+        case 2:
+            FLD_START_BOSS(34);
+            break;
+        case 3:
+            FLD_START_BOSS(35);
+            break;
+        case 4:
+            FLD_START_BOSS(36);
+            break;
+        case 5:
+            FLD_START_BOSS(37);
+            break;
+    }
+}
+
+void CasinoBossMenu()
+{
+    switch (NameMenu(Title_CasinoBattles, Options_CasinoBattles))
+    {
+        case -1:
+            break;
+        case 0:
+            FLD_START_BOSS(38);
+            break;
+        case 1:
+            FLD_START_BOSS(39);
+            break;
+        case 2:
+            FLD_START_BOSS(40);
+            break;
+        case 3:
+            FLD_START_BOSS(41);
+            break;
+        case 4:
+            FLD_START_BOSS(42);
+            break;
+        case 5:
+            FLD_START_BOSS(43);
+            break;
+        case 6:
+            FLD_START_BOSS(44);
+            break;
+        case 7:
+            FLD_START_BOSS(45);
+            break;
+        case 8:
+            FLD_START_BOSS(46);
+            break;
+        case 9:
+            FLD_START_BOSS(47);
+            break;
+        case 10:
+            FLD_START_BOSS(48);
+            break;
+    }
+}
+
+void CruiseBossMenu()
+{
+    switch (NameMenu(Title_CruiseBattles, Options_CruiseBattles))
+    {
+        case -1:
+            break;
+        case 0:
+            FLD_START_BOSS(49);
+            break;
+        case 1:
+            FLD_START_BOSS(50);
+            break;
+        case 2:
+            FLD_START_BOSS(51);
+            break;
+        case 3:
+            FLD_START_BOSS(52);
+            break;
+        case 4:
+            FLD_START_BOSS(53);
+            break;
+        case 5:
+            FLD_START_BOSS(54);
+            break;
+        case 6:
+            FLD_START_BOSS(55);
+            break;
+        case 7:
+            FLD_START_BOSS(56);
+            break;
+        case 8:
+            FLD_START_BOSS(57);
+            break;
+        case 9:
+            FLD_START_BOSS(58);
+            break;
+        case 10:
+            FLD_START_BOSS(59);
+            break;
+    }
+}
+
+void MementosBossMenu()
+{
+    switch (NameMenu(Title_MementosBattles, Options_MementosBattles))
+    {
+        case -1:
+            break;
+        case 0:
+            FLD_START_BOSS(60);
+            break;
+        case 1:
+            FLD_START_BOSS(61);
+            break;
+        case 2:
+            FLD_START_BOSS(62);
+            break;
+        case 3:
+            FLD_START_BOSS(63);
+            break;
+        case 4:
+            FLD_START_BOSS(64);
+            break;
+        case 5:
+            FLD_START_BOSS(65);
+            break;
+        case 6:
+            FLD_START_BOSS(66);
+            break;
+        case 7:
+            FLD_START_BOSS(67);
+            break;
+        case 8:
+            FLD_START_BOSS(68);
+            break;
+        case 9:
+            FLD_START_BOSS(69);
+            break;
+    }
+}
+
+void MiscBossMenu()
+{
+    switch (NameMenu(Title_MiscBattles, Options_MiscBattles))
+    {
+        case -1:
+            break;
+        case 0:
+            FLD_START_BOSS(0);
+            break;
+        case 1:
+            FLD_START_BOSS(70);
+            break;
+        case 2:
+            FLD_START_BOSS(71);
+            break;
+        case 3:
+            FLD_START_BOSS(72);
+            break;
+        case 4:
+            FLD_START_BOSS(73);
+            break;
+        case 5:
+            FLD_START_BOSS(74);
+            break;
+        case 6:
+            FLD_START_BOSS(75);
+            break;
+        case 7:
+            FLD_START_BOSS(76);
+            break;
+        case 8:
+            FLD_START_BOSS(77);
+            break;
+        case 9:
+            FLD_START_BOSS(78);
+            break;
+        case 10:
+            FLD_START_BOSS(79);
+            break;
+        case 11:
+            MiscBossMenu2(); //next
+            break;
+    }
+}
+
+void MiscBossMenu2()
+{
+    switch (NameMenu(Title_MiscBattles, Options_MiscBattles_Page2))
+    {
+        case -1:
+            break;
+        case 0:
+            FLD_START_BOSS(80);
+            break;
+        case 1:
+            FLD_START_BOSS(81);
+            break;
+        case 2:
+            FLD_START_BOSS(82);
+            break;
+        case 3:
+            FLD_START_BOSS(83);
+            break;
+        case 4:
+            FLD_START_BOSS(84);
+            break;
+        case 5:
+            FLD_START_BOSS(85);
+            break;
+        case 6:
+            FLD_START_BOSS(86);
+            break;
+        case 7:
+            FLD_START_BOSS(87);
+            break;
+        case 8:
+            MiscBossMenu(); //previous
+            break;
+    }
+}
+
+void EventBattle()
+{
+    while (true)
+    {
+        switch (NameMenu(Title_EventBattles, Options_EventBattles))
+        {
+            case -1:
+                return;
+            case 0:
+                CALL_EVENTBATTLE(422, 1, 779);
+                break;
+            case 1:
+                CALL_EVENTBATTLE(422, 3, 781);
+                break;
+            case 2:
+                CALL_EVENTBATTLE(448, 1, 786);
+                break;
+            case 3:
+                CALL_EVENTBATTLE(459, 2, 785);
+                break;
+            case 4:
+                CALL_EVENTBATTLE(500, 1, 790);
+                break;
+            case 5:
+                CALL_EVENTBATTLE(131, 1, 647);
+                break;
+        }
+    }
+
+    WAIT_BATTLE();
+    ReloadPreviousField();
+}

@@ -79,7 +79,7 @@ namespace ModMenuBuilder
             } */
 
             string value = "";
-            value = line.Trim().Replace("BIT_ON(","").Replace("BIT_OFF(","").Trim().Split(' ', ')', '+', '-', '*', '/')[0];
+            value = line.Trim().Replace("BIT_ON(","").Replace("BIT_OFF(","").Replace("ToggleFlag(", "").Trim().Split(' ', ',', ')', '+', '-', '*', '/')[0];
 
             return value;
         }

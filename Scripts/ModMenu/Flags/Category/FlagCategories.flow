@@ -1,0 +1,33 @@
+﻿import("HUD/HUDFlags.flow");
+import("Party/PartyFlags.flow");
+import("Personas/PersonaFlags.flow");
+import("Room/RoomFlags.flow");
+import("FlagCategories.msg");
+
+void FlagCategoriesMenu()
+{
+    while (true)
+    {
+        switch (DescriptionMenu(Title_FlagCategories, Options_FlagCategories))
+        {
+            case -1:
+                return;
+            case 0:
+                // ./Category/HUD/HUDFlags.flow
+                HUDFlagsMenu();
+                break;
+            case 1:
+                // ./Category/Party/PartyFlags.flow
+                PartyFlagsMenu();
+                break;
+            case 2:
+                // ./Category/Personas/PersonaFlags.flow
+                PersonaFlagsMenu();
+                break;
+            case 3:
+                // ./Category/Room/RoomFlags.flow
+                RoomFlagsMenu();
+                break;
+        }
+    }
+}

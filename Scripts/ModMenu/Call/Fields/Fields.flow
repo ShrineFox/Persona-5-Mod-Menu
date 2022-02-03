@@ -1,0 +1,609 @@
+﻿import("Fields.msg");
+
+void FieldMenu()
+{
+    while (true)
+    {
+        switch (DescriptionMenu(Title_Fields, Options_Fields))
+        {
+            case -1:
+                return;
+            case 0:
+                // Select Category from List
+                FieldCategoryMenu();
+                break;
+            case 1:
+                // Manual ID Entry
+                SystemMessage(Message_FieldSelect_Major);
+                int fieldMajor = NumberMenu(3);
+                if (fieldMajor == -1)
+                    break;
+
+                SystemMessage(Message_FieldSelect_Minor);
+                int fieldMinor = NumberMenu(3);
+                if (fieldMinor == -1)
+                    break;
+
+                CALL_FIELD(fieldMajor, fieldMinor, 0, 0);
+                return;
+            case 3:
+                // Reload Current Field
+                ConfirmReloadField();
+                return;
+        }
+    }
+}
+
+void FieldCategoryMenu()
+{
+    while (true)
+    {
+        switch (NameMenu(Title_FieldCategories, Options_FieldCategories))
+        {
+            case -1:
+                return;
+            case 0:
+                FieldExtra();
+                break;
+            case 1:
+                FieldShibuya();
+                break;
+            case 2:
+                FieldYongenJaya();
+                break;
+            case 3:
+                FieldSchool();
+                break;
+            case 4:
+                FieldAkihabara();
+                break;
+            case 5:
+                FieldShinjuku();
+                break;
+            case 6:
+                FieldHangoutPlaces();
+                break;
+            case 7:
+                FieldMementos();
+                break;
+            case 8:
+                FieldSmallRooms();
+                break;
+            case 9:
+                FieldEarlyFields();
+                break;
+            case 10:
+                FieldPrologue();
+                break;
+            case 11:
+                FieldCastlePalace();
+                break;
+            case 12:
+                FieldMuseumPalace();
+                break;
+            case 13:
+                FieldBankPalace();
+                break;
+            case 14:
+                FieldSpacePalace();
+                break;
+            case 15:
+                FieldPyramidPalace();
+                break;
+            case 16:
+                FieldCasinoPalace();
+                break;
+            case 17:
+                FieldCruisePalace();
+                break;
+            case 18:
+                FieldMementosPalace();
+                break;
+            case 19:
+                FieldQliphothTree();
+                break;
+        }
+    }
+}
+
+void FieldExtra()
+{
+    while (true)
+    {
+        switch (NameMenu(Title_ExtraFields, Options_ExtraFields))
+        {
+            case -1: return;
+            case 0: CALL_FIELD(000, 002, 0, 0); return;
+            case 1: CALL_FIELD(000, 100, 0, 0); return;
+            case 2: CALL_FIELD(021, 001, 0, 0); return;
+        }
+    }
+}
+
+void FieldShibuya()
+{
+    while (true)
+    {
+        int selection = NameMenu(Title_ShibuyaFields, Options_ShibuyaFields);
+
+        switch (selection)
+        {
+            case -1:
+                return;
+            case 00: CALL_FIELD(001, 001, 0, 0); return;
+            case 01: CALL_FIELD(001, 002, 0, 0); return;
+            case 02: CALL_FIELD(001, 003, 0, 0); return;
+            case 03: CALL_FIELD(001, 004, 0, 0); return;
+            case 04: CALL_FIELD(001, 005, 0, 0); return;
+            case 05: CALL_FIELD(001, 006, 0, 0); return;
+            case 06: CALL_FIELD(001, 011, 0, 0); return;
+            case 07: CALL_FIELD(001, 013, 0, 0); return;
+            case 08: CALL_FIELD(001, 103, 0, 0); return;
+            case 09: CALL_FIELD(001, 203, 0, 0); return;
+            case 10: CALL_FIELD(001, 204, 0, 0); return;
+            case 11: CALL_FIELD(008, 001, 0, 0); return;
+        }
+    }
+}
+
+void FieldYongenJaya()
+{
+    while (true)
+    {
+        switch (NameMenu(Title_YongenJayaFields, Options_YongenJayaFields))
+        {
+            case -1:
+                return;
+            case 0: CALL_FIELD(003, 002, 0, 0); return;
+            case 1: CALL_FIELD(003, 102, 0, 0); return;
+            case 2: CALL_FIELD(009, 002, 0, 0); return;
+            case 3: CALL_FIELD(009, 003, 0, 0); return;
+            case 4: CALL_FIELD(009, 004, 0, 0); return;
+            case 5: CALL_FIELD(009, 005, 0, 0); return;
+            case 6: CALL_FIELD(009, 102, 0, 0); return;
+        }
+    }
+}
+
+void FieldSchool()
+{
+    while (true)
+    {
+        switch (NameMenu(Title_SchoolFields, Options_SchoolFields))
+        {
+            case -1:
+                return;
+            case 00: CALL_FIELD(002, 001, 0, 0); return;
+            case 01: CALL_FIELD(002, 002, 0, 0); return;
+            case 02: CALL_FIELD(002, 003, 0, 0); return;
+            case 03: CALL_FIELD(002, 004, 0, 0); return;
+            case 04: CALL_FIELD(002, 005, 0, 0); return;
+            case 05: CALL_FIELD(002, 006, 0, 0); return;
+            case 06: CALL_FIELD(002, 007, 0, 0); return;
+            case 07: CALL_FIELD(002, 008, 0, 0); return;
+            case 08: CALL_FIELD(002, 009, 0, 0); return;
+            case 09: CALL_FIELD(002, 010, 0, 0); return;
+            case 10: CALL_FIELD(002, 011, 0, 0); return;
+            case 11: CALL_FIELD(002, 012, 0, 0); return;
+            case 12: CALL_FIELD(002, 013, 0, 0); return;
+            case 13: CALL_FIELD(002, 014, 0, 0); return;
+            case 14: CALL_FIELD(002, 020, 0, 0); return;
+            case 15: CALL_FIELD(002, 021, 0, 0); return;
+            case 16: CALL_FIELD(002, 102, 0, 0); return;
+        }
+    }
+}
+
+void FieldAkihabara()
+{
+    while (true)
+    {
+        switch (NameMenu(Title_AkihabaraFields, Options_AkihabaraFields))
+        {
+            case -1:
+                return;
+            case 0: CALL_FIELD(007, 001, 0, 0); return;
+            case 1: CALL_FIELD(007, 011, 0, 0); return;
+        }
+    }
+}
+
+void FieldShinjuku()
+{
+    while (true)
+    {
+        switch (NameMenu(Title_ShinjukuFields, Options_ShinjukuFields))
+        {
+            case -1:
+                return;
+            case 0: CALL_FIELD(006, 001, 0, 0); return;
+            case 1: CALL_FIELD(006, 011, 0, 0); return;
+        }
+    }
+}
+
+void FieldHangoutPlaces()
+{
+    while (true)
+    {
+        switch (NameMenu(Title_HangoutFields, Options_HangoutFields))
+        {
+            case -1:
+                return;
+            case 00: CALL_FIELD(020, 001, 0, 0); return;
+            case 01: CALL_FIELD(020, 002, 0, 0); return;
+            case 02: CALL_FIELD(020, 003, 0, 0); return;
+            case 03: CALL_FIELD(020, 004, 0, 0); return;
+            case 04: CALL_FIELD(020, 005, 0, 0); return;
+            case 05: CALL_FIELD(020, 006, 0, 0); return;
+            case 06: CALL_FIELD(020, 007, 0, 0); return;
+            case 07: CALL_FIELD(020, 008, 0, 0); return;
+            case 08: CALL_FIELD(020, 009, 0, 0); return;
+            case 09: CALL_FIELD(020, 010, 0, 0); return;
+            case 10: CALL_FIELD(020, 011, 0, 0); return;
+            case 11: CALL_FIELD(020, 012, 0, 0); return;
+            case 12: CALL_FIELD(020, 013, 0, 0); return;
+            case 13: CALL_FIELD(020, 014, 0, 0); return;
+            case 14: CALL_FIELD(020, 020, 0, 0); return;
+            case 15: CALL_FIELD(020, 021, 0, 0); return;
+            case 16: CALL_FIELD(020, 022, 0, 0); return;
+        }
+    }
+}
+
+void FieldMementos()
+{
+    while (true)
+    {
+        switch (NameMenu(Title_MementosFields, Options_MementosFields))
+        {
+            case -1:
+                return;
+            case 0: CALL_FIELD(190, 001, 0, 0); return;
+        }
+    }
+}
+
+void FieldSmallRooms()
+{
+    while (true)
+    {
+        switch (NameMenu(Title_RoomFields, Options_RoomFields))
+        {
+            case -1:
+                return;
+            case 00: CALL_FIELD(004, 005, 0, 0); return;
+            case 01: CALL_FIELD(010, 003, 0, 0); return;
+            case 02: CALL_FIELD(010, 005, 0, 0); return;
+            case 03: CALL_FIELD(010, 015, 0, 0); return;
+            case 04: CALL_FIELD(010, 016, 0, 0); return;
+            case 05: CALL_FIELD(010, 017, 0, 0); return;
+            case 06: CALL_FIELD(010, 103, 0, 0); return;
+            case 07: CALL_FIELD(010, 130, 0, 0); return;
+            case 08: CALL_FIELD(011, 003, 0, 0); return;
+            case 09: CALL_FIELD(012, 001, 0, 0); return;
+            case 10: CALL_FIELD(012, 003, 0, 0); return;
+            case 11: CALL_FIELD(012, 005, 0, 0); return;
+            case 12: CALL_FIELD(012, 006, 0, 0); return;
+            case 13: CALL_FIELD(012, 007, 0, 0); return;
+            case 14: CALL_FIELD(012, 008, 0, 0); return;
+            case 15: CALL_FIELD(012, 010, 0, 0); return;
+            case 16: CALL_FIELD(012, 011, 0, 0); return;
+            case 17: CALL_FIELD(012, 013, 0, 0); return;
+            case 18: CALL_FIELD(012, 020, 0, 0); return;
+            case 19: CALL_FIELD(012, 022, 0, 0); return;
+            case 20: CALL_FIELD(012, 026, 0, 0); return;
+        }
+    }
+}
+
+void FieldEarlyFields()
+{
+    while (true)
+    {
+        switch (NameMenu(Title_EarlyFields, Options_EarlyFields))
+        {
+            case -1:
+                return;
+            case 00: CALL_FIELD(009, 001, 0, 0); return;
+            case 01: CALL_FIELD(011, 002, 0, 0); return;
+            case 02: CALL_FIELD(013, 005, 0, 0); return;
+            case 03: CALL_FIELD(015, 001, 0, 0); return;
+            case 04: CALL_FIELD(050, 010, 0, 0); return;
+            case 05: CALL_FIELD(050, 011, 0, 0); return;
+            case 06: CALL_FIELD(050, 020, 0, 0); return;
+            case 07: CALL_FIELD(050, 021, 0, 0); return;
+            case 08: CALL_FIELD(050, 030, 0, 0); return;
+            case 09: CALL_FIELD(051, 022, 0, 0); return;
+            case 10: CALL_FIELD(052, 030, 0, 0); return;
+            case 11: CALL_FIELD(052, 031, 0, 0); return;
+            case 12: CALL_FIELD(052, 032, 0, 0); return;
+            case 13: CALL_FIELD(052, 040, 0, 0); return;
+            case 14: CALL_FIELD(052, 042, 0, 0); return;
+            case 15: CALL_FIELD(052, 043, 0, 0); return;
+            case 16: CALL_FIELD(052, 044, 0, 0); return;
+            case 17: CALL_FIELD(052, 045, 0, 0); return;
+            case 18: CALL_FIELD(052, 070, 0, 0); return;
+            case 19: CALL_FIELD(052, 090, 0, 0); return;
+            case 20: CALL_FIELD(056, 001, 0, 0); return;
+            case 21: CALL_FIELD(059, 001, 0, 0); return;
+            case 22: CALL_FIELD(151, 019, 0, 0); return;
+            case 23: CALL_FIELD(152, 005, 0, 0); return;
+            case 24: CALL_FIELD(152, 052, 0, 0); return;
+            case 25: CALL_FIELD(152, 053, 0, 0); return;
+            case 26: CALL_FIELD(154, 013, 0, 0); return;
+            case 27: CALL_FIELD(155, 012, 0, 0); return;
+            case 28: CALL_FIELD(159, 036, 0, 0); return;
+            case 29: CALL_FIELD(190, 051, 0, 0); return;
+            case 30: CALL_FIELD(190, 052, 0, 0); return;
+        }
+    }
+}
+
+void FieldPrologue()
+{
+    while (true)
+    {
+        switch (NameMenu(Title_PrologueFields, Options_PrologueFields))
+        {
+            case -1:
+                return;
+            case 0: CALL_FIELD(150, 001, 0, 0); return;
+            case 1: CALL_FIELD(150, 002, 0, 0); return;
+            case 2: CALL_FIELD(150, 003, 0, 0); return;
+        }
+    }
+}
+
+void FieldCastlePalace()
+{
+    while (true)
+    {
+        switch (NameMenu(Title_CastleFields, Options_CastleFields))
+        {
+            case -1:
+                return;
+            case 00: CALL_FIELD(151, 001, 0, 0); return;
+            case 01: CALL_FIELD(151, 002, 0, 0); return;
+            case 02: CALL_FIELD(151, 003, 0, 0); return;
+            case 03: CALL_FIELD(151, 004, 0, 0); return;
+            case 04: CALL_FIELD(151, 005, 0, 0); return;
+            case 05: CALL_FIELD(151, 006, 0, 0); return;
+            case 06: CALL_FIELD(151, 007, 0, 0); return;
+            case 07: CALL_FIELD(151, 008, 0, 0); return;
+            case 08: CALL_FIELD(151, 009, 0, 0); return;
+            case 09: CALL_FIELD(151, 010, 0, 0); return;
+            case 10: CALL_FIELD(151, 011, 0, 0); return;
+            case 11: CALL_FIELD(151, 012, 0, 0); return;
+            case 12: CALL_FIELD(151, 013, 0, 0); return;
+            case 13: CALL_FIELD(151, 014, 0, 0); return;
+            case 14: CALL_FIELD(151, 015, 0, 0); return;
+            case 15: CALL_FIELD(151, 016, 0, 0); return;
+            case 16: CALL_FIELD(151, 017, 0, 0); return;
+            case 17: CALL_FIELD(151, 051, 0, 0); return;
+            case 18: CALL_FIELD(152, 001, 0, 0); return;
+            case 19: CALL_FIELD(152, 002, 0, 0); return;
+            case 20: CALL_FIELD(152, 004, 0, 0); return;
+            case 21: CALL_FIELD(152, 006, 0, 0); return;
+            case 22: CALL_FIELD(152, 051, 0, 0); return;
+        }
+    }
+}
+
+void FieldMuseumPalace()
+{
+    while (true)
+    {
+        switch (NameMenu(Title_MuseumFields, Options_MuseumFields))
+        {
+            case -1:
+                return;
+            case 00: CALL_FIELD(153, 001, 0, 0); return;
+            case 01: CALL_FIELD(153, 002, 0, 0); return;
+            case 02: CALL_FIELD(153, 003, 0, 0); return;
+            case 03: CALL_FIELD(153, 005, 0, 0); return;
+            case 04: CALL_FIELD(153, 006, 0, 0); return;
+            case 05: CALL_FIELD(153, 007, 0, 0); return;
+            case 06: CALL_FIELD(153, 008, 0, 0); return;
+            case 07: CALL_FIELD(153, 009, 0, 0); return;
+            case 08: CALL_FIELD(153, 011, 0, 0); return;
+            case 09: CALL_FIELD(153, 012, 0, 0); return;
+            case 10: CALL_FIELD(153, 051, 0, 0); return;
+        }
+    }
+}
+
+void FieldBankPalace()
+{
+    while (true)
+    {
+        switch (NameMenu(Title_BankFields, Options_BankFields))
+        {
+            case -1:
+                return;
+            case 00: CALL_FIELD(154, 001, 0, 0); return;
+            case 01: CALL_FIELD(154, 002, 0, 0); return;
+            case 02: CALL_FIELD(154, 003, 0, 0); return;
+            case 03: CALL_FIELD(154, 005, 0, 0); return;
+            case 04: CALL_FIELD(154, 007, 0, 0); return;
+            case 05: CALL_FIELD(154, 008, 0, 0); return;
+            case 06: CALL_FIELD(154, 009, 0, 0); return;
+            case 07: CALL_FIELD(154, 010, 0, 0); return;
+            case 08: CALL_FIELD(154, 011, 0, 0); return;
+            case 09: CALL_FIELD(154, 012, 0, 0); return;
+            case 10: CALL_FIELD(154, 014, 0, 0); return;
+            case 11: CALL_FIELD(154, 015, 0, 0); return;
+            case 12: CALL_FIELD(154, 016, 0, 0); return;
+            case 13: CALL_FIELD(154, 051, 0, 0); return;
+        }
+    }
+}
+
+void FieldSpacePalace()
+{
+    while (true)
+    {
+        switch (NameMenu(Title_SpaceFields, Options_SpaceFields))
+        {
+            case -1:
+                return;
+            case 00: CALL_FIELD(054, 150, 0, 0); return;
+            case 01: CALL_FIELD(156, 001, 0, 0); return;
+            case 02: CALL_FIELD(156, 002, 0, 0); return;
+            case 03: CALL_FIELD(156, 003, 0, 0); return;
+            case 04: CALL_FIELD(156, 004, 0, 0); return;
+            case 05: CALL_FIELD(156, 005, 0, 0); return;
+            case 06: CALL_FIELD(156, 006, 0, 0); return;
+            case 07: CALL_FIELD(156, 007, 0, 0); return;
+            case 08: CALL_FIELD(156, 008, 0, 0); return;
+            case 09: CALL_FIELD(156, 009, 0, 0); return;
+            case 10: CALL_FIELD(156, 010, 0, 0); return;
+            case 11: CALL_FIELD(156, 011, 0, 0); return;
+            case 12: CALL_FIELD(156, 012, 0, 0); return;
+            case 13: CALL_FIELD(156, 013, 0, 0); return;
+            case 14: CALL_FIELD(156, 014, 0, 0); return;
+            case 15: CALL_FIELD(156, 015, 0, 0); return;
+            case 16: CALL_FIELD(156, 051, 0, 0); return;
+        }
+    }
+}
+
+void FieldPyramidPalace()
+{
+    while (true)
+    {
+        switch (NameMenu(Title_PyramidFields, Options_PyramidFields))
+        {
+            case -1:
+                return;
+            case 00: CALL_FIELD(055, 220, 0, 0); return;
+            case 01: CALL_FIELD(155, 001, 0, 0); return;
+            case 02: CALL_FIELD(155, 002, 0, 0); return;
+            case 03: CALL_FIELD(155, 003, 0, 0); return;
+            case 04: CALL_FIELD(155, 004, 0, 0); return;
+            case 05: CALL_FIELD(155, 005, 0, 0); return;
+            case 06: CALL_FIELD(155, 006, 0, 0); return;
+            case 07: CALL_FIELD(155, 007, 0, 0); return;
+            case 08: CALL_FIELD(155, 008, 0, 0); return;
+            case 09: CALL_FIELD(155, 009, 0, 0); return;
+            case 10: CALL_FIELD(155, 010, 0, 0); return;
+            case 11: CALL_FIELD(155, 011, 0, 0); return;
+            case 12: CALL_FIELD(155, 013, 0, 0); return;
+            case 13: CALL_FIELD(155, 051, 0, 0); return;
+        }
+    }
+}
+
+void FieldCasinoPalace()
+{
+    while (true)
+    {
+        switch (NameMenu(Title_CasinoFields, Options_CasinoFields))
+        {
+            case -1:
+                return;
+            case 00: CALL_FIELD(157, 001, 0, 0); return;
+            case 01: CALL_FIELD(157, 004, 0, 0); return;
+            case 02: CALL_FIELD(157, 005, 0, 0); return;
+            case 03: CALL_FIELD(157, 006, 0, 0); return;
+            case 04: CALL_FIELD(157, 007, 0, 0); return;
+            case 05: CALL_FIELD(157, 008, 0, 0); return;
+            case 06: CALL_FIELD(157, 009, 0, 0); return;
+            case 07: CALL_FIELD(157, 010, 0, 0); return;
+            case 08: CALL_FIELD(157, 011, 0, 0); return;
+            case 09: CALL_FIELD(157, 012, 0, 0); return;
+            case 10: CALL_FIELD(157, 013, 0, 0); return;
+            case 11: CALL_FIELD(157, 015, 0, 0); return;
+            case 12: CALL_FIELD(157, 016, 0, 0); return;
+            case 13: CALL_FIELD(157, 018, 0, 0); return;
+            case 14: CALL_FIELD(157, 051, 0, 0); return;
+            case 15: CALL_FIELD(157, 052, 0, 0); return;
+        }
+    }
+}
+
+void FieldCruisePalace()
+{
+    while (true)
+    {
+        switch (NameMenu(Title_CruiseFields, Options_CruiseFields))
+        {
+            case -1:
+                return;
+            case 00: CALL_FIELD(059, 131, 0, 0); return;
+            case 01: CALL_FIELD(059, 132, 0, 0); return;
+            case 02: CALL_FIELD(059, 170, 0, 0); return;
+            case 03: CALL_FIELD(059, 180, 0, 0); return;
+            case 04: CALL_FIELD(059, 181, 0, 0); return;
+            case 05: CALL_FIELD(059, 182, 0, 0); return;
+            case 06: CALL_FIELD(159, 001, 0, 0); return;
+            case 07: CALL_FIELD(159, 002, 0, 0); return;
+            case 08: CALL_FIELD(159, 003, 0, 0); return;
+            case 09: CALL_FIELD(159, 004, 0, 0); return;
+            case 10: CALL_FIELD(159, 006, 0, 0); return;
+            case 11: CALL_FIELD(159, 007, 0, 0); return;
+            case 12: CALL_FIELD(159, 008, 0, 0); return;
+            case 13: CALL_FIELD(159, 009, 0, 0); return;
+            case 14: CALL_FIELD(159, 010, 0, 0); return;
+            case 15: CALL_FIELD(159, 011, 0, 0); return;
+            case 16: CALL_FIELD(159, 012, 0, 0); return;
+            case 17: CALL_FIELD(159, 013, 0, 0); return;
+            case 18: CALL_FIELD(159, 020, 0, 0); return;
+            case 19: CALL_FIELD(159, 021, 0, 0); return;
+            case 20: CALL_FIELD(159, 022, 0, 0); return;
+            case 21: CALL_FIELD(159, 025, 0, 0); return;
+            case 22: CALL_FIELD(159, 026, 0, 0); return;
+            case 23: CALL_FIELD(159, 027, 0, 0); return;
+            case 24: CALL_FIELD(159, 030, 0, 0); return;
+            case 25: CALL_FIELD(159, 031, 0, 0); return;
+            case 26: CALL_FIELD(159, 032, 0, 0); return;
+            case 27: CALL_FIELD(159, 033, 0, 0); return;
+            case 28: CALL_FIELD(159, 035, 0, 0); return;
+            case 29: CALL_FIELD(159, 051, 0, 0); return;
+        }
+    }
+}
+
+void FieldMementosPalace()
+{
+    while (true)
+    {
+        switch (NameMenu(Title_MementosFields, Options_MementosFields))
+        {
+            case -1:
+                return;
+            case 00: CALL_FIELD(161, 001, 0, 0); return;
+            case 01: CALL_FIELD(161, 002, 0, 0); return;
+            case 02: CALL_FIELD(161, 003, 0, 0); return;
+            case 03: CALL_FIELD(161, 004, 0, 0); return;
+            case 04: CALL_FIELD(161, 005, 0, 0); return;
+            case 05: CALL_FIELD(161, 006, 0, 0); return;
+            case 06: CALL_FIELD(161, 007, 0, 0); return;
+            case 07: CALL_FIELD(161, 008, 0, 0); return;
+            case 08: CALL_FIELD(161, 009, 0, 0); return;
+            case 09: CALL_FIELD(161, 010, 0, 0); return;
+            case 10: CALL_FIELD(161, 011, 0, 0); return;
+            case 11: CALL_FIELD(161, 051, 0, 0); return;
+        }
+    }
+}
+
+void FieldQliphothTree()
+{
+    while (true)
+    {
+        switch (NameMenu(Title_QliphothFields, Options_QliphothFields))
+        {
+            case -1:
+                return;
+            case 0: CALL_FIELD(060, 100, 0, 0); return;
+            case 1: CALL_FIELD(160, 001, 0, 0); return;
+            case 2: CALL_FIELD(160, 002, 0, 0); return;
+            case 3: CALL_FIELD(160, 003, 0, 0); return;
+            case 4: CALL_FIELD(160, 004, 0, 0); return;
+            case 5: CALL_FIELD(160, 005, 0, 0); return;
+            case 6: CALL_FIELD(160, 006, 0, 0); return;
+            case 7: CALL_FIELD(160, 010, 0, 0); return;
+        }
+    }
+}

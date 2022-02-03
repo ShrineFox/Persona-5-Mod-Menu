@@ -1,0 +1,90 @@
+﻿import("Model/PlayerModel.flow");
+import("Animation/PlayerAnimation.flow");
+import("PlayerAppearance.msg");
+
+void PlayerAppearanceMenu()
+{
+    while (true)
+    {
+        switch ( DescriptionMenu(Title_PlayerAppearance, Options_PlayerAppearance) )
+        {
+            case -1:
+                return;
+            case 0:
+                // PlayerModel.flow
+                PlayerModelMenu();
+                break;
+            case 1:
+                // PlayerAnimation.flow
+                PlayerAnimationMenu();
+                break;
+            case 2:
+                ToggleBag();
+                break;
+            case 3:
+                ToggleMorgana();
+                break;
+            case 4:
+                ToggleUmbrella();
+                break;
+        }
+    }
+}
+
+void ToggleBag()
+{
+    if (SystemMenu(Message_PlayerBag, Options_ShowHide))
+    {
+        // Show
+        BIT_ON(4206);
+        BIT_OFF(4207);
+        BIT_OFF(4112);
+    }
+    else
+    {
+        // Hide
+        BIT_OFF(4206);
+        BIT_ON(4207);
+        BIT_ON(4112);
+    }
+
+    // ./Utilities/Utilities.flow
+    if (ConfirmReloadField())
+        return;
+}
+
+void ToggleMorgana()
+{
+    if (FLD_CHECK_MORGANA_BAG() == 1)
+    {
+        int joker = FLD_PC_GET_CURRENT_RESHND(0);
+        int bag = MDL_GET_ITEM_RESHND(joker, 2);
+        if (SystemMenu(Message_Morgana, Options_ShowHide))
+        {
+            // Show
+            MDL_ANIM(bag, 50, 0, 0, 1f);
+            MDL_ANIM_NEXT(bag, 51, 1, 0, 1f);
+        }
+        else
+        {
+            // Hide
+            MDL_ANIM(bag, 52, 0, 5, 1f);
+            MDL_ANIM_NEXT(bag, 0, 1, 0, 1f);
+        }
+    }
+}
+
+void ToggleUmbrella()
+{
+    FLD_BAG_ANIM_DISABLE();
+    if (SystemMenu(Message_Umbrella, Options_ShowHide))
+    {
+        // Show
+        FLD_UMBRELLA_ANIM_CHANGE(1);
+    }
+    else
+    {
+        // Hide
+        FLD_UMBRELLA_ANIM_CHANGE(0);
+    }
+}

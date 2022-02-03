@@ -1,0 +1,25 @@
+﻿import("FieldModels/FieldModels.flow");
+import("NPCs/NPCs.flow");
+import("Particles/Particles.flow");
+import("Spawn.msg");
+
+void SpawnMenu()
+{
+    while (true)
+    {
+        switch (DescriptionMenu(Title_Spawn, Options_Spawn))
+        {
+            case -1:
+                return;
+            case 0:
+                SpawnNPCsMenu();
+                break;
+            case 1:
+                SpawnFieldModelsMenu();
+                break;
+            case 2:
+                SpawnParticlesMenu();
+                break;
+        }
+    }
+}

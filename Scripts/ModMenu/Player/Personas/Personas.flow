@@ -1,0 +1,129 @@
+﻿import("Reserve/ReservePersonas.flow");
+import("Select/PersonaSelect.flow");
+import("Personas.msg");
+
+void PersonasMenu()
+{
+    while (true)
+    {
+        int selection = DescriptionMenu(Title_Personas, Options_Personas);
+        switch (selection)
+        {
+            case -1:
+                return;
+            case 0:
+                AddPersonasMenu();
+                break;
+            case 1:
+                DeleteAllPersonas();
+                break;
+            case 2:
+                PersonaAddAllToCompendium();
+                break;
+            case 3:
+                EvolvePersona();
+                break;
+        }
+    }
+}
+
+void AddPersonasMenu()
+{
+    while (true)
+    {
+        int personaId;
+
+        switch (NameMenu(Title_AddPersonas, Options_AddPersonas))
+        {
+            case -1:
+                return;
+            case 0:
+                // Add Persona by ID
+                SystemMessage(Message_AddPersonaByID);
+                personaId = NumberMenu(3);
+                if (personaId == -1)
+                {
+                    return;
+                }
+                ADD_PERSONA_STOCK(personaId);
+                SystemMessage(Message_PersonaAdded);
+                break;
+            case 1:
+                // Add Persona by Name
+                personaId = PersonaSelectByName();
+                if (personaId == -1)
+                {
+                    return;
+                }
+                ADD_PERSONA_STOCK(personaId);
+                SystemMessage(Message_PersonaAdded);
+                break;
+            case 2:
+                // Reserve/ReservePersonas.flow
+                ReservePersonasPage1();
+                SystemMessage(Message_PersonaAdded);
+                break;
+        }
+    }
+}
+
+void DeleteAllPersonas()
+{
+    if (SystemMenu(Message_DeleteAllPersonas, Options_NoYes))
+    {
+        CLEAR_PERSONA_STOCK();
+        SystemMessage(Message_PersonasDeleted);
+    }
+}
+
+void PersonaAddAllToCompendium()
+{
+    for (int i = 0; i < 463; i++)
+    {
+        if (i % 6 == 0)
+        {
+            CLEAR_PERSONA_STOCK();
+        }
+        ADD_PERSONA_STOCK(i);
+    }
+    CLEAR_PERSONA_STOCK();
+}
+
+void EvolvePersona()
+{
+    SetConfidantNames();
+    int selection = NameMenu(Title_Units, Options_UnitsNoJoker);
+
+    switch (selection)
+    {
+        case -1:
+            break;
+        case 0:
+            PERSONA_EVOLUTION(2);
+            break;
+        case 1:
+            PERSONA_EVOLUTION(3);
+            break;
+        case 2:
+            PERSONA_EVOLUTION(4);
+            break;
+        case 3:
+            PERSONA_EVOLUTION(5);
+            break;
+        case 4:
+            PERSONA_EVOLUTION(6);
+            break;
+        case 5:
+            PERSONA_EVOLUTION(7);
+            break;
+        case 6:
+            PERSONA_EVOLUTION(8);
+            break;
+        case 7:
+            PERSONA_EVOLUTION(9);
+            break;
+        case 8:
+            PERSONA_EVOLUTION(10);
+            break;
+    }
+}

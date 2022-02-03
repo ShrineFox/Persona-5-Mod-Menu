@@ -1,0 +1,90 @@
+﻿import("NPCAnimation.msg");
+
+global int gNpcGAPMinorId;
+global int gNpcAnimGapIndex;
+global float gNpcAnimSpeed;
+global bool gNpcAnimShouldLoop;
+global int gNpcAnimTime;
+
+void NPCAnimationMenu(int lastSpawnedNpcModelHandle)
+{
+    while (true)
+    {
+        switch (DescriptionMenu(Title_NPCAnimation, Options_NPCAnimation))
+        {
+            case -1:
+                return;
+            case 1:
+                NPCAnimSelectGAPId();
+                break;
+            case 2:
+                NPCAnimSelectIndex();
+                break;
+            case 3:
+                NPCAnimSetLoop();
+                break;
+            case 4:
+                NPCAnimSetSpeed();
+                break;
+            case 5:
+                NPCAnimSetTime();
+                break;
+            case 6:
+                NPCModel_PlayAnim(lastSpawnedNpcModelHandle);
+                break;
+        }
+    }
+}
+
+void NPCAnimSelectGAPId()
+{
+    SystemMessage(Message_LastNPCGAPDigits);
+    int npcGAPMinorID = NumberMenu(3);
+    if (npcGAPMinorID != -1)
+        return;
+
+    gNpcGAPMinorId = npcGAPMinorID;
+}
+
+void NPCAnimSelectIndex()
+{
+    SystemMessage(Message_NPCGapAnimIndex);
+
+    int temp = NumberMenu(2);
+    if (temp != -1)
+        gNpcAnimGapIndex = temp;
+}
+
+void NPCAnimSetLoop()
+{
+    if (SystemMenu(Message_NPCGapLoop, Options_LoopDont) == 0)
+        gNpcAnimShouldLoop = true;
+}
+
+void NPCAnimSetSpeed()
+{
+    SystemMessage(Message_NPCGapSpeed);
+
+    float temp = FloatMenu();
+    if (temp != -1)
+        gNpcAnimSpeed = temp / 10;
+}
+
+void NPCAnimSetTime()
+{
+    SystemMessage(Message_NPCGapTime);
+
+    int temp = NumberMenu(2);
+    if (temp != -1)
+        gNpcAnimTime = temp * 30;
+}
+
+void NPCModel_PlayAnim(int lastSpawnedNpcModelHandle)
+{
+    int clone = FLD_MODEL_CLONE_ADDMOTION(lastSpawnedNpcModelHandle, gNpcGAPMinorId);
+    FLD_UNIT_WAIT_DISABLE(clone);
+    MDL_ANIM(clone, gNpcAnimGapIndex, gNpcAnimShouldLoop, 0, gNpcAnimSpeed);
+    WAIT(gNpcAnimTime);
+    FLD_MODEL_REVERT_ADDMOTION(lastSpawnedNpcModelHandle, clone);
+    //FLD_UNIT_SET_WAIT( resHandle );
+}

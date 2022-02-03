@@ -1,0 +1,90 @@
+﻿import("Skills.msg");
+
+void SkillsMenu()
+{
+    while (true)
+    {
+        switch (DescriptionMenu_NOT_HELP(SkillsMenuName, SkillsMenuOptions))
+        {
+            case -1:
+                return;
+            case 0:
+                AddSkillByID();
+                break;
+            case 1:
+                AddSkillByName();
+                // TODO: Reusable Name or ID prompt for this and Personas
+                break;
+            case 2:
+                // TODO: Reusable Normal or Reserve prompt for this and Personas
+                AddReserveSkill();
+                break;
+        }
+    }
+}
+
+void AddSkillByID()
+{
+    SetConfidantNames();
+    unitId = DescriptionMenu_NOT_HELP(UnitMenuName, UnitSelect);
+    if (unitId == -1)
+    {
+        return;
+    }
+    
+    int skillId;
+    skillId = NumberMenu(SkillPrompt, 3);
+    if (skillId == -1)
+    {
+        return;
+    }
+
+    AddSkill(skillId);
+}
+
+void AddSkillByName()
+{
+    SetConfidantNames();
+    unitId = DescriptionMenu_NOT_HELP(UnitMenuName, UnitSelect);
+    if (unitId == -1)
+    {
+        return;
+    }
+
+    int skillId;
+    skillId = SkillSelectByName();
+    if (skillId == -1)
+    {
+        return;
+    }
+
+    AddSkill(skillId);
+}
+
+void AddReserveSkill()
+{
+    SetConfidantNames();
+    unitId = DescriptionMenu_NOT_HELP(UnitMenuName, UnitSelect);
+    if (unitId == -1)
+    {
+        return;
+    }
+    // Utilities/Skills/Reserve/ReserveSkills.flow
+    ReserveSkillsPage1();
+    DisplaySkillAddAnimation();
+    break;
+}
+
+void AddSkill(int skillId)
+{
+    SKILL_ADD((unitId + 1), skillId);
+    DisplaySkillAddAnimation();
+}
+
+void DisplaySkillAddAnimation()
+{
+    FADEIN(0, 10);
+    FADE_SYNC();
+    FLD_REQ_FLASHBACK(152, 51);
+    FLD_END_FLASHBACK();
+}

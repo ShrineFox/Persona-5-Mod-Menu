@@ -1,0 +1,108 @@
+﻿import("PlayerAnimation.msg");
+
+global int gFldAnimGapId;
+global int gFldAnimGapIndex;
+global float gFldAnimSpeed;
+global bool gFldAnimShouldLoop;
+global int gFldAnimTime;
+
+void PlayerAnimationMenu()
+{
+    while (true)
+    {
+        switch (DescriptionMenu(Title_PlayerAnimation, Options_PlayerAnimation))
+        {
+            case -1:
+                return;
+            case 0:
+                PlayerSetFieldGAP();
+                break;
+            case 1:
+                PlayerAnimSelectGAPId();
+                break;
+            case 2:
+                PlayerAnimSelectIndex();
+                break;
+            case 3:
+                PlayerAnimSetLoop();
+                break;
+            case 4:
+                PlayerAnimSetSpeed();
+                break;
+            case 5:
+                PlayerAnimSetTime();
+                break;
+            case 6:
+                PlayerFieldModel_PlayAnim(gFldAnimGapId, gFldAnimGapIndex);
+                break;
+        }
+    }
+}
+
+void PlayerSetFieldGAP()
+{
+    SystemMessage(Message_LastGAPDigits);
+
+    int gapLast = NumberMenu(3);
+    if (gapLast != -1)
+    {
+        // Confirm entered number
+        SET_COUNT(22, gapLast);
+
+        // Prompt reload of field to complete GAP swap
+        ConfirmReloadField();
+    }
+}
+
+void PlayerAnimSelectGAPId()
+{
+    SystemMessage(Message_GapID);
+
+    int temp = NumberMenu(3);
+    if (temp != -1)
+        gFldAnimGapId = temp;
+}
+
+void PlayerAnimSelectIndex()
+{
+    SystemMessage(Message_GapAnimIndex);
+
+    int temp = NumberMenu(2);
+    if (temp != -1)
+        gFldAnimGapIndex = temp;
+}
+
+void PlayerAnimSetLoop()
+{
+    if (SystemMenu(Message_GapLoop, Options_LoopDont))
+        gFldAnimShouldLoop = true;
+}
+
+void PlayerAnimSetSpeed()
+{
+    SystemMessage(Message_GapSpeed);
+
+    float temp = FloatMenu();
+    if (temp != -1)
+        gFldAnimSpeed = temp / 10;
+}
+
+void PlayerAnimSetTime()
+{
+    SystemMessage(Message_GapTime);
+
+    int temp = NumberMenu(2);
+    if (temp != -1)
+        gFldAnimTime = temp * 30;
+}
+
+void PlayerFieldModel_PlayAnim(int gapid, int index)
+{
+    int joker = FLD_PC_GET_CURRENT_RESHND(0);
+    int clone = FLD_MODEL_CLONE_ADDMOTION(joker, gapid);
+    FLD_UNIT_WAIT_DISABLE(clone);
+    MDL_ANIM(clone, index, gFldAnimShouldLoop, 0, gFldAnimSpeed);
+    WAIT(gFldAnimTime);
+    FLD_MODEL_REVERT_ADDMOTION(joker, clone);
+    //FLD_UNIT_SET_WAIT( resHandle );
+}

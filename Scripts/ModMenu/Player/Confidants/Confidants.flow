@@ -1,0 +1,57 @@
+﻿import("Confidants.msg");
+
+void ConfidantsMenu()
+{
+    while (true)
+    {
+        switch (DescriptionMenu(Title_Confidants, Options_Confidants))
+        {
+            case -1:
+                return;
+            case 0:
+                ConfidantRankMenu();
+                break;
+            case 1:
+                RomanceRouteMenu();
+                break;
+        }
+    }
+}
+
+void ConfidantRankMenu()
+{
+    SetConfidantNames();
+    int cmmId = DescriptionMenu(Title_ConfidantRank, Options_ConfidantRank) + 1;
+
+    if (cmmId <= 0 || cmmId >= 22)
+        return;
+
+    SystemMessage(Message_ConfidantRank);
+    int lvl = NumberMenuTen() + 1;
+
+    if (lvl == 0)
+        return;
+
+    CMM_RANKUP(cmmId, lvl, 1);
+
+    if (!CMM_EXIST(cmmId))
+    {
+        CMM_OPEN(cmmId);
+    }
+
+    CMM_SET_LV(cmmId, lvl);
+    CMM_ADD_POINT(cmmId, 9999);
+}
+
+void RomanceRouteMenu()
+{
+    while (true)
+    {
+        SetConfidantNames();
+        int lover = NameMenu(Title_RomanceMenu, Options_RomanceMenu);
+        if (lover == -1)
+            return;
+
+        ToggleFlag(6864 + lover, true);
+    }
+}

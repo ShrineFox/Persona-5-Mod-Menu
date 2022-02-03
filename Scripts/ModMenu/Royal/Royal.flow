@@ -1,0 +1,39 @@
+import("Royal.msg");
+
+void RoyalMenu()
+{
+    while (true)
+    {
+        int selection = Menu(RoyalMenuName, RoyalMenu);
+
+        switch (selection)
+        {
+            case -1:
+                return;
+            case 0:
+                FLD_MY_PALACE_ENTER();
+                break;
+            case 1:
+                SetConfidantNames();
+                unitId = Menu(UnitMenuName, UnitSelect);
+                if (unitId != -1)
+                {
+                    FLD_SET_TRANSFORM(unitId);
+                    FLD_SET_TRANSFORM(unitId);
+                }
+                break;
+            case 2:
+                START_VIDEO_VIEWER();
+                break;
+            case 3:
+                START_SOUND_VIEWER();
+                break;
+            case 4:
+                START_IMAGE_VIEWER();
+                break;
+            case 5:
+                CALL_DAIFUGOU();
+                break;
+        }
+    }
+}

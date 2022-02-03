@@ -1,0 +1,45 @@
+import("Stats.msg");
+
+void StatsMenu()
+{
+    while (true)
+    {
+        int selection = DescriptionMenu(Title_Stats, Options_Stats);
+
+        if (selection == -1)
+            return;
+
+        SystemMessage(Message_StatsPoints);
+        int pointsToAdd = NumberMenu(2);
+
+        if (pointsToAdd == -1)
+            continue;
+
+        switch (selection)
+        {
+            case -1:
+                return;
+            case 0: // Knowledge
+                StatAddPointAndDisplay(pointsToAdd, 0, 0, 0, 0);
+                break;
+            case 1: // Charm
+                StatAddPointAndDisplay(0, pointsToAdd, 0, 0, 0);
+                break;
+            case 2: // Proficiency
+                StatAddPointAndDisplay(0, 0, pointsToAdd, 0, 0);
+                break;
+            case 3: // Guts
+                StatAddPointAndDisplay(0, 0, 0, pointsToAdd, 0);
+                break;
+            case 4: // Kindness
+                StatAddPointAndDisplay(0, 0, 0, 0, pointsToAdd);
+                break;
+        }
+    }
+}
+
+void StatAddPointAndDisplay(int p1, int p2, int p3, int p4, int p5)
+{
+    ADD_PC_ALL_PARAM(p1, p2, p3, p4, p5);
+    DISP_PC_PARAM_METER();
+}

@@ -1,0 +1,78 @@
+﻿import("Appearance/PlayerAppearance.flow");
+import("Confidants/Confidants.flow");
+import("Items/Items.flow");
+import("Personas/Personas.flow");
+import("Skills/Skills.flow");
+import("Stats/Stats.flow");
+import("Player.msg");
+
+void PlayerMenu()
+{
+    while (true)
+    {
+        switch (DescriptionMenu(Title_Player, Options_Player))
+        {
+            case -1:
+                return;
+            case 0:
+                // Appearance/PlayerAppearance.flow
+                PlayerAppearanceMenu();
+            case 1:
+                SetPlayerName();
+                break;
+            case 2:
+                SetTeamName();
+                break;
+            case 3:
+                PlayerSetMoney();
+                break;
+            case 4:
+                // Personas/Personas.flow
+                PersonasMenu();
+                break;
+            case 5:
+                // Personas/Skills.flow
+                SkillsMenu();
+                break;
+            case 6:
+                // Items/Items.flow
+                ItemsMenu();
+                break;
+            case 7:
+                // Stats/Stats.flow
+                StatsMenu();
+                break;
+            case 8:
+                // Confidants/Confidants.flow
+                ConfidantsMenu();
+                break;
+        }
+    }
+}
+
+void PlayerSetMoney()
+{
+    int yen = NumberMenu(7);
+
+    if (yen > 0)
+    {
+        GET_MONEY_WINDOW(yen, 0);
+        CALL_GLOBAL_MONEY_PANEL();
+        CHANGE_GLOBAL_MONEY(yen, 0);
+        DEL_GLOBAL_MONEY_PANEL();
+    }
+}
+
+void SetPlayerName()
+{
+    INIT_IME_DRIVER();
+    CALL_NAME_ENTRY();
+    END_IME_DRIVER();
+}
+
+void SetTeamName()
+{
+    INIT_IME_DRIVER();
+    CALL_PHANTOM_NAME_ENTRY();
+    END_IME_DRIVER();
+}

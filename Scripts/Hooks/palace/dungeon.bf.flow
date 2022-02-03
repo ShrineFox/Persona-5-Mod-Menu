@@ -1,6 +1,11 @@
+/* Vanilla Start */
 import("../../../Assets/Vanilla/field/dungeon.bf");
+/* Vanilla End */
+/* Royal Start */
+import("../../../Assets/Royal/field/dungeon.bf");
 import("placeholderRoyal.msg");
-import("../../ModMenu.flow");
+/* Royal End */
+import("../../ModMenu/ModMenu.flow");
 
 void CallOriginalSquareMenu()
 {

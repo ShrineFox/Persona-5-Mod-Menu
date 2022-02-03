@@ -1,0 +1,74 @@
+﻿import("PlayerModel.msg");
+
+void PlayerModelMenu()
+{
+    while (true)
+    {
+        int selection = DescriptionMenu(Title_PlayerModel, Options_PlayerModel);
+        switch (selection)
+        {
+            case -1:
+                return;
+            case 0:
+                PlayerSetFieldModel();
+                break;
+            case 1:
+                PlayerSetModelScale();
+                break;
+            case 2:
+                PlayerAttachItemModel();
+                break;
+        }
+    }
+}
+
+void PlayerSetFieldModel()
+{
+    int modelStart = 100000;
+    SystemMessage(Message_MiddleDigitsGMD);
+    int modelMiddle = NumberMenu(3);
+    if (modelMiddle != -1)
+    {
+        modelMiddle *= 100;
+        SystemMessage(Message_LastDigitsGMD);
+        int modelLast = NumberMenu(2);
+        if (modelLast != -1)
+        {
+            // Confirm entered number
+            SET_COUNT(18, modelStart + modelMiddle + modelLast);
+
+            // Prompt reload of field to complete GMD swap
+            ConfirmReloadField();
+        }
+    }
+}
+
+void PlayerSetModelScale()
+{
+    float temp = FloatMenu();
+    if (temp != -1)
+    {
+        float modelScale = temp / 10;
+        FLD_MODEL_SET_SCALE(FLD_PC_GET_RESHND(0), modelScale);
+    }
+}
+
+void PlayerAttachItemModel()
+{
+    SystemMessage(Message_ItemSpawnAttachPlayerMajor);
+    int itemModelMajor = NumberMenu(4);
+    if (itemModelMajor == -1)
+        return;
+    SystemMessage(Message_ItemSpawnAttachPlayerMinor);
+    int itemModelMinor = NumberMenu(3);
+    if (itemModelMinor == -1)
+        return;
+
+    //FLD_PC_MODEL_ATTACH_ITEM( resHandle, itemModelMajor, itemModelMinor );
+    int itemModel = FLD_ITEM_MODEL_LOAD(itemModelMajor, itemModelMinor);
+    FLD_MODEL_LOADSYNC(itemModel);
+    FLD_MODEL_SET_VISIBLE(itemModel, 1, 0);
+    int joker = FLD_PC_GET_RESHND(0);
+    FLD_MODEL_ATTACH_TRANSLATE(itemModel, joker, 101);
+    FLD_MODEL_ATTACH_ROTATE(itemModel, joker, 101);
+}

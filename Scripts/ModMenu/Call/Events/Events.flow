@@ -1,0 +1,51 @@
+﻿import("Events.msg");
+
+void EventMenu()
+{
+    while (true)
+    {
+        switch (DescriptionMenu(Title_Events, Options_Events))
+        {
+            case -1:
+                return;
+            case 0:
+                EventSelect_ByID();
+                break;
+            case 1:
+                KfEventSelect_ByID();
+                break;
+        }
+    }
+}
+
+void EventSelect_ByID()
+{
+    SystemMessage(Message_EventID_Major);
+    int eventMajor = NumberMenu(3);
+    if (eventMajor == -1)
+        return;
+
+    SystemMessage(Message_EventID_Minor);
+    int eventMinor = NumberMenu(3);
+    if (eventMinor == -1)
+        return;
+
+    CALL_EVENT(eventMinor, eventMinor);
+    ReloadPreviousField();
+}
+
+void KfEventSelect_ByID()
+{
+    SystemMessage(Message_KFEventID_Major);
+    int eventMajor = NumberMenu(3);
+    if (eventMajor == -1)
+        return;
+
+    SystemMessage(Message_KFEventID_Minor);
+    int eventMinor = NumberMenu(3);
+    if (eventMinor == -1)
+        return;
+
+    CALL_KF_EVENT(eventMinor, eventMinor, 0, 0);
+    ReloadPreviousField();
+}

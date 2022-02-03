@@ -1,0 +1,115 @@
+﻿import("Particles.msg");
+
+// Global Variables
+global int particle;
+global int particleNumber;
+global int particleX;
+global int particleY;
+global int particleZ;
+global float particleScale;
+global float particleSpeed;
+global float particleAlpha;
+
+void SpawnParticlesMenu()
+{
+
+    while (true)
+    {
+        switch (DescriptionMenu(Title_Particles, Options_Particles))
+        {
+            case -1:
+                return;
+            case 0:
+                SpawnEPL();
+                while (!PAD_CHK_PRESS(PadButton.Triangle))
+                {
+                    if (PAD_CHK_PRESS(PadButton.Left))
+                    {
+                        if (particleNumber == 0)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            particleNumber = particleNumber - 1;
+                            SpawnEPL();
+                        }
+                    }
+                    if (PAD_CHK_PRESS(PadButton.Right))
+                    {
+                        particleNumber = particleNumber + 1;
+                        SpawnEPL();
+                    }
+                    WAIT(3); //Prevents crash from excessive tick speed
+                }
+                break;
+            case 1:
+                particleNumber = NumberMenu(3);
+                if (particleNumber == -1)
+                {
+                    particleNumber = 0;
+                    break;
+                }
+                else
+                {
+                    SpawnEPL();
+                }
+                break;
+            case 2:
+                particleX = 0;
+                particleY = 0;
+                particleZ = 0;
+                particleScale = 1;
+                particleAlpha = 1;
+                particleSpeed = 1;
+                SetEPL();
+                break;
+            case 3:
+                SystemMessage(Message_ParticleScale);
+                particleScale = FloatMenu() / 10;
+                SetEPL();
+                break;
+            case 4:
+                SystemMessage(Message_ParticleSpeed);
+                particleSpeed = FloatMenu() / 10;
+                SetEPL();
+                break;
+            case 5:
+                particleX = FLD_MODEL_GET_X_TRANSLATE(FLD_PC_GET_RESHND(0));
+                particleY = FLD_MODEL_GET_Y_TRANSLATE(FLD_PC_GET_RESHND(0));
+                particleZ = FLD_MODEL_GET_Z_TRANSLATE(FLD_PC_GET_RESHND(0));
+                SetEPL();
+                break;
+            case 6:
+                SystemMessage(Message_ParticleAlpha);
+                particleAlpha = FloatMenu() / 10;
+                SetEPL();
+                break;
+        }
+    }
+}
+
+void SpawnEPL()
+{
+    FLD_EFFECT_END(particle);
+    FLD_EFFECT_BANK_FREE(1);
+    PUT(particleNumber);
+    FLD_EFFECT_BANK_LOAD(1, particleNumber);
+    FLD_EFFECT_BANK_SYNC(1);
+    particle = FLD_EFFECT_BANK_START(1);
+    SetEPL();
+}
+
+void SetEPL()
+{
+    if (particleScale == 0 && particleAlpha == 0 && particleSpeed == 0)
+    {
+        particleScale = 1;
+        particleAlpha = 1;
+        particleSpeed = 1;
+    }
+    FLD_EFFECT_SET_POS(particle, particleX, particleY, particleZ);
+    FLD_EFFECT_SET_SCALE(particle, particleScale, particleScale, particleScale);
+    FLD_EFFECT_SET_ALPHA(particle, particleAlpha);
+    FLD_EFFECT_SET_SPEED(particle, particleSpeed);
+}

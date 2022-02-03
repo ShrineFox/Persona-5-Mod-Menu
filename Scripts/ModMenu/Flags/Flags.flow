@@ -1,0 +1,178 @@
+﻿import("Category/FlagCategories.flow");
+import("Flags.msg");
+
+global int range1;
+global int range2;
+global int maxFlagAmount;
+
+void FlagsMenu()
+{
+    // Flags start at 0x2D66 (vanilla)
+    // Flags start at 0x3598 (royal)
+    // Header is 60 bytes
+
+    // Section is 0x460 bytes (8960 bits) long (vanilla)
+    // Section is 0x640 bytes (12800 bits) long (royal)
+
+    maxFlagAmount = 8960;
+    /* Royal Start */
+    maxFlagAmount = 12800;
+    /* Royal End */
+
+    while (true)
+    {
+        switch (DescriptionMenu(Title_Flags, Options_Flags))
+        {
+            case -1:
+                return;
+            case 0:
+                ToggleFlags_ByID();
+                break;
+            case 1:
+                FlagCategoriesMenu();
+                break;
+            case 2:
+                // Randomize Flags
+                SystemMessage(Message_RandomizeFlags);
+                int chance = NumberMenu(3);
+                if (chance != -1)
+                {
+                    RandomizeFlags(chance);
+                    SET_MSG_VAR(chance, chance, 0);
+                    SystemMessage(Message_RandomizeComplete);
+                }
+                break;
+            case 3:
+                // Print Enabled Flags
+                PrintFlags(true);
+                break;
+            case 4:
+                // Print Disabled Flags
+                PrintFlags(false);
+                break;
+        }
+    }
+}
+
+void ToggleFlags_ByID()
+{
+    while (true)
+    {
+        switch (DescriptionMenu(Title_ToggleFlagsByID, Options_ToggleFlagsByID))
+        {
+            case -1:
+                return;
+            case 0:
+                // Set Individual Flag
+                ToggleFlag(NumberMenu(5), true);
+                break;
+            case 1:
+                // Set Start Range
+                range1 = NumberMenu(5);
+                break;
+            case 2:
+                // Set End Range
+                range2 = NumberMenu(5);
+                break;
+            case 3:
+                // Enable Range
+                ToggleRange(0);
+                break;
+            case 4:
+                // Disable Range
+                ToggleRange(1);
+                break;
+            case 5:
+                // Flip Range
+                ToggleRange(2);
+                break;
+        }
+    }
+}
+
+void RandomizeFlags(int chance)
+{
+    for (int i = 0; i < maxFlagAmount; i++)
+    {
+        if (RND(100) <= chance)
+        {
+            ToggleFlag(i, false);
+        }
+    }
+}
+
+void PrintFlags(int enabledFlags)
+{
+    for (int i = 0; i < gBitFlagAmount; i++)
+    {
+        if (enabledFlags && BIT_CHK(i))
+        {
+            PUT(i);
+        }
+        else if (!enabledFlags && !BIT_CHK(i))
+        {
+            PUT(i);
+        }
+    }
+}
+
+void ToggleRange(int mode)
+{
+    if (range1 < 0)
+        range1 = 0;
+    if (range2 < 0)
+        range2 = 0;
+    if (range2 < maxFlagAmount)
+        range2 = maxFlagAmount;
+
+    SET_MSG_VAR(range1, range1, 0);
+    SET_MSG_VAR(range2, range2, 1);
+
+    switch (mode)
+    {
+        case 0:
+            if (SystemMenu(Message_ConfirmEnableRange, Options_YesNo) == 0)
+                EnableRange();
+            break;
+        case 1:
+            if (SystemMenu(Message_ConfirmDisableRange, Options_YesNo) == 0)
+                DisableRange();
+            break;
+        case 2:
+            if (SystemMenu(Message_ConfirmFlipRange, Options_YesNo) == 0)
+                FlipRange();
+            break;
+    }
+}
+
+void EnableRange()
+{
+    for (int i = range1; i < range2; i++)
+    {
+        if (i != 320 && i != 11781)
+            BIT_ON(i);
+    }
+}
+
+void DisableRange()
+{
+    for (int i = range1; i < range2; i++)
+    {
+        if (i != 320 && i != 11781)
+            BIT_OFF(i);
+    }
+}
+
+void FlipRange()
+{
+    for (int i = range1; i < range2; i++)
+    {
+        if (i != 320 && i != 11781)
+        {
+            if (BIT_CHK(i))
+                BIT_OFF(i);
+            else
+                BIT_ON(i);
+        }
+    }
+}

@@ -12,16 +12,41 @@ namespace ModMenuBuilder
 {
     public class MenuBuilder
     {
+        public static int reindexStart;
+
+        public static string assetsDir;
+        public static string scriptsDir;
+        public static string tempDir;
+        public static string outputDir;
+        public static string tempAssetsDir;
+        public static string tempScriptsDir;
+        
         public static void Build()
         {
+            // Set build paths
+            assetsDir = Path.Combine(Program.exeDir, "Assets");
+            scriptsDir = Path.Combine(Program.exeDir, "Scripts");
+            tempDir = Path.Combine(Program.exeDir, "Temp");
+            outputDir = Path.Combine(Program.exeDir, "Output");
+            tempAssetsDir = Path.Combine(assetsDir, "Assets");
+            tempScriptsDir = Path.Combine(scriptsDir, "Scripts");
+
+            // Set output path if specified by user
+            if (Program.Options.Output != "")
+            {
+                Directory.CreateDirectory(Program.Options.Output);
+                outputDir = Program.Options.Output;
+            }
+
+            // Set index of messages to start at when reindexing .msg files
+            reindexStart = 90;
+            if (Program.SelectedGame.Type.Equals("Royal"))
+                reindexStart = 181;
+
             CreateTempFolder(); // Move Assets/Scripts to Temp dir for modification
             UnpackPACs(); // Get .bf files from .PAC files
-            RoyalifyScripts(); // Enable Royal-only elements of Mod Menu .flow/.msg
-            RemoveFlowComments(); // Removes lines with a "/* Royal */" or "/* Vanilla */" comment from Mod Menu .flow depending on version
-            RemoveMsgComments(); // Removes lines with a "// Royal" or "// Vanilla" comment from Mod Menu .msg depending on version
-            UpdateImportPaths(); // Remove or update .flow/.msg import paths depending on if Royal or Vanilla
-            ReindexMsgs(); // Update .msg indexes of files depending on if Royal or Vanilla
-            CompileScripts(); // Create new .bf files from modified .flow
+            ProcessScripts(); // Enable/disable game-specific elements of Mod Menu .flow/.msg and reindex .msg files
+            CompileHookScripts(); // Create new .bf files from hook .flow
             RepackPACs(); // Pack changed .bf files back into .PAC
             CopyToOutput(); // Copy changed files to output folder
 
@@ -34,23 +59,24 @@ namespace ModMenuBuilder
 
         private static void CreateTempFolder()
         {
-            DeleteTempFolder();
             // Create new Temp folder
-            Console.WriteLine("Creating new Temp directory");
-            Directory.CreateDirectory("Temp");
+            DeleteTempFolder();
+            Console.WriteLine($"Creating new Temp directory:\n  {tempDir}");
+            Directory.CreateDirectory(tempDir);
+
             // Copy Assets and Scripts folders to Temp folder
-            Console.WriteLine("Copying Assets to Temp/Assets directory");
-            Tools.CopyDir("Assets", "Temp/Assets");
-            Console.WriteLine("Copying Scripts to Temp/Scripts directory");
-            Tools.CopyDir("Scripts", "Temp/Scripts");
+            Console.WriteLine($"Copying Assets to Temp/Assets directory:\n  {tempAssetsDir}");
+            Tools.CopyDir(assetsDir, tempAssetsDir);
+            Console.WriteLine($"Copying Scripts to Temp/Scripts directory:\n  {tempScriptsDir}");
+            Tools.CopyDir(scriptsDir, tempScriptsDir);
         }
 
         private static void DeleteTempFolder()
         {
             // Delete Temp folder and all contents
-            Console.WriteLine("Deleting Temp directory");
-            if (Directory.Exists("Temp"))
-                Directory.Delete("Temp", true);
+            Console.WriteLine($"Deleting Temp directory:\n  {tempDir}");
+            if (Directory.Exists(tempDir))
+                Directory.Delete(tempDir, true);
         }
 
         public static void UnpackPACs()
@@ -58,7 +84,7 @@ namespace ModMenuBuilder
             // Extract .bf files from each PAC in Assets folder
             foreach (InputFile inputFile in Program.InputFiles.Where(x => x.Name.EndsWith(".bf") && x.Archive.EndsWith(".pac")))
             {
-                string pacFilePath = Path.Combine($"Temp\\Assets\\{Program.SelectedGame.Type}\\{inputFile.Path}", inputFile.Archive);
+                string pacFilePath = Path.Combine($"{tempAssetsDir}\\{Program.SelectedGame.Type}\\{inputFile.Path}", inputFile.Archive);
                 if (File.Exists(pacFilePath))
                 {
                     PAKFileSystem pak = new PAKFileSystem();
@@ -88,192 +114,173 @@ namespace ModMenuBuilder
             }
         }
 
-        private static void RoyalifyScripts()
+        private static void ProcessScripts()
         {
-            // If game type is "Royal"...
-            if (Program.SelectedGame.Type.Equals("Royal"))
+            Console.WriteLine("Processing Mod Menu scripts...");
+
+            // Get list of scripts to process
+            List<string> scripts = new List<string>();
+            foreach (var script in Program.InputFiles.Where(x => x.Name.EndsWith(".bf")))
+                scripts.Add($"{tempScriptsDir}\\Hooks\\{script.HookPath}\\{script.Name}.flow");
+            foreach (var script in Program.Scripts)
+                scripts.Add(script);
+
+            // Process each script
+            foreach (var script in scripts)
             {
-                // Replace vanilla-specific stuff with Royal stuff
-                Console.WriteLine("Royal-ifying Mod Menu scripts...");
-
-                // Get list of scripts to Royal-ify
-                List<string> scripts = new List<string>();
-                foreach (var script in Program.InputFiles.Where(x => x.Name.EndsWith(".bf")))
-                    scripts.Add($"Temp/Scripts/Hooks/{script.HookPath}/{script.Name}.flow");
-                scripts.Add("Temp/Scripts/ModMenu.flow");
-
-                foreach (var script in scripts)
-                {
-                    if (File.Exists(script))
-                    {
-                        var lines = File.ReadAllLines(script);
-                        List<string> newLines = new List<string>();
-
-                        for (int i = 0; i < lines.Length; i++)
-                        {
-                            var line = lines[i].Trim();
-                            if (line.StartsWith("import(\"./Vanilla")) // Replace vanilla import script with Royal equivalent
-                                newLines.Add(lines[i].Replace("import(\"./Vanilla", "import(\"./Royal"));
-                            else if (line.StartsWith("BIT_OFF(") || line.StartsWith("BIT_ON("))
-                            {
-                                // Attempt to convert vanilla bitflag to Royal flag
-                                string flag = Flag.Get(line);
-                                int convertedFlag = -1;
-                                try
-                                {
-                                    convertedFlag = Flag.ConvertToRoyal(Convert.ToInt32(flag));
-                                }
-                                catch { }
-
-                                if (convertedFlag != -1 && convertedFlag.ToString() != flag) // Replace line and notify user of this change
-                                {
-                                    Console.WriteLine($"Replaced Vanilla bitflag ({flag}) with Royal bitflag ({convertedFlag}).");
-                                    newLines.Add(lines[i].Replace(flag, convertedFlag.ToString()));
-                                }
-                                else // Use original flag if flag could not be converted to Royal
-                                    newLines.Add(lines[i]);
-                            }
-                            else // Add original line if no changes needed
-                                newLines.Add(lines[i]);
-                        }
-
-                        File.WriteAllText(script, String.Join("\n", newLines));
-                    }
-                    else
-                        Console.WriteLine($"Could not find script: {script}");
-                }
+                if (Program.SelectedGame.Type.Equals("Royal"))
+                    Royalify(script);
+                RemoveFlowComments(script); // Removes lines with a "/* Royal */" or "/* Vanilla */" comment from .flow depending on version
+                RemoveMsgComments(script.Replace(".flow",".msg")); // Removes lines with a "// Royal" or "// Vanilla" comment from .msg depending on version
+                ReindexMsg(script.Replace(".flow", ".msg")); // Update .msg indexes of file depending on if Royal or Vanilla
             }
         }
 
-        private static void RemoveMsgComments()
+        private static void Royalify(string script)
         {
+            script = Path.Combine(tempScriptsDir, script);
+
+            if (File.Exists(script))
+            {
+                var lines = File.ReadAllLines(script);
+                List<string> newLines = new List<string>();
+
+                for (int i = 0; i < lines.Length; i++)
+                {
+                    var line = lines[i].Trim();
+                    if (line.StartsWith("BIT_OFF(") || line.StartsWith("BIT_ON(") || line.StartsWith("ToggleFlag("))
+                    {
+                        // Attempt to convert vanilla bitflag to Royal flag
+                        string flag = Flag.Get(line);
+                        int convertedFlag = -1;
+                        try
+                        {
+                            convertedFlag = Flag.ConvertToRoyal(Convert.ToInt32(flag));
+                        }
+                        catch { }
+
+                        if (convertedFlag != -1 && convertedFlag.ToString() != flag) // Replace line and notify user of this change
+                        {
+                            Console.WriteLine($"Replaced Vanilla bitflag ({flag}) with Royal bitflag ({convertedFlag}).");
+                            newLines.Add(lines[i].Replace(flag, convertedFlag.ToString()));
+                        }
+                        else // Use original flag if flag could not be converted to Royal
+                            newLines.Add(lines[i]);
+                    }
+                    else // Add original line if no changes needed
+                        newLines.Add(lines[i]);
+                }
+
+                File.WriteAllText(script, String.Join("\n", newLines));
+            }
+            else
+                Console.WriteLine($"Could not find script: {script}");
+        }
+
+        private static void RemoveMsgComments(string script)
+        {
+            script = Path.Combine(tempScriptsDir, script);
+
             // Remove lines with the opposite game type's comment from Mod Menu .msg
             string removeType = "Royal";
             if (Program.SelectedGame.Type.Equals("Royal"))
                 removeType = "Vanilla";
 
-            if (File.Exists("Temp/Scripts/ModMenu.msg"))
+            if (File.Exists(script))
             {
                 // Remove entire line if opposite type
-                var lines = File.ReadAllLines("Temp/Scripts/ModMenu.msg");
+                var lines = File.ReadAllLines(script);
                 List<string> newLines = new List<string>();
                 for (int i = 0; i < lines.Length; i++)
                     if (!lines[i].Contains($"// {removeType}") && !lines[i].Contains($"//{removeType}"))
                         newLines.Add(lines[i]);
 
                 // Remove comments from line for matching type and overwrite file
-                File.WriteAllText("Temp/Scripts/ModMenu.msg", String.Join("\n", newLines)
+                File.WriteAllText(script, String.Join("\n", newLines)
                     .Replace($"// {Program.SelectedGame.Type}", "").Replace($"//{Program.SelectedGame.Type}", ""));
             }
             else
-                Console.WriteLine("Could not find script: Temp/Scripts/ModMenu.msg!");
+                Console.WriteLine($"Could not find script to remove .msg comments from:\n  {script}");
         }
 
-        private static void RemoveFlowComments()
+        private static void RemoveFlowComments(string script)
         {
+            script = Path.Combine(tempScriptsDir, script);
+
             // Remove lines with the opposite game type's comment from Mod Menu .flow
             string removeType = "Royal";
             if (Program.SelectedGame.Type.Equals("Royal"))
                 removeType = "Vanilla";
 
-            if (File.Exists("Temp/Scripts/ModMenu.flow"))
+            if (File.Exists(script))
             {
                 // Comment out blocks for opposing game type
-                File.WriteAllText("Temp/Scripts/ModMenu.flow", File.ReadAllText("Temp/Scripts/ModMenu.flow")
+                File.WriteAllText(script, File.ReadAllText(script)
                     .Replace($"/* {removeType} Start */", $"/* {removeType} Start ")
                     .Replace($"/* {removeType} End */", $" {removeType} End */"));
             }
             else
-                Console.WriteLine("Could not find script: Temp/Scripts/ModMenu.flow!");
+                Console.WriteLine($"Could not find script to remove .flow comments from:\n  {script}");
         }
 
-        private static void UpdateImportPaths()
+        public static void ReindexMsg(string script)
         {
-            // Update .msg/.flow import paths for Royal
-            foreach (InputFile inputFile in Program.InputFiles.Where(x => x.Name.EndsWith(".bf")))
-            {
-                string flowPath = $"Temp/Scripts/Hooks/{inputFile.HookPath}/{inputFile.Name}.flow";
+            script = Path.Combine(tempScriptsDir, script);
 
-                if (Program.SelectedGame.Type.Equals("Royal"))
+            if (File.Exists(script))
+            {
+                // Update parameters of msg functions that displays description for menu selection
+                Console.WriteLine($"Updating .msg index parameters in:" +
+                    $"\n  {Path.GetFileName(script)}" +
+                    $"\n  Starting from: {reindexStart}");
+
+                var msgLines = File.ReadAllLines(script);
+                int refCount = 0; // Keep track of total number of references per selection block
+
+                for (int i = 0; i < msgLines.Length; i++)
                 {
-                    if (File.Exists(flowPath))
+                    // Increase total number of messages so far
+                    if (msgLines[i].Contains("[dlg ") || msgLines[i].Contains("[sel "))
+                        reindexStart++;
+
+                    // If current line contains "[ref "...
+                    if (msgLines[i].Contains("[ref "))
                     {
-                        Console.WriteLine($"Updated import paths in script: {flowPath}");
-                        File.WriteAllText(flowPath, File.ReadAllText(flowPath).Replace("placeholder.msg", "placeholderRoyal.msg").Replace("/Vanilla/", "/Royal/"));
+                        // Reset reference count
+                        refCount = 0;
+
+                        // For each line containing "[ref " until file ends or a line doesn't contain "[ref "...
+                        while (i + 1 < msgLines.Length && msgLines[i].Contains("[ref "))
+                        {
+                            // Separate part of string after "[ref "
+                            int index = msgLines[i].IndexOf("[ref ");
+                            string substring = msgLines[i].Substring(index);
+                            // Create new second half of string
+                            string newString = $"[ref {refCount} {reindexStart + refCount + 1}][e]";
+                            string newLine = msgLines[i].Remove(index);
+                            // Update line with new data
+                            msgLines[i] = newLine + newString;
+                            // Increase number of ref lines read so far for this sel block
+                            refCount++;
+                            // Increase current line number
+                            i++;
+                        }
                     }
-                    else
-                        Console.WriteLine($"Failed to update import paths. Could not find script: {flowPath}");
+
+                    if (msgLines[i].Contains("[dlg GENERIC_HELP_"))
+                        msgLines[i] = $"[dlg GENERIC_HELP_{reindexStart}]";
                 }
-                else if (inputFile.Name.Equals("dungeon.bf"))
-                {
-                    if (File.Exists(flowPath))
-                    {
-                        Console.WriteLine($"Updated import paths in script: {flowPath}");
-                        File.WriteAllText(flowPath, File.ReadAllText(flowPath).Replace("import(\"placeholderRoyal.msg\");", ""));
-                    }
-                    else
-                        Console.WriteLine($"Failed to update import paths. Could not find script: {flowPath}");
-                }
+
+                File.WriteAllText(script, string.Join("\n", msgLines));
             }
         }
 
-        public static void ReindexMsgs()
-        {
-            string path = "Temp/Scripts/ModMenu.msg";
-            int startIndex = 90;
-            if (Program.SelectedGame.Type.Equals("Royal"))
-                startIndex = 181;
-
-            // Update parameters of msg functions that displays description for menu selection
-            Console.WriteLine($"Updating msg index parameters in {Path.GetFileName(path)} starting from {startIndex}");
-
-            var msgLines = File.ReadAllLines(path);
-            int msgCount = startIndex; // Keep track of total number of messages
-            int refCount = 0; // Keep track of total number of references per selection block
-
-            for (int i = 0; i < msgLines.Length; i++)
-            {
-                // Increase total number of messages so far
-                if (msgLines[i].Contains("[dlg ") || msgLines[i].Contains("[sel "))
-                    msgCount++;
-
-                // If current line contains "[ref "...
-                if (msgLines[i].Contains("[ref "))
-                {
-                    // Reset reference count
-                    refCount = 0;
-
-                    // For each line containing "[ref " until file ends or a line doesn't contain "[ref "...
-                    while (i + 1 < msgLines.Length && msgLines[i].Contains("[ref "))
-                    {
-                        // Separate part of string after "[ref "
-                        int index = msgLines[i].IndexOf("[ref ");
-                        string substring = msgLines[i].Substring(index);
-                        // Create new second half of string
-                        string newString = $"[ref {refCount} {msgCount + refCount + 1}][e]";
-                        string newLine = msgLines[i].Remove(index);
-                        // Update line with new data
-                        msgLines[i] = newLine + newString;
-                        // Increase number of ref lines read so far for this sel block
-                        refCount++;
-                        // Increase current line number
-                        i++;
-                    }
-                }
-                
-                if (msgLines[i].Contains("[dlg GENERIC_HELP_"))
-                    msgLines[i] = $"[dlg GENERIC_HELP_{msgCount}]";
-            }
-
-            File.WriteAllText(path, string.Join("\n", msgLines));
-        }
-
-        private static void CompileScripts()
+        private static void CompileHookScripts()
         {
             // Compile Mod Menu hook scripts and output to Assets folder
             foreach (InputFile inputFile in Program.InputFiles.Where(x => x.Name.EndsWith(".bf")))
             {
-                string flowPath = $"./Temp/Scripts/Hooks/{inputFile.HookPath}/{inputFile.Name}.flow";
+                string flowPath = $"{tempScriptsDir}\\Hooks\\{inputFile.HookPath}\\{inputFile.Name}.flow";
                 if (File.Exists(flowPath))
                 {
                     string[] args = new string[] {
@@ -281,14 +288,14 @@ namespace ModMenuBuilder
                     "-OutFormat", "V3BE",
                     "-Encoding", Program.Options.Encoding,
                     "-Library", Program.SelectedGame.ShortName,
-                    "-Out", $"\"Temp/Assets/{Program.SelectedGame.Type}/{inputFile.Path}/{inputFile.Name}.flow.bf\"",
+                    "-Out", $"\"{tempAssetsDir}\\{Program.SelectedGame.Type}\\{inputFile.Path}\\{inputFile.Name}.flow.bf\"",
                     "-Hook" };
 
                     Console.WriteLine($"Compiling with the arguments: {string.Join(" ", args)}");
                     Tools.RunCmd(Program.Options.Compiler, args);
                 }
                 else
-                    Console.WriteLine($"Failed to compile {inputFile.Name}.flow.bf, could not find script: {flowPath}");
+                    Console.WriteLine($"Failed to compile {inputFile.Name}.flow.bf, could not find script:\n  {flowPath}");
 
             }
         }
@@ -298,14 +305,14 @@ namespace ModMenuBuilder
             // Replace .bf files in each PAC with ones from Assets folder
             foreach (InputFile inputFile in Program.InputFiles.Where(x => x.Name.EndsWith(".bf") && x.Archive.EndsWith(".pac")))
             {
-                string pacPath = Path.Combine($".\\Temp\\Assets\\{Program.SelectedGame.Type}\\{inputFile.Path}", inputFile.Archive);
-                string bfPath = Path.Combine($".\\Temp\\Assets\\{Program.SelectedGame.Type}\\{inputFile.Path}", inputFile.Name + ".flow.bf");
+                string pacPath = Path.Combine($"{tempAssetsDir}\\{Program.SelectedGame.Type}\\{inputFile.Path}", inputFile.Archive);
+                string bfPath = Path.Combine($"{tempAssetsDir}\\{Program.SelectedGame.Type}\\{inputFile.Path}", inputFile.Name + ".flow.bf");
 
                 if (File.Exists(pacPath))
                 {
                     if (File.Exists(bfPath))
                     {
-                        Console.WriteLine($"Attempting to replace {inputFile.Name} in {inputFile.Archive} with: {bfPath}");
+                        Console.WriteLine($"Attempting to replace {inputFile.Name} in {inputFile.Archive} with:\n  {bfPath}");
 
                         PAKFileSystem pak = new PAKFileSystem();
                         if (PAKFileSystem.TryOpen(pacPath, out pak))
@@ -339,11 +346,12 @@ namespace ModMenuBuilder
 
         private static void CopyToOutput()
         {
-            // Move non-PAC files for appropriate game version to output directory
+            // Move non-PAC (i.e. .SPD) Asset files for appropriate game version to output directory
+            // (repacked .PACs are already in Output directory by now)
             foreach (InputFile inputFile in Program.InputFiles.Where(x => !x.Archive.EndsWith(".pac")))
             {
-                string inputPath = $"Temp/Assets/{Program.SelectedGame.Type}/{inputFile.Path}/{inputFile.Name}";
-                if (inputFile.Path.Equals("script/field"))
+                string inputPath = $"{tempAssetsDir}\\{Program.SelectedGame.Type}\\{inputFile.Path}\\{inputFile.Name}";
+                if (inputFile.Path.Equals("script\\field"))
                     inputPath += ".flow.bf";
                 string outputPath = Path.Combine(Program.Options.Output, Path.Combine(inputFile.Path, inputFile.Name));
                 Directory.CreateDirectory(Path.GetDirectoryName(outputPath));
