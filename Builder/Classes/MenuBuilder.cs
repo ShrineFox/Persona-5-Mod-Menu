@@ -28,8 +28,8 @@ namespace ModMenuBuilder
             scriptsDir = Path.Combine(Program.exeDir, "Scripts");
             tempDir = Path.Combine(Program.exeDir, "Temp");
             outputDir = Path.Combine(Program.exeDir, "Output");
-            tempAssetsDir = Path.Combine(assetsDir, "Assets");
-            tempScriptsDir = Path.Combine(scriptsDir, "Scripts");
+            tempAssetsDir = Path.Combine(tempDir, "Assets");
+            tempScriptsDir = Path.Combine(tempDir, "Scripts");
 
             // Set output path if specified by user
             if (Program.Options.Output != "")
@@ -325,7 +325,7 @@ namespace ModMenuBuilder
                                 newPak.AddFile(pakFilePath, bfPath, ConflictPolicy.Replace);
                                 Console.WriteLine($"  Replaced {inputFile.Name} in {inputFile.Archive}");
 
-                                string outputPath = Path.Combine(Program.Options.Output, Path.Combine(inputFile.Path, inputFile.Archive));
+                                string outputPath = Path.Combine(outputDir, Path.Combine(inputFile.Path, inputFile.Archive));
                                 Directory.CreateDirectory(Path.GetDirectoryName(outputPath));
                                 newPak.Save(outputPath);
                                 Console.WriteLine($"  Saved repacked PAC to output folder: {outputPath}");
@@ -353,7 +353,7 @@ namespace ModMenuBuilder
                 string inputPath = $"{tempAssetsDir}\\{Program.SelectedGame.Type}\\{inputFile.Path}\\{inputFile.Name}";
                 if (inputFile.Path.Equals("script\\field"))
                     inputPath += ".flow.bf";
-                string outputPath = Path.Combine(Program.Options.Output, Path.Combine(inputFile.Path, inputFile.Name));
+                string outputPath = Path.Combine(outputDir, Path.Combine(inputFile.Path, inputFile.Name));
                 Directory.CreateDirectory(Path.GetDirectoryName(outputPath));
                 Console.WriteLine($"Copying file from: {inputPath}\n  to: {outputPath}");
                 File.Copy(inputPath, outputPath, true);
