@@ -16,9 +16,9 @@ namespace ModMenuBuilder
 
         public static List<InputFile> InputFiles = new List<InputFile>()
         {
-            new InputFile() { Name = "at_dng.bf", Path = "field", Archive = "atDngPack.pac", HookPath = "mementos" },
-            new InputFile() { Name = "dungeon.bf", Path = "field", Archive = "dngPack.pac", HookPath = "palace" },
-            new InputFile() { Name = "field.bf", Path = "field", Archive = "fldPack.pac", HookPath = "overworld" },
+            new InputFile() { Name = "at_dng.bf", Path = "field\\etc", Archive = "field\\atDngPack.pac", HookPath = "mementos" },
+            new InputFile() { Name = "dungeon.bf", Path = "field\\etc", Archive = "field\\dngPack.pac", HookPath = "palace" },
+            new InputFile() { Name = "field.bf", Path = "field\\etc", Archive = "field\\fldPack.pac", HookPath = "overworld" },
             new InputFile() { Name = "fscr0150_002_100.bf", Path = "script\\field", Archive = "", HookPath = "introduction" },
             new InputFile() { Name = "sharedUI.spd", Path = "camp\\shared", Archive = "", HookPath = "" }
         };
@@ -132,6 +132,9 @@ namespace ModMenuBuilder
 
         [Option("o", "output", "path", "Specifies the path to the directory to use as output.")]
         public string Output { get; set; } = "";
+
+        [Option("u", "unpack", "bool", "If specified, output .BF files will not be repacked into .PAC files (for use with Aemulus).")]
+        public bool Unpack { get; set; } = false;
     }
 
     public class InputFile

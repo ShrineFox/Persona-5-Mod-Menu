@@ -1,8 +1,8 @@
 /* Vanilla Start */
-import("../../../Assets/Vanilla/field/at_dng.bf");
+import("../../../Assets/Vanilla/field/etc/at_dng.bf");
 /* Vanilla End */
 /* Royal Start */
-import("../../../Assets/Royal/field/at_dng.bf");
+import("../../../Assets/Royal/field/etc/at_dng.bf");
 /* Royal End */
 import("../../ModMenu/ModMenu.flow");
 

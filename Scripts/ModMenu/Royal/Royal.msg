@@ -1,1 +1,10 @@
-﻿
+﻿[dlg Title_Royal]
+Royal Menu[w][e]
+
+[sel Options_Royal]
+[s]Go to Thieves Den[e]
+[s]Change Character[e]
+[s]View Videos[e]
+[s]View Music[e]
+[s]View Images[e]
+[s]Play Tycoon[e]

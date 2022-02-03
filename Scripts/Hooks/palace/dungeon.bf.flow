@@ -1,8 +1,8 @@
 /* Vanilla Start */
-import("../../../Assets/Vanilla/field/dungeon.bf");
+import("../../../Assets/Vanilla/field/etc/dungeon.bf");
 /* Vanilla End */
 /* Royal Start */
-import("../../../Assets/Royal/field/dungeon.bf");
+import("../../../Assets/Royal/field/etc/dungeon.bf");
 import("placeholderRoyal.msg");
 /* Royal End */
 import("../../ModMenu/ModMenu.flow");

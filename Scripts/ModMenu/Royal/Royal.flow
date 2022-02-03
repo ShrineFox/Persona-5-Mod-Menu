@@ -4,9 +4,7 @@ void RoyalMenu()
 {
     while (true)
     {
-        int selection = Menu(RoyalMenuName, RoyalMenu);
-
-        switch (selection)
+        switch (NameMenu(Title_Royal, Options_Royal))
         {
             case -1:
                 return;
@@ -15,7 +13,7 @@ void RoyalMenu()
                 break;
             case 1:
                 SetConfidantNames();
-                unitId = Menu(UnitMenuName, UnitSelect);
+                unitId = NameMenu(Title_Units, Options_Units);
                 if (unitId != -1)
                 {
                     FLD_SET_TRANSFORM(unitId);
