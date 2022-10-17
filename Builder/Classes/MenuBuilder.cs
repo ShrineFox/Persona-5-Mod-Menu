@@ -312,8 +312,8 @@ namespace ModMenuBuilder
                     "-Hook" };
 
                     Output.Log($"Compiling .\\Hooks\\{inputFile.HookPath}\\{inputFile.Name}.flow");
-                    Output.VerboseLog($"\args:\n    {string.Join(" ", args)}");
-                    Exe.Run(Program.Options.Compiler, string.Join("", args));
+                    Output.VerboseLog($"\targs: {string.Join(" ", args)}");
+                    Exe.Run(Program.Options.Compiler, string.Join(" ", args));
                 }
                 else
                     Output.Log($"Failed to compile {inputFile.Name}.flow.bf, could not find script:\n  {flowPath}", ConsoleColor.Red);
