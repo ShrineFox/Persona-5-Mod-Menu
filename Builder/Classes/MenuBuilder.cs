@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ShrineFox.IO;
 
 namespace ModMenuBuilder
 {
@@ -47,14 +48,14 @@ namespace ModMenuBuilder
             UnpackPACs(); // Get .bf files from .PAC files
             ProcessScripts(); // Enable/disable game-specific elements of Mod Menu .flow/.msg and reindex .msg files
             CompileHookScripts(); // Create new .bf files from hook .flow
-            if (!Program.Options.Unpack) 
+            if (!Program.Options.Unpack && Program.SelectedGame.Platform != PlatformType.New) 
             {
                 // Pack changed .bf files back into .PAC
                 RepackPACs(); 
             }
             CopyToOutput(); // Copy changed files to output folder
 
-            Console.WriteLine("\nDone!");
+            Output.Log("\nDone!", ConsoleColor.Green);
 
             #if DEBUG
                 Console.ReadKey(); // wait for input before closing if debug build
@@ -65,20 +66,20 @@ namespace ModMenuBuilder
         {
             // Create new Temp folder
             DeleteTempFolder();
-            Console.WriteLine($"Creating new Temp directory:\n  {tempDir}");
+            Output.Log($"Creating new Temp directory:\n  {tempDir}");
             Directory.CreateDirectory(tempDir);
 
             // Copy Assets and Scripts folders to Temp folder
-            Console.WriteLine($"Copying Assets to Temp/Assets directory:\n  {tempAssetsDir}");
-            Tools.CopyDir(assetsDir, tempAssetsDir);
-            Console.WriteLine($"Copying Scripts to Temp/Scripts directory:\n  {tempScriptsDir}");
-            Tools.CopyDir(scriptsDir, tempScriptsDir);
+            Output.Log($"Copying Assets to Temp/Assets directory:\n  {tempAssetsDir}");
+            FileSys.CopyDir(assetsDir, tempAssetsDir);
+            Output.Log($"Copying Scripts to Temp/Scripts directory:\n  {tempScriptsDir}");
+            FileSys.CopyDir(scriptsDir, tempScriptsDir);
         }
 
         private static void DeleteTempFolder()
         {
             // Delete Temp folder and all contents
-            Console.WriteLine($"Deleting Temp directory:\n  {tempDir}");
+            Output.Log($"Deleting Temp directory:\n  {tempDir}");
             if (Directory.Exists(tempDir))
                 Directory.Delete(tempDir, true);
         }
@@ -94,7 +95,7 @@ namespace ModMenuBuilder
                     PAKFileSystem pak = new PAKFileSystem();
                     if (PAKFileSystem.TryOpen(pacFilePath, out pak))
                     {
-                        Console.WriteLine($"Unpacking {inputFile.Archive}...");
+                        Output.Log($"Unpacking {inputFile.Archive}...");
 
                         foreach (var fileInPAC in pak.EnumerateFiles())
                         {
@@ -107,20 +108,20 @@ namespace ModMenuBuilder
                                 using (var inputStream = pak.OpenFile(fileInPAC))
                                 {
                                     inputStream.CopyTo(stream);
-                                    Console.WriteLine($"Extracted {Path.GetFileName(normalizedFilePath)} to:\n  {outputPath}");
+                                    Output.Log($"Extracted {Path.GetFileName(normalizedFilePath)} to:\n  {outputPath}", ConsoleColor.Green);
                                 }
                             }
                         }
                     }
                 }
                 else
-                    Console.WriteLine($"Could not find input .PAC: {pacFilePath}");
+                    Output.Log($"Could not find input .PAC: {pacFilePath}", ConsoleColor.Red);
             }
         }
 
         private static void ProcessScripts()
         {
-            Console.WriteLine("Processing Mod Menu scripts...");
+            Output.Log("Processing Mod Menu scripts...");
 
             // Get list of scripts to process
             List<string> scripts = new List<string>();
@@ -132,7 +133,7 @@ namespace ModMenuBuilder
             // Process each script
             foreach (var script in scripts)
             {
-                Console.WriteLine($"Processing script:\n  {script}");
+                Output.Log($"Processing script:\n  {script}");
 
                 if (Program.SelectedGame.Type.Equals("Royal"))
                     Royalify(script);
@@ -140,17 +141,17 @@ namespace ModMenuBuilder
                 RemoveMsgComments(script.Replace(".flow",".msg")); // Removes lines with a "// Royal" or "// Vanilla" comment from .msg depending on version
                 ReindexMsg(script.Replace(".flow", ".msg")); // Update .msg indexes of file depending on if Royal or Vanilla
 
-                Console.WriteLine($"Done processing script.");
+                Output.Log($"Done processing script.", ConsoleColor.Green);
             }
 
-            Console.WriteLine($"Finished processing Mod Menu scripts.");
+            Output.Log($"Finished processing Mod Menu scripts.", ConsoleColor.Green);
         }
 
         private static void Royalify(string script)
         {
             script = Path.Combine(tempScriptsDir, script);
 
-            Console.WriteLine($"  Looking for Royal bitflags in:\n  {script}");
+            Output.Log($"  Looking for Royal bitflags in:\n  {script}");
 
             if (File.Exists(script))
             {
@@ -173,7 +174,7 @@ namespace ModMenuBuilder
 
                         if (convertedFlag != -1 && convertedFlag.ToString() != flag) // Replace line and notify user of this change
                         {
-                            Console.WriteLine($"  Replaced Vanilla bitflag ({flag}) with Royal bitflag ({convertedFlag}).");
+                            Output.Log($"  Replaced Vanilla bitflag ({flag}) with Royal bitflag ({convertedFlag}).");
                             newLines.Add(lines[i].Replace(flag, convertedFlag.ToString()));
                         }
                         else // Use original flag if flag could not be converted to Royal
@@ -184,21 +185,21 @@ namespace ModMenuBuilder
                 }
 
                 File.WriteAllText(script, String.Join("\n", newLines));
-                Console.WriteLine($"  Done converting Royal bitflags in:\n  {script}");
+                Output.Log($"  Done converting Royal bitflags in:\n  {script}", ConsoleColor.Green);
             }
             else
-                Console.WriteLine($"  Could not find script: {script}");
+                Output.Log($"  Could not find script: {script}", ConsoleColor.Red);
         }
 
         private static void RemoveMsgComments(string script)
         {
             script = Path.Combine(tempScriptsDir, script);
-            Console.WriteLine($"  Looking for version-specific commented lines in:\n  {script}");
+            Output.Log($"  Looking for version-specific commented lines in:\n  {script}");
 
             // Remove lines with the opposite game type's comment from Mod Menu .msg
-            string removeType = "Royal";
-            if (Program.SelectedGame.Type.Equals("Royal"))
-                removeType = "Vanilla";
+            string removeType = "Vanilla";
+            if (Program.SelectedGame.Type.Equals(GameType.Vanilla))
+                removeType = "Royal";
 
             if (File.Exists(script))
             {
@@ -213,21 +214,21 @@ namespace ModMenuBuilder
                 File.WriteAllText(script, String.Join("\n", newLines)
                     .Replace($"// {Program.SelectedGame.Type}", "").Replace($"//{Program.SelectedGame.Type}", ""));
 
-                Console.WriteLine($"  Finished commenting out version-specific lines in:\n  {script}");
+                Output.Log($"  Finished commenting out version-specific lines in:\n  {script}", ConsoleColor.Green);
             }
             else
-                Console.WriteLine($"Could not find script to remove .msg comments from:\n  {script}");
+                Output.Log($"Could not find script to remove .msg comments from:\n  {script}", ConsoleColor.Red);
         }
 
         private static void RemoveFlowComments(string script)
         {
             script = Path.Combine(tempScriptsDir, script);
-            Console.WriteLine($"  Looking for version-specific commented codeblocks in:\n  {script}");
+            Output.Log($"  Looking for version-specific commented codeblocks in:\n  {script}");
 
-            // Remove lines with the opposite game type's comment from Mod Menu .flow
-            string removeType = "Royal";
-            if (Program.SelectedGame.Type.Equals("Royal"))
-                removeType = "Vanilla";
+            // Remove lines with the opposite game type's comment from Mod Menu .msg
+            string removeType = "Vanilla";
+            if (Program.SelectedGame.Type.Equals(GameType.Vanilla))
+                removeType = "Royal";
 
             if (File.Exists(script))
             {
@@ -236,10 +237,10 @@ namespace ModMenuBuilder
                     .Replace($"/* {removeType} Start */", $"/* {removeType} Start ")
                     .Replace($"/* {removeType} End */", $" {removeType} End */"));
 
-                Console.WriteLine($"  Finished commenting out version-specific codeblocks in:\n  {script}");
+                Output.Log($"  Finished commenting out version-specific codeblocks in:\n  {script}", ConsoleColor.Green);
             }
             else
-                Console.WriteLine($"Could not find script to remove .flow comments from:\n  {script}");
+                Output.Log($"Could not find script to remove .flow comments from:\n  {script}", ConsoleColor.Red);
         }
 
         public static void ReindexMsg(string script)
@@ -249,7 +250,7 @@ namespace ModMenuBuilder
             if (File.Exists(script))
             {
                 // Update parameters of msg functions that displays description for menu selection
-                Console.WriteLine($"  Updating .msg index parameters in:" +
+                Output.Log($"  Updating .msg index parameters in:" +
                     $"\n  {Path.GetFileName(script)}" +
                     $"\n  Starting from: {reindexStart}");
 
@@ -310,11 +311,12 @@ namespace ModMenuBuilder
                     "-Out", $"\"{tempAssetsDir}\\{Program.SelectedGame.Type}\\{inputFile.Path}\\{inputFile.Name}.flow.bf\"",
                     "-Hook" };
 
-                    Console.WriteLine($"Compiling with the arguments:\n    {string.Join(" ", args)}");
-                    Tools.RunCmd(Program.Options.Compiler, args);
+                    Output.Log($"Compiling .\\Hooks\\{inputFile.HookPath}\\{inputFile.Name}.flow");
+                    Output.VerboseLog($"\args:\n    {string.Join(" ", args)}");
+                    Exe.Run(Program.Options.Compiler, string.Join("", args));
                 }
                 else
-                    Console.WriteLine($"Failed to compile {inputFile.Name}.flow.bf, could not find script:\n  {flowPath}");
+                    Output.Log($"Failed to compile {inputFile.Name}.flow.bf, could not find script:\n  {flowPath}", ConsoleColor.Red);
 
             }
         }
@@ -331,7 +333,7 @@ namespace ModMenuBuilder
                 {
                     if (File.Exists(bfPath))
                     {
-                        Console.WriteLine($"Attempting to replace {inputFile.Name} in {inputFile.Archive} with:\n  {bfPath}");
+                        Output.Log($"Attempting to replace {inputFile.Name} in {inputFile.Archive} with:\n  {bfPath}");
 
                         PAKFileSystem pak = new PAKFileSystem();
                         if (PAKFileSystem.TryOpen(pacPath, out pak))
@@ -342,24 +344,24 @@ namespace ModMenuBuilder
                             {
                                 string pakFilePath = pak.EnumerateFiles().First(x => x.EndsWith(inputFile.Name));
                                 newPak.AddFile(pakFilePath, bfPath, ConflictPolicy.Replace);
-                                Console.WriteLine($"  Replaced {inputFile.Name} in {inputFile.Archive}");
+                                Output.Log($"  Replaced {inputFile.Name} in {inputFile.Archive}");
 
                                 string outputPath = Path.Combine(outputDir, inputFile.Archive);
                                 Directory.CreateDirectory(Path.GetDirectoryName(outputPath));
                                 newPak.Save(outputPath);
-                                Console.WriteLine($"  Saved repacked PAC to output folder: {outputPath}");
+                                Output.Log($"  Saved repacked PAC to output folder: {outputPath}", ConsoleColor.Green);
                             }
                             else
-                                Console.WriteLine($"  Could not find any file ending with {inputFile.Name} in: {pacPath}");
+                                Output.Log($"  Could not find any file ending with {inputFile.Name} in: {pacPath}", ConsoleColor.Red);
                         }
                         else
-                            Console.WriteLine($"Failed to open .PAC for repacking:\n  {pacPath}");
+                            Output.Log($"Failed to open .PAC for repacking:\n  {pacPath}", ConsoleColor.Red);
                     }
                     else
-                        Console.WriteLine($"Failed to replace {inputFile.Name} in {inputFile.Archive}, could not find compiled .BF:\n  {bfPath}");
+                        Output.Log($"Failed to replace {inputFile.Name} in {inputFile.Archive}, could not find compiled .BF:\n  {bfPath}", ConsoleColor.Red);
                 }
                 else
-                    Console.WriteLine($"Failed to repack PAC, could not find archive:\n  {pacPath}");
+                    Output.Log($"Failed to repack PAC, could not find archive:\n  {pacPath}", ConsoleColor.Red);
             }
         }
 
@@ -378,7 +380,7 @@ namespace ModMenuBuilder
                         inputPath += ".flow.bf";
                     string outputPath = Path.Combine(outputDir, Path.Combine(inputFile.Path, inputFile.Name));
                     Directory.CreateDirectory(Path.GetDirectoryName(outputPath));
-                    Console.WriteLine($"Copying file from: {inputPath}\n  to: {outputPath}");
+                    Output.Log($"Copying file from: {inputPath}\n  to: {outputPath}");
                     File.Copy(inputPath, outputPath, true);
                 }
             }

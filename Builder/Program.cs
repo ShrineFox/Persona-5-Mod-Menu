@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using TGE.SimpleCommandLine;
+using ShrineFox.IO;
 
 namespace ModMenuBuilder
 {
@@ -73,33 +76,52 @@ namespace ModMenuBuilder
             "ModMenu\\ModMenu.flow",
         };
 
-        static void Main(string[] args)
+        [STAThread]
+        private static void Main(string[] args)
         {
+            // Set Logging Stuff
+            Output.Logging = true;
+            Output.LogToFile = false;
+            #if DEBUG
+                Output.VerboseLogging = true;
+                Output.LogPath = "ModMenuBuilder_DebugLog.txt";
+            #endif
             // Get executing directory
             exeDir = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
 
-            // Show about message
-            Console.Write(SimpleCommandLineFormatter.Default.FormatAbout<ProgramOptions>("ShrineFox", 
-                "\nGenerates Mod Menu output for P5/P5R." +
-                "\nUsing TGE's SimpleCommandLine and AtlusFileSystemLibrary." +
-                "\n\ngithub.com/ShrineFox/Persona-5-Mod-Menu" +
-                "\n"));
+            if (args.Length > 0)
+                StartWithOptions(args);
+            else
+            {
+                Hide();
+                Application.Run(new BuilderForm());
+            }
+        }
 
+        public static void StartWithOptions(string[] args)
+        {
             try
             {
                 // Validate input arguments, or show usage information if no arguments
                 Options = SimpleCommandLineParser.Default.Parse<ProgramOptions>(args);
 
+                // Set the platform type. Used for output directory structure (Old: PS3/PS4, New: Switch/PC)
+                if (Options.NewPlatform)
+                    SelectedGame.Platform = PlatformType.New;
+                else
+                    SelectedGame.Platform = PlatformType.Old;
+
                 // Set game abbreviation and type depending on if Royal or Vanilla
-                if (Options.Game.ToUpper().Equals("P5R"))
+                if (!Options.Game.ToUpper().Equals("P5R"))
                 {
-                    SelectedGame.ShortName = "P5R";
-                    SelectedGame.Type = "Royal";
+                    SelectedGame.ShortName = "P5";
+                    SelectedGame.Type = GameType.Vanilla;
+                    SelectedGame.Platform = PlatformType.Old;
                 }
 
                 if (!File.Exists(Options.Compiler))
                 {
-                    Console.WriteLine($"Could not find AtlusScriptCompiler.exe at path: {Options.Compiler}");
+                    Output.Log($"Could not find AtlusScriptCompiler.exe at path: {Options.Compiler}");
                     Console.ReadKey();
                     return;
                 }
@@ -107,15 +129,32 @@ namespace ModMenuBuilder
             catch (Exception e)
             {
                 // Show error if arguments are invalid and quit processing
-                Console.WriteLine(e.Message);
-                #if DEBUG
-                    Console.ReadKey();
-                #endif
+                Output.Log(e.Message);
+#if DEBUG
+                Console.ReadKey();
+#endif
                 return;
             }
 
+            Output.Log($"Building {SelectedGame.ShortName} ({SelectedGame.Platform} platforms) Mod Menu with unpacked PACs set to {Options.Unpack}.\n\n");
+
             // Begin building Mod Menu output
             MenuBuilder.Build();
+        }
+
+        const int SW_HIDE = 0;
+        const int SW_SHOW = 5;
+        readonly static IntPtr handle = GetConsoleWindow();
+        [DllImport("kernel32.dll")] static extern IntPtr GetConsoleWindow();
+        [DllImport("user32.dll")] static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+
+        public static void Hide()
+        {
+            ShowWindow(handle, SW_HIDE); //hide the console
+        }
+        public static void Show()
+        {
+            ShowWindow(handle, SW_SHOW); //show the console
         }
     }
 
@@ -124,17 +163,20 @@ namespace ModMenuBuilder
         [Option("c", "compiler", "path", "The path to AtlusScriptCompiler.exe.", Required = true)]
         public string Compiler { get; set; }
 
-        [Option("g", "game", "P5|P5R", "Specifies the game to generate output for. Will use P5 if not specified.")]
-        public string Game { get; set; } = "P5";
+        [Option("e", "encoding", "P5|P5R_EFIGS|SJ", "Specifies the encoding to compile with. (default: P5R_EFIGS)")]
+        public string Encoding { get; set; } = "P5R_EFIGS";
 
-        [Option("e", "encoding", "P5|P5R_EFIGS|SJ", "Specifies the encoding to compile with. Will use P5 if not specified.")]
-        public string Encoding { get; set; } = "P5";
+        [Option("g", "game", "P5|P5R", "Specifies the game to generate output for. (default: P5R)")]
+        public string Game { get; set; } = "P5R";
 
-        [Option("o", "output", "path", "Specifies the path to the directory to use as output.")]
+        [Option("n", "newplatform", "bool", "Whether to use PC/Switch directory structure instead of Sony. (default: true)")]
+        public bool NewPlatform { get; set; } = true;
+
+        [Option("o", "output", "path", "Specifies the path to the directory to use as output. (default: .exe directory)")]
         public string Output { get; set; } = "";
 
-        [Option("u", "unpack", "bool", "If specified, output .BF files will not be repacked into .PAC files (for use with Aemulus).")]
-        public bool Unpack { get; set; } = false;
+        [Option("u", "unpacked", "bool", "If specified, output .BF files will not be repacked into .PAC files. (default: true)")]
+        public bool Unpack { get; set; } = true;
     }
 
     public class InputFile
@@ -147,7 +189,20 @@ namespace ModMenuBuilder
 
     public class Game
     {
-        public string Type { get; set; } = "Vanilla";
-        public string ShortName { get; set; } = "P5";
+        public GameType Type { get; set; } = GameType.Royal;
+        public PlatformType Platform { get; set; } = PlatformType.New;
+        public string ShortName { get; set; } = "P5R";
+    }
+
+    public enum GameType
+    {
+        Royal,
+        Vanilla
+    }
+
+    public enum PlatformType
+    {
+        New,
+        Old
     }
 }
