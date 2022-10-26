@@ -8,10 +8,10 @@ Enter KeyFree Event ID[f 4 26 2 4][e]
 Load KeyFree Event[f 4 26 3 5][e]
 
 [dlg GENERIC_HELP_2]
-[s]Input the 6 digits of a[n][clr 9]event pack's[clr 0] filename[n](dataR.cpk/event)[e]
+Input the 6 digits of a[n][clr 9]event pack's[clr 0] filename[n](dataR.cpk/event)[e]
 
 [dlg GENERIC_HELP_4]
-[s]Input the 6 digits of a[n][clr 9]event pack's[clr 0] filename[n](ps4R.cpk/field).[clr 0][e]
+Input the 6 digits of a[n][clr 9]event pack's[clr 0] filename[n](ps4R.cpk/field).[clr 0][e]
 
 [dlg Message_EventID_Major]
 Choose the first 3 digits of

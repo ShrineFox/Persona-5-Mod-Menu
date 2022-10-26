@@ -6,10 +6,10 @@ Collectibles Flags[f 4 26 0 2][e]
 Furniture Flags[f 4 26 1 3][e]
 
 [dlg GENERIC_HELP_2]
-[s]Choose flags to toggle related[n]to collectibles in[n]the protag's room.[e]
+Choose flags to toggle related[n]to collectibles in[n]the protag's room.[e]
 
 [dlg GENERIC_HELP_3]
-[s]Choose flags to toggle related[n]to furniture in[n]the protag's room.[e]
+Choose flags to toggle related[n]to furniture in[n]the protag's room.[e]
 
 [dlg Title_FurnitureFlags]
 Furniture Flags[w][e]

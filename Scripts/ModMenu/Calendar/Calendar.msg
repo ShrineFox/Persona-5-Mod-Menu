@@ -8,16 +8,16 @@ Set Weather[f 4 26 2 4][e]
 Loop Current Day[f 4 26 3 5][e]
 
 [dlg GENERIC_HELP_2]
-[s]Choose day & month[n]to warp to.[e]
+Choose day & month[n]to warp to.[e]
 
 [dlg GENERIC_HELP_3]
-[s]End current day &[n]warp to the next[n]specified day.[e]
+End current day &[n]warp to the next[n]specified day.[e]
 
 [dlg GENERIC_HELP_4]
-[s]Change the weather[n]condition. Reload field[n]to see results.[e]
+Change the weather[n]condition. Reload field[n]to see results.[e]
 
 [dlg GENERIC_HELP_5]
-[s]Choose the next time[n]of day to set after[n]current day ends.[e]
+Choose the next time[n]of day to set after[n]current day ends.[e]
 
 [dlg Message_CalendarMonth]
 Choose what month to start in.[n]([clr 2]○ button[clr 0] to end)[w][e]

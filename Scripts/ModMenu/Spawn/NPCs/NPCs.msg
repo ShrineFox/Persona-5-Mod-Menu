@@ -9,51 +9,51 @@ Attach Item Model[f 4 26 3 5][e]
 Spawn Object Model[f 4 26 4 6][e]
 
 [dlg GENERIC_HELP_2]
-[s]Input a [clr 9]GMD filename[clr 0][n]to spawn a character model from.[e]
+Input a [clr 9]GMD filename[clr 0][n]to spawn a character model from.[e]
 
 [dlg GENERIC_HELP_3]
-[s]Apply field animations[n]to the last NPC you spawned.[e]
+Apply field animations[n]to the last NPC you spawned.[e]
 
 [dlg GENERIC_HELP_4]
-[s]Set the scale of the[n]NPC model.[e]
+Set the scale of the[n]NPC model.[e]
 
 [dlg GENERIC_HELP_5]
-[s]Input a [clr 9]GMD filename[clr 0][n]to attach to the NPC.[e]
+Input a [clr 9]GMD filename[clr 0][n]to attach to the NPC.[e]
 
 [dlg GENERIC_HELP_6]
-[s]Input a [clr 9]GMD filename[clr 0][n]of an object to spawn.[e]
+Input a [clr 9]GMD filename[clr 0][n]of an object to spawn.[e]
 
 [dlg Message_SpawnNPC_First]
 Set the first (4 digits) of the NPC
-[n]filename to load. (Press Circle to end)[w][e]
+[n]filename to load. (Press [clr 2]○[clr 0] to end)[w][e]
 
 [dlg Message_SpawnNPC_Middle]
 Set the next (3 digits) of the NPC
-[n]model filename to load. (Press Circle to end)[w][e]
+[n]model filename to load. (Press [clr 2]○[clr 0] to end)[w][e]
 
 [dlg Message_SpawnNPC_Last]
 Set the last (2 digits) of the NPC
-[n]model filename to load. (Press Circle to end)[w][e]
+[n]model filename to load. (Press [clr 2]○[clr 0] to end)[w][e]
 
 [dlg Message_NPCItem_First]
 Enter the first half of the model's
 [n]ID from data.cpk/model/item.
-[n](Max 4 digits, press Circle to end).[w][e]
+[n](Max 4 digits, press [clr 2]○[clr 0] to end).[w][e]
 
 [dlg Message_NPCItem_Last]
 Enter the last half of the model's
 [n]ID from data.cpk/model/item.
-[n](Max 3 digits, press Circle to end).[w][e]
+[n](Max 3 digits, press [clr 2]○[clr 0] to end).[w][e]
 
 [dlg Message_NPCObject_First]
 Enter the first half of the
 [n]model's ID from data.cpk/model/field_tex/object.
-[n](Max 3 digits, press Circle to end).[w][e]
+[n](Max 3 digits, press [clr 2]○[clr 0] to end).[w][e]
 
 [dlg Message_NPCObject_Last]
 Enter the last half of the
 [n]model's ID from data.cpk/model/field_tex/object.
-[n](Max 3 digits, press Circle to end).[w][e]
+[n](Max 3 digits, press [clr 2]○[clr 0] to end).[w][e]
 
 [dlg Message_NPCScale]
-Set the character's model scale.[n](press Circle to end)[n]Default is 10.[w][e]
+Set the character's model scale.[n](press [clr 2]○[clr 0] to end)[n]Default is 10.[w][e]

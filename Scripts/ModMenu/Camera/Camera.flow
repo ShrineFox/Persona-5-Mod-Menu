@@ -1,5 +1,4 @@
-﻿import("Environment/Environment.flow");
-import("Camera.msg");
+﻿import("Camera.msg");
 
 // Global Variables
 global float rotX;
@@ -21,9 +20,6 @@ void CameraMenu()
         {
             case -1:
                 return;
-            case 0:
-                EnvironmentMenu();
-                break;
             case 1:
                 CameraPosition();
                 break;

@@ -2,34 +2,34 @@
 Player Animation[w][e]
 
 [sel Options_PlayerAnimation]
-[s]Set Joker Field .GAP[ref 0 2][e]
-[s]Set Animation Test GAP[ref 1 3][e]
-[s]Set Test Animation Index[ref 2 4][e]
-[s]Toggle Animation Loop[ref 3 5][e]
-[s]Set Animation Speed[ref 4 6][e]
-[s]Set Animation Time[ref 5 7][e]
-[s]Playback Test Animation[ref 6 8][e]
+Set Joker Field .GAP[ref 0 2][e]
+Set Animation Test GAP[ref 1 3][e]
+Set Test Animation Index[ref 2 4][e]
+Toggle Animation Loop[ref 3 5][e]
+Set Animation Speed[ref 4 6][e]
+Set Animation Time[ref 5 7][e]
+Playback Test Animation[ref 6 8][e]
 
 [dlg GENERIC_HELP_2]
-[s]Select one of the protagonist's[n]Field [clr 26].GAP[clr 0] files to use[n]in the field. (Starts with [clr 9]bf[clr 0])[e]
+Select one of the protagonist's[n]Field [clr 26].GAP[clr 0] files to use[n]in the field. (Starts with [clr 9]bf[clr 0])[e]
 
 [dlg GENERIC_HELP_3]
-[s]Input the filename of[n]a [clr 9]field [clr 26].GAP[clr 0] file for[clr 0][n]this character. (Starts with [clr 9]af[clr 0])[e]
+Input the filename of[n]a [clr 9]field [clr 26].GAP[clr 0] file for[clr 0][n]this character. (Starts with [clr 9]af[clr 0])[e]
 
 [dlg GENERIC_HELP_4]
-[s]Input the index of the[n]animation from the [clr 26].GAP[clr 0][n]that you want to view.[e]
+Input the index of the[n]animation from the [clr 26].GAP[clr 0][n]that you want to view.[e]
 
 [dlg GENERIC_HELP_5]
-[s]Toggle whether you want[n]the animation to repeat or not[n]when it's finished.[e]
+Toggle whether you want[n]the animation to repeat or not[n]when it's finished.[e]
 
 [dlg GENERIC_HELP_6]
-[s]Choose the playback speed[n]of the animation.[e]
+Choose the playback speed[n]of the animation.[e]
 
 [dlg GENERIC_HELP_7]
-[s]Choose how many seconds you[n]would like to play the[n]animation for.[e]
+Choose how many seconds you[n]would like to play the[n]animation for.[e]
 
 [dlg GENERIC_HELP_8]
-[s]Execute the animation playback[n][clr 9]after the above settings[clr 0][n]have been completed.[e]
+Execute the animation playback[n][clr 9]after the above settings[clr 0][n]have been completed.[e]
 
 [dlg Message_LastGAPDigits [GAP Select]]
 Set the last (3 digits) of the

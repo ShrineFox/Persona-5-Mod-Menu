@@ -1,4 +1,4 @@
-[sel Options_Digits]
+﻿[sel Options_Digits]
 0[e]
 1[e]
 2[e]
@@ -25,11 +25,11 @@
 
 [dlg Message_FloatInteger]
 Enter the integer portion of the float.
-[n](Press Circle to end)[w][e]
+[n](Press [clr 2]○ button[clr 0] to end)[w][e]
 
 [dlg Message_FloatFractional]
 Enter the fractional portion of the float.
-[n](Press Circle to end)[w][e]
+[n](Press [clr 2]○ button[clr 0] to end)[w][e]
 
 [sel Options_YesNo]
 Yes[e]

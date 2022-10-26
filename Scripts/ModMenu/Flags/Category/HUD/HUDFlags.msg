@@ -5,7 +5,7 @@ HUD Flags[w][e]
 Toggle HUD[f 4 26 0 2][e]
 
 [dlg GENERIC_HELP_2]
-[s]Toggle the date, weather,[n]and mission list on[n]or off.[e]
+Toggle the date, weather,[n]and mission list on[n]or off.[e]
 
 [dlg Message_ToggleHUD]
 Would you like to show or

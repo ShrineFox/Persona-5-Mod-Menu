@@ -9,19 +9,19 @@ Print Enabled Flags[f 4 26 3 5][e] // Vanilla
 Print Disabled Flags[f 4 26 4 6][e] // Vanilla
 
 [dlg GENERIC_HELP_2]
-[s]Choose an individual bitflag[n]or a range of flags[n]to turn on/off.[e]
+Choose an individual bitflag[n]or a range of flags[n]to turn on/off.[e]
 
 [dlg GENERIC_HELP_3]
-[s]Choose flags to turn on/off[n]from a list of categories.[e]
+Choose flags to turn on/off[n]from a list of categories.[e]
 
 [dlg GENERIC_HELP_4]
-[s]Randomly toggle a specified[n]percentage of all flags.[e]
+Randomly toggle a specified[n]percentage of all flags.[e]
 
 [dlg GENERIC_HELP_5]
-[s]Print a list of enabled flags[n]to the TTY log.[e]
+Print a list of enabled flags[n]to the TTY log.[e]
 
 [dlg GENERIC_HELP_6]
-[s]Print a list of disabled flags[n]to the TTY log.[e] 
+Print a list of disabled flags[n]to the TTY log.[e] 
 
 [dlg Message_RandomizeFlags]
 Enter the percent chance out of
@@ -44,22 +44,22 @@ Disable All Flags in Range[f 4 26 4 15][e]
 Flip All Flags in Range[f 4 26 5 16][e]
 
 [dlg GENERIC_HELP_11]
-[s]Choose an individual bitflag[n]by ID and turn it[n]on or off.[e]
+Choose an individual bitflag[n]by ID and turn it[n]on or off.[e]
 
 [dlg GENERIC_HELP_12]
-[s]Choose the first flag to toggle[n]as part of a range.[e]
+Choose the first flag to toggle[n]as part of a range.[e]
 
 [dlg GENERIC_HELP_13]
-[s]Choose the last flag to toggle[n]as part of a range.[e]
+Choose the last flag to toggle[n]as part of a range.[e]
 
 [dlg GENERIC_HELP_14]
-[s]Turn on all flags in the[n]selected range.[e]
+Turn on all flags in the[n]selected range.[e]
 
 [dlg GENERIC_HELP_15]
-[s]Turn off all flags in the[n]selected range.[e]
+Turn off all flags in the[n]selected range.[e]
 
 [dlg GENERIC_HELP_16]
-[s]Give all flags in the[n]selected range their[n]opposite value.[e]
+Give all flags in the[n]selected range their[n]opposite value.[e]
 
 [dlg Message_ConfirmEnableRange]
 Are you sure you want to set

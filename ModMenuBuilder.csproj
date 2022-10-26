@@ -97,28 +97,34 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
-    <None Include="Scripts\Hooks\introduction\fscr0150_002_100.bf.flow">
+    <None Include="Scripts\Hook\SCRIPT\FIELD\fscr0150_002_100.flow">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Scripts\Hooks\introduction\introduction.msg">
+    <None Include="Scripts\Hook\SCRIPT\FIELD\introduction.msg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Scripts\Hooks\mementos\at_dng.bf.flow">
+    <None Include="Scripts\Hook\FIELD\ETC\at_dng.flow">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Scripts\Hooks\overworld\field.bf.flow">
+    <None Include="Scripts\Hook\FIELD\ETC\field.flow">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Scripts\Hooks\overworld\placeholder.msg">
+    <None Include="Scripts\Hook\FIELD\ETC\field_placeholder.msg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Scripts\Hooks\overworld\placeholderRoyal.msg">
+    <None Include="Scripts\Hook\FIELD\ETC\field_placeholderRoyal.msg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Scripts\Hooks\palace\dungeon.bf.flow">
+    <None Include="Scripts\Hook\FIELD\ETC\dungeon.flow">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Scripts\Hooks\palace\placeholderRoyal.msg">
+    <None Include="Scripts\Hook\FIELD\ETC\dungeon_placeholderRoyal.msg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Scripts\Hook\FIELD\INIT\fini_000_003.flow">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Scripts\Hook\FIELD\INIT\title.msg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Scripts\ModMenu\Call\Battle\Battle.msg">
@@ -134,9 +140,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Scripts\ModMenu\Camera\Camera.msg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Scripts\ModMenu\Camera\Environment\Environment.msg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Scripts\ModMenu\Call\Events\Events.msg">
@@ -278,9 +281,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Scripts\ModMenu\Camera\Camera.flow">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Scripts\ModMenu\Camera\Environment\Environment.flow">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Scripts\ModMenu\Call\Events\Events.flow">

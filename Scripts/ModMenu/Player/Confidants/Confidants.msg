@@ -6,10 +6,10 @@ Set Rank[f 4 26 0 2][e]
 Toggle Romance Route[f 4 26 1 3][e]
 
 [dlg GENERIC_HELP_2]
-[s]Choose a Confidant and[n]change their current[n]Rank (0 - 10).[e]
+Choose a Confidant and[n]change their current[n]Rank (0 - 10).[e]
 
 [dlg GENERIC_HELP_3]
-[s]Choose a romance-able[n]Confidant and switch their[n]romance route on/off.[e]
+Choose a romance-able[n]Confidant and switch their[n]romance route on/off.[e]
 
 [dlg Title_ConfidantRank]
 Set Confidant Rank[w][e]

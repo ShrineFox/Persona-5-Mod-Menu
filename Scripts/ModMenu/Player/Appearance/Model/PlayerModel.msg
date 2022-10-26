@@ -2,9 +2,9 @@
 Player Model[w][e]
 
 [sel Options_PlayerModel]
-[s]Set Joker Field Model[ref 0 2][e]
-[s]Set Joker Model Scale[ref 1 3][e]
-[s]Attach Item Model to Joker[ref 2 4][e]
+Set Joker Field Model[ref 0 2][e]
+Set Joker Model Scale[ref 1 3][e]
+Attach Item Model to Joker[ref 2 4][e]
 
 [dlg GENERIC_HELP_2]
 Select one of the protagonist's[n][clr 26].GMD[clr 0] models to use in[n]the field.[e]

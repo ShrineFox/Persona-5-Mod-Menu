@@ -1,0 +1,52 @@
+import("title.msg");
+
+void f000_003_init()
+{
+    PARTY_OUT(2);
+    PARTY_OUT(3);
+    PARTY_OUT(4);
+    ItemGet();
+
+    TitleSelect();
+}
+
+void TitleSelect()
+{
+    int ScrTiming = 0;
+    ScrTiming = FLD_GET_SCRIPT_TIMING();
+    if ( ScrTiming == 2 )
+    {
+        switch (SEL_GENERIC_NOT_HELP(-1, Options_TitleSelect))
+        {
+            case -1:
+                return;
+            case 0:
+                return;
+            case 1:
+                CALL_FIELD(0, 100, 0, 0);
+                return;
+        }
+    }
+}
+
+void ItemGet()
+{
+    int i = 0;
+    // all outfits
+    for (i = 0; i < 0x11D; i++)
+    {
+        SET_ITEM_NUM(0x7010 + i, 1);
+    }
+    // unlock party
+    int j = 0;
+    for (j = 0; j < 9; j++)
+    {
+        BIT_ON(0x40000000 + 48 + j);
+    }
+    // party editing
+    int k = 0;
+    for (k = 0; k < 7; k++)
+    {
+        BIT_OFF(0x40000000 + 3 + k);
+    }
+}

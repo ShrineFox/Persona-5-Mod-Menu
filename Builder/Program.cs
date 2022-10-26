@@ -17,65 +17,6 @@ namespace ModMenuBuilder
         public static Game SelectedGame { get; private set; } = new Game();
         public static string exeDir;
 
-        public static List<InputFile> InputFiles = new List<InputFile>()
-        {
-            new InputFile() { Name = "at_dng.bf", Path = "field\\etc", Archive = "field\\atDngPack.pac", HookPath = "mementos" },
-            new InputFile() { Name = "dungeon.bf", Path = "field\\etc", Archive = "field\\dngPack.pac", HookPath = "palace" },
-            new InputFile() { Name = "field.bf", Path = "field\\etc", Archive = "field\\fldPack.pac", HookPath = "overworld" },
-            new InputFile() { Name = "fscr0150_002_100.bf", Path = "script\\field", Archive = "", HookPath = "introduction" },
-            new InputFile() { Name = "sharedUI.spd", Path = "camp\\shared", Archive = "", HookPath = "" }
-        };
-
-        public static List<string> Scripts = new List<string>()
-        {
-            "ModMenu\\Calendar\\Calendar.flow",
-
-            "ModMenu\\Call\\Battle\\Battle.flow",
-            "ModMenu\\Call\\Cutins\\Cutins.flow",
-            "ModMenu\\Call\\Events\\Events.flow",
-            "ModMenu\\Call\\Fields\\Fields.flow",
-            "ModMenu\\Call\\Font\\Font.flow",
-            "ModMenu\\Call\\Sound\\Sound.flow",
-            "ModMenu\\Call\\Call.flow",
-
-            "ModMenu\\Camera\\Environment\\Environment.flow",
-            "ModMenu\\Camera\\Camera.flow",
-
-            "ModMenu\\Flags\\Category\\HUD\\HUDFlags.flow",
-            "ModMenu\\Flags\\Category\\Party\\PartyFlags.flow",
-            "ModMenu\\Flags\\Category\\Personas\\PersonaFlags.flow",
-            "ModMenu\\Flags\\Category\\Room\\RoomFlags.flow",
-            "ModMenu\\Flags\\Category\\FlagCategories.flow",
-            "ModMenu\\Flags\\Flags.flow",
-
-            "ModMenu\\Player\\Appearance\\Animation\\PlayerAnimation.flow",
-            "ModMenu\\Player\\Appearance\\Model\\PlayerModel.flow",
-            "ModMenu\\Player\\Appearance\\PlayerAppearance.flow",
-            "ModMenu\\Player\\Confidants\\Confidants.flow",
-            "ModMenu\\Player\\Items\\Items.flow",
-            "ModMenu\\Player\\Personas\\Reserve\\ReservePersonas.flow",
-            "ModMenu\\Player\\Personas\\Select\\PersonaSelect.flow",
-            "ModMenu\\Player\\Personas\\Personas.flow",
-            "ModMenu\\Player\\Skills\\Reserve\\ReserveSkills.flow",
-            "ModMenu\\Player\\Skills\\Select\\SkillSelect.flow",
-            "ModMenu\\Player\\Skills\\Skills.flow",
-            "ModMenu\\Player\\Stats\\Stats.flow",
-            "ModMenu\\Player\\Player.flow",
-
-            "ModMenu\\Royal\\Royal.flow",
-
-            "ModMenu\\Spawn\\FieldModels\\FieldModels.flow",
-            "ModMenu\\Spawn\\NPCs\\Animation\\NPCAnimation.flow",
-            "ModMenu\\Spawn\\NPCs\\NPCs.flow",
-            "ModMenu\\Spawn\\Particles\\Particles.flow",
-
-            "Utilities\\AssignNames.flow",
-            "Utilities\\Math.flow",
-            "Utilities\\Utilities.flow",
-
-            "ModMenu\\ModMenu.flow",
-        };
-
         [STAThread]
         private static void Main(string[] args)
         {
@@ -136,7 +77,7 @@ namespace ModMenuBuilder
                 return;
             }
 
-            Output.Log($"Building {SelectedGame.ShortName} ({SelectedGame.Platform} platforms) Mod Menu with unpacked PACs set to {Options.Unpack}.\n\n");
+            Output.Log($"Building {SelectedGame.ShortName} ({SelectedGame.Platform} platforms) Mod Menu.\n\n");
 
             // Begin building Mod Menu output
             MenuBuilder.Build();
@@ -169,14 +110,14 @@ namespace ModMenuBuilder
         [Option("g", "game", "P5|P5R", "Specifies the game to generate output for. (default: P5R)")]
         public string Game { get; set; } = "P5R";
 
+        [Option("j", "joypad", "PS|MS|NX", "Specifies the controller button names to use. (default: MS)")]
+        public string Joypad { get; set; } = "MS";
+
         [Option("n", "newplatform", "bool", "Whether to use PC/Switch directory structure instead of Sony. (default: true)")]
         public bool NewPlatform { get; set; } = true;
 
         [Option("o", "output", "path", "Specifies the path to the directory to use as output. (default: .exe directory)")]
         public string Output { get; set; } = "";
-
-        [Option("u", "unpacked", "bool", "If specified, output .BF files will not be repacked into .PAC files. (default: true)")]
-        public bool Unpack { get; set; } = true;
     }
 
     public class InputFile

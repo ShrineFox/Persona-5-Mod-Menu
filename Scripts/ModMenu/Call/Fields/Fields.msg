@@ -7,13 +7,13 @@ Load Field (Manual Input)[f 4 26 0 3][e]
 Reload Current Field[f 4 26 2 4][e]
 
 [dlg GENERIC_HELP_2]
-[s]Choose a field to load[n]from a list of locations.[e]
+Choose a field to load[n]from a list of locations.[e]
 
 [dlg GENERIC_HELP_3]
-[s]Enter IDs of field to[n]load. [clr 9]WARNING: Some IDs[n]softlock the game.[clr 0][e]
+Enter IDs of field to[n]load. [clr 9]WARNING: Some IDs[n]softlock the game.[clr 0][e]
 
 [dlg GENERIC_HELP_4]
-[s]Reload the field that[n]you're currently on.[e]
+Reload the field that[n]you're currently on.[e]
 
 [dlg Message_FieldSelect_Major [Field Select]]
 Choose the first 3 digits of[n]the field to load.[n](3 digits, [clr 2]○ button[clr 0] to end)[w][e]

@@ -13,24 +13,17 @@ namespace ModMenuBuilder
 {
     public class MenuBuilder
     {
-        public static int reindexStart;
+        public static int msgIndex;
 
         public static string assetsDir;
         public static string scriptsDir;
-        public static string tempDir;
         public static string outputDir;
-        public static string tempAssetsDir;
-        public static string tempScriptsDir;
         
         public static void Build()
         {
             // Set build paths
             assetsDir = Path.Combine(Program.exeDir, "Assets");
             scriptsDir = Path.Combine(Program.exeDir, "Scripts");
-            tempDir = Path.Combine(Program.exeDir, "Temp");
-            outputDir = Path.Combine(Program.exeDir, "Output");
-            tempAssetsDir = Path.Combine(tempDir, "Assets");
-            tempScriptsDir = Path.Combine(tempDir, "Scripts");
 
             // Set output path if specified by user
             if (Program.Options.Output != "")
@@ -40,20 +33,12 @@ namespace ModMenuBuilder
             }
 
             // Set index of messages to start at when reindexing .msg files
-            reindexStart = 90;
+            msgIndex = 90;
             if (Program.SelectedGame.Type.Equals("Royal"))
-                reindexStart = 181;
+                msgIndex = 181;
 
-            CreateTempFolder(); // Move Assets/Scripts to Temp dir for modification
             UnpackPACs(); // Get .bf files from .PAC files
             ProcessScripts(); // Enable/disable game-specific elements of Mod Menu .flow/.msg and reindex .msg files
-            CompileHookScripts(); // Create new .bf files from hook .flow
-            if (!Program.Options.Unpack && Program.SelectedGame.Platform != PlatformType.New) 
-            {
-                // Pack changed .bf files back into .PAC
-                RepackPACs(); 
-            }
-            CopyToOutput(); // Copy changed files to output folder
 
             Output.Log("\nDone!", ConsoleColor.Green);
 
@@ -62,84 +47,59 @@ namespace ModMenuBuilder
             #endif
         }
 
-        private static void CreateTempFolder()
-        {
-            // Create new Temp folder
-            DeleteTempFolder();
-            Output.Log($"Creating new Temp directory:\n  {tempDir}");
-            Directory.CreateDirectory(tempDir);
-
-            // Copy Assets and Scripts folders to Temp folder
-            Output.Log($"Copying Assets to Temp/Assets directory:\n  {tempAssetsDir}");
-            FileSys.CopyDir(assetsDir, tempAssetsDir);
-            Output.Log($"Copying Scripts to Temp/Scripts directory:\n  {tempScriptsDir}");
-            FileSys.CopyDir(scriptsDir, tempScriptsDir);
-        }
-
-        private static void DeleteTempFolder()
-        {
-            // Delete Temp folder and all contents
-            Output.Log($"Deleting Temp directory:\n  {tempDir}");
-            if (Directory.Exists(tempDir))
-                Directory.Delete(tempDir, true);
-        }
-
         public static void UnpackPACs()
         {
             // Extract .bf files from each .PAC in Assets folder
-            foreach (InputFile inputFile in Program.InputFiles.Where(x => x.Name.EndsWith(".bf") && x.Archive.EndsWith(".pac")))
+            foreach (var pac in Directory.GetFiles(assetsDir, "*.pac", SearchOption.AllDirectories))
             {
-                string pacFilePath = $"{tempAssetsDir}\\{Program.SelectedGame.Type}\\{inputFile.Archive}";
-                if (File.Exists(pacFilePath))
+                PAKFileSystem pak = new PAKFileSystem();
+                if (PAKFileSystem.TryOpen(pac, out pak))
                 {
-                    PAKFileSystem pak = new PAKFileSystem();
-                    if (PAKFileSystem.TryOpen(pacFilePath, out pak))
+                    Output.Log($"Unpacking: {pac}");
+
+                    foreach (var fileInPAC in pak.EnumerateFiles())
                     {
-                        Output.Log($"Unpacking {inputFile.Archive}...");
+                        string normalizedFilePath = fileInPAC.Replace("../", ""); //Remove backwards relative path
+                        string outputPath = Path.Combine(Path.GetDirectoryName(pac), normalizedFilePath);
 
-                        foreach (var fileInPAC in pak.EnumerateFiles())
+                        using (var stream = FileUtils.Create(outputPath))
+                        using (var inputStream = pak.OpenFile(fileInPAC))
                         {
-                            if (fileInPAC.EndsWith(inputFile.Name))
-                            {
-                                string normalizedFilePath = fileInPAC.Replace("../", ""); //Remove backwards relative path
-                                string outputPath = Path.Combine(Path.GetDirectoryName(pacFilePath), normalizedFilePath);
-
-                                using (var stream = FileUtils.Create(outputPath))
-                                using (var inputStream = pak.OpenFile(fileInPAC))
-                                {
-                                    inputStream.CopyTo(stream);
-                                    Output.Log($"Extracted {Path.GetFileName(normalizedFilePath)} to:\n  {outputPath}", ConsoleColor.Green);
-                                }
-                            }
+                            inputStream.CopyTo(stream);
+                            Output.Log($"Extracted {Path.GetFileName(normalizedFilePath)} to:\n  {outputPath}", ConsoleColor.Green);
                         }
                     }
                 }
-                else
-                    Output.Log($"Could not find input .PAC: {pacFilePath}", ConsoleColor.Red);
             }
         }
 
         private static void ProcessScripts()
         {
             Output.Log("Processing Mod Menu scripts...");
-
-            // Get list of scripts to process
-            List<string> scripts = new List<string>();
-            foreach (var script in Program.InputFiles.Where(x => x.Name.EndsWith(".bf")))
-                scripts.Add($"{tempScriptsDir}\\Hooks\\{script.HookPath}\\{script.Name}.flow");
-            foreach (var script in Program.Scripts)
-                scripts.Add(script);
-
-            // Process each script
-            foreach (var script in scripts)
+            foreach (var script in Directory.GetFiles(Path.Combine(scriptsDir, "ModMenu"),
+                "*.flow", SearchOption.AllDirectories))
+            {
+                RemoveFlowComments(script); // Removes lines with a "/* Royal */" or "/* Vanilla */" comment from .flow depending on 
+            }
+            Output.Log("Processing Mod Menu messages...");
+            foreach (var script in Directory.GetFiles(Path.Combine(scriptsDir, "ModMenu"),
+                "*.msg", SearchOption.AllDirectories))
+            {
+                ReindexMsg(script); // Update .msg indexes of file depending on if Royal or Vanilla
+                RemoveMsgComments(script); // Removes lines with a "// Royal" or "// Vanilla" comment from .msg depending on version
+                ReplaceJoypadKeys(script); // Change joypad button names depending on options
+            }
+            Output.Log("Processing Hook scripts...");
+            // Process each Hook script
+            foreach (var script in Directory.GetFiles(Path.Combine(scriptsDir, "Hook"), 
+                "*.flow", SearchOption.AllDirectories))
             {
                 Output.Log($"Processing script:\n  {script}");
 
                 if (Program.SelectedGame.Type.Equals("Royal"))
                     Royalify(script);
                 RemoveFlowComments(script); // Removes lines with a "/* Royal */" or "/* Vanilla */" comment from .flow depending on version
-                RemoveMsgComments(script.Replace(".flow",".msg")); // Removes lines with a "// Royal" or "// Vanilla" comment from .msg depending on version
-                ReindexMsg(script.Replace(".flow", ".msg")); // Update .msg indexes of file depending on if Royal or Vanilla
+                CompileHookScript(script); // Create new .bf
 
                 Output.Log($"Done processing script.", ConsoleColor.Green);
             }
@@ -147,10 +107,30 @@ namespace ModMenuBuilder
             Output.Log($"Finished processing Mod Menu scripts.", ConsoleColor.Green);
         }
 
+        private static void ReplaceJoypadKeys(string script)
+        {
+            if (Program.Options.Joypad != "PS" && File.Exists(script) && script.EndsWith(".msg"))
+            {
+                var lines = File.ReadAllLines(script);
+                List<string> newLines = new List<string>();
+                for (int i = 0; i < lines.Length; i++)
+                {
+                    string line = lines[i];
+                    if (Program.Options.Joypad == "MS")
+                        line.Replace("□", "X").Replace("△", "Y").Replace("○", "B").Replace("╳","A");
+                    if (Program.Options.Joypad == "NX")
+                        line.Replace("□", "Y").Replace("△", "X").Replace("○", "A").Replace("╳", "B");
+                    newLines.Add(line);
+                }
+                File.WriteAllText(script, String.Join("\n", newLines), Encoding.Unicode);
+                Output.Log($"  Done changing joypad button names in:\n  {script}", ConsoleColor.Green);
+            }
+            else
+                Output.Log($"  Could not find script to change joypad button names in: {script}", ConsoleColor.Red);
+        }
+
         private static void Royalify(string script)
         {
-            script = Path.Combine(tempScriptsDir, script);
-
             Output.Log($"  Looking for Royal bitflags in:\n  {script}");
 
             if (File.Exists(script))
@@ -184,7 +164,7 @@ namespace ModMenuBuilder
                         newLines.Add(lines[i]);
                 }
 
-                File.WriteAllText(script, String.Join("\n", newLines));
+                File.WriteAllText(script, String.Join("\n", newLines), Encoding.Unicode);
                 Output.Log($"  Done converting Royal bitflags in:\n  {script}", ConsoleColor.Green);
             }
             else
@@ -193,7 +173,6 @@ namespace ModMenuBuilder
 
         private static void RemoveMsgComments(string script)
         {
-            script = Path.Combine(tempScriptsDir, script);
             Output.Log($"  Looking for version-specific commented lines in:\n  {script}");
 
             // Remove lines with the opposite game type's comment from Mod Menu .msg
@@ -212,7 +191,7 @@ namespace ModMenuBuilder
 
                 // Remove comments from line for matching type and overwrite file
                 File.WriteAllText(script, String.Join("\n", newLines)
-                    .Replace($"// {Program.SelectedGame.Type}", "").Replace($"//{Program.SelectedGame.Type}", ""));
+                    .Replace($"// {Program.SelectedGame.Type}", "").Replace($"//{Program.SelectedGame.Type}", ""), Encoding.Unicode);
 
                 Output.Log($"  Finished commenting out version-specific lines in:\n  {script}", ConsoleColor.Green);
             }
@@ -222,7 +201,6 @@ namespace ModMenuBuilder
 
         private static void RemoveFlowComments(string script)
         {
-            script = Path.Combine(tempScriptsDir, script);
             Output.Log($"  Looking for version-specific commented codeblocks in:\n  {script}");
 
             // Remove lines with the opposite game type's comment from Mod Menu .msg
@@ -235,7 +213,7 @@ namespace ModMenuBuilder
                 // Comment out blocks for opposing game type
                 File.WriteAllText(script, File.ReadAllText(script)
                     .Replace($"/* {removeType} Start */", $"/* {removeType} Start ")
-                    .Replace($"/* {removeType} End */", $" {removeType} End */"));
+                    .Replace($"/* {removeType} End */", $" {removeType} End */"), Encoding.Unicode);
 
                 Output.Log($"  Finished commenting out version-specific codeblocks in:\n  {script}", ConsoleColor.Green);
             }
@@ -245,14 +223,12 @@ namespace ModMenuBuilder
 
         public static void ReindexMsg(string script)
         {
-            script = Path.Combine(tempScriptsDir, script);
-
             if (File.Exists(script))
             {
                 // Update parameters of msg functions that displays description for menu selection
                 Output.Log($"  Updating .msg index parameters in:" +
                     $"\n  {Path.GetFileName(script)}" +
-                    $"\n  Starting from: {reindexStart}");
+                    $"\n  Starting from: {msgIndex}");
 
                 var msgLines = File.ReadAllLines(script);
                 int refCount = 0; // Keep track of total number of references per selection block
@@ -261,7 +237,7 @@ namespace ModMenuBuilder
                 {
                     // Increase total number of messages so far
                     if (msgLines[i].Contains("[dlg ") || msgLines[i].Contains("[sel "))
-                        reindexStart++;
+                        msgIndex++;
 
                     // If current line contains "[ref "...
                     if (msgLines[i].Contains("[ref "))
@@ -272,118 +248,45 @@ namespace ModMenuBuilder
                         // For each line containing "[ref " until file ends or a line doesn't contain "[ref "...
                         while (i + 1 < msgLines.Length && msgLines[i].Contains("[ref "))
                         {
-                            // Separate part of string after "[ref "
-                            int index = msgLines[i].IndexOf("[ref ");
-                            string substring = msgLines[i].Substring(index);
-                            // Create new second half of string
-                            string newString = $"[ref {refCount} {reindexStart + refCount + 1}][e]";
-                            string newLine = msgLines[i].Remove(index);
-                            // Update line with new data
-                            msgLines[i] = newLine + newString;
                             // Increase number of ref lines read so far for this sel block
                             refCount++;
+                            // Separate part of string after "[ref "
+                            int refIndex = msgLines[i].IndexOf("[ref ");
+                            string substring = msgLines[i].Substring(refIndex);
+                            // Create new second half of string
+                            string newString = $"[ref {refCount} {msgIndex + refCount}][e]";
+                            string newLine = msgLines[i].Remove(refIndex);
+                            // Update line with new data
+                            msgLines[i] = newLine + newString;
                             // Increase current line number
                             i++;
                         }
                     }
 
                     if (msgLines[i].Contains("[dlg GENERIC_HELP_"))
-                        msgLines[i] = $"[dlg GENERIC_HELP_{reindexStart}]";
+                        msgLines[i] = $"[dlg GENERIC_HELP_{msgIndex}]";
                 }
 
-                File.WriteAllText(script, string.Join("\n", msgLines));
+                File.WriteAllText(script, string.Join("\n", msgLines), Encoding.Unicode);
             }
         }
 
-        private static void CompileHookScripts()
+        private static void CompileHookScript(string script)
         {
-            // Compile Mod Menu hook scripts and output to Assets folder
-            foreach (InputFile inputFile in Program.InputFiles.Where(x => x.Name.EndsWith(".bf")))
-            {
-                string flowPath = $"{tempScriptsDir}\\Hooks\\{inputFile.HookPath}\\{inputFile.Name}.flow";
-                if (File.Exists(flowPath))
-                {
-                    string[] args = new string[] {
-                    $"\"{flowPath}\"", "-Compile",
-                    "-OutFormat", "V3BE",
-                    "-Encoding", Program.Options.Encoding,
-                    "-Library", Program.SelectedGame.ShortName,
-                    "-Out", $"\"{tempAssetsDir}\\{Program.SelectedGame.Type}\\{inputFile.Path}\\{inputFile.Name}.flow.bf\"",
-                    "-Hook" };
+            string outDir = Program.Options.Output;
+            string outputFile = Path.Combine(outDir, Path.Combine(Path.GetDirectoryName(script), Path.GetFileNameWithoutExtension(script) + ".bf").Replace(Exe.Directory() + "\\Scripts\\Hook\\", ""));
 
-                    Output.Log($"Compiling .\\Hooks\\{inputFile.HookPath}\\{inputFile.Name}.flow");
-                    Output.VerboseLog($"\targs: {string.Join(" ", args)}");
-                    Exe.Run(Program.Options.Compiler, string.Join(" ", args));
-                }
-                else
-                    Output.Log($"Failed to compile {inputFile.Name}.flow.bf, could not find script:\n  {flowPath}", ConsoleColor.Red);
+            string[] args = new string[] {
+            $"\"{script}\"", "-Compile",
+            "-OutFormat", "V3BE",
+            "-Encoding", Program.Options.Encoding,
+            "-Library", Program.SelectedGame.ShortName,
+            "-Out", $"\"{outputFile}\"",
+            "-Hook" };
 
-            }
-        }
-
-        private static void RepackPACs()
-        {
-            // Replace .bf files in each PAC with ones from Assets folder
-            foreach (InputFile inputFile in Program.InputFiles.Where(x => x.Name.EndsWith(".bf") && x.Archive.EndsWith(".pac")))
-            {
-                string pacPath = $"{tempAssetsDir}\\{Program.SelectedGame.Type}\\{inputFile.Archive}";
-                string bfPath = $"{tempAssetsDir}\\{Program.SelectedGame.Type}\\{inputFile.Path}\\{inputFile.Name}.flow.bf";
-
-                if (File.Exists(pacPath))
-                {
-                    if (File.Exists(bfPath))
-                    {
-                        Output.Log($"Attempting to replace {inputFile.Name} in {inputFile.Archive} with:\n  {bfPath}");
-
-                        PAKFileSystem pak = new PAKFileSystem();
-                        if (PAKFileSystem.TryOpen(pacPath, out pak))
-                        {
-                            PAKFileSystem newPak = pak;
-
-                            if (pak.EnumerateFiles().Any(x => x.EndsWith(inputFile.Name)))
-                            {
-                                string pakFilePath = pak.EnumerateFiles().First(x => x.EndsWith(inputFile.Name));
-                                newPak.AddFile(pakFilePath, bfPath, ConflictPolicy.Replace);
-                                Output.Log($"  Replaced {inputFile.Name} in {inputFile.Archive}");
-
-                                string outputPath = Path.Combine(outputDir, inputFile.Archive);
-                                Directory.CreateDirectory(Path.GetDirectoryName(outputPath));
-                                newPak.Save(outputPath);
-                                Output.Log($"  Saved repacked PAC to output folder: {outputPath}", ConsoleColor.Green);
-                            }
-                            else
-                                Output.Log($"  Could not find any file ending with {inputFile.Name} in: {pacPath}", ConsoleColor.Red);
-                        }
-                        else
-                            Output.Log($"Failed to open .PAC for repacking:\n  {pacPath}", ConsoleColor.Red);
-                    }
-                    else
-                        Output.Log($"Failed to replace {inputFile.Name} in {inputFile.Archive}, could not find compiled .BF:\n  {bfPath}", ConsoleColor.Red);
-                }
-                else
-                    Output.Log($"Failed to repack PAC, could not find archive:\n  {pacPath}", ConsoleColor.Red);
-            }
-        }
-
-        private static void CopyToOutput()
-        {
-            // Move non-PAC (i.e. .SPD) Asset files for appropriate game version to output directory
-            // (repacked .PACs are already in Output directory by now)
-            foreach (InputFile inputFile in Program.InputFiles)
-            {
-                string inputPath = $"{tempAssetsDir}\\{Program.SelectedGame.Type}\\{inputFile.Path}\\{inputFile.Name}";
-                // Use compiled .bf as output for introduction script that enabled mod menu, since it doesn't go in a .PAC
-                // If repacking was skipped by user, use compiled .bf for every input file except .SPD
-                if (!inputFile.Archive.EndsWith(".pac") || Program.Options.Unpack)
-                {
-                    if (!inputFile.Path.Equals("camp\\shared"))
-                        inputPath += ".flow.bf";
-                    string outputPath = Path.Combine(outputDir, Path.Combine(inputFile.Path, inputFile.Name));
-                    Directory.CreateDirectory(Path.GetDirectoryName(outputPath));
-                    Output.Log($"Copying file from: {inputPath}\n  to: {outputPath}");
-                    File.Copy(inputPath, outputPath, true);
-                }
-            }
+            Output.Log($"Compiling script: {script}");
+            Output.VerboseLog($"\targs: {string.Join(" ", args)}");
+            Exe.Run(Program.Options.Compiler, string.Join(" ", args));
         }
     }
 }
