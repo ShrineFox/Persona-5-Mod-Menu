@@ -59,7 +59,7 @@ namespace ModMenuBuilder
             this.btn_Build.Location = new System.Drawing.Point(327, 121);
             this.btn_Build.Name = "btn_Build";
             this.btn_Build.Padding = new System.Windows.Forms.Padding(5);
-            this.btn_Build.Size = new System.Drawing.Size(118, 88);
+            this.btn_Build.Size = new System.Drawing.Size(123, 88);
             this.btn_Build.TabIndex = 0;
             this.btn_Build.Text = "Build";
             this.btn_Build.Click += new System.EventHandler(this.BuildButton_Click);
@@ -104,7 +104,7 @@ namespace ModMenuBuilder
             this.rtb_Log.Location = new System.Drawing.Point(13, 214);
             this.rtb_Log.Name = "rtb_Log";
             this.rtb_Log.ReadOnly = true;
-            this.rtb_Log.Size = new System.Drawing.Size(432, 205);
+            this.rtb_Log.Size = new System.Drawing.Size(437, 205);
             this.rtb_Log.TabIndex = 2;
             this.rtb_Log.Text = "";
             // 
@@ -166,7 +166,7 @@ namespace ModMenuBuilder
             this.btn_Path.Location = new System.Drawing.Point(411, 33);
             this.btn_Path.Name = "btn_Path";
             this.btn_Path.Padding = new System.Windows.Forms.Padding(5);
-            this.btn_Path.Size = new System.Drawing.Size(33, 23);
+            this.btn_Path.Size = new System.Drawing.Size(38, 23);
             this.btn_Path.TabIndex = 6;
             this.btn_Path.Text = "...";
             this.btn_Path.Click += new System.EventHandler(this.Path_Click);
@@ -219,7 +219,7 @@ namespace ModMenuBuilder
             this.btn_OutPath.Location = new System.Drawing.Point(412, 83);
             this.btn_OutPath.Name = "btn_OutPath";
             this.btn_OutPath.Padding = new System.Windows.Forms.Padding(5);
-            this.btn_OutPath.Size = new System.Drawing.Size(33, 23);
+            this.btn_OutPath.Size = new System.Drawing.Size(38, 23);
             this.btn_OutPath.TabIndex = 9;
             this.btn_OutPath.Text = "...";
             this.btn_OutPath.Click += new System.EventHandler(this.OutPath_Click);
@@ -248,7 +248,7 @@ namespace ModMenuBuilder
             // BuilderForm
             // 
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
-            this.ClientSize = new System.Drawing.Size(457, 431);
+            this.ClientSize = new System.Drawing.Size(462, 433);
             this.Controls.Add(this.btn_OutPath);
             this.Controls.Add(this.txt_OutPath);
             this.Controls.Add(this.lbl_OutPath);
@@ -260,6 +260,8 @@ namespace ModMenuBuilder
             this.Controls.Add(this.rtb_Log);
             this.Controls.Add(this.groupBox_Version);
             this.Controls.Add(this.btn_Build);
+            this.MaximumSize = new System.Drawing.Size(480, 480);
+            this.MinimumSize = new System.Drawing.Size(480, 480);
             this.Name = "BuilderForm";
             this.Text = "Mod Menu Builder";
             this.groupBox_Version.ResumeLayout(false);

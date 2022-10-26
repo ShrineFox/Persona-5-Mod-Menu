@@ -32,11 +32,6 @@ namespace ModMenuBuilder
                 outputDir = Program.Options.Output;
             }
 
-            // Set index of messages to start at when reindexing .msg files
-            msgIndex = 90;
-            if (Program.SelectedGame.Type.Equals("Royal"))
-                msgIndex = 181;
-
             UnpackPACs(); // Get .bf files from .PAC files
             ProcessScripts(); // Enable/disable game-specific elements of Mod Menu .flow/.msg and reindex .msg files
 
@@ -75,36 +70,58 @@ namespace ModMenuBuilder
 
         private static void ProcessScripts()
         {
-            Output.Log("Processing Mod Menu scripts...");
-            foreach (var script in Directory.GetFiles(Path.Combine(scriptsDir, "ModMenu"),
+            foreach (var script in Directory.GetFiles(scriptsDir,
                 "*.flow", SearchOption.AllDirectories))
             {
                 RemoveFlowComments(script); // Removes lines with a "/* Royal */" or "/* Vanilla */" comment from .flow depending on 
+                if (Program.SelectedGame.Type.Equals("Royal"))
+                    Royalify(script); // Update flag IDs from PS3 to Royal
             }
-            Output.Log("Processing Mod Menu messages...");
-            foreach (var script in Directory.GetFiles(Path.Combine(scriptsDir, "ModMenu"),
-                "*.msg", SearchOption.AllDirectories))
+            
+            foreach (var script in Directory.GetFiles(scriptsDir))
             {
-                ReindexMsg(script); // Update .msg indexes of file depending on if Royal or Vanilla
                 RemoveMsgComments(script); // Removes lines with a "// Royal" or "// Vanilla" comment from .msg depending on version
                 ReplaceJoypadKeys(script); // Change joypad button names depending on options
             }
-            Output.Log("Processing Hook scripts...");
-            // Process each Hook script
+
+            // Reindex and compile each Hook script
             foreach (var script in Directory.GetFiles(Path.Combine(scriptsDir, "Hook"), 
                 "*.flow", SearchOption.AllDirectories))
             {
-                Output.Log($"Processing script:\n  {script}");
+                Output.Log($"Processing Hook script:\n  {script}");
 
+                // Set index of messages to start at when reindexing .msg files
+                msgIndex = 90;
                 if (Program.SelectedGame.Type.Equals("Royal"))
-                    Royalify(script);
-                RemoveFlowComments(script); // Removes lines with a "/* Royal */" or "/* Vanilla */" comment from .flow depending on version
-                CompileHookScript(script); // Create new .bf
+                    msgIndex = 181;
+                Output.VerboseLog($"\tmsgIndex: {msgIndex}");
+
+                RecursivelyReindexMsgs(script); // Re-number HELP message names in referenced .msg files
+                CompileHookScript(script); // Create new .bf in output folder
 
                 Output.Log($"Done processing script.", ConsoleColor.Green);
             }
 
             Output.Log($"Finished processing Mod Menu scripts.", ConsoleColor.Green);
+        }
+
+        private static void RecursivelyReindexMsgs(string script)
+        {
+            if (script.EndsWith(".msg"))
+            {
+                Output.VerboseLog($"\tRecursively Reindexing .Msg: {script}\n\tmsgIndex: {msgIndex}");
+                ReindexMsg(script);
+            }
+            else if (script.EndsWith(".flow"))
+            {
+                foreach (var line in File.ReadAllLines(script))
+                {
+                    if (line.Contains(".msg\""))
+                        RecursivelyReindexMsgs(Path.Combine(Path.GetDirectoryName(script), line.Replace("import(\"", "").Replace("\");", "")));
+                    if (line.Contains(".flow\""))
+                        RecursivelyReindexMsgs(Path.Combine(Path.GetDirectoryName(script), line.Replace("import(\"", "").Replace("\");", "")));
+                }
+            }
         }
 
         private static void ReplaceJoypadKeys(string script)
@@ -248,14 +265,14 @@ namespace ModMenuBuilder
                         // For each line containing "[ref " until file ends or a line doesn't contain "[ref "...
                         while (i + 1 < msgLines.Length && msgLines[i].Contains("[ref "))
                         {
-                            // Increase number of ref lines read so far for this sel block
-                            refCount++;
                             // Separate part of string after "[ref "
                             int refIndex = msgLines[i].IndexOf("[ref ");
                             string substring = msgLines[i].Substring(refIndex);
                             // Create new second half of string
                             string newString = $"[ref {refCount} {msgIndex + refCount}][e]";
                             string newLine = msgLines[i].Remove(refIndex);
+                            // Increase number of ref lines read so far for this sel block
+                            refCount++;
                             // Update line with new data
                             msgLines[i] = newLine + newString;
                             // Increase current line number

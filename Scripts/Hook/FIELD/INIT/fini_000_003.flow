@@ -14,7 +14,7 @@ void TitleSelect()
 {
     int ScrTiming = 0;
     ScrTiming = FLD_GET_SCRIPT_TIMING();
-    if ( ScrTiming == 2 )
+    if ( ScrTiming == 1 )
     {
         switch (SEL_GENERIC_NOT_HELP(-1, Options_TitleSelect))
         {
