@@ -20,6 +20,7 @@ namespace ModMenuBuilder
         [STAThread]
         private static void Main(string[] args)
         {
+            WinForms.SetDefaultIcon();
             // Set Logging Stuff
             Output.Logging = true;
             Output.LogToFile = true;

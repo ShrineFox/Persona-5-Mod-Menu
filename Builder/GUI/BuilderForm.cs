@@ -20,13 +20,13 @@ namespace ModMenuBuilder
             InitializeComponent();
             Output.LogControl = rtb_Log;
 #if DEBUG
-            txt_Path.Text = @"C:\Users\Administrator\Documents\GitHub\Atlus-Script-Tools\Build\Release\AtlusScriptCompiler.exe";
-            txt_OutPath.Text = @"C:\Program Files (x86)\Steam\steamapps\common\P5R\Reloaded\Mods\p5rpc.misc.modmenu\P5REssentials\CPK\EN.CPK";
+            txt_Path.Text = @"C:\Users\Ryan\Documents\GitHub\Atlus-Script-Tools\Build\Release\AtlusScriptCompiler.exe";
+            txt_OutPath.Text = @"D:\Games\Steam\steamapps\common\P5R\Reloaded\Mods\p5rpc.misc.modmenu\P5REssentials\CPK\EN.CPK";
             Program.Show();
             System.Threading.Thread.Sleep(200);
             Output.LogControl = null;
 #endif
-
+            rtb_Log.Text += $"{this.Text} by ShrineFox\nProcesses and compiles scripts for Persona 5 on PS3, PS4, PC and Switch.";
         }
 
         private void BuildButton_Click(object sender, EventArgs e)
@@ -62,8 +62,8 @@ namespace ModMenuBuilder
             btn_Build.Enabled = false;
             Task.Run(() => {
                 Program.StartWithOptions(args.ToArray());
-                btn_Build.Enabled = true;
             });
+            btn_Build.Enabled = true;
         }
 
         private void Path_Changed(object sender, EventArgs e)
@@ -88,6 +88,19 @@ namespace ModMenuBuilder
         {
             var path = WinFormsEvents.FolderPath_Click("Choose AtlusScriptCompiler.exe");
             txt_OutPath.Text = path;
+        }
+
+        private void Version_Changed(object sender, EventArgs e)
+        {
+            if (radio_Vanilla.Checked)
+            {
+                radio_Old.Checked = true;
+                groupBox_Platform.Enabled = false;
+            }
+            else
+            {
+                groupBox_Platform.Enabled = true;
+            }
         }
     }
 }
