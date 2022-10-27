@@ -4,7 +4,8 @@ void RoyalMenu()
 {
     while (true)
     {
-        switch (NameMenu(Title_Royal, Options_Royal))
+        int selection = NameMenu(Title_Royal, Options_Royal);
+        switch (selection)
         {
             case -1:
                 return;

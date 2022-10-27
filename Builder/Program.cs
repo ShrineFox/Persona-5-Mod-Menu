@@ -22,7 +22,7 @@ namespace ModMenuBuilder
         {
             // Set Logging Stuff
             Output.Logging = true;
-            Output.LogToFile = false;
+            Output.LogToFile = true;
             #if DEBUG
                 Output.VerboseLogging = true;
                 Output.LogPath = "ModMenuBuilder_DebugLog.txt";

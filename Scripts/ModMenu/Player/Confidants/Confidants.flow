@@ -4,7 +4,8 @@ void ConfidantsMenu()
 {
     while (true)
     {
-        switch (DescriptionMenu(Title_Confidants, Options_Confidants))
+        int selection = DescriptionMenu(Title_Confidants, Options_Confidants);
+        switch (selection)
         {
             case -1:
                 return;

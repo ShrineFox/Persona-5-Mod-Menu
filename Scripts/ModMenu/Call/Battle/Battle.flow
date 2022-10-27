@@ -3,7 +3,6 @@
 void BattleMenu()
 {
     int selection = DescriptionMenu(Title_Battle, Options_Battle);
-
     switch (selection)
     {
         case -1:
@@ -37,7 +36,6 @@ void RegularBattle()
 void BossPalaceMenu()
 {
     int selection = NameMenu(Title_Palace, Options_Palace);
-
     switch (selection)
     {
         case -1:
@@ -74,7 +72,8 @@ void BossPalaceMenu()
 
 void CastleBossMenu()
 {
-    switch (NameMenu(Title_CastleBattles, Options_CastleBattles))
+    int selection = NameMenu(Title_CastleBattles, Options_CastleBattles);
+    switch (selection)
     {
         case -1:
             break;
@@ -122,7 +121,8 @@ void CastleBossMenu()
 
 void MuseumBossMenu()
 {
-    switch (NameMenu(Title_MuseumBattles, Options_MuseumBattles))
+    int selection = NameMenu(Title_MuseumBattles, Options_MuseumBattles);
+    switch (selection)
     {
         case -1:
             break;
@@ -146,7 +146,8 @@ void MuseumBossMenu()
 
 void BankBossMenu()
 {
-    switch (NameMenu(Title_BankBattles, Options_BankBattles))
+    int selection = NameMenu(Title_BankBattles, Options_BankBattles);
+    switch (selection)
     {
         case -1:
             break;
@@ -176,7 +177,8 @@ void BankBossMenu()
 
 void PyramidBossMenu()
 {
-    switch (NameMenu(Title_PyramidBattles, Options_PyramidBattles))
+    int selection = NameMenu(Title_PyramidBattles, Options_PyramidBattles);
+    switch (selection)
     {
         case -1:
             break;
@@ -203,7 +205,8 @@ void PyramidBossMenu()
 
 void SpaceBossMenu()
 {
-    switch (NameMenu(Title_SpaceBattles, Options_SpaceBattles))
+    int selection = NameMenu(Title_SpaceBattles, Options_SpaceBattles);
+    switch (selection)
     {
         case -1:
             break;
@@ -230,7 +233,8 @@ void SpaceBossMenu()
 
 void CasinoBossMenu()
 {
-    switch (NameMenu(Title_CasinoBattles, Options_CasinoBattles))
+    int selection = NameMenu(Title_CasinoBattles, Options_CasinoBattles);
+    switch (selection)
     {
         case -1:
             break;
@@ -272,7 +276,8 @@ void CasinoBossMenu()
 
 void CruiseBossMenu()
 {
-    switch (NameMenu(Title_CruiseBattles, Options_CruiseBattles))
+    int selection = NameMenu(Title_CruiseBattles, Options_CruiseBattles);
+    switch (selection)
     {
         case -1:
             break;
@@ -314,7 +319,8 @@ void CruiseBossMenu()
 
 void MementosBossMenu()
 {
-    switch (NameMenu(Title_MementosBattles, Options_MementosBattles))
+    int selection = NameMenu(Title_MementosBattles, Options_MementosBattles);
+    switch (selection)
     {
         case -1:
             break;
@@ -353,7 +359,8 @@ void MementosBossMenu()
 
 void MiscBossMenu()
 {
-    switch (NameMenu(Title_MiscBattles, Options_MiscBattles))
+    int selection = NameMenu(Title_MiscBattles, Options_MiscBattles);
+    switch (selection)
     {
         case -1:
             break;
@@ -398,7 +405,8 @@ void MiscBossMenu()
 
 void MiscBossMenu2()
 {
-    switch (NameMenu(Title_MiscBattles, Options_MiscBattles_Page2))
+    int selection = NameMenu(Title_MiscBattles, Options_MiscBattles_Page2);
+    switch (selection)
     {
         case -1:
             break;
@@ -436,7 +444,8 @@ void EventBattle()
 {
     while (true)
     {
-        switch (NameMenu(Title_EventBattles, Options_EventBattles))
+        int selection = NameMenu(Title_EventBattles, Options_EventBattles);
+        switch (selection)
         {
             case -1:
                 return;

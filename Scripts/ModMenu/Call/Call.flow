@@ -10,7 +10,8 @@ void CallMenu()
 {
     while (true)
     {
-        switch (DescriptionMenu(Title_Call, Options_Call))
+        int selection = DescriptionMenu(Title_Call, Options_Call);
+        switch (selection)
         {
             case -1:
                 return;

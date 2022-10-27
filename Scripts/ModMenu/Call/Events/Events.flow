@@ -4,7 +4,8 @@ void EventMenu()
 {
     while (true)
     {
-        switch (DescriptionMenu(Title_Events, Options_Events))
+        int selection = DescriptionMenu(Title_Events, Options_Events);
+        switch (selection)
         {
             case -1:
                 return;

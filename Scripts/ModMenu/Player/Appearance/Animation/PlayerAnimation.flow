@@ -10,7 +10,8 @@ void PlayerAnimationMenu()
 {
     while (true)
     {
-        switch (DescriptionMenu(Title_PlayerAnimation, Options_PlayerAnimation))
+        int selection = DescriptionMenu(Title_PlayerAnimation, Options_PlayerAnimation);
+        switch (selection)
         {
             case -1:
                 return;
@@ -50,7 +51,8 @@ void PlayerSetFieldGAP()
         SET_COUNT(22, gapLast);
 
         // Prompt reload of field to complete GAP swap
-        ConfirmReloadField();
+        if (ConfirmReloadField())
+            return;
     }
 }
 
@@ -74,8 +76,7 @@ void PlayerAnimSelectIndex()
 
 void PlayerAnimSetLoop()
 {
-    if (SystemMenu(Message_GapLoop, Options_LoopDont))
-        gFldAnimShouldLoop = true;
+    gFldAnimShouldLoop = SystemMenu(Message_GapLoop, Options_LoopDont);
 }
 
 void PlayerAnimSetSpeed()

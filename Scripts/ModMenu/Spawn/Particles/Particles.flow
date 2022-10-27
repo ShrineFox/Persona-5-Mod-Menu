@@ -15,7 +15,8 @@ void SpawnParticlesMenu()
 
     while (true)
     {
-        switch (DescriptionMenu(Title_Particles, Options_Particles))
+        int selection = DescriptionMenu(Title_Particles, Options_Particles);
+        switch (selection)
         {
             case -1:
                 return;

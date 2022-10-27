@@ -5,7 +5,8 @@ void CutinsMenu()
     SetConfidantNames();
     while (true)
     {
-        switch (DescriptionMenu(Title_PartyCutins, Options_PartyCutins)) 
+        int selection = DescriptionMenu(Title_PartyCutins, Options_PartyCutins);
+        switch (selection) 
         {
             case -1:
                 return;

@@ -2,10 +2,10 @@
 Calendar[w][e]
 
 [sel Options_Calendar]
-Set Next Day[f 4 26 0 2][e]
-Go to Next Day[f 4 26 1 3][e]
-Set Weather[f 4 26 2 4][e]
-Loop Current Day[f 4 26 3 5][e]
+Set Next Day[ref 0 2][e]
+Go to Next Day[ref 1 3][e]
+Set Weather[ref 2 4][e]
+Loop Current Day[ref 3 5][e]
 
 [dlg GENERIC_HELP_2]
 Choose day & month[n]to warp to.[e]

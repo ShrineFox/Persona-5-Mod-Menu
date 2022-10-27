@@ -21,7 +21,8 @@ void FlagsMenu()
 
     while (true)
     {
-        switch (DescriptionMenu(Title_Flags, Options_Flags))
+        int selection = DescriptionMenu(Title_Flags, Options_Flags);
+        switch (selection)
         {
             case -1:
                 return;
@@ -58,7 +59,8 @@ void ToggleFlags_ByID()
 {
     while (true)
     {
-        switch (DescriptionMenu(Title_ToggleFlagsByID, Options_ToggleFlagsByID))
+        int selection = DescriptionMenu(Title_ToggleFlagsByID, Options_ToggleFlagsByID);
+        switch (selection)
         {
             case -1:
                 return;

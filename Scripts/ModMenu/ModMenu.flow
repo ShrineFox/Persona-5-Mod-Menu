@@ -1,5 +1,7 @@
 // Import Utility Scripts
 import("../Utilities/Utilities.flow");
+// Import Menu Option Text
+import("ModMenu.msg");
 // Import Submenu Scripts
 import("Calendar/Calendar.flow");
 import("Call/Call.flow");
@@ -10,8 +12,6 @@ import("Player/Player.flow");
 import("Royal/Royal.flow");
 /* Royal End */
 import("Spawn/Spawn.flow");
-// Import Menu Option Text
-import("ModMenu.msg");
 
 // Global Variables
 global int unitId;
@@ -35,7 +35,8 @@ void ModMenuDisplay()
 
     while ( true )
     {
-        switch ( DescriptionMenu(-1, Options_ModMenu) )
+        int selection = DescriptionMenu(-1, Options_ModMenu);
+        switch (selection)
         {
             case -1:
                 return;

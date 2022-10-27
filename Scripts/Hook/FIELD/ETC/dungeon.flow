@@ -3,7 +3,6 @@ import("../../../../Assets/Vanilla/field/etc/dungeon.bf");
 /* Vanilla End */
 /* Royal Start */
 import("../../../../Assets/Royal/field/etc/dungeon.bf");
-import("dungeon_placeholderRoyal.msg");
 /* Royal End */
 import("../../../ModMenu/ModMenu.flow");
 

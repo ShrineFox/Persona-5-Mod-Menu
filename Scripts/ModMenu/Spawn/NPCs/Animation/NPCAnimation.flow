@@ -10,7 +10,8 @@ void NPCAnimationMenu(int lastSpawnedNpcModelHandle)
 {
     while (true)
     {
-        switch (DescriptionMenu(Title_NPCAnimation, Options_NPCAnimation))
+        int selection = DescriptionMenu(Title_NPCAnimation, Options_NPCAnimation);
+        switch (selection)
         {
             case -1:
                 return;

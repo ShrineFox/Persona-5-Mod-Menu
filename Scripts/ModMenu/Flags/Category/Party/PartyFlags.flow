@@ -4,7 +4,8 @@ void PartyFlagsMenu()
 {
     while (true)
     {
-        switch (DescriptionMenu(Title_PartyFlags, Options_PartyFlags))
+        int selection = DescriptionMenu(Title_PartyFlags, Options_PartyFlags);
+        switch (selection)
         {
             case -1:
                 return;
@@ -64,7 +65,8 @@ void SetNavigator()
     while (true)
     {
         SetConfidantNames();
-        switch (NameMenu(Title_UnitsNavi, Options_UnitsNavi))
+        int selection = NameMenu(Title_UnitsNavi, Options_UnitsNavi);
+        switch (selection)
         {
             case -1:
                 return;

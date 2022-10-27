@@ -2,8 +2,8 @@
 Room Flags[w][e]
 
 [sel Options_RoomFlags]
-Collectibles Flags[f 4 26 0 2][e]
-Furniture Flags[f 4 26 1 3][e]
+Collectibles Flags[ref 0 2][e]
+Furniture Flags[ref 1 3][e]
 
 [dlg GENERIC_HELP_2]
 Choose flags to toggle related[n]to collectibles in[n]the protag's room.[e]

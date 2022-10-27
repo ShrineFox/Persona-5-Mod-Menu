@@ -97,28 +97,15 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
+    <None Include="Scripts\Hook\FIELD\ETC\at_dng.flow" />
+    <None Include="Scripts\Hook\FIELD\ETC\dungeon.flow" />
     <None Include="Scripts\Hook\SCRIPT\FIELD\fscr0150_002_100.flow">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Scripts\Hook\SCRIPT\FIELD\introduction.msg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Scripts\Hook\FIELD\ETC\at_dng.flow">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="Scripts\Hook\FIELD\ETC\field.flow">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Scripts\Hook\FIELD\ETC\field_placeholder.msg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Scripts\Hook\FIELD\ETC\field_placeholderRoyal.msg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Scripts\Hook\FIELD\ETC\dungeon.flow">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Scripts\Hook\FIELD\ETC\dungeon_placeholderRoyal.msg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Scripts\Hook\FIELD\INIT\fini_000_003.flow">
@@ -350,7 +337,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Test\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AtlusFileSystemLibrary\Source\AtlusFileSystemLibrary\AtlusFileSystemLibrary.csproj">
       <Project>{9960b785-6207-44e8-ba42-ec7f6f785344}</Project>

@@ -7,7 +7,8 @@ void SpawnMenu()
 {
     while (true)
     {
-        switch (DescriptionMenu(Title_Spawn, Options_Spawn))
+        int selection = DescriptionMenu(Title_Spawn, Options_Spawn);
+        switch (selection)
         {
             case -1:
                 return;

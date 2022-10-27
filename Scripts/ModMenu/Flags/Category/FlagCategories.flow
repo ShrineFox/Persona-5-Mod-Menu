@@ -8,7 +8,8 @@ void FlagCategoriesMenu()
 {
     while (true)
     {
-        switch (DescriptionMenu(Title_FlagCategories, Options_FlagCategories))
+        int selection = DescriptionMenu(Title_FlagCategories, Options_FlagCategories);
+        switch (selection)
         {
             case -1:
                 return;

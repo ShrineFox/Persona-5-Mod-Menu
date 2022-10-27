@@ -33,7 +33,8 @@ void AddPersonasMenu()
     {
         int personaId;
 
-        switch (NameMenu(Title_AddPersonas, Options_AddPersonas))
+        int selection = NameMenu(Title_AddPersonas, Options_AddPersonas);
+        switch (selection)
         {
             case -1:
                 return;

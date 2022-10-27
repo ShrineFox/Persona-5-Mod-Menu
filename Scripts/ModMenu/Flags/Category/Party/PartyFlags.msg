@@ -2,12 +2,12 @@
 Party Flags[w][e]
 
 [sel Options_PartyFlags]
-Toggle Party Member Unlocked[f 4 26 0 2][e]
-Toggle Party Editing[f 4 26 1 3][e]
-Set Navigator[f 4 26 2 4][e]
-Toggle Party Follower[f 4 26 3 5][e]
-Toggle Black Mask Akechi[f 4 26 4 6][e] // Royal
-Toggle Yoshizawa's Name[f 4 26 5 7][e] // Royal
+Toggle Party Member Unlocked[ref 0 2][e]
+Toggle Party Editing[ref 1 3][e]
+Set Navigator[ref 2 4][e]
+Toggle Party Follower[ref 3 5][e]
+Toggle Black Mask Akechi[ref 4 6][e] // Royal
+Toggle Yoshizawa's Name[ref 5 7][e] // Royal
 
 [dlg GENERIC_HELP_2]
 Toggle whether a party[n]member is unlocked.[e]

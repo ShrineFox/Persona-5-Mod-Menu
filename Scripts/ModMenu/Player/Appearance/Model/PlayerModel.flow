@@ -38,7 +38,8 @@ void PlayerSetFieldModel()
             SET_COUNT(18, modelStart + modelMiddle + modelLast);
 
             // Prompt reload of field to complete GMD swap
-            ConfirmReloadField();
+            if (ConfirmReloadField())
+                return;
         }
     }
 }

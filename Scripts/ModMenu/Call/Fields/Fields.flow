@@ -4,7 +4,8 @@ void FieldMenu()
 {
     while (true)
     {
-        switch (DescriptionMenu(Title_Fields, Options_Fields))
+        int selection = DescriptionMenu(Title_Fields, Options_Fields);
+        switch (selection)
         {
             case -1:
                 return;
@@ -38,7 +39,8 @@ void FieldCategoryMenu()
 {
     while (true)
     {
-        switch (NameMenu(Title_FieldCategories, Options_FieldCategories))
+        int selection = NameMenu(Title_FieldCategories, Options_FieldCategories);
+        switch (selection)
         {
             case -1:
                 return;
@@ -110,7 +112,8 @@ void FieldExtra()
 {
     while (true)
     {
-        switch (NameMenu(Title_ExtraFields, Options_ExtraFields))
+        int selection = NameMenu(Title_ExtraFields, Options_ExtraFields);
+        switch (selection)
         {
             case -1: return;
             case 0: CALL_FIELD(000, 002, 0, 0); return;
@@ -125,7 +128,6 @@ void FieldShibuya()
     while (true)
     {
         int selection = NameMenu(Title_ShibuyaFields, Options_ShibuyaFields);
-
         switch (selection)
         {
             case -1:
@@ -150,7 +152,8 @@ void FieldYongenJaya()
 {
     while (true)
     {
-        switch (NameMenu(Title_YongenJayaFields, Options_YongenJayaFields))
+        int selection = NameMenu(Title_YongenJayaFields, Options_YongenJayaFields);
+        switch (selection)
         {
             case -1:
                 return;
@@ -169,7 +172,8 @@ void FieldSchool()
 {
     while (true)
     {
-        switch (NameMenu(Title_SchoolFields, Options_SchoolFields))
+        int selection = NameMenu(Title_SchoolFields, Options_SchoolFields);
+        switch (selection)
         {
             case -1:
                 return;
@@ -198,7 +202,8 @@ void FieldAkihabara()
 {
     while (true)
     {
-        switch (NameMenu(Title_AkihabaraFields, Options_AkihabaraFields))
+        int selection = NameMenu(Title_AkihabaraFields, Options_AkihabaraFields);
+        switch (selection)
         {
             case -1:
                 return;
@@ -212,7 +217,8 @@ void FieldShinjuku()
 {
     while (true)
     {
-        switch (NameMenu(Title_ShinjukuFields, Options_ShinjukuFields))
+        int selection = NameMenu(Title_ShinjukuFields, Options_ShinjukuFields);
+        switch (selection)
         {
             case -1:
                 return;
@@ -226,7 +232,8 @@ void FieldHangoutPlaces()
 {
     while (true)
     {
-        switch (NameMenu(Title_HangoutFields, Options_HangoutFields))
+        int selection = NameMenu(Title_HangoutFields, Options_HangoutFields);
+        switch (selection)
         {
             case -1:
                 return;
@@ -255,7 +262,8 @@ void FieldMementos()
 {
     while (true)
     {
-        switch (NameMenu(Title_MementosFields, Options_MementosFields))
+        int selection = NameMenu(Title_MementosFields, Options_MementosFields);
+        switch (selection)
         {
             case -1:
                 return;
@@ -268,7 +276,8 @@ void FieldSmallRooms()
 {
     while (true)
     {
-        switch (NameMenu(Title_RoomFields, Options_RoomFields))
+        int selection = NameMenu(Title_RoomFields, Options_RoomFields);
+        switch (selection)
         {
             case -1:
                 return;
@@ -301,7 +310,8 @@ void FieldEarlyFields()
 {
     while (true)
     {
-        switch (NameMenu(Title_EarlyFields, Options_EarlyFields))
+        int selection = NameMenu(Title_EarlyFields, Options_EarlyFields);
+        switch (selection)
         {
             case -1:
                 return;
@@ -344,7 +354,8 @@ void FieldPrologue()
 {
     while (true)
     {
-        switch (NameMenu(Title_PrologueFields, Options_PrologueFields))
+        int selection = NameMenu(Title_PrologueFields, Options_PrologueFields);
+        switch (selection)
         {
             case -1:
                 return;
@@ -359,7 +370,8 @@ void FieldCastlePalace()
 {
     while (true)
     {
-        switch (NameMenu(Title_CastleFields, Options_CastleFields))
+        int selection = NameMenu(Title_CastleFields, Options_CastleFields);
+        switch (selection)
         {
             case -1:
                 return;
@@ -394,7 +406,8 @@ void FieldMuseumPalace()
 {
     while (true)
     {
-        switch (NameMenu(Title_MuseumFields, Options_MuseumFields))
+        int selection = NameMenu(Title_MuseumFields, Options_MuseumFields);
+        switch (selection)
         {
             case -1:
                 return;
@@ -417,7 +430,8 @@ void FieldBankPalace()
 {
     while (true)
     {
-        switch (NameMenu(Title_BankFields, Options_BankFields))
+        int selection = NameMenu(Title_BankFields, Options_BankFields);
+        switch (selection)
         {
             case -1:
                 return;
@@ -443,7 +457,8 @@ void FieldSpacePalace()
 {
     while (true)
     {
-        switch (NameMenu(Title_SpaceFields, Options_SpaceFields))
+        int selection = NameMenu(Title_SpaceFields, Options_SpaceFields);
+        switch (selection)
         {
             case -1:
                 return;
@@ -472,7 +487,8 @@ void FieldPyramidPalace()
 {
     while (true)
     {
-        switch (NameMenu(Title_PyramidFields, Options_PyramidFields))
+        int selection = NameMenu(Title_PyramidFields, Options_PyramidFields);
+        switch (selection)
         {
             case -1:
                 return;
@@ -498,7 +514,8 @@ void FieldCasinoPalace()
 {
     while (true)
     {
-        switch (NameMenu(Title_CasinoFields, Options_CasinoFields))
+        int selection = NameMenu(Title_CasinoFields, Options_CasinoFields);
+        switch (selection)
         {
             case -1:
                 return;
@@ -526,7 +543,8 @@ void FieldCruisePalace()
 {
     while (true)
     {
-        switch (NameMenu(Title_CruiseFields, Options_CruiseFields))
+        int selection = NameMenu(Title_CruiseFields, Options_CruiseFields);
+        switch (selection)
         {
             case -1:
                 return;
@@ -568,7 +586,8 @@ void FieldMementosPalace()
 {
     while (true)
     {
-        switch (NameMenu(Title_MementosFields, Options_MementosFields))
+        int selection = NameMenu(Title_MementosFields, Options_MementosFields);
+        switch (selection)
         {
             case -1:
                 return;
@@ -592,7 +611,8 @@ void FieldQliphothTree()
 {
     while (true)
     {
-        switch (NameMenu(Title_QliphothFields, Options_QliphothFields))
+        int selection = NameMenu(Title_QliphothFields, Options_QliphothFields);
+        switch (selection)
         {
             case -1:
                 return;

@@ -2,11 +2,11 @@
 Spawn NPCs[w][e]
 
 [sel Options_SpawnNPCs]
-Spawn Model[f 4 26 0 2][e]
-Animate Model[f 4 26 1 3][e]
-Set Model Scale[f 4 26 2 4][e]
-Attach Item Model[f 4 26 3 5][e]
-Spawn Object Model[f 4 26 4 6][e]
+Spawn Model[ref 0 2][e]
+Animate Model[ref 1 3][e]
+Set Model Scale[ref 2 4][e]
+Attach Item Model[ref 3 5][e]
+Spawn Object Model[ref 4 6][e]
 
 [dlg GENERIC_HELP_2]
 Input a [clr 9]GMD filename[clr 0][n]to spawn a character model from.[e]

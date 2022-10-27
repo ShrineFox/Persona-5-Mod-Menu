@@ -2,9 +2,9 @@
 Call Field[w][e]
 
 [sel Options_Fields]
-Load Field[f 4 26 0 2][e]
-Load Field (Manual Input)[f 4 26 0 3][e]
-Reload Current Field[f 4 26 2 4][e]
+Load Field[ref 0 2][e]
+Load Field (Manual Input)[ref 0 3][e]
+Reload Current Field[ref 2 4][e]
 
 [dlg GENERIC_HELP_2]
 Choose a field to load[n]from a list of locations.[e]

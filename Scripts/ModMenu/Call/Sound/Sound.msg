@@ -2,9 +2,9 @@
 Sound Test[w][e]
 
 [sel Options_SoundTest]
-Select BGM[f 4 26 0 2][e]
-Stop BGM[f 4 26 1 3][e]
-Start BGM[f 4 26 2 4][e]
+Select BGM[ref 0 2][e]
+Stop BGM[ref 1 3][e]
+Start BGM[ref 2 4][e]
 
 [dlg GENERIC_HELP_2]
 Enter a BGM ID to play.[n][e]

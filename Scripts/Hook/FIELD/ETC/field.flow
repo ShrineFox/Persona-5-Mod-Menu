@@ -1,10 +1,8 @@
 /* Vanilla Start */
 import("../../../../Assets/Vanilla/field/etc/field.bf");
-import("field_placeholder.msg");
 /* Vanilla End */
 /* Royal Start */
 import("../../../../Assets/Royal/field/etc/field.bf");
-import("field_placeholderRoyal.msg");
 /* Royal End */
 import("../../../ModMenu/ModMenu.flow");
 

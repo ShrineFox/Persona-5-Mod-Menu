@@ -2,10 +2,10 @@
 Call Event[w][e]
 
 [sel Options_Events]
-Enter Event ID[f 4 26 0 2][e]
-Load Event[f 4 26 1 3][e]
-Enter KeyFree Event ID[f 4 26 2 4][e]
-Load KeyFree Event[f 4 26 3 5][e]
+Enter Event ID[ref 0 2][e]
+Load Event[ref 1 3][e]
+Enter KeyFree Event ID[ref 2 4][e]
+Load KeyFree Event[ref 3 5][e]
 
 [dlg GENERIC_HELP_2]
 Input the 6 digits of a[n][clr 9]event pack's[clr 0] filename[n](dataR.cpk/event)[e]

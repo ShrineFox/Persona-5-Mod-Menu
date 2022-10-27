@@ -1,12 +1,14 @@
-﻿import("Model/PlayerModel.flow");
+﻿import("PlayerAppearance.msg"); 
+import("Model/PlayerModel.flow");
 import("Animation/PlayerAnimation.flow");
-import("PlayerAppearance.msg");
 
 void PlayerAppearanceMenu()
 {
     while (true)
     {
-        switch ( DescriptionMenu(Title_PlayerAppearance, Options_PlayerAppearance) )
+        int selection = DescriptionMenu(Title_PlayerAppearance, Options_PlayerAppearance);
+
+        switch (selection)
         {
             case -1:
                 return;
@@ -33,7 +35,8 @@ void PlayerAppearanceMenu()
 
 void ToggleBag()
 {
-    if (SystemMenu(Message_PlayerBag, Options_ShowHide))
+    int showBag = SystemMenu(Message_PlayerBag, Options_ShowHide);
+    if (showBag)
     {
         // Show
         BIT_ON(4206);
@@ -49,8 +52,7 @@ void ToggleBag()
     }
 
     // ./Utilities/Utilities.flow
-    if (ConfirmReloadField())
-        return;
+    ConfirmReloadField();
 }
 
 void ToggleMorgana()
@@ -59,7 +61,9 @@ void ToggleMorgana()
     {
         int joker = FLD_PC_GET_CURRENT_RESHND(0);
         int bag = MDL_GET_ITEM_RESHND(joker, 2);
-        if (SystemMenu(Message_Morgana, Options_ShowHide))
+
+        int showMorgana = SystemMenu(Message_Morgana, Options_ShowHide);
+        if (showMorgana)
         {
             // Show
             MDL_ANIM(bag, 50, 0, 0, 1f);
@@ -77,7 +81,8 @@ void ToggleMorgana()
 void ToggleUmbrella()
 {
     FLD_BAG_ANIM_DISABLE();
-    if (SystemMenu(Message_Umbrella, Options_ShowHide))
+    int showUmbrella = SystemMenu(Message_Umbrella, Options_ShowHide);
+    if (showUmbrella)
     {
         // Show
         FLD_UMBRELLA_ANIM_CHANGE(1);

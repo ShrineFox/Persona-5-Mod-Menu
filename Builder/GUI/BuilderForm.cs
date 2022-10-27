@@ -20,8 +20,8 @@ namespace ModMenuBuilder
             InitializeComponent();
             Output.LogControl = rtb_Log;
 #if DEBUG
-            txt_Path.Text = @"C:\Users\Ryan\Documents\GitHub\Atlus-Script-Tools\Build\Release\AtlusScriptCompiler.exe";
-            txt_OutPath.Text = @"D:\Games\Steam\steamapps\common\P5R\Reloaded\Mods\p5rpc.misc.modmenu\P5REssentials\CPK\EN.CPK";
+            txt_Path.Text = @"C:\Users\Administrator\Documents\GitHub\Atlus-Script-Tools\Build\Release\AtlusScriptCompiler.exe";
+            txt_OutPath.Text = @"C:\Program Files (x86)\Steam\steamapps\common\P5R\Reloaded\Mods\p5rpc.misc.modmenu\P5REssentials\CPK\EN.CPK";
             Program.Show();
             System.Threading.Thread.Sleep(200);
             Output.LogControl = null;
@@ -31,6 +31,8 @@ namespace ModMenuBuilder
 
         private void BuildButton_Click(object sender, EventArgs e)
         {
+            rtb_Log.Clear();
+
             List<string> args = new List<string>();
            
             args.Add("-c"); args.Add(txt_Path.Text);
@@ -57,7 +59,11 @@ namespace ModMenuBuilder
             }
             args.Add("-o"); args.Add(txt_OutPath.Text);
 
-            Program.StartWithOptions(args.ToArray());
+            btn_Build.Enabled = false;
+            Task.Run(() => {
+                Program.StartWithOptions(args.ToArray());
+                btn_Build.Enabled = true;
+            });
         }
 
         private void Path_Changed(object sender, EventArgs e)

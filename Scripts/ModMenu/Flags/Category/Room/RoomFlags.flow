@@ -4,7 +4,8 @@ void RoomFlagsMenu()
 {
     while (true)
     {
-        switch (DescriptionMenu(Title_RoomFlags, Options_RoomFlags))
+        int selection = DescriptionMenu(Title_RoomFlags, Options_RoomFlags);
+        switch (selection)
         {
             case -1:
                 return;
@@ -33,7 +34,8 @@ void FurnitureFlagsMenu()
 {
     while (true)
     {
-        switch (NameMenu(Title_FurnitureFlags, Options_FurnitureFlags))
+        int selection = NameMenu(Title_FurnitureFlags, Options_FurnitureFlags);
+        switch (selection)
         {
             case -1:
                 return;

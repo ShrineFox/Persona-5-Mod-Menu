@@ -4,7 +4,8 @@ void CalendarMenu()
 {
     while (true)
     {
-        switch (DescriptionMenu(Title_Calendar, Options_Calendar))
+        int selection = DescriptionMenu(Title_Calendar, Options_Calendar);
+        switch (selection)
         {
             case -1:
                 return;

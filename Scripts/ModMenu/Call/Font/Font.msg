@@ -2,11 +2,11 @@
 Font Test[w][e]
 
 [sel Options_FontTest]
-Sample Text[f 4 26 0 2][e]
-Uppercase[f 4 26 1 3][e]
-Lowercase[f 4 26 2 4][e]
-Symbols[f 4 26 3 5][e]
-All-in-One[f 4 26 4 6][e]
+Sample Text[ref 0 2][e]
+Uppercase[ref 1 3][e]
+Lowercase[ref 2 4][e]
+Symbols[ref 3 5][e]
+All-in-One[ref 4 6][e]
 
 [dlg GENERIC_HELP_2]
 Print a sample sentence[n]for font testing.[e]

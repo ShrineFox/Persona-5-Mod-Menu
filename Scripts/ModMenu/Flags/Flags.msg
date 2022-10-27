@@ -2,11 +2,11 @@
 Flags[w][e]
 
 [sel Options_Flags]
-Toggle by ID[f 4 26 0 2][e]
-Toggle by Category[f 4 26 1 3][e]
-Randomize Flags[f 4 26 2 4][e]
-Print Enabled Flags[f 4 26 3 5][e] // Vanilla
-Print Disabled Flags[f 4 26 4 6][e] // Vanilla
+Toggle by ID[ref 0 2][e]
+Toggle by Category[ref 1 3][e]
+Randomize Flags[ref 2 4][e]
+Print Enabled Flags[ref 3 5][e] // Vanilla
+Print Disabled Flags[ref 4 6][e] // Vanilla
 
 [dlg GENERIC_HELP_2]
 Choose an individual bitflag[n]or a range of flags[n]to turn on/off.[e]
@@ -36,12 +36,12 @@ Flags have been [clr 1][f 2 4 0][clr 0]% randomized.
 Toggle Flags by ID[w][e]
 
 [sel Options_ToggleFlagsByID]
-Set Individual Flag[f 4 26 0 11][e]
-Set Start Range[f 4 26 1 12][e]
-Set End Range[f 4 26 2 13][e]
-Enable All Flags in Range[f 4 26 3 14][e]
-Disable All Flags in Range[f 4 26 4 15][e]
-Flip All Flags in Range[f 4 26 5 16][e]
+Set Individual Flag[ref 0 11][e]
+Set Start Range[ref 1 12][e]
+Set End Range[ref 2 13][e]
+Enable All Flags in Range[ref 3 14][e]
+Disable All Flags in Range[ref 4 15][e]
+Flip All Flags in Range[ref 5 16][e]
 
 [dlg GENERIC_HELP_11]
 Choose an individual bitflag[n]by ID and turn it[n]on or off.[e]

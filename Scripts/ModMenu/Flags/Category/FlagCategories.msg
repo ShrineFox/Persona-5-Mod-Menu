@@ -2,10 +2,10 @@
 Flag Categories[w][e]
 
 [sel Options_FlagCategories]
-HUD Flags[f 4 26 0 2][e]
-Party Flags[f 4 26 1 3][e]
-Persona Flags[f 4 26 2 4][e]
-Room Flags[f 4 26 3 5][e]
+HUD Flags[ref 0 2][e]
+Party Flags[ref 1 3][e]
+Persona Flags[ref 2 4][e]
+Room Flags[ref 3 5][e]
 
 [dlg GENERIC_HELP_2]
 Choose flags to toggle that[n]are related to the[n]user interface.[e]

@@ -10,7 +10,8 @@ void PlayerMenu()
 {
     while (true)
     {
-        switch (DescriptionMenu(Title_Player, Options_Player))
+        int selection = DescriptionMenu(Title_Player, Options_Player);
+        switch (selection)
         {
             case -1:
                 return;

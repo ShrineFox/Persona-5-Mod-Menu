@@ -4,7 +4,8 @@ void HUDFlagsMenu()
 {
     while (true)
     {
-        switch (DescriptionMenu(Title_HUDFlags, Options_HUDFlags))
+        int selection = DescriptionMenu(Title_HUDFlags, Options_HUDFlags);
+        switch (selection)
         {
             case -1:
                 return;
@@ -17,7 +18,8 @@ void HUDFlagsMenu()
 
 void ToggleHUD()
 {
-    if (SystemMenu(Message_ToggleHUD, Options_OnOff) 
+    int hud = SystemMenu(Message_ToggleHUD, Options_OnOff);
+    if (hud) 
     {
         // Turn Off HUD
         DATE_DISP(0);

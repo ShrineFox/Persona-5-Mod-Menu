@@ -2,8 +2,8 @@
 Confidants[w][e]
 
 [sel Options_Confidants]
-Set Rank[f 4 26 0 2][e]
-Toggle Romance Route[f 4 26 1 3][e]
+Set Rank[ref 0 2][e]
+Toggle Romance Route[ref 1 3][e]
 
 [dlg GENERIC_HELP_2]
 Choose a Confidant and[n]change their current[n]Rank (0 - 10).[e]
