@@ -100,8 +100,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
-    <None Include="Scripts\Hook\FIELD\ETC\at_dng.flow" />
-    <None Include="Scripts\Hook\FIELD\ETC\dungeon.flow" />
+    <None Include="Scripts\Hook\FIELD\ETC\at_dng.flow">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Scripts\Hook\FIELD\ETC\dungeon.flow">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Scripts\Hook\SCRIPT\FIELD\fscr0150_002_100.flow">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

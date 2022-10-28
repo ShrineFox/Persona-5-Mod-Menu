@@ -94,48 +94,49 @@ namespace ModMenuBuilder
                 // Reset index of messages to start at
                 msgIndex = -1;
                 // Re-number HELP message names in referenced .msg files
-                var msgs = RecursivelyGetMsgs(script);
+                var msgs = RecursivelyGetImports(script).Where(x => x.EndsWith(".msg"));
                 foreach (var msg in msgs)
                     ReindexMsg(msg);
                 Compile(script); // Create new .bf in output folder
             }
         }
 
-        private static List<string> RecursivelyGetMsgs(string script)
+        private static List<string> RecursivelyGetImports(string script)
         {
-            List<string> msgPaths = new List<string>();
-            if (script.EndsWith(".msg"))
+            List<string> paths = GetImportPaths(script);
+            List<string> newPaths = new List<string>();
+            for (int i = 0; i < paths.Count; i++)
             {
-                Output.Log($"Adding .msg: {script}");
-                msgPaths.Add(script);
-            }
-            else if (script.EndsWith(".flow"))
-            {
-                foreach (var line in File.ReadAllLines(script))
+                if (paths[i].EndsWith(".bf"))
                 {
-                    if (line.Contains(".bf\""))
-                    {
-                        string relativePath = line.Replace("import(\"", "").Replace("import( \"", "").Replace("\");", "").Replace("\" );", "").Replace('/', '\\');
-                        string path = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(script), relativePath));
-                        Decompile(path);
-                        using (FileSys.WaitForFile(path + ".flow")) { }
-                        if (File.Exists(path + ".msg"))
-                        {
-                            Output.Log($"Adding .msg: {path + ".msg"}");
-                            msgPaths.Add(path + ".msg");
-                        }
-                    }
-                    else if (line.Contains(".msg\"") || line.Contains(".flow\""))
-                    {
-                        string relativePath = line.Replace("import(\"", "").Replace("import( \"", "").Replace("\");", "").Replace("\" );", "").Replace('/', '\\');
-                        string path = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(script), relativePath));
-                        foreach (var msg in RecursivelyGetMsgs(path))
-                            msgPaths.Add(msg);
-                    }
+                    Decompile(paths[i]);
+                    using (FileSys.WaitForFile(paths[i] + ".msg")) { }
+                    if (File.Exists(paths[i] + ".msg"))
+                        paths[i] = paths[i] + ".msg";
+                }
+                if (paths[i].EndsWith(".flow"))
+                {
+                    foreach (var path in RecursivelyGetImports(paths[i]))
+                        newPaths.Add(path);
+                }
+            }
+            return paths.Concat(newPaths).ToList();
+        }
+        private static List<string> GetImportPaths(string script)
+        {
+            List<string> importPaths = new List<string>();
+
+            foreach (var line in File.ReadAllLines(script))
+            {
+                if (line.StartsWith("import("))
+                {
+                    string relativePath = line.Replace("import(\"", "").Replace("import( \"", "").Replace("\");", "").Replace("\" );", "").Replace('/', '\\');
+                    string path = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(script), relativePath));
+                    importPaths.Add(path);
                 }
             }
 
-            return msgPaths;
+            return importPaths;
         }
 
         private static void ReplaceJoypadKeys(string script)
