@@ -19,9 +19,12 @@ namespace ModMenuBuilder
         {
             InitializeComponent();
             Output.LogControl = rtb_Log;
+            if (File.Exists("compilerPath.txt"))
+                txt_Path.Text = File.ReadAllText("compilerPath.txt");
+            if (File.Exists("outputPath.txt"))
+                txt_OutPath.Text = File.ReadAllText("outputPath.txt");
 #if DEBUG
-            txt_Path.Text = @"C:\Users\Administrator\Documents\GitHub\Atlus-Script-Tools\Build\Release\AtlusScriptCompiler.exe";
-            txt_OutPath.Text = @"C:\Program Files (x86)\Steam\steamapps\common\P5R\Reloaded\Mods\p5rpc.misc.modmenu\P5REssentials\CPK\EN.CPK"; Program.Show();
+            Program.Show();
             System.Threading.Thread.Sleep(200);
             Output.LogControl = null;
             chk_Reindex.Checked = false;
@@ -41,9 +44,9 @@ namespace ModMenuBuilder
             {
                 args.Add("-d"); args.Add("true");
             }
-            if (!chk_Reindex.Checked)
+            if (chk_Reindex.Checked)
             {
-                args.Add("-r"); args.Add("false");
+                args.Add("-r"); args.Add("true");
             }
             if (radio_Old.Checked)
             {
@@ -89,7 +92,10 @@ namespace ModMenuBuilder
             if (paths.Count > 0)
             {
                 if (File.Exists(paths.First()))
+                {
                     txt_Path.Text = paths.First();
+                    File.WriteAllText("compilerPath.txt", paths.First());
+                }
             }
         }
 
@@ -97,6 +103,7 @@ namespace ModMenuBuilder
         {
             var path = WinFormsEvents.FolderPath_Click("Choose AtlusScriptCompiler.exe");
             txt_OutPath.Text = path;
+            File.WriteAllText("outputPath.txt", path);
         }
 
         private void Version_Changed(object sender, EventArgs e)

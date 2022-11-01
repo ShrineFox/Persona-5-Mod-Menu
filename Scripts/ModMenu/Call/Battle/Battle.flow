@@ -2,7 +2,7 @@
 
 void BattleMenu()
 {
-    int selection = DescriptionMenu(Title_Battle, Options_Battle);
+    int selection = NameMenu(Title_Battle, Options_Battle);
     switch (selection)
     {
         case -1:

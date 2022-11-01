@@ -31,15 +31,15 @@ Change the group name of the
 
 [dlg GENERIC_HELP_5]
 Adds a selected amount of yen
-[n]to your wallet.[e]
+[n] to your wallet.[e]
 
 [dlg GENERIC_HELP_6]
-Adds a selected amount of yen
-[n]to your wallet.[e]
+Add/Remove Personas in
+[n] your current stock.[e]
 
 [dlg GENERIC_HELP_7]
-Adds a selected amount of yen
-[n]to your wallet.[e]
+Add/Remove Skills your
+[n] equipped Persona has.[e]
 
 [dlg GENERIC_HELP_8]
 Give yourself a desired amount of

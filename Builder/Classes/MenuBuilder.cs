@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ShrineFox.IO;
 using System.Text.RegularExpressions;
+using System.Media;
 
 namespace ModMenuBuilder
 {
@@ -35,10 +36,7 @@ namespace ModMenuBuilder
             ProcessScripts(); // Enable/disable game-specific elements of Mod Menu .flow/.msg and reindex .msg files
 
             Output.Log("\nDone!", ConsoleColor.Green);
-
-            #if DEBUG
-                Console.ReadKey(); // wait for input before closing if debug build
-            #endif
+            SystemSounds.Exclamation.Play();
         }
 
         public static void UnpackPACs()
@@ -60,46 +58,76 @@ namespace ModMenuBuilder
                             inputStream.CopyTo(stream);
                         }
                     }
+                    Output.Log($"Unpacked .PAC: {pac}", ConsoleColor.Green);
                 }
-                Output.Log($"Unpacked .PAC: {pac}", ConsoleColor.Green);
             }
         }
 
         private static void ProcessScripts()
         {
+            // Removes lines with a "/* Royal */" or "/* Vanilla */" comment from .flow depending on version
             foreach (var script in Directory.GetFiles(scriptsDir,
                 "*.flow", SearchOption.AllDirectories))
             {
                 using (FileSys.WaitForFile(script)) { }
-                RemoveFlowComments(script); // Removes lines with a "/* Royal */" or "/* Vanilla */" comment from .flow depending on 
+                RemoveFlowComments(script); 
+            }
+            Output.Log($"Done removing version-specific codeblocks from .flow files.", ConsoleColor.Green);
+
+            // Update flag IDs from PS3 to Royal
+            foreach (var script in Directory.GetFiles(scriptsDir,
+                "*.flow", SearchOption.AllDirectories))
+            {
                 using (FileSys.WaitForFile(script)) { }
                 if (Program.SelectedGame.Type.Equals("Royal"))
-                    Royalify(script); // Update flag IDs from PS3 to Royal
+                    Royalify(script); 
             }
-            
+            Output.Log($"Done converting bitflags in .flow files.", ConsoleColor.Green);
+
+            // Removes lines with a "// Royal" or "// Vanilla" comment from .msg depending on version
             foreach (var script in Directory.GetFiles(scriptsDir,
                 "*", SearchOption.AllDirectories))
             {
                 using (FileSys.WaitForFile(script)) { }
-                RemoveMsgComments(script); // Removes lines with a "// Royal" or "// Vanilla" comment from .msg depending on version
-                using (FileSys.WaitForFile(script)) { }
-                ReplaceJoypadKeys(script); // Change joypad button names depending on options
+                RemoveMsgComments(script); 
             }
+            Output.Log($"Done removing version-specific lines in all scripts.", ConsoleColor.Green);
 
+            // Change joypad button names depending on options
+            foreach (var script in Directory.GetFiles(scriptsDir,
+                "*.msg", SearchOption.AllDirectories))
+            {
+                using (FileSys.WaitForFile(script)) { }
+                ReplaceJoypadKeys(script); 
+            }
+            Output.Log($"Done updating joypad button names in .msg files.", ConsoleColor.Green);
+
+            // Reindex and compile each Hook script
+            foreach (var script in Directory.GetFiles(Path.Combine(scriptsDir, "Hook"),
+            "*.flow", SearchOption.AllDirectories))
+            {
+                CompileHookScript(script);
+            }
+        }
+
+        private static void CompileHookScript(string script)
+        {
             if (Program.Options.Reindex)
             {
-                // Reindex and compile each Hook script
-                foreach (var script in Directory.GetFiles(Path.Combine(scriptsDir, "Hook"),
-                "*.flow", SearchOption.AllDirectories))
-                {
-                    ReindexMsgs(script);
-                }
+                ReindexMsgs(script);
             }
+            else
+            {
+                var outputScript = Compile(script);
+                // Decompile newly generated script for debugging
+                if (Program.Options.Decompile)
+                    Decompile(outputScript); 
+            }
+
         }
 
         private static void ReindexMsgs(string script)
         {
-            using (FileSys.WaitForFile(script)) { }
             // Get list of .msg files imported in scripts
             var msgs = RecursivelyGetImports(script).Where(x => x.EndsWith(".msg")).ToList();
             // Create new .bf in output folder
@@ -114,10 +142,12 @@ namespace ModMenuBuilder
                 // Re-number HELP message names in referenced .msg files
                 foreach (var msg in msgList)
                     ReindexMsg(msg);
+                Output.Log($"Reindexed .msg files referenced in scripts!", ConsoleColor.Cyan);
                 // Create new .bf in output folder (again)
                 outputScript = Compile(script);
+                // Decompile newly generated script for debugging
                 if (Program.Options.Decompile)
-                    Decompile(outputScript); // Decompile newly generated script for debugging
+                    Decompile(outputScript); 
             }
             else
                 Output.Log($"Could not access file for reindexing: {script + ".msg.h"}", ConsoleColor.Red);
@@ -207,7 +237,6 @@ namespace ModMenuBuilder
                         newLines.Add(line);
                     }
                     File.WriteAllText(script, String.Join("\n", newLines), Encoding.Unicode);
-                    Output.Log($"\tDone changing joypad button names in:\n  {script}", ConsoleColor.Green);
                 }
                 else
                     Output.Log($"\tCould not find script to change joypad button names in: {script}", ConsoleColor.Red);
@@ -246,7 +275,6 @@ namespace ModMenuBuilder
                 }
 
                 File.WriteAllText(script, String.Join("\n", newLines), Encoding.Unicode);
-                Output.Log($"\tDone converting Royal bitflags in:\n  {script}", ConsoleColor.Green);
             }
             else
                 Output.Log($"\tCould not find script to replace Royal bitflags in: {script}", ConsoleColor.Red);
@@ -281,7 +309,6 @@ namespace ModMenuBuilder
                 }
                 
                 File.WriteAllText(script, String.Join("\n", newLines), Encoding.Unicode);
-                Output.Log($"\tRemoved {removeType}-specific lines in:\n  {script}", ConsoleColor.Green);
             }
             else
                 Output.Log($"\tCould not find script to remove .msg comments from:\n  {script}", ConsoleColor.Red);
@@ -302,8 +329,6 @@ namespace ModMenuBuilder
                     .Replace($"/* {removeType} End */", $" {removeType} End */"), "/*", "*/");
 
                 File.WriteAllText(script, text, Encoding.Unicode);
-
-                Output.Log($"\tRemoved version-specific codeblocks from:\n  {script}", ConsoleColor.Green);
             }
             else
                 Output.Log($"\tCould not find script to remove .flow comments from:\n  {script}", ConsoleColor.Red);
@@ -361,7 +386,6 @@ namespace ModMenuBuilder
 
                 File.WriteAllText(msgFile, string.Join("\n", msgLines), Encoding.Unicode);
                 using (FileSys.WaitForFile(msgFile)) { }
-                Output.Log($"\tReindexed .msg files in: {msgFile}", ConsoleColor.Green);
             }
             else
                 Output.Log($"\tFailed to reindex .msg, file not found: {msgFile}", ConsoleColor.Red);
@@ -401,9 +425,15 @@ namespace ModMenuBuilder
                 "-Library", Program.SelectedGame.ShortName
             };
 
-            Output.Log($"Deompiling script: {bf}");
+            Output.Log($"Decompiling script: {bf}");
             Output.VerboseLog($"\targs: {string.Join(" ", args)}");
             Exe.Run(Program.Options.Compiler, string.Join(" ", args));
+
+            using (FileSys.WaitForFile(bf + ".flow")) { }
+            if (File.Exists(bf + ".flow"))
+                Output.Log($"Decompiled script successfully: {bf + ".flow"}", ConsoleColor.Green);
+            else
+                Output.Log($"Failed to decompile script: {bf + ".flow"}", ConsoleColor.Red);
         }
     }
 }

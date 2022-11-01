@@ -78,7 +78,7 @@ namespace ModMenuBuilder
                 return;
             }
 
-            Output.Log($"Building {SelectedGame.ShortName} ({SelectedGame.Platform} platforms) Mod Menu.\n\n");
+            Output.Log($"Building {SelectedGame.ShortName} ({SelectedGame.Platform} platforms) Mod Menu\n\tButton Names: {Options.Joypad}\n\tReindex messages: {Options.Reindex}\n\tDecompile output: {Options.Decompile}\n\n");
 
             // Begin building Mod Menu output
             MenuBuilder.Build();
@@ -123,8 +123,8 @@ namespace ModMenuBuilder
         [Option("o", "output", "path", "Specifies the path to the directory to use as output. (default: .exe directory)")]
         public string Output { get; set; } = "";
 
-        [Option("r", "reindex", "bool", "Whether to re-number messages, takes longer but fixes descriptions. (default: true)")]
-        public bool Reindex { get; set; } = true;
+        [Option("r", "reindex", "bool", "Whether to re-number messages, takes longer but fixes descriptions. (default: false)")]
+        public bool Reindex { get; set; } = false;
     }
 
     public class InputFile

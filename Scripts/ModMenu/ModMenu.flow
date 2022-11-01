@@ -12,6 +12,7 @@ import("Player/Player.flow");
 import("Royal/Royal.flow");
 /* Royal End */
 import("Spawn/Spawn.flow");
+import("Teleport.flow");
 
 // Global Variables
 global int unitId;
@@ -35,7 +36,7 @@ void ModMenuDisplay()
 
     while ( true )
     {
-        int selection = DescriptionMenu(-1, Options_ModMenu);
+        int selection = DescriptionMenu(Title_ModMenu, Options_ModMenu);
         switch (selection)
         {
             case -1:
@@ -48,30 +49,34 @@ void ModMenuDisplay()
                 PlayerMenu();
                 break;
             case 2:
+                // ModMenu/Teleport.flow
+                Teleport();
+                break;
+            case 3:
                 // ModMenu/Call/Call.flow
                 CallMenu();
                 break;
-            case 3:
+            case 4:
                 // ModMenu/Calendar/Calendar.flow
                 CalendarMenu();
                 break;
-            case 4:
+            case 5:
                 // ModMenu/Camera/Camera.flow
                 CameraMenu();
                 break;
-            case 5:
+            case 6:
                 // ModMenu/Flags/Flags.flow
                 FlagsMenu();
                 break;
-            case 6:
+            case 7:
                 // ModMenu/Spawn/Spawn.flow
                 SpawnMenu();
                 break;
-            case 7:
+            case 8:
                 SystemMessage( Message_About );
                 break;
             /* Royal Start */
-            case 8:
+            case 9:
                 // ModMenu/Royal/Royal.flow
                 RoyalMenu();
                 break;

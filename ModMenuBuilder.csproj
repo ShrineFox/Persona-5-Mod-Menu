@@ -331,6 +331,9 @@
     <None Include="Scripts\ModMenu\Player\Skills\Select\SkillSelect.msg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Scripts\ModMenu\Teleport.flow">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Scripts\Utilities\AssignNames.flow">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

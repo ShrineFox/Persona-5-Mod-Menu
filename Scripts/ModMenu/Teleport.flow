@@ -1,0 +1,59 @@
+﻿void Teleport()
+{
+    const float ADD_VELOCITY_PER_PRESS = 5f;
+
+    int playerResHandle = FLD_PC_GET_RESHND(0);
+
+    float playerVelocityX = 0f;
+    float playerVelocityY = 0f;
+    float playerVelocityZ = 0f;
+    int runs = 0;
+
+    while (!PAD_CHK_PRESS(PadButton.Triangle))
+    {
+        ++runs;
+        if (runs > 4)
+        {
+            runs = 0;
+            playerVelocityX /= 2;
+            playerVelocityY /= 2;
+            playerVelocityZ /= 2;
+        }
+
+        if (PAD_CHK_PRESS(PadButton.Any))
+        {
+            if (PAD_CHK_PRESS(PadButton.Up))
+            {
+                if (PAD_CHK_PRESS(PadButton.Square))
+                    playerVelocityZ += ADD_VELOCITY_PER_PRESS;
+                else
+                    playerVelocityY += ADD_VELOCITY_PER_PRESS;
+            }
+
+            if (PAD_CHK_PRESS(PadButton.Right))
+            {
+                playerVelocityX += ADD_VELOCITY_PER_PRESS;
+            }
+
+            if (PAD_CHK_PRESS(PadButton.Down))
+            {
+                if (PAD_CHK_PRESS(PadButton.Square))
+                    playerVelocityZ -= ADD_VELOCITY_PER_PRESS;
+                else
+                    playerVelocityY -= ADD_VELOCITY_PER_PRESS;
+            }
+
+            if (PAD_CHK_PRESS(PadButton.Left))
+            {
+                playerVelocityX -= ADD_VELOCITY_PER_PRESS;
+            }
+        }
+
+        float x = FLD_MODEL_GET_X_TRANSLATE(playerResHandle) + playerVelocityX;
+        float y = FLD_MODEL_GET_Y_TRANSLATE(playerResHandle) + playerVelocityY;
+        float z = FLD_MODEL_GET_Z_TRANSLATE(playerResHandle) + playerVelocityZ;
+        FLD_MODEL_RUN_TRANSLATE(playerResHandle, x, y, z);
+
+        SYNC();
+    }
+}

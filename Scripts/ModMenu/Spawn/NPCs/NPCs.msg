@@ -1,4 +1,4 @@
-﻿[msg NPC]
+﻿[msg NPCs]
 [w][e]
 
 [dlg Title_SpawnNPCs]
