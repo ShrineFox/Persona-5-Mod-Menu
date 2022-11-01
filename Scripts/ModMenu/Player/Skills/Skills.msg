@@ -1,4 +1,7 @@
-﻿[dlg Title_Skills]
+﻿[msg Skills]
+[w][e]
+
+[dlg Title_Skills]
 Skills[w][e]
 
 [sel Options_Skills]

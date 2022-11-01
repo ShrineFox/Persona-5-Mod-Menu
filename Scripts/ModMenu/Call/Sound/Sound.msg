@@ -1,4 +1,7 @@
-﻿[dlg Title_SoundTest]
+﻿[msg Sound]
+[w][e]
+
+[dlg Title_SoundTest]
 Sound Test[w][e]
 
 [sel Options_SoundTest]

@@ -1,3 +1,6 @@
+[msg ReserveSkills]
+[w][e]
+
 [dlg ReserveSkillSelect]
 Select Reserve Skill[e]
 

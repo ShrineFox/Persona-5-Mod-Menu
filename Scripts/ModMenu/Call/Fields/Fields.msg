@@ -1,4 +1,7 @@
-﻿[dlg Title_Fields]
+﻿[msg Fields]
+[w][e]
+
+[dlg Title_Fields]
 Call Field[w][e]
 
 [sel Options_Fields]
@@ -7,19 +10,27 @@ Load Field (Manual Input)[ref 0 3][e]
 Reload Current Field[ref 2 4][e]
 
 [dlg GENERIC_HELP_2]
-Choose a field to load[n]from a list of locations.[e]
+Choose a field to load
+[n]from a list of locations.[e]
 
 [dlg GENERIC_HELP_3]
-Enter IDs of field to[n]load. [clr 9]WARNING: Some IDs[n]softlock the game.[clr 0][e]
+Enter IDs of field to
+[n]load. [clr 9]WARNING: Some IDs
+[n]softlock the game.[clr 0][e]
 
 [dlg GENERIC_HELP_4]
-Reload the field that[n]you're currently on.[e]
+Reload the field that
+[n]you're currently on.[e]
 
 [dlg Message_FieldSelect_Major [Field Select]]
-Choose the first 3 digits of[n]the field to load.[n](3 digits, [clr 2]○ button[clr 0] to end)[w][e]
+Choose the first 3 digits of
+[n]the field to load.
+[n](3 digits, [clr 2]○ button[clr 0] to end)[w][e]
 
 [dlg Message_FieldSelect_Minor [Field Select]]
-Choose the last 3 digits of[n]the field to load.[n](3 digits, [clr 2]○ button[clr 0] to end)[w][e]
+Choose the last 3 digits of
+[n]the field to load.
+[n](3 digits, [clr 2]○ button[clr 0] to end)[w][e]
 
 [msg Title_FieldCategories]
 Field Categories[e]

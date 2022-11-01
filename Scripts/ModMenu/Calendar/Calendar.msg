@@ -1,4 +1,7 @@
-﻿[dlg Title_Calendar]
+﻿[msg Calendar]
+[w][e]
+
+[dlg Title_Calendar]
 Calendar[w][e]
 
 [sel Options_Calendar]
@@ -11,16 +14,23 @@ Loop Current Day[ref 3 5][e]
 Choose day & month[n]to warp to.[e]
 
 [dlg GENERIC_HELP_3]
-End current day &[n]warp to the next[n]specified day.[e]
+End current day &
+[n]warp to the next
+[n]specified day.[e]
 
 [dlg GENERIC_HELP_4]
-Change the weather[n]condition. Reload field[n]to see results.[e]
+Change the weather
+[n]condition. Reload field
+[n]to see results.[e]
 
 [dlg GENERIC_HELP_5]
-Choose the next time[n]of day to set after[n]current day ends.[e]
+Choose the next time
+[n]of day to set after
+[n]current day ends.[e]
 
 [dlg Message_CalendarMonth]
-Choose what month to start in.[n]([clr 2]○ button[clr 0] to end)[w][e]
+Choose what month to start in.
+[n]([clr 2]○ button[clr 0] to end)[w][e]
 
 [dlg Title_CalendarMonth]
 Select a Month[e]
@@ -40,7 +50,8 @@ November[e]
 December[e]
 
 [dlg Message_CalendarDay]
-Choose what day to start on.[n](2 digits, [clr 2]○ button[clr 0] to end)[w][e]
+Choose what day to start on.
+[n](2 digits, [clr 2]○ button[clr 0] to end)[w][e]
 
 [dlg Message_CalendarInvalidDay]
 Invalid day selected.

@@ -105,6 +105,9 @@ namespace ModMenuBuilder
         [Option("c", "compiler", "path", "The path to AtlusScriptCompiler.exe.", Required = true)]
         public string Compiler { get; set; }
 
+        [Option("d", "decompile", "bool", "Whether to decompile output scripts for debugging. (default: false)")]
+        public bool Decompile { get; set; } = false;
+
         [Option("e", "encoding", "P5|P5R_EFIGS|SJ", "Specifies the encoding to compile with. (default: P5R_EFIGS)")]
         public string Encoding { get; set; } = "P5R_EFIGS";
 
@@ -119,6 +122,9 @@ namespace ModMenuBuilder
 
         [Option("o", "output", "path", "Specifies the path to the directory to use as output. (default: .exe directory)")]
         public string Output { get; set; } = "";
+
+        [Option("r", "reindex", "bool", "Whether to re-number messages, takes longer but fixes descriptions. (default: true)")]
+        public bool Reindex { get; set; } = true;
     }
 
     public class InputFile

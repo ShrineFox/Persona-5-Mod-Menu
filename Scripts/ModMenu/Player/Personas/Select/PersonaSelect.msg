@@ -1,3 +1,6 @@
+[msg PersonaSelect]
+[w][e]
+
 [sel SelPersonaNameFirstLetter]
 A[e]
 B[e]

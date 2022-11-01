@@ -1,3 +1,6 @@
+[msg SkillSelect]
+[w][e]
+
 [sel SelSkillNameFirstLetter]
 A[e]
 B[e]

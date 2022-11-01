@@ -1,4 +1,7 @@
-﻿[dlg Title_Personas]
+﻿[msg Personas]
+[w][e]
+
+[dlg Title_Personas]
 Personas[w][e]
 
 [sel Options_Personas]
@@ -9,19 +12,26 @@ Unlock Full Compendium[ref 3 5][e]
 Evolve Persona[ref 4 6][e]
 
 [dlg GENERIC_HELP_2]
-Input a Persona's name or ID[n]to add it to your stock.[e]
+Input a Persona's name or ID
+[n]to add it to your stock.[e]
 
 [dlg GENERIC_HELP_3]
-Permanently remove all Personas[n]from your current stock.[e]
+Permanently remove all Personas
+[n]from your current stock.[e]
 
 [dlg GENERIC_HELP_4]
-Choose a party member and the[n]name or ID of a Skill to add[n]to their current Persona.[e]
+Choose a party member and the
+[n]name or ID of a Skill to add
+[n]to their current Persona.[e]
 
 [dlg GENERIC_HELP_5]
-Register every Persona in[n]the game by filling your[n]stock with them all.[e]
+Register every Persona in
+[n]the game by filling your
+[n]stock with them all.[e]
 
 [dlg GENERIC_HELP_6]
-Evolve a party member's Persona[n]into its Ultimate form.[e]
+Evolve a party member's Persona
+[n]into its Ultimate form.[e]
 
 [dlg Title_AddPersonas]
 Add Personas[w][e]

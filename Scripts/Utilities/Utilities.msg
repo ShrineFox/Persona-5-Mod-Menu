@@ -1,4 +1,7 @@
-﻿[sel Options_Digits]
+﻿[msg Utilities]
+[w][e]
+
+[sel Options_Digits]
 0[e]
 1[e]
 2[e]
@@ -125,4 +128,4 @@ Flag[clr 1][f 2 4 0][clr 0] is [clr 13]On[clr 0].
 [dlg Message_ToggleInactiveFlag]
 Flag[clr 1][f 2 4 0][clr 0] is [clr 9]Off[clr 0].
 [n]Would you like to turn it
-[n]on or off?[w] [e] 
+[n]on or off?[w][e] 

@@ -1,3 +1,6 @@
+[msg ReservePersonas]
+[w][e]
+
 [dlg ReservePersonaSelect]
 Select Reserve Persona[e]
 

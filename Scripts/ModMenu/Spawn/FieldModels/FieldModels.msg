@@ -1,4 +1,7 @@
-﻿[dlg Title_FieldModels]
+﻿[msg FieldModels]
+[w][e]
+
+[dlg Title_FieldModels]
 Spawn Field Models[w][e]
 
 [sel Options_FieldModels]
@@ -6,10 +9,12 @@ Spawn Item Model[ref 0 2][e]
 Spawn Object Model[ref 1 3][e]
 
 [dlg GENERIC_HELP_2]
-Choose an item model to spawn[n]at Joker's current coordinates.[e]
+Choose an item model to spawn
+[n]at Joker's current coordinates.[e]
 
 [dlg GENERIC_HELP_3]
-Choose an object model to spawn[n]at Joker's current coordinates.[e]
+Choose an object model to spawn
+[n]at Joker's current coordinates.[e]
 
 [dlg Message_ItemSpawnMajor]
 Enter the first half of the model's

@@ -34,7 +34,6 @@ namespace ModMenuBuilder
             this.radio_Royal = new DarkUI.Controls.DarkRadioButton();
             this.radio_Vanilla = new DarkUI.Controls.DarkRadioButton();
             this.groupBox_Version = new DarkUI.Controls.DarkGroupBox();
-            this.rtb_Log = new System.Windows.Forms.RichTextBox();
             this.radio_New = new DarkUI.Controls.DarkRadioButton();
             this.radio_Old = new DarkUI.Controls.DarkRadioButton();
             this.groupBox_Platform = new DarkUI.Controls.DarkGroupBox();
@@ -51,12 +50,17 @@ namespace ModMenuBuilder
             this.tlp_Main = new System.Windows.Forms.TableLayoutPanel();
             this.tlp_Paths = new System.Windows.Forms.TableLayoutPanel();
             this.tlp_Options = new System.Windows.Forms.TableLayoutPanel();
+            this.rtb_Log = new System.Windows.Forms.RichTextBox();
+            this.tlp_Checkboxes = new System.Windows.Forms.TableLayoutPanel();
+            this.chk_Reindex = new DarkUI.Controls.DarkCheckBox();
+            this.chk_Decompile = new DarkUI.Controls.DarkCheckBox();
             this.groupBox_Version.SuspendLayout();
             this.groupBox_Platform.SuspendLayout();
             this.groupBox_Joypad.SuspendLayout();
             this.tlp_Main.SuspendLayout();
             this.tlp_Paths.SuspendLayout();
             this.tlp_Options.SuspendLayout();
+            this.tlp_Checkboxes.SuspendLayout();
             this.SuspendLayout();
             // 
             // btn_Build
@@ -105,19 +109,6 @@ namespace ModMenuBuilder
             this.groupBox_Version.TabIndex = 1;
             this.groupBox_Version.TabStop = false;
             this.groupBox_Version.Text = "Version";
-            // 
-            // rtb_Log
-            // 
-            this.rtb_Log.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            this.rtb_Log.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.rtb_Log.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rtb_Log.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.rtb_Log.Location = new System.Drawing.Point(3, 228);
-            this.rtb_Log.Name = "rtb_Log";
-            this.rtb_Log.ReadOnly = true;
-            this.rtb_Log.Size = new System.Drawing.Size(432, 178);
-            this.rtb_Log.TabIndex = 2;
-            this.rtb_Log.Text = "";
             // 
             // radio_New
             // 
@@ -274,14 +265,16 @@ namespace ModMenuBuilder
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tlp_Main.ColumnCount = 1;
             this.tlp_Main.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlp_Main.Controls.Add(this.rtb_Log, 0, 3);
             this.tlp_Main.Controls.Add(this.tlp_Paths, 0, 0);
             this.tlp_Main.Controls.Add(this.tlp_Options, 0, 1);
-            this.tlp_Main.Controls.Add(this.rtb_Log, 0, 2);
+            this.tlp_Main.Controls.Add(this.tlp_Checkboxes, 0, 2);
             this.tlp_Main.Location = new System.Drawing.Point(12, 12);
             this.tlp_Main.Name = "tlp_Main";
-            this.tlp_Main.RowCount = 3;
+            this.tlp_Main.RowCount = 4;
             this.tlp_Main.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 125F));
             this.tlp_Main.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tlp_Main.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tlp_Main.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tlp_Main.Size = new System.Drawing.Size(438, 409);
             this.tlp_Main.TabIndex = 10;
@@ -328,6 +321,56 @@ namespace ModMenuBuilder
             this.tlp_Options.Size = new System.Drawing.Size(432, 94);
             this.tlp_Options.TabIndex = 1;
             // 
+            // rtb_Log
+            // 
+            this.rtb_Log.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.rtb_Log.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.rtb_Log.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtb_Log.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.rtb_Log.Location = new System.Drawing.Point(3, 263);
+            this.rtb_Log.Name = "rtb_Log";
+            this.rtb_Log.ReadOnly = true;
+            this.rtb_Log.Size = new System.Drawing.Size(432, 143);
+            this.rtb_Log.TabIndex = 3;
+            this.rtb_Log.Text = "";
+            // 
+            // tlp_Checkboxes
+            // 
+            this.tlp_Checkboxes.ColumnCount = 2;
+            this.tlp_Checkboxes.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tlp_Checkboxes.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tlp_Checkboxes.Controls.Add(this.chk_Decompile, 0, 0);
+            this.tlp_Checkboxes.Controls.Add(this.chk_Reindex, 1, 0);
+            this.tlp_Checkboxes.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tlp_Checkboxes.Location = new System.Drawing.Point(3, 228);
+            this.tlp_Checkboxes.Name = "tlp_Checkboxes";
+            this.tlp_Checkboxes.RowCount = 1;
+            this.tlp_Checkboxes.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlp_Checkboxes.Size = new System.Drawing.Size(432, 29);
+            this.tlp_Checkboxes.TabIndex = 4;
+            // 
+            // chk_Reindex
+            // 
+            this.chk_Reindex.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.chk_Reindex.AutoSize = true;
+            this.chk_Reindex.Checked = true;
+            this.chk_Reindex.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chk_Reindex.Location = new System.Drawing.Point(307, 4);
+            this.chk_Reindex.Name = "chk_Reindex";
+            this.chk_Reindex.Size = new System.Drawing.Size(122, 21);
+            this.chk_Reindex.TabIndex = 0;
+            this.chk_Reindex.Text = "Reindex .msgs";
+            // 
+            // chk_Decompile
+            // 
+            this.chk_Decompile.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.chk_Decompile.AutoSize = true;
+            this.chk_Decompile.Location = new System.Drawing.Point(73, 4);
+            this.chk_Decompile.Name = "chk_Decompile";
+            this.chk_Decompile.Size = new System.Drawing.Size(140, 21);
+            this.chk_Decompile.TabIndex = 1;
+            this.chk_Decompile.Text = "Decompile output";
+            // 
             // BuilderForm
             // 
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(63)))), ((int)(((byte)(65)))));
@@ -348,6 +391,8 @@ namespace ModMenuBuilder
             this.tlp_Paths.ResumeLayout(false);
             this.tlp_Paths.PerformLayout();
             this.tlp_Options.ResumeLayout(false);
+            this.tlp_Checkboxes.ResumeLayout(false);
+            this.tlp_Checkboxes.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -358,7 +403,6 @@ namespace ModMenuBuilder
         private DarkUI.Controls.DarkRadioButton radio_Royal;
         private DarkUI.Controls.DarkRadioButton radio_Vanilla;
         private DarkUI.Controls.DarkGroupBox groupBox_Version;
-        private System.Windows.Forms.RichTextBox rtb_Log;
         private DarkUI.Controls.DarkRadioButton radio_New;
         private DarkUI.Controls.DarkRadioButton radio_Old;
         private DarkUI.Controls.DarkGroupBox groupBox_Platform;
@@ -375,5 +419,9 @@ namespace ModMenuBuilder
         private DarkUI.Controls.DarkGroupBox groupBox_Joypad;
         private System.Windows.Forms.TableLayoutPanel tlp_Main;
         private System.Windows.Forms.TableLayoutPanel tlp_Options;
+        private System.Windows.Forms.RichTextBox rtb_Log;
+        private System.Windows.Forms.TableLayoutPanel tlp_Checkboxes;
+        private DarkUI.Controls.DarkCheckBox chk_Reindex;
+        private DarkUI.Controls.DarkCheckBox chk_Decompile;
     }
 }

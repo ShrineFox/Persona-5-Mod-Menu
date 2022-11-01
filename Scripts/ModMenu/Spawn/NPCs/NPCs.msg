@@ -1,4 +1,7 @@
-﻿[dlg Title_SpawnNPCs]
+﻿[msg NPC]
+[w][e]
+
+[dlg Title_SpawnNPCs]
 Spawn NPCs[w][e]
 
 [sel Options_SpawnNPCs]
@@ -9,19 +12,23 @@ Attach Item Model[ref 3 5][e]
 Spawn Object Model[ref 4 6][e]
 
 [dlg GENERIC_HELP_2]
-Input a [clr 9]GMD filename[clr 0][n]to spawn a character model from.[e]
+Input a [clr 9]GMD filename[clr 0]
+[n]to spawn a character model from.[e]
 
 [dlg GENERIC_HELP_3]
-Apply field animations[n]to the last NPC you spawned.[e]
+Apply field animations
+[n]to the last NPC you spawned.[e]
 
 [dlg GENERIC_HELP_4]
 Set the scale of the[n]NPC model.[e]
 
 [dlg GENERIC_HELP_5]
-Input a [clr 9]GMD filename[clr 0][n]to attach to the NPC.[e]
+Input a [clr 9]GMD filename[clr 0]
+[n]to attach to the NPC.[e]
 
 [dlg GENERIC_HELP_6]
-Input a [clr 9]GMD filename[clr 0][n]of an object to spawn.[e]
+Input a [clr 9]GMD filename[clr 0]
+[n]of an object to spawn.[e]
 
 [dlg Message_SpawnNPC_First]
 Set the first (4 digits) of the NPC
@@ -56,4 +63,6 @@ Enter the last half of the
 [n](Max 3 digits, press [clr 2]○[clr 0] to end).[w][e]
 
 [dlg Message_NPCScale]
-Set the character's model scale.[n](press [clr 2]○[clr 0] to end)[n]Default is 10.[w][e]
+Set the character's model scale.
+[n](press [clr 2]○[clr 0] to end)
+[n]Default is 10.[w][e]

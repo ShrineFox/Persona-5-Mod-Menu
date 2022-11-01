@@ -20,11 +20,12 @@ namespace ModMenuBuilder
             InitializeComponent();
             Output.LogControl = rtb_Log;
 #if DEBUG
-            txt_Path.Text = @"C:\Users\Ryan\Documents\GitHub\Atlus-Script-Tools\Build\Release\AtlusScriptCompiler.exe";
-            txt_OutPath.Text = @"D:\Games\Steam\steamapps\common\P5R\Reloaded\Mods\p5rpc.misc.modmenu\P5REssentials\CPK\EN.CPK";
-            Program.Show();
+            txt_Path.Text = @"C:\Users\Administrator\Documents\GitHub\Atlus-Script-Tools\Build\Release\AtlusScriptCompiler.exe";
+            txt_OutPath.Text = @"C:\Program Files (x86)\Steam\steamapps\common\P5R\Reloaded\Mods\p5rpc.misc.modmenu\P5REssentials\CPK\EN.CPK"; Program.Show();
             System.Threading.Thread.Sleep(200);
             Output.LogControl = null;
+            chk_Reindex.Checked = false;
+            chk_Decompile.Checked = true;
 #endif
             rtb_Log.Text += $"{this.Text} by ShrineFox\nProcesses and compiles scripts for Persona 5 on PS3, PS4, PC and Switch.";
         }
@@ -36,6 +37,14 @@ namespace ModMenuBuilder
             List<string> args = new List<string>();
            
             args.Add("-c"); args.Add(txt_Path.Text);
+            if (chk_Decompile.Checked)
+            {
+                args.Add("-d"); args.Add("true");
+            }
+            if (!chk_Reindex.Checked)
+            {
+                args.Add("-r"); args.Add("false");
+            }
             if (radio_Old.Checked)
             {
                 args.Add("-n"); args.Add("false");

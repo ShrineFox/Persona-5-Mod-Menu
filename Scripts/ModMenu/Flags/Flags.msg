@@ -1,4 +1,7 @@
-﻿[dlg Title_Flags]
+﻿[msg Flags]
+[w][e]
+
+[dlg Title_Flags]
 Flags[w][e]
 
 [sel Options_Flags]

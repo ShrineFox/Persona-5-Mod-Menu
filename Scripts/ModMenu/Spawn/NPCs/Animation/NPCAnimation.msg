@@ -1,4 +1,7 @@
-﻿[dlg Title_NPCAnimation]
+﻿[msg NPCAnimation]
+[w][e]
+
+[dlg Title_NPCAnimation]
 NPC Animation[w][e]
 
 [sel Options_NPCAnimation]
@@ -10,22 +13,33 @@ Set Animation Time[ref 4 6][e]
 Playback Test Animation[ref 5 7][e]
 
 [dlg GENERIC_HELP_2]
-Select an NPC's Field [clr 26].GAP[clr 0][n]file to use with the[n]last spawned NPC.[e]
+Select an NPC's Field [clr 26].GAP[clr 0]
+[n]file to use with the
+[n]last spawned NPC.[e]
 
 [dlg GENERIC_HELP_3]
-Input the index of the[n]animation from the [clr 26].GAP[clr 0][n]that you want to view.[e]
+Input the index of the
+[n]animation from the [clr 26].GAP[clr 0]
+[n]that you want to view.[e]
 
 [dlg GENERIC_HELP_4]
-Toggle whether you want[n]the animation to repeat or not[n]when it's finished.[e]
+Toggle whether you want
+[n]the animation to repeat or not
+[n]when it's finished.[e]
 
 [dlg GENERIC_HELP_5]
-Choose the playback speed[n]of the animation.[e]
+Choose the playback speed
+[n]of the animation.[e]
 
 [dlg GENERIC_HELP_6]
-Choose how many seconds you[n]would like to play the[n]animation for.[e]
+Choose how many seconds you
+[n]would like to play the
+[n]animation for.[e]
 
 [dlg GENERIC_HELP_7]
-Execute the animation playback[n][clr 9]after the above settings[clr 0][n]have been completed.[e]
+Execute the animation playback
+[n][clr 9]after the above settings[clr 0]
+[n]have been completed.[e]
 
 [dlg Message_FirstNPCGAPDigits [GAP Select]]
 Set the first (4 digits) of the
@@ -51,5 +65,5 @@ Select the animation speed. Default is 10.
 [n]([clr 2]○ button[clr 0] to end)[w][e]
 
 [dlg Message_NPCGapTime [Animation Test]]
-Select the number of seconds to play.[w][e]
+Select the number of seconds to play.
 [n](2 digits, [clr 2]○ button[clr 0] to end)[w][e]

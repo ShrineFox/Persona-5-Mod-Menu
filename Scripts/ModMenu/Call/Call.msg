@@ -1,4 +1,7 @@
-﻿[dlg Title_Call]
+﻿[msg Call]
+[w][e]
+
+[dlg Title_Call]
 Call...[w][e]
 
 [sel Options_Call]

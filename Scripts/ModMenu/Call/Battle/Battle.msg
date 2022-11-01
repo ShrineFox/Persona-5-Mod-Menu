@@ -1,4 +1,7 @@
-﻿[dlg Title_Battle]
+﻿[msg Battle]
+[w][e]
+
+[dlg Title_Battle]
 Battle Type Select[w][e]
 
 [sel Options_Battle]
@@ -169,4 +172,5 @@ Velvet Twins[e]
 MISC[e]
 
 [dlg Message_EncounterID]
-Set the number of the encounter[n]you want to fight (3 digits).[w][e]
+Set the number of the encounter
+[n]you want to fight (3 digits).[w][e]

@@ -1,4 +1,7 @@
-﻿[dlg Title_RoomFlags]
+﻿[msg RoomFlags]
+[w][e]
+
+[dlg Title_RoomFlags]
 Room Flags[w][e]
 
 [sel Options_RoomFlags]
@@ -6,10 +9,14 @@ Collectibles Flags[ref 0 2][e]
 Furniture Flags[ref 1 3][e]
 
 [dlg GENERIC_HELP_2]
-Choose flags to toggle related[n]to collectibles in[n]the protag's room.[e]
+Choose flags to toggle related
+[n]to collectibles in
+[n]the protag's room.[e]
 
 [dlg GENERIC_HELP_3]
-Choose flags to toggle related[n]to furniture in[n]the protag's room.[e]
+Choose flags to toggle related
+[n]to furniture in
+[n]the protag's room.[e]
 
 [dlg Title_FurnitureFlags]
 Furniture Flags[w][e]

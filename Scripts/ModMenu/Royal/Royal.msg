@@ -1,4 +1,7 @@
-﻿[dlg Title_Royal]
+﻿[msg Royal]
+[w][e]
+
+[dlg Title_Royal]
 Royal Menu[w][e]
 
 [sel Options_Royal]

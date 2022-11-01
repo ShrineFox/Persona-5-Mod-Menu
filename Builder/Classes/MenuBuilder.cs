@@ -14,7 +14,6 @@ namespace ModMenuBuilder
 {
     public class MenuBuilder
     {
-        public static int msgIndex;
         public static string assetsDir;
         public static string scriptsDir;
         public static string outputDir;
@@ -78,7 +77,8 @@ namespace ModMenuBuilder
                     Royalify(script); // Update flag IDs from PS3 to Royal
             }
             
-            foreach (var script in Directory.GetFiles(scriptsDir))
+            foreach (var script in Directory.GetFiles(scriptsDir,
+                "*", SearchOption.AllDirectories))
             {
                 using (FileSys.WaitForFile(script)) { }
                 RemoveMsgComments(script); // Removes lines with a "// Royal" or "// Vanilla" comment from .msg depending on version
@@ -86,19 +86,69 @@ namespace ModMenuBuilder
                 ReplaceJoypadKeys(script); // Change joypad button names depending on options
             }
 
-            // Reindex and compile each Hook script
-            foreach (var script in Directory.GetFiles(Path.Combine(scriptsDir, "Hook"), 
-                "*.flow", SearchOption.AllDirectories))
+            if (Program.Options.Reindex)
             {
-                using (FileSys.WaitForFile(script)) { }
-                // Reset index of messages to start at
-                msgIndex = -1;
-                // Re-number HELP message names in referenced .msg files
-                var msgs = RecursivelyGetImports(script).Where(x => x.EndsWith(".msg"));
-                foreach (var msg in msgs)
-                    ReindexMsg(msg);
-                Compile(script); // Create new .bf in output folder
+                // Reindex and compile each Hook script
+                foreach (var script in Directory.GetFiles(Path.Combine(scriptsDir, "Hook"),
+                "*.flow", SearchOption.AllDirectories))
+                {
+                    ReindexMsgs(script);
+                }
             }
+        }
+
+        private static void ReindexMsgs(string script)
+        {
+            using (FileSys.WaitForFile(script)) { }
+            // Get list of .msg files imported in scripts
+            var msgs = RecursivelyGetImports(script).Where(x => x.EndsWith(".msg")).ToList();
+            // Create new .bf in output folder
+            string outputScript = Compile(script);
+            
+            // Re-order msgs based on output .h file
+            Decompile(outputScript);
+            using (FileSys.WaitForFile(outputScript + ".msg.h")) { }
+            if (File.Exists(outputScript + ".msg.h"))
+            {
+                List<Tuple<int, string>> msgList = ReorderMsgsByH(msgs, outputScript + ".msg.h");
+                // Re-number HELP message names in referenced .msg files
+                foreach (var msg in msgList)
+                    ReindexMsg(msg);
+                // Create new .bf in output folder (again)
+                outputScript = Compile(script);
+                if (Program.Options.Decompile)
+                    Decompile(outputScript); // Decompile newly generated script for debugging
+            }
+            else
+                Output.Log($"Could not access file for reindexing: {script + ".msg.h"}", ConsoleColor.Red);
+        }
+
+        private static List<Tuple<int,string>> ReorderMsgsByH(List<string> msgs, string msgHeader)
+        {
+            // Create list of .msgs and indexes
+            List<Tuple<int, string>> msgList = new List<Tuple<int, string>>();
+            foreach (var line in File.ReadAllLines(msgHeader))
+            {
+                if (msgs.Any(x => Path.GetFileNameWithoutExtension(x).Equals(line.Split(' ')[2]))) 
+                {
+                    string path = msgs.Single(x => Path.GetFileNameWithoutExtension(x).Equals(line.Split(' ')[2]));
+                    int index = Convert.ToInt32(line.Split('=')[1].TrimEnd(';').Trim());
+                    msgList.Add(new Tuple<int, string>(index, path));
+                }
+            }
+            // Reorder .msgs by index
+            var list = msgList.OrderBy(x => x.Item1).ToList();
+            // Move hooked .bf's .msg to top if it exists
+            if (msgList.Any(x => x.Item2.EndsWith(".bf.msg")))
+            {
+                var hookMsg = msgList.First(x => x.Item2.EndsWith(".bf.msg"));
+                var hookMsgIndex = msgList.IndexOf(hookMsg); 
+                var item = list[hookMsgIndex];
+                list.RemoveAt(hookMsgIndex);
+                list.Insert(0, item);
+            }
+            
+            return list;
         }
 
         private static List<string> RecursivelyGetImports(string script)
@@ -141,24 +191,27 @@ namespace ModMenuBuilder
 
         private static void ReplaceJoypadKeys(string script)
         {
-            if (Program.Options.Joypad != "PS" && File.Exists(script) && script.EndsWith(".msg"))
+            if (Program.Options.Joypad != "PS")
             {
-                var lines = File.ReadAllLines(script);
-                List<string> newLines = new List<string>();
-                for (int i = 0; i < lines.Length; i++)
+                if (File.Exists(script))
                 {
-                    string line = lines[i];
-                    if (Program.Options.Joypad == "MS")
-                        line.Replace("□", "X").Replace("△", "Y").Replace("○", "B").Replace("╳","A");
-                    if (Program.Options.Joypad == "NX")
-                        line.Replace("□", "Y").Replace("△", "X").Replace("○", "A").Replace("╳", "B");
-                    newLines.Add(line);
+                    var lines = File.ReadAllLines(script);
+                    List<string> newLines = new List<string>();
+                    for (int i = 0; i < lines.Length; i++)
+                    {
+                        string line = lines[i];
+                        if (Program.Options.Joypad == "MS")
+                            line.Replace("□", "X").Replace("△", "Y").Replace("○", "B").Replace("╳", "A");
+                        if (Program.Options.Joypad == "NX")
+                            line.Replace("□", "Y").Replace("△", "X").Replace("○", "A").Replace("╳", "B");
+                        newLines.Add(line);
+                    }
+                    File.WriteAllText(script, String.Join("\n", newLines), Encoding.Unicode);
+                    Output.Log($"\tDone changing joypad button names in:\n  {script}", ConsoleColor.Green);
                 }
-                File.WriteAllText(script, String.Join("\n", newLines), Encoding.Unicode);
-                Output.Log($"\tDone changing joypad button names in:\n  {script}", ConsoleColor.Green);
+                else
+                    Output.Log($"\tCould not find script to change joypad button names in: {script}", ConsoleColor.Red);
             }
-            else
-                Output.Log($"\tCould not find script to change joypad button names in: {script}", ConsoleColor.Red);
         }
 
         private static void Royalify(string script)
@@ -203,8 +256,12 @@ namespace ModMenuBuilder
         {
             // Remove lines with the opposite game type's comment from Mod Menu .msg
             string removeType = "Vanilla";
+            string selectedType = "Royal";
             if (Program.SelectedGame.Type.Equals(GameType.Vanilla))
+            {
                 removeType = "Royal";
+                selectedType = "Vanilla";
+            }
 
             if (File.Exists(script))
             {
@@ -213,15 +270,18 @@ namespace ModMenuBuilder
                 for (int i = 0; i < lines.Length; i++)
                 {
                     string line = lines[i];
-                    // Remove comments from line for matching type and overwrite file
-                    line = line.Replace($"// {Program.SelectedGame.Type}", "").Replace($"//{Program.SelectedGame.Type}", "");
                     // Remove entire line if opposite type
-                    if (!line.Contains($"// {removeType}") && line.Contains($"//{removeType}"))
+                    if (line.Contains($"// {removeType}") || line.Contains($"//{removeType}"))
+                        line = "";
+                    else
+                        line = line.Replace($"// {selectedType}","").Replace($"//{selectedType}","");
+                    
+                    if (!string.IsNullOrEmpty(line))
                         newLines.Add(line);
                 }
-                    
+                
                 File.WriteAllText(script, String.Join("\n", newLines), Encoding.Unicode);
-                Output.Log($"\tRemoved version-specific lines in:\n  {script}", ConsoleColor.Green);
+                Output.Log($"\tRemoved {removeType}-specific lines in:\n  {script}", ConsoleColor.Green);
             }
             else
                 Output.Log($"\tCould not find script to remove .msg comments from:\n  {script}", ConsoleColor.Red);
@@ -255,19 +315,21 @@ namespace ModMenuBuilder
             return regex.Replace(sourceString, startTag + endTag);
         }
 
-        public static void ReindexMsg(string script)
+        public static void ReindexMsg(Tuple<int,string> script)
         {
+            int index = script.Item1;
+            string msgFile = script.Item2;
             // Update parameters of msg functions that displays description for menu selection
-            if (File.Exists(script))
+            if (File.Exists(msgFile))
             {
-                var msgLines = File.ReadAllLines(script);
+                var msgLines = File.ReadAllLines(msgFile);
 
                 for (int i = 0; i < msgLines.Length; i++)
                 {
                     // Increase total number of messages so far
                     if (msgLines[i].Contains("[msg ") || msgLines[i].Contains("[dlg ") || msgLines[i].Contains("[sel "))
                     {
-                        msgIndex++;
+                        index++;
                     }
 
                     // If current line contains "[ref "...
@@ -282,7 +344,7 @@ namespace ModMenuBuilder
                             int refIndex = msgLines[i].IndexOf("[ref ");
                             string substring = msgLines[i].Substring(refIndex);
                             // Create new second half of string
-                            string newString = $"[ref {refCount} {msgIndex + refCount + 1}][e]";
+                            string newString = $"[ref {refCount} {index + refCount}][e]";
                             string newLine = msgLines[i].Remove(refIndex);
                             // Increase number of ref lines read so far for this sel block
                             refCount++;
@@ -294,18 +356,18 @@ namespace ModMenuBuilder
                     }
 
                     if (msgLines[i].Contains("[dlg GENERIC_HELP_"))
-                        msgLines[i] = $"[dlg GENERIC_HELP_{msgIndex}]";
+                        msgLines[i] = $"[dlg GENERIC_HELP_{index}]";
                 }
 
-                File.WriteAllText(script, string.Join("\n", msgLines), Encoding.Unicode);
-                using (FileSys.WaitForFile(script)) { }
-                Output.Log($"\tReindexed .msg files in: {script}", ConsoleColor.Green);
+                File.WriteAllText(msgFile, string.Join("\n", msgLines), Encoding.Unicode);
+                using (FileSys.WaitForFile(msgFile)) { }
+                Output.Log($"\tReindexed .msg files in: {msgFile}", ConsoleColor.Green);
             }
             else
-                Output.Log($"\tFailed to reindex .msg, file not found: {script}", ConsoleColor.Red);
+                Output.Log($"\tFailed to reindex .msg, file not found: {msgFile}", ConsoleColor.Red);
         }
 
-        private static void Compile(string script)
+        private static string Compile(string script)
         {
             string outDir = Program.Options.Output;
             string outputFile = Path.Combine(outDir, Path.Combine(Path.GetDirectoryName(script), Path.GetFileNameWithoutExtension(script) + ".bf").Replace(Exe.Directory() + "\\Scripts\\Hook\\", ""));
@@ -324,15 +386,11 @@ namespace ModMenuBuilder
 
             using (FileSys.WaitForFile(outputFile)) { }
             if (File.Exists(outputFile))
-            {
                 Output.Log($"Compiled script successfully: {script}", ConsoleColor.Green);
-                #if DEBUG
-                    Decompile(outputFile); // Decompile newly generated script for debugging
-                #endif
-            }
             else
                 Output.Log($"Failed to compile script: {script}", ConsoleColor.Red);
 
+            return outputFile;
         }
 
         private static void Decompile(string bf)
