@@ -1,5 +1,4 @@
 # Persona 5 (Royal) Mod Menu
-
 **Custom scripts for P5 & P5R that replace the square button function with a fully featured trainer**
 ![Image of the menu ingame](https://cdn.discordapp.com/attachments/428021649246388224/447597680018063372/unknown.png)
 ## Notable Features
@@ -9,78 +8,50 @@
 - Change your rank with any confidant and unlock their abilities instantly
 - Change the protagonist's/team's name at any time
 - Clip through walls and explore hidden areas
-- Load encounters, music, fields, events, animations, and models from filename IDs
-- Manipulate the camera (reposition, lock, unlock, rotate, change FOV)
+- Load encounters, music, fields, events, animations, effects and models from filename IDs
+- Manipulate the camera (reposition, lock, unlock, rotate, zoom, change FOV)
 - Toggle the HUD, navigator character, party members, romance flags and more
 - Instantly change the current date and weather
 - Add Personas and change you or your party members' Skills
-## Generating the Mod
-1. Get the latest [release .zip](https://github.com/ShrineFox/Persona-5-Mod-Menu/releases) for your version of the game.
-2. Extract to the ``Packages`` folder of [Aemulus Package Manager](https://github.com/TekkaGB/AemulusModManager/releases), or the ``Mods`` folder of the [Mod Compendium](https://github.com/tge-was-taken/Mod-Compendium).
-Note: Aemulus does not support P5R yet.
-3. Build a ``mod.cpk`` to include this mod with other mods of your choice.
-
-You can also download a [release mod.cpk](https://github.com/ShrineFox/Persona-5-Mod-Menu/releases) if you don't need to use other mods and want to skip the mod manager step.
 ## Installing the Mod
-These steps vary by platform.
-### Persona 5 (PS3) on RPCS3
-1. Install [RPCS3](https://rpcs3.net/).
-2. Install Persona 5.
-3. Download a ``patch.yml`` from my website's [PS3 Patch Generator](https://shrinefox.com/apps/PatchCreator).
-Note: Either P5 EX or Mod Support will suffice for loading the mod.  
-If you choose P5 EX, [follow the instructions here](https://gamebanana.com/wips/57221) carefully.
-4. Place ``patch.yml`` in the RPCS3 ``patches`` folder.
-5. Start RPCS3 and go to ``Manage > Game Patches`` and enable Mod Support (or P5EX+Mod SPRX).
-6. Place your ``mod.cpk`` in the game's ``USRDIR`` folder (right click the game in RPCS3 and choose ``Open Install Folder``.)
-7. Start the game! Pressing Square should bring up the menu.
-### Persona 5 (PS3) on Rebug CFW
-1. Install [Rebug CFW](https://www.psxhax.com/threads/rebug-4-86-1-lite-ps3-cfw-with-cobra-8-2-and-toolbox-2-03-04.7401/).
-2. Download a ``patch.yml`` from my website's [PS3 Patch Generator](https://shrinefox.com/apps/PatchCreator).
-Note: P5EX does not work on consoles, so you need the Mod Support patch.  
-ALSO: you need to download the ``patch.yml`` in the "old format."
-3. Patch your ``eboot.bin`` by following [these steps](https://shrinefox.com/guides/2019/06/12/persona-5-ps3-eboot-patching/).
-4. Transfer your patched ``eboot.bin`` and ``mod.cpk`` to your game's USRDIR.
-5. Start the game and press Square to use the menu!
-### Persona 5 Royal on PS4 (HEN)
-1. Follow [this guide](https://shrinefox.com/guides/2020/09/30/modding-persona-5-royal-on-ps4/) to run HEN on your PS4.
-2. Install a FPKG of P5R.
-3. Download a patched update from my [PS4 Update Creator](https://shrinefox.com/apps/UpdateCreator).
-NOTE: If your P5R FPKG doesn't match mine, you'll have to [manually create your own](https://shrinefox.com/guides/2021/12/28/manually-patching-ps4-persona-games/) patched update ``.PKG``.
-4. Install the update ``.PKG``.
-5. Transfer your ``mod.cpk`` to ``/data/p5r`` on your PS4.
-6. Start the game! If all went well, you should be able to use the menu by pressing Square.
+### PS3, PS4 & Switch
+1. Read about [how to add Mod Support to your target platform](https://docs.shrinefox.com/).
+2. Get the latest [Aemulus .zip](https://github.com/ShrineFox/Persona-5-Mod-Menu/releases) for your version of the game.
+3. Extract to the ``Packages`` folder of [Aemulus Package Manager](https://github.com/TekkaGB/AemulusModManager/releases).
+4. Click ``Build`` to merge this mod with other mods of your choice.
+### PC
+1. Read about [how to add Mod Support](https://docs.shrinefox.com/getting-started/persona-5-royal-pc-mod-support) to the PC version using ReloadedII.
+2. Get the latest [Reloaded .zip](https://github.com/ShrineFox/Persona-5-Mod-Menu/releases). 
+3. Extract to the ``Mods`` folder of [Reloaded II](https://github.com/Reloaded-Project/Reloaded-II).
+4. Enable the mod and launch the game via Reloaded II.
 
 ## Building the Mod Menu from Source
-1. Download and unzip the latest [Atlus-Script-Tools by TGE](https://github.com/tge-was-taken/Atlus-Script-Tools).
-2. Open a new command prompt window.
-3. Enter the path to ModMenuBuilder.exe. Running it will give you a rundown of its usage.  
-Example: ``ModMenuBuilder.exe -c C:\Path\To\AtlusScriptCompiler.exe -g P5R``
-4. Edit the ``.msg`` and ``.flow`` files to your liking in the ``.\Scripts`` folder.
-5. When you run ``ModMenuBuilder.exe``, ``.\Assets`` and ``.\Scripts`` will be copied to a ``.\Temp`` folder and modified.
-6. Output will go to a ``.\Output`` folder, unless a path is specified with ``-o``. Existing files will be overwritten.
-### How It Works
-- Depending on your selection of game (``P5``/``P5R``), import paths in the ``.flow`` files will be altered to reference ``Vanilla`` or ``Royal`` subfolders.
-- Blocks of code in ``ModMenu.flow`` will be commented out depending on if they are between ``/* Royal Start */`` and ``/* Royal End */``, or ``/* Vanilla Start */`` and ``/* Vanilla End */`` lines (respective to the specified game).
-- Similarly, lines in ``ModMenu.msg`` ending with ``// Royal`` or ``// Vanilla`` will be removed depending on game.
-- Different message indexes will be used for menu item descriptions depending on game.
-- If Royal is selected, bitflag values will be auto-converted for compatibility.
-- ``.PAC`` files are automatically unpacked and repacked with changed files.
-
-## Contributing to the Repository
+Follow these instructions if you would like to make edits to the menu, whether for your own purposes or to contribute to the project.
 1. Clone this repository using [Git](https://git-scm.com/downloads) or [GitHub Desktop](https://desktop.github.com/).
 2. Run the solution (``.sln``) file with Visual Studio.
-3. Also clone [AtlusFileSystemLibrary](https://github.com/tge-was-taken/AtlusFileSystemLibrary) and [SimpleCommandLine](https://github.com/tge-was-taken/SimpleCommandLine) by TGE since they are referenced.
-4. Make any changes you want to the builder code or source scripts, create a fork, and make a pull request.
-5. Preferably, make sure both P5 and P5R still compile.
-6. Your changes will be reviewed and merged if appropriate!
+3. Also clone [AtlusFileSystemLibrary](https://github.com/tge-was-taken/AtlusFileSystemLibrary), [SimpleCommandLine](https://github.com/tge-was-taken/SimpleCommandLine), and [ShrineFox.IO](https://github.com/ShrineFox/ShrineFox.IO) to the same location, as they are referenced by the project.
+4. Open ``ModMenuBuilder.sln`` in [Visual Studio](https://visualstudio.microsoft.com/).
+5. Modify any of the .flow or .msg files in the project, or the builder code itself.
+6. Click ``Start`` to run the program.
+7. Provide the paths to ``AtlusScriptCompiler.exe`` and your output folder (this varies by platform, see Mod Support guides linked earlier).
+8. Check "Reindex Messages" to recompile scripts with fixed description text. This can take awhile, so it's disabled by default for easy testing.
+9. Click the ``Build`` button to output the final, compiled scripts to your destination.
+
+## Contributing to the Repository
+2. Create your own fork of the project.
+3. Make any changes you want to the builder code or source scripts.
+4. Commit the changes to your fork.
+5. Open a pull request on this repository by comparing it to your fork.
+6. Your changes will be reviewed and merged once approved.
 
 ## FAQ
 ### Why Create a Builder?
-Previously, a simple ``build.bat`` batch script was used to facilitate repacking and compiling the Mod Menu from ``.flow``/``.msg``, along with a ``MsgReindex.exe`` that handled updating the message indexes. A [forked repository was created for Royal](https://github.com/Amicitia/Persona-5-Royal-Mod-Menu/), but since Royal has different flowscript functions (some new, some missing from vanilla), different bitflag values, and different input files, keeping changes to both repositories in sync was a nightmare.  
-By integrating the functionality of the old ``build.bat`` and ``MsgReindex.exe`` into one program that lives in the same repository, I could add additional features that can build P5 (PS3) and P5R from the same source scripts, as detailed above. This way, all changes can be made to a single repository, so the two versions will never become out of sync.
+Previously, a simple ``build.bat`` batch script was used to facilitate repacking and compiling the Mod Menu from ``.flow``/``.msg``. A separate repository was made for Royal when it released on PS4, but since Royal has different flowscript functions (some new, some missing from vanilla), different bitflag values, and different input files, keeping changes to both repositories in sync was a nightmare.  
+Not to mention, between different scripts and different versions of the game, message IDs will no longer match, causing description text to become misaligned-- which must be corrected by an external program.  
+By integrating all this functionality into a single program that lives in the same repository, I was able to easily support future Mod Menu development on all platforms from a single codebase.
 
-### Since this works for both, does it bring Royal features to P5 (PS3)?
-No, incompatible features are simply removed when building for PS3. If you want to add Royal features to the PS3 version, at least if you're using RPCS3, look into the [Persona 5 EX mod](https://gamebanana.com/wips/57221) by DeathChaos25.
+### Does it bring Royal features to P5 (PS3)?
+No, incompatible features are simply removed when building for PS3. If you want to add Royal features to the PS3 version, check out the [Persona 5 EX mod](https://gamebanana.com/wips/57221) by DeathChaos25.
 
 ### What features are specific to Royal?
 At present, the Royal version is more or less identical to the PS3 version. But planned special features for Royal include:
@@ -91,8 +62,9 @@ At present, the Royal version is more or less identical to the PS3 version. But 
 You can already load Royal-specific fields/events/battles and toggle Royal-specific flags by filename.
 
 ### Where can I get help?
-If you have questions about editing flowscript, you can check out these incomplete docs.  
-Further questions can be asked at my forum. If you encounter a bug using the menu or builder, open an Issue.
+If you have questions about editing flowscript, you can check out [this guide](https://docs.shrinefox.com/flowscript/intro-to-scripting).  
+Create a thread on [my troubleshooting forum](https://shrinefox.com/forum) if you have any further questions about script mods.  
+If you encounter a bug using the menu or builder, [Open an Issue](https://github.com/ShrineFox/Persona-5-Mod-Menu/issues) on this repository and describe what's going on.
 
 ### How can I support the project?
-[Ko-Fi](https://ko-fi.com/shrinefox)!
+If you find this project enjoyable or helpful, please consider sending me a tip on [Ko-Fi](https://ko-fi.com/shrinefox)!
