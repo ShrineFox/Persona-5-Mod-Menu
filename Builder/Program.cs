@@ -78,7 +78,9 @@ namespace ModMenuBuilder
                 return;
             }
 
-            Output.Log($"Building {SelectedGame.ShortName} ({SelectedGame.Platform} platforms) Mod Menu\n\tButton Names: {Options.Joypad}\n\tReindex messages: {Options.Reindex}\n\tDecompile output: {Options.Decompile}\n\n");
+            Output.Log($"Building {SelectedGame.ShortName} ({SelectedGame.Platform} platforms) Mod Menu" +
+                $"\n\tButton Names: {Options.Joypad}\n\tReindex messages: {Options.Reindex}" +
+                $"\n\tDecompile output: {Options.Decompile}\n\tRepack .PACs: {Options.Pack}\n\n");
 
             // Begin building Mod Menu output
             MenuBuilder.Build();
@@ -117,11 +119,14 @@ namespace ModMenuBuilder
         [Option("j", "joypad", "PS|MS|NX", "Specifies the controller button names to use. (default: MS)")]
         public string Joypad { get; set; } = "MS";
 
-        [Option("n", "newplatform", "bool", "Whether to use PC/Switch directory structure instead of Sony. (default: true)")]
-        public bool NewPlatform { get; set; } = true;
+        [Option("n", "newplatform", "bool", "Whether to use PC/Switch directory structure instead of Sony. (default: false)")]
+        public bool NewPlatform { get; set; } = false;
 
         [Option("o", "output", "path", "Specifies the path to the directory to use as output. (default: .exe directory)")]
         public string Output { get; set; } = "";
+
+        [Option("p", "pack", "bool", "Whether to output field scripts as repacked .PAC (old platform only). (default: false)")]
+        public bool Pack { get; set; } = false;
 
         [Option("r", "reindex", "bool", "Whether to re-number messages, takes longer but fixes descriptions. (default: false)")]
         public bool Reindex { get; set; } = false;
