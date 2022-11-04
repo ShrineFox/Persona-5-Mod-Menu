@@ -1,5 +1,5 @@
 /* Vanilla Start */
-import("../../../Assets/Vanilla/script/field/fscr0150_002_100.bf");
+import("../../../../Assets/Vanilla/script/field/fscr0150_002_100.bf");
 /* Vanilla End */
 /* Royal Start */
 import("../../../../Assets/Royal/script/field/fscr0150_002_100.bf");

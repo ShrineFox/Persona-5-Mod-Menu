@@ -48,9 +48,13 @@ namespace ModMenuBuilder
             {
                 args.Add("-r"); args.Add("true");
             }
-            if (radio_Old.Checked)
+            if (!radio_Old.Checked)
             {
-                args.Add("-n"); args.Add("false");
+                args.Add("-n"); args.Add("true");
+            }
+            if (chk_RepackPACs.Checked)
+            {
+                args.Add("-p"); args.Add("true");
             }
             if (radio_Vanilla.Checked)
             {
@@ -116,6 +120,19 @@ namespace ModMenuBuilder
             else
             {
                 groupBox_Platform.Enabled = true;
+            }
+        }
+
+        private void Platform_Changed(object sender, EventArgs e)
+        {
+            if (radio_New.Checked)
+            {
+                chk_RepackPACs.Checked = false;
+                chk_RepackPACs.Enabled = false;
+            }
+            else
+            {
+                chk_RepackPACs.Enabled = true;
             }
         }
     }
