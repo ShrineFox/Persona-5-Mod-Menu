@@ -2,7 +2,7 @@
 [w][e]
 
 [msg Title_ModMenu]
-[w]Amicitia Mod Menu[e]
+Amicitia Mod Menu[e]
 
 [sel Options_ModMenu]
 Phone/Auto-Recover[ref 0 1][e]
@@ -30,7 +30,7 @@ Change social stats, items,
 Clip through walls and explore
 [n] out of bounds areas. Hold
 [n][clr 18]□ button[clr 0] to change axis.
-[n][clr 0](Controller only or softlock!)[clr 0][e]
+[n][clr 9](Controller only or softlock!)[clr 0][e]
 
 [dlg GENERIC_HELP_4]
 Call battles, fields, & events,
@@ -64,8 +64,9 @@ Show some info about the
 View options exclusive
 [n]to Persona 5 Royal.[e]
 
-[dlg Message_About [About this menu]]
+[dlg Message_About]
 [clr 9]Persona 5 Mod Menu[clr 0] by [clr 6]ShrineFox[clr 0]
+[n]Version
 [n]github.com/Shrinefox/Persona-5-Mod-Menu[w][e]
 Created using [clr 1]TGE[clr 0]'s [clr 1]Atlus-Script-Tools[clr 0].
 [n]github.com/tge-was-taken/Atlus-Script-Tools[w][e]

@@ -295,9 +295,9 @@ namespace ModMenuBuilder
                     {
                         string line = lines[i];
                         if (Program.Options.Joypad == "MS")
-                            line.Replace("□", "X").Replace("△", "Y").Replace("○", "B").Replace("╳", "A");
+                            line = line.Replace("□", "X").Replace("△", "Y").Replace("○", "B").Replace("╳", "A");
                         if (Program.Options.Joypad == "NX")
-                            line.Replace("□", "Y").Replace("△", "X").Replace("○", "A").Replace("╳", "B");
+                            line = line.Replace("□", "Y").Replace("△", "X").Replace("○", "A").Replace("╳", "B");
                         newLines.Add(line);
                     }
                     File.WriteAllText(script, String.Join("\n", newLines), Encoding.Unicode);

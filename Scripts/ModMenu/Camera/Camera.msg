@@ -16,23 +16,23 @@ Disable Camera Shake[ref 6 9][e]
 [dlg GENERIC_HELP_2]
 Move the camera along the X, Y
 [n]or Z axis. Hold [clr 18]□[clr 0] to change
-[n]the axis. [clr 0]WARNING:
+[n]the axis. [clr 9]WARNING:
 [n]Controller only or softlock![clr 0][e]
 
 [dlg GENERIC_HELP_3]
 Adjust the camera's
-[n]Field of View. [clr 0]WARNING:
+[n]Field of View. [clr 9]WARNING:
 [n]Controller only or softlock![clr 0][e]
 
 [dlg GENERIC_HELP_4]
 Zoom the camera in
-[n]and out. [clr 0]WARNING:
+[n]and out. [clr 9]WARNING:
 [n]Controller only or softlock![clr 0][e]
 
 [dlg GENERIC_HELP_5]
 Change the orientation of the
 [n]camera with the D-pad.
-[n][clr 0]WARNING: Controller
+[n][clr 9]WARNING: Controller
 [n]only or softlock![clr 0][e]
 
 [dlg GENERIC_HELP_6]
