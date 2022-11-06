@@ -62,8 +62,7 @@ int NumberMenu(int digitCount)
             // Returns -1 if cancelled before any number has been entered
             if (i == 0)
             {
-                number = -1;
-                break;
+                return -1;
             }
             else
                 break;
@@ -218,7 +217,7 @@ void ToggleFlag(int flagId, bool confirm)
 // Confirms if the user wants to reload the field right now if required
 bool ConfirmReloadField()
 {
-    if (SystemMenu(Message_ReloadConfirm, Options_NoYes) == 1)
+    if (SystemMenu(Message_ReloadConfirm, Options_YesNo) == 0)
     {
         /* Royal Start */
         if (FLD_GET_MAJOR() != 21 && FLD_GET_MINOR() != 1)

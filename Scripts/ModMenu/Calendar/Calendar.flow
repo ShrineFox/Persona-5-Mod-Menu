@@ -62,7 +62,12 @@ void CalendarSetNextDaySelect()
 
     int thisMonth = GET_MONTH();
     int thisDay = GET_DAY();
-
+	
+	if (month >= 1 && month <= 3)
+	{
+		month += 12;
+	}
+	
     // You can only go backwards one day at a time
     if (((month == thisMonth) && ((day - thisDay) < -1)) ||
          ((month - thisMonth == -1) && (thisDay == 1 && day != daysInMonth)) ||
@@ -73,7 +78,7 @@ void CalendarSetNextDaySelect()
         return;
     }
 
-    SET_NEXT_DAY(month, day, 1);
+    SET_NEXT_DAY(month, day, 0);
 }
 
 void CallCalendar()

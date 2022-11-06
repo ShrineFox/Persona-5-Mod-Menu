@@ -24,10 +24,15 @@ void FieldMenu()
                 int fieldMinor = NumberMenu(3);
                 if (fieldMinor == -1)
                     break;
-
-                CALL_FIELD(fieldMajor, fieldMinor, 0, 0);
+				
+				SystemMessage(Message_FieldSelect_Entrance);
+                int fieldEntrance = NumberMenu(4);
+                if (fieldEntrance == -1)
+                    break;
+					
+                CALL_FIELD(fieldMajor, fieldMinor, fieldEntrance, 0);
                 return;
-            case 3:
+            case 2:
                 // Reload Current Field
                 ConfirmReloadField();
                 return;
