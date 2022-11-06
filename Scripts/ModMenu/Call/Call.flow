@@ -4,6 +4,8 @@ import("Events/Events.flow");
 import("Fields/Fields.flow");
 import("Font/Font.flow");
 import("Sound/Sound.flow");
+import("Chats/Chats.flow");
+import("Shops/Shops.flow");
 import("Call.msg");
 
 void CallMenu()
@@ -38,6 +40,14 @@ void CallMenu()
             case 5:
                 // Sound/Sound.flow
                 SoundMenu();
+                break;
+            case 6:
+                // Chats/Chats.flow
+                ChatMenu();
+                break;
+            case 7:
+                // Shops/Shops.flow
+                ShopsMenu();
                 break;
         }
     }

@@ -1,0 +1,11 @@
+import("Chats.msg");
+
+void ChatMenu()
+{
+	SystemMessage(Message_ChatID);
+    int ChatID = NumberMenu(4);
+    if (ChatID == -1)
+        return;
+	else
+		CALL_CHAT_ARRIVAL( ChatID );
+}

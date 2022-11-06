@@ -1,0 +1,11 @@
+import("Shops.msg");
+
+void ShopsMenu()
+{
+	SystemMessage(Message_ShopID);
+    int ShopID = NumberMenu(2);
+    if (ShopID == -1)
+        return;
+	else
+		CALL_PUBLIC_SHOP( ShopID );
+}
