@@ -18,6 +18,7 @@ namespace ModMenuBuilder
     {
         public static string assetsDir;
         public static string scriptsDir;
+        public static string tempDir;
         public static string outputDir;
         
         public static void Build()
@@ -25,6 +26,7 @@ namespace ModMenuBuilder
             // Set build paths
             assetsDir = Path.Combine(Program.exeDir, "Assets");
             scriptsDir = Path.Combine(Program.exeDir, "Scripts");
+            tempDir = Path.Combine(Program.exeDir, "Temp");
 
             // Set output path if specified by user
             if (Program.Options.Output != "")
@@ -65,8 +67,11 @@ namespace ModMenuBuilder
 
         private static void ProcessScripts()
         {
+            DeleteTempFolder();
+            CreateTempFolder();
+
             // Removes lines with a "/* Royal */" or "/* Vanilla */" comment from .flow depending on version
-            foreach (var script in Directory.GetFiles(scriptsDir,
+            foreach (var script in Directory.GetFiles(tempDir,
                 "*.flow", SearchOption.AllDirectories))
             {
                 using (FileSys.WaitForFile(script)) { }
@@ -75,7 +80,7 @@ namespace ModMenuBuilder
             Output.Log($"Done removing version-specific codeblocks from .flow files.", ConsoleColor.Green);
 
             // Update flag IDs from PS3 to Royal
-            foreach (var script in Directory.GetFiles(scriptsDir,
+            foreach (var script in Directory.GetFiles(tempDir,
                 "*.flow", SearchOption.AllDirectories))
             {
                 using (FileSys.WaitForFile(script)) { }
@@ -85,7 +90,7 @@ namespace ModMenuBuilder
             Output.Log($"Done converting bitflags in .flow files.", ConsoleColor.Green);
 
             // Removes lines with a "// Royal" or "// Vanilla" comment from .msg depending on version
-            foreach (var script in Directory.GetFiles(scriptsDir,
+            foreach (var script in Directory.GetFiles(tempDir,
                 "*", SearchOption.AllDirectories))
             {
                 using (FileSys.WaitForFile(script)) { }
@@ -94,7 +99,7 @@ namespace ModMenuBuilder
             Output.Log($"Done removing version-specific lines in all scripts.", ConsoleColor.Green);
 
             // Change joypad button names depending on options
-            foreach (var script in Directory.GetFiles(scriptsDir,
+            foreach (var script in Directory.GetFiles(tempDir,
                 "*.msg", SearchOption.AllDirectories))
             {
                 using (FileSys.WaitForFile(script)) { }
@@ -103,11 +108,36 @@ namespace ModMenuBuilder
             Output.Log($"Done updating joypad button names in .msg files.", ConsoleColor.Green);
 
             // Reindex and compile each Hook script
-            foreach (var script in Directory.GetFiles(Path.Combine(scriptsDir, "Hook"),
+            foreach (var script in Directory.GetFiles(Path.Combine(tempDir, "Hook"),
             "*.flow", SearchOption.AllDirectories))
             {
                 CompileHookScript(script);
             }
+
+            DeleteTempFolder();
+        }
+
+        private static void DeleteTempFolder()
+        {
+            if (Directory.Exists(tempDir))
+            {
+                foreach (var file in Directory.GetFiles(tempDir, "*", SearchOption.AllDirectories))
+                {
+                    using (FileSys.WaitForFile(file)) { };
+                }
+                Thread.Sleep(500);
+                Output.Log($"Deleting Temp folder...", ConsoleColor.White);
+                Directory.Delete(tempDir, true);
+                Output.Log($"Deleted Temp folder.", ConsoleColor.Green);
+                Thread.Sleep(500);
+            }
+        }
+
+        private static void CreateTempFolder()
+        {
+            Output.Log($"Copying Scripts to Temp folder...", ConsoleColor.White);
+            FileSys.CopyDir(scriptsDir, tempDir);
+            Output.Log($"Created Temp folder.", ConsoleColor.Green);
         }
 
         private static void CompileHookScript(string script)
@@ -210,10 +240,23 @@ namespace ModMenuBuilder
                 outputScript = Compile(script);
                 // Decompile newly generated script for debugging
                 if (Program.Options.Decompile)
-                    Decompile(outputScript); 
+                    Decompile(outputScript);
+                else
+                    DeleteDecompiledOutput(Path.GetDirectoryName(outputScript));
             }
             else
                 Output.Log($"Could not access file for reindexing: {script + ".msg.h"}", ConsoleColor.Red);
+        }
+
+        private static void DeleteDecompiledOutput(string outDir)
+        {
+            foreach (var file in Directory.GetFiles(outDir, "*", SearchOption.AllDirectories))
+            {
+                if (file.EndsWith(".flow") || file.EndsWith(".msg") || file.EndsWith(".h"))
+                {
+                    File.Delete(file);
+                }
+            }
         }
 
         private static List<Tuple<int,string>> ReorderMsgsByH(List<string> msgs, string msgHeader)
@@ -461,7 +504,7 @@ namespace ModMenuBuilder
         private static string Compile(string script)
         {
             string outDir = Program.Options.Output;
-            string outputFile = Path.Combine(outDir, Path.Combine(Path.GetDirectoryName(script), Path.GetFileNameWithoutExtension(script) + ".bf").Replace(Exe.Directory() + "\\Scripts\\Hook\\", ""));
+            string outputFile = Path.Combine(outDir, Path.Combine(Path.GetDirectoryName(script), Path.GetFileNameWithoutExtension(script) + ".bf").Replace(Exe.Directory() + "\\Temp\\Hook\\", ""));
             Directory.CreateDirectory(Path.GetDirectoryName(outputFile));
 
             string[] args = new string[] {
@@ -477,9 +520,9 @@ namespace ModMenuBuilder
 
             using (FileSys.WaitForFile(outputFile)) { }
             if (File.Exists(outputFile))
-                Output.Log($"Compiled script successfully: {script}", ConsoleColor.Green);
+                Output.Log($"Compiled script successfully: {outputFile}", ConsoleColor.Green);
             else
-                Output.Log($"Failed to compile script: {script}", ConsoleColor.Red);
+                Output.Log($"Failed to compile script: {outputFile}", ConsoleColor.Red);
 
             return outputFile;
         }

@@ -27,6 +27,14 @@ namespace ModMenuBuilder
             if (File.Exists("version.txt"))
                 txt_Version.Text = File.ReadAllText("version.txt");
 
+#if DEBUG
+            Program.Show();
+            System.Threading.Thread.Sleep(200);
+            Output.LogControl = null;
+            chk_Reindex.Checked = false;
+            chk_Decompile.Checked = true;
+#endif
+
             rtb_Log.Text += $"{this.Text} by ShrineFox\nProcesses and compiles scripts for Persona 5 on PS3, PS4, PC and Switch.";
         }
 
