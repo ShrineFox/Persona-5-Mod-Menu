@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -23,13 +24,9 @@ namespace ModMenuBuilder
                 txt_Path.Text = File.ReadAllText("compilerPath.txt");
             if (File.Exists("outputPath.txt"))
                 txt_OutPath.Text = File.ReadAllText("outputPath.txt");
-#if DEBUG
-            Program.Show();
-            System.Threading.Thread.Sleep(200);
-            Output.LogControl = null;
-            chk_Reindex.Checked = false;
-            chk_Decompile.Checked = true;
-#endif
+            if (File.Exists("version.txt"))
+                txt_Version.Text = File.ReadAllText("version.txt");
+
             rtb_Log.Text += $"{this.Text} by ShrineFox\nProcesses and compiles scripts for Persona 5 on PS3, PS4, PC and Switch.";
         }
 
@@ -73,13 +70,22 @@ namespace ModMenuBuilder
             {
                 args.Add("-j"); args.Add("MS");
             }
+            if (!string.IsNullOrEmpty(txt_Version.Text))
+            {
+                args.Add("-v"); args.Add(txt_Version.Text);
+            }
             args.Add("-o"); args.Add(txt_OutPath.Text);
 
+            if (chk_VerboseLog.Checked)
+                Output.VerboseLogging = true;
+            else
+                Output.VerboseLogging = false;
             btn_Build.Enabled = false;
             Task.Run(() => {
                 Program.StartWithOptions(args.ToArray());
             });
             btn_Build.Enabled = true;
+            SystemSounds.Exclamation.Play();
         }
 
         private void Path_Changed(object sender, EventArgs e)
@@ -134,6 +140,11 @@ namespace ModMenuBuilder
             {
                 chk_RepackPACs.Enabled = true;
             }
+        }
+
+        private void VersionString_Changed(object sender, EventArgs e)
+        {
+            File.WriteAllText("version.txt", txt_Version.Text);
         }
     }
 }

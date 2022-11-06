@@ -37,7 +37,6 @@ namespace ModMenuBuilder
             ProcessScripts(); // Enable/disable game-specific elements of Mod Menu .flow/.msg and reindex .msg files
 
             Output.Log("\nDone!", ConsoleColor.Green);
-            SystemSounds.Exclamation.Play();
         }
 
         public static void UnpackPACs()
@@ -368,6 +367,10 @@ namespace ModMenuBuilder
                     else
                         line = line.Replace($"// {selectedType}","").Replace($"//{selectedType}","");
                     
+                    if (line.Contains("// Version") || line.Contains("//Version"))
+                    {
+                        line = line.Replace("// Version", $"[n]{Program.Options.Version}").Replace("//Version",$"[n]{Program.Options.Version}");
+                    }
                     if (!string.IsNullOrEmpty(line))
                         newLines.Add(line);
                 }

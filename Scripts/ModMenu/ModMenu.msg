@@ -66,8 +66,8 @@ View options exclusive
 
 [dlg Message_About]
 [clr 9]Persona 5 Mod Menu[clr 0] by [clr 6]ShrineFox[clr 0]
-[n]Version
-[n]github.com/Shrinefox/Persona-5-Mod-Menu[w][e]
+// Version
+[n][clr 1]github.com/Shrinefox/Persona-5-Mod-Menu[clr 0][w][e]
 Created using [clr 1]TGE[clr 0]'s [clr 1]Atlus-Script-Tools[clr 0].
 [n]github.com/tge-was-taken/Atlus-Script-Tools[w][e]
 For more information, visit:

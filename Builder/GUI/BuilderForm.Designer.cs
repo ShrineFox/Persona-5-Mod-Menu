@@ -55,6 +55,9 @@ namespace ModMenuBuilder
             this.chk_RepackPACs = new DarkUI.Controls.DarkCheckBox();
             this.chk_Reindex = new DarkUI.Controls.DarkCheckBox();
             this.chk_Decompile = new DarkUI.Controls.DarkCheckBox();
+            this.lbl_Version = new DarkUI.Controls.DarkLabel();
+            this.txt_Version = new DarkUI.Controls.DarkTextBox();
+            this.chk_VerboseLog = new DarkUI.Controls.DarkCheckBox();
             this.groupBox_Version.SuspendLayout();
             this.groupBox_Platform.SuspendLayout();
             this.groupBox_Joypad.SuspendLayout();
@@ -276,7 +279,7 @@ namespace ModMenuBuilder
             this.tlp_Main.RowCount = 4;
             this.tlp_Main.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 125F));
             this.tlp_Main.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.tlp_Main.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.tlp_Main.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 70F));
             this.tlp_Main.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tlp_Main.Size = new System.Drawing.Size(438, 409);
             this.tlp_Main.TabIndex = 10;
@@ -287,7 +290,7 @@ namespace ModMenuBuilder
             this.rtb_Log.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.rtb_Log.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rtb_Log.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.rtb_Log.Location = new System.Drawing.Point(3, 263);
+            this.rtb_Log.Location = new System.Drawing.Point(3, 298);
             this.rtb_Log.Name = "rtb_Log";
             this.rtb_Log.ReadOnly = true;
             this.rtb_Log.Size = new System.Drawing.Size(432, 143);
@@ -314,6 +317,7 @@ namespace ModMenuBuilder
             this.tlp_Paths.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 70.96774F));
             this.tlp_Paths.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 27F));
             this.tlp_Paths.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 41F));
+            this.tlp_Paths.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tlp_Paths.Size = new System.Drawing.Size(432, 119);
             this.tlp_Paths.TabIndex = 0;
             // 
@@ -342,15 +346,19 @@ namespace ModMenuBuilder
             this.tlp_Checkboxes.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tlp_Checkboxes.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tlp_Checkboxes.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tlp_Checkboxes.Controls.Add(this.chk_VerboseLog, 2, 1);
+            this.tlp_Checkboxes.Controls.Add(this.txt_Version, 1, 1);
             this.tlp_Checkboxes.Controls.Add(this.chk_RepackPACs, 0, 0);
             this.tlp_Checkboxes.Controls.Add(this.chk_Reindex, 2, 0);
             this.tlp_Checkboxes.Controls.Add(this.chk_Decompile, 1, 0);
+            this.tlp_Checkboxes.Controls.Add(this.lbl_Version, 0, 1);
             this.tlp_Checkboxes.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlp_Checkboxes.Location = new System.Drawing.Point(3, 228);
             this.tlp_Checkboxes.Name = "tlp_Checkboxes";
-            this.tlp_Checkboxes.RowCount = 1;
-            this.tlp_Checkboxes.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlp_Checkboxes.Size = new System.Drawing.Size(432, 29);
+            this.tlp_Checkboxes.RowCount = 2;
+            this.tlp_Checkboxes.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tlp_Checkboxes.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tlp_Checkboxes.Size = new System.Drawing.Size(432, 64);
             this.tlp_Checkboxes.TabIndex = 4;
             // 
             // chk_RepackPACs
@@ -358,9 +366,9 @@ namespace ModMenuBuilder
             this.chk_RepackPACs.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.chk_RepackPACs.AutoSize = true;
             this.chk_RepackPACs.Enabled = false;
-            this.chk_RepackPACs.Location = new System.Drawing.Point(3, 4);
+            this.chk_RepackPACs.Location = new System.Drawing.Point(3, 5);
             this.chk_RepackPACs.Name = "chk_RepackPACs";
-            this.chk_RepackPACs.Size = new System.Drawing.Size(138, 21);
+            this.chk_RepackPACs.Size = new System.Drawing.Size(137, 21);
             this.chk_RepackPACs.TabIndex = 2;
             this.chk_RepackPACs.Text = "Pack output .PACs";
             // 
@@ -370,7 +378,7 @@ namespace ModMenuBuilder
             this.chk_Reindex.AutoSize = true;
             this.chk_Reindex.Checked = true;
             this.chk_Reindex.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chk_Reindex.Location = new System.Drawing.Point(307, 4);
+            this.chk_Reindex.Location = new System.Drawing.Point(307, 5);
             this.chk_Reindex.Name = "chk_Reindex";
             this.chk_Reindex.Size = new System.Drawing.Size(122, 21);
             this.chk_Reindex.TabIndex = 0;
@@ -380,11 +388,46 @@ namespace ModMenuBuilder
             // 
             this.chk_Decompile.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.chk_Decompile.AutoSize = true;
-            this.chk_Decompile.Location = new System.Drawing.Point(147, 4);
+            this.chk_Decompile.Location = new System.Drawing.Point(146, 5);
             this.chk_Decompile.Name = "chk_Decompile";
-            this.chk_Decompile.Size = new System.Drawing.Size(138, 21);
+            this.chk_Decompile.Size = new System.Drawing.Size(137, 21);
             this.chk_Decompile.TabIndex = 1;
             this.chk_Decompile.Text = "Decompile output";
+            // 
+            // lbl_Version
+            // 
+            this.lbl_Version.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbl_Version.AutoSize = true;
+            this.lbl_Version.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.lbl_Version.Location = new System.Drawing.Point(3, 39);
+            this.lbl_Version.Name = "lbl_Version";
+            this.lbl_Version.Size = new System.Drawing.Size(137, 17);
+            this.lbl_Version.TabIndex = 3;
+            this.lbl_Version.Text = "Version string:";
+            // 
+            // txt_Version
+            // 
+            this.txt_Version.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.txt_Version.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(73)))), ((int)(((byte)(74)))));
+            this.txt_Version.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txt_Version.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(220)))), ((int)(((byte)(220)))));
+            this.txt_Version.Location = new System.Drawing.Point(146, 37);
+            this.txt_Version.Name = "txt_Version";
+            this.txt_Version.Size = new System.Drawing.Size(137, 22);
+            this.txt_Version.TabIndex = 10;
+            this.txt_Version.TextChanged += new System.EventHandler(this.VersionString_Changed);
+            // 
+            // chk_VerboseLog
+            // 
+            this.chk_VerboseLog.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.chk_VerboseLog.AutoSize = true;
+            this.chk_VerboseLog.Checked = true;
+            this.chk_VerboseLog.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chk_VerboseLog.Location = new System.Drawing.Point(299, 37);
+            this.chk_VerboseLog.Name = "chk_VerboseLog";
+            this.chk_VerboseLog.Size = new System.Drawing.Size(130, 21);
+            this.chk_VerboseLog.TabIndex = 11;
+            this.chk_VerboseLog.Text = "Verbose Output";
             // 
             // BuilderForm
             // 
@@ -439,5 +482,8 @@ namespace ModMenuBuilder
         private DarkUI.Controls.DarkCheckBox chk_Reindex;
         private DarkUI.Controls.DarkCheckBox chk_Decompile;
         private DarkUI.Controls.DarkCheckBox chk_RepackPACs;
+        private DarkUI.Controls.DarkLabel lbl_Version;
+        private DarkUI.Controls.DarkTextBox txt_Version;
+        private DarkUI.Controls.DarkCheckBox chk_VerboseLog;
     }
 }

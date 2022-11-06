@@ -80,7 +80,8 @@ namespace ModMenuBuilder
 
             Output.Log($"Building {SelectedGame.ShortName} ({SelectedGame.Platform} platforms) Mod Menu" +
                 $"\n\tButton Names: {Options.Joypad}\n\tReindex messages: {Options.Reindex}" +
-                $"\n\tDecompile output: {Options.Decompile}\n\tRepack .PACs: {Options.Pack}\n\n");
+                $"\n\tDecompile output: {Options.Decompile}\n\tRepack .PACs: {Options.Pack}" +
+                $"\n\tVersion string: {Options.Version}\n\n");
 
             // Begin building Mod Menu output
             MenuBuilder.Build();
@@ -130,6 +131,9 @@ namespace ModMenuBuilder
 
         [Option("r", "reindex", "bool", "Whether to re-number messages, takes longer but fixes descriptions. (default: false)")]
         public bool Reindex { get; set; } = false;
+
+        [Option("v", "version", "string", "Version string to show in About Menu option. (default: blank)")]
+        public string Version { get; set; } = "";
     }
 
     public class InputFile
