@@ -1,3 +1,8 @@
+# Attention
+This repository has very recently (November 2022) been restructured in response to Persona 5 Royal coming to PC and Switch.  
+These changes make it easier to maintain the PS3 and PS4 versions of the menu while keeing all changes in sync with the new ports.  
+**No update has been released just yet**, but you can expect a new release as soon as bugs have been sufficiently fixed ([track progress here](https://trello.com/c/On4NnqmQ/54-persona-5r-mod-menu-update).)
+
 # Persona 5 (Royal) Mod Menu
 **Custom scripts for P5 & P5R that replace the square button function with a fully featured trainer**
 ![Image of the menu ingame](https://cdn.discordapp.com/attachments/428021649246388224/447597680018063372/unknown.png)
@@ -13,29 +18,42 @@
 - Toggle the HUD, navigator character, party members, romance flags and more
 - Instantly change the current date and weather
 - Add Personas and change you or your party members' Skills
+
 ## Installing the Mod
 ### PS3, PS4 & Switch
 1. Read about [how to add Mod Support to your target platform](https://docs.shrinefox.com/).
 2. Get the latest [Aemulus .zip](https://github.com/ShrineFox/Persona-5-Mod-Menu/releases) for your version of the game.
 3. Extract to the ``Packages`` folder of [Aemulus Package Manager](https://github.com/TekkaGB/AemulusModManager/releases).
 4. Click ``Build`` to merge this mod with other mods of your choice.
+
 ### PC
 1. Read about [how to add Mod Support](https://docs.shrinefox.com/getting-started/persona-5-royal-pc-mod-support) to the PC version using ReloadedII.
 2. Get the latest [Reloaded .zip](https://github.com/ShrineFox/Persona-5-Mod-Menu/releases). 
 3. Extract to the ``Mods`` folder of [Reloaded II](https://github.com/Reloaded-Project/Reloaded-II).
 4. Enable the mod and launch the game via Reloaded II.
 
-## Building the Mod Menu from Source
-Follow these instructions if you would like to make edits to the menu, whether for your own purposes or to contribute to the project.
+## Editing the Menu
+If you'd like to make changes to the script and build your own version of the mod, follow these steps.  
+1. Download ``ModMenuBuilder.zip`` from the [latest release]().
+2. Extract it and run ``ModMenuBuilder.exe``.
+3. Download and extract ``AtlusScriptCompiler``. Add the path to the ``.exe`` in the ModMenuBuilder.
+4. Set the directory where you want the Mod Menu output to be built. i.e. ``Steam\steamapps\common\P5R\Reloaded\Mods\p5rpc.misc.modmenu\P5REssentials\CPK\EN.CPK``
+5. Click Build and it will compile the scripts to the output folder.  
+![Image of ModMenuBuilder program](https://i.imgur.com/mMTTcI3.png)  
+See [the project's Wiki](https://github.com/ShrineFox/Persona-5-Mod-Menu/wiki) to better understand the Builder's usage, features and settings.  
+See [this tutorial](https://docs.shrinefox.com/flowscript/intro-to-scripting) for getting started editing flowscript.
+
+## Building From Source
+Follow these instructions if you would like to edit the builder program itself.  
 1. Clone this repository using [Git](https://git-scm.com/downloads) or [GitHub Desktop](https://desktop.github.com/).
 2. Run the solution (``.sln``) file with Visual Studio.
 3. Also clone [AtlusFileSystemLibrary](https://github.com/tge-was-taken/AtlusFileSystemLibrary), [SimpleCommandLine](https://github.com/tge-was-taken/SimpleCommandLine), and [ShrineFox.IO](https://github.com/ShrineFox/ShrineFox.IO) to the same location, as they are referenced by the project.
 4. Open ``ModMenuBuilder.sln`` in [Visual Studio](https://visualstudio.microsoft.com/).
-5. Modify any of the .flow or .msg files in the project, or the builder code itself.
+5. Modify any of the ``.flow`` or ``.msg`` files in the project, or the builder code itself.
 6. Click ``Start`` to run the program.
 7. Provide the paths to ``AtlusScriptCompiler.exe`` and your output folder (this varies by platform, see Mod Support guides linked earlier).
-8. Check "Reindex Messages" to recompile scripts with fixed description text. This can take awhile, so it's disabled by default for easy testing.
-9. Click the ``Build`` button to output the final, compiled scripts to your destination.
+8. Check "Reindex Messages" to recompile scripts with fixed description text. This can take awhile, so it's recommended to disable while testing.
+9. Click the ``Build`` button to output the final, compiled scripts to your destination.  
 
 ## Contributing to the Repository
 2. Create your own fork of the project.
@@ -43,6 +61,8 @@ Follow these instructions if you would like to make edits to the menu, whether f
 4. Commit the changes to your fork.
 5. Open a pull request on this repository by comparing it to your fork.
 6. Your changes will be reviewed and merged once approved.
+You don't need to use Visual Studio if you're only editing the ``.flow`` and ``.msg`` files.  
+If you already used the prebuilt ModMenuBuilder to edit scripts, copy and paste your ``Scripts`` folder into the cloned solution folder, and overwrite the contents.
 
 ## FAQ
 ### Why Create a Builder?
