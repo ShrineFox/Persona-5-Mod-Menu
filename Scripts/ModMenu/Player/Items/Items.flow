@@ -43,12 +43,10 @@ void ItemsMenu()
 
 void ItemGetSelect(int type)
 {
-    SystemMessage(Message_ItemID);
-    int itemId = NumberMenu(4);
+    int itemId = NumberMenu(4, Title_ItemID);
     if (itemId == -1)
         return;
-    SystemMessage(Message_ItemAmount);
-    int amount = NumberMenu(2);
+    int amount = NumberMenu(2, Title_ItemAmount);
     if (amount == -1)
         return;
 

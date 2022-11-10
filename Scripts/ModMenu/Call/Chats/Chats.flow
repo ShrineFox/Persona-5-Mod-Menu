@@ -2,8 +2,7 @@ import("Chats.msg");
 
 void ChatMenu()
 {
-	SystemMessage(Message_ChatID);
-    int ChatID = NumberMenu(4);
+    int ChatID = NumberMenu(4, Title_ChatID);
     if (ChatID == -1)
         return;
 	else

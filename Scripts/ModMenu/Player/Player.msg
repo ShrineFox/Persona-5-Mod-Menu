@@ -54,3 +54,6 @@ Add points to your Knowledge,
 [dlg GENERIC_HELP_10]
 Select a Confidant and set your
 [n]current rank with their Arcana.[e]
+
+[dlg Title_Yen]
+Add Yen (7 Digits)[w][e]

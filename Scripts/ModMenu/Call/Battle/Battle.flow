@@ -21,8 +21,7 @@ void BattleMenu()
 
 void RegularBattle()
 {
-    SystemMessage(Message_EncounterID);
-    int id = NumberMenu(3);
+    int id = NumberMenu(3, Title_EncountID);
 
     if (id == -1)
         return;

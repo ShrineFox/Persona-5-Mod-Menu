@@ -67,21 +67,24 @@ namespace ModMenuBuilder
             return result;
         }
 
+        public static string[] FlagFuncs = new string[] { "BIT_ON", "BIT_OFF", "BIT_CHK", "ToggleFlag" };
+
         public static string Get(string line)
         {
-            // Not sure why this won't match...
-            /* string pattern = @"^(?<WhiteSpace>\s+?)BIT_(?<Mode>\w+?)\( (?<BitFlag>\d+?)(?<Operators>\D+?)\);";
-            if (Regex.IsMatch(line, pattern))
+            string newLine = line.Replace("( ","(").Replace(" )",")").Replace(" (", "(").Replace(") ",")");
+            foreach (var func in FlagFuncs)
             {
-                var match = Regex.Match(line, pattern);
-                string value = match.Groups["BitFlag"].Value;
-                return value;
-            } */
-
-            string value = "";
-            value = line.Trim().Replace("BIT_ON(","").Replace("BIT_OFF(","").Replace("ToggleFlag(", "").Trim().Split(' ', ',', ')', '+', '-', '*', '/')[0];
-
-            return value;
+                if (newLine.Contains(func + "("))
+                {
+                    string value = "";
+                    int index = newLine.IndexOf(func + "(") + func.Length + 1;
+                    string newLine2 = newLine.Substring(index);
+                    value = newLine2.Split(' ', ',', ')', '+', '-', '*', '/')[0];
+                    if (value != "")
+                        return value;
+                }
+            }
+            return "";
         }
     }
 }

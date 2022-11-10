@@ -66,3 +66,27 @@ Enter the last half of the
 Set the character's model scale.
 [n](press [clr 2]○[clr 0] to end)
 [n]Default is 10.[w][e]
+
+[dlg Title_NPCFirst]
+NPC GMD (First 4 Digits)[w][e]
+
+[dlg Title_NPCMiddle]
+NPC GMD (Middle 3 Digits)[w][e]
+
+[dlg Title_NPCLast]
+NPC GMD (Last 2 Digits)[w][e]
+
+[dlg Title_NPCItemMajor]
+Item GMD (First 4 Digits)[w][e]
+
+[dlg Title_NPCItemMinor]
+Item GMD (Last 3 Digits)[w][e]
+
+[dlg Title_NPCObjMajor]
+Object GMD (First 3 Digits)[w][e]
+
+[dlg Title_NPCObjMinor]
+Object GMD (Last 3 Digits)[w][e]
+
+[dlg Title_NPCItemBoneID]
+NPC Bone ID (3 Digits)[w][e]

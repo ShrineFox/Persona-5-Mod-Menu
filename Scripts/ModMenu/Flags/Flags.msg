@@ -35,10 +35,10 @@ Enter the percent chance out of
 Flags have been [clr 1][f 2 4 0][clr 0]% randomized.
 [n]have fun![w][e]
 
-[dlg Title_ToggleFlagsByID]
+[dlg Title_ToggleByID]
 Toggle Flags by ID[w][e]
 
-[sel Options_ToggleFlagsByID]
+[sel Options_ToggleByID]
 Set Individual Flag[ref 0 11][e]
 Set Start Range[ref 1 12][e]
 Set End Range[ref 2 13][e]
@@ -82,3 +82,12 @@ Are you sure you want to set
 [dlg Message_ToggleRangeComplete]
 The selected range has been
 [n]successfully toggled.[w][e]
+
+[dlg Title_RangeStart]
+Range Start (5 Digits)[w][e]
+
+[dlg Title_RangeEnd]
+Range End (5 Digits)[w][e]
+
+[dlg Title_FlagID]
+Flag ID (5 Digits)[w][e]

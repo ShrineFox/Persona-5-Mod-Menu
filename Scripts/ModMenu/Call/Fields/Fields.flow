@@ -15,26 +15,22 @@ void FieldMenu()
                 break;
             case 1:
                 // Manual ID Entry
-                SystemMessage(Message_FieldSelect_Major);
-                int fieldMajor = NumberMenu(3);
+                int fieldMajor = NumberMenu(3, Title_FieldMajor);
                 if (fieldMajor == -1)
                     break;
 
-                SystemMessage(Message_FieldSelect_Minor);
-                int fieldMinor = NumberMenu(3);
+                int fieldMinor = NumberMenu(3, Title_FieldMinor);
                 if (fieldMinor == -1)
                     break;
 				
-				SystemMessage(Message_FieldSelect_Entrance);
-                int fieldEntrance = NumberMenu(4);
+                int fieldEntrance = NumberMenu(4, Title_FieldEnter);
                 if (fieldEntrance == -1)
                     break;
 					
                 CALL_FIELD(fieldMajor, fieldMinor, fieldEntrance, 0);
                 return;
             case 2:
-                // Reload Current Field
-                ConfirmReloadField();
+                ReloadCurrentField();
                 return;
         }
     }

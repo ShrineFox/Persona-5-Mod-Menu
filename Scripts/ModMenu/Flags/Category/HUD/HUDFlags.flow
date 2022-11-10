@@ -12,6 +12,9 @@ void HUDFlagsMenu()
             case 0:
                 ToggleHUD();
                 break;
+            case 1:
+                InvertHUD();
+                break;
         }
     }
 }
@@ -30,5 +33,18 @@ void ToggleHUD()
         // Turn On HUD
         DATE_DISP(1);
         FLD_PANEL_DISP(1);
+    }
+}
+
+void InvertHUD()
+{
+    int invert = SystemMenu(Message_InvertHUD, Options_OnOff);
+    if (invert)
+    {
+        BIT_ON(8487);
+    }
+    else
+    {
+        BIT_OFF(8487);
     }
 }

@@ -76,3 +76,6 @@ Torrential Rain[e]
 Sunny Heatwave/ Hot Night[e]
 Sunny Flu Season[e]
 Cloudy Flu Season[e]
+
+[dlg Title_Day]
+Day (2 Digits)[w][e]

@@ -84,7 +84,7 @@ namespace ModMenuBuilder
                 "*.flow", SearchOption.AllDirectories))
             {
                 using (FileSys.WaitForFile(script)) { }
-                if (Program.SelectedGame.Type.Equals("Royal"))
+                if (Program.SelectedGame.Type.ToString().Equals("Royal"))
                     Royalify(script); 
             }
             Output.Log($"Done converting bitflags in .flow files.", ConsoleColor.Green);
@@ -359,20 +359,26 @@ namespace ModMenuBuilder
                 for (int i = 0; i < lines.Length; i++)
                 {
                     var line = lines[i].Trim();
-                    if (line.StartsWith("BIT_OFF(") || line.StartsWith("BIT_ON(") || line.StartsWith("ToggleFlag("))
+                    if (!line.Contains("0x") && Flag.FlagFuncs.Any(x => line.Contains(x)))
                     {
                         // Attempt to convert vanilla bitflag to Royal flag
                         string flag = Flag.Get(line);
                         int convertedFlag = -1;
-                        try
+                        if (flag != "")
                         {
-                            convertedFlag = Flag.ConvertToRoyal(Convert.ToInt32(flag));
+                            try
+                            {
+                                convertedFlag = Flag.ConvertToRoyal(Convert.ToInt32(flag));
+                            }
+                            catch { }
                         }
-                        catch { }
-
                         // Replace line and notify user of this change
-                        if (convertedFlag != -1 && convertedFlag.ToString() != flag) 
-                            newLines.Add(lines[i].Replace(flag, convertedFlag.ToString()));
+                        if (convertedFlag != -1 && convertedFlag.ToString() != flag)
+                        {
+                            string newLine = lines[i].Replace(flag, convertedFlag.ToString());
+                            newLines.Add(newLine);
+                            Output.VerboseLog($"Bitflag updated in {Path.GetFileName(script)}: {line}\n\t==> {newLine}", ConsoleColor.Magenta);
+                        }
                         else // Use original flag if flag could not be converted to Royal
                             newLines.Add(lines[i]);
                     }

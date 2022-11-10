@@ -16,3 +16,6 @@ Input the ID of the Skill to add.
 [dlg Message_SkillAdded]
 The chosen Skill has been added
 [n]to your equipped Persona.[w][e]
+
+[dlg Title_SkillID]
+Skill ID (4 Digits)[w][e]

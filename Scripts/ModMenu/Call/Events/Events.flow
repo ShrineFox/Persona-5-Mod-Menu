@@ -21,13 +21,11 @@ void EventMenu()
 
 void EventSelect_ByID()
 {
-    SystemMessage(Message_EventID_Major);
-    int eventMajor = NumberMenu(3);
+    int eventMajor = NumberMenu(3, Title_EventMajor);
     if (eventMajor == -1)
         return;
 
-    SystemMessage(Message_EventID_Minor);
-    int eventMinor = NumberMenu(3);
+    int eventMinor = NumberMenu(3, Title_EventMinor);
     if (eventMinor == -1)
         return;
 
@@ -37,13 +35,11 @@ void EventSelect_ByID()
 
 void KfEventSelect_ByID()
 {
-    SystemMessage(Message_KFEventID_Major);
-    int eventMajor = NumberMenu(3);
+    int eventMajor = NumberMenu(3, Title_KFEventMajor);
     if (eventMajor == -1)
         return;
 
-    SystemMessage(Message_KFEventID_Minor);
-    int eventMinor = NumberMenu(3);
+    int eventMinor = NumberMenu(3, Title_KFEventMinor);
     if (eventMinor == -1)
         return;
 

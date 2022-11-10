@@ -61,3 +61,9 @@ Enter the item ID you want.
 [dlg Message_ItemAmount]
 Enter how many items you want.
 [n](2 digits, press [clr 2]○[clr 0] to end)[w][e]
+
+[dlg Title_ItemID]
+Item ID (4 Digits)[w][e]
+
+[dlg Title_ItemAmount]
+Item Amount (2 Digits)[w][e]

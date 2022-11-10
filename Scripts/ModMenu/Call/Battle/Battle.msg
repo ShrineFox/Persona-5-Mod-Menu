@@ -174,3 +174,6 @@ MISC[e]
 [dlg Message_EncounterID]
 Set the number of the encounter
 [n]you want to fight (3 digits).[w][e]
+
+[dlg Title_EncountID]
+Encounter ID (3 Digits)[w][e]

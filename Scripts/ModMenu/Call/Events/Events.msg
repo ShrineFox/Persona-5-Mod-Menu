@@ -39,3 +39,15 @@ Choose the first 3 digits of
 Choose the last 3 digits of
 [n]the KeyFree Event to load.
 [n](3 digits, [clr 2]○ button[clr 0] to end)[w][e]
+
+[dlg Title_EventMajor]
+Event Major ID (3 Digits)[w][e]
+
+[dlg Title_EventMinor]
+Event Minor ID (3 Digits)[w][e]
+
+[dlg Title_KFEventMajor]
+KFEvent Major ID (3 Digits)[w][e]
+
+[dlg Title_KFEventMinor]
+KFEvent Minor ID (3 Digits)[w][e]

@@ -27,15 +27,11 @@ void CalendarMenu()
 
 void CalendarSetNextDaySelect()
 {
-    SystemMessage(Message_CalendarMonth);
     int month = NameMenu(Title_CalendarMonth, Options_CalendarMonth) + 1;
-
     if (month <= 0)
         return;
 
-    SystemMessage(Message_CalendarDay);
-    int day = NumberMenu(2);
-
+    int day = NumberMenu(2, Title_Day);
     if (day <= 0)
         return;
 

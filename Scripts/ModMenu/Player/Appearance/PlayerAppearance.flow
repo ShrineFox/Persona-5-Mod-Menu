@@ -51,8 +51,7 @@ void ToggleBag()
         BIT_ON(4112);
     }
 
-    // ./Utilities/Utilities.flow
-    ConfirmReloadField();
+    ReloadCurrentField();
 }
 
 void ToggleMorgana()
