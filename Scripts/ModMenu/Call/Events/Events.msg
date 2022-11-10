@@ -6,9 +6,7 @@ Call Event[w][e]
 
 [sel Options_Events]
 Enter Event ID[ref 0 2][e]
-Load Event[ref 1 3][e]
 Enter KeyFree Event ID[ref 2 4][e]
-Load KeyFree Event[ref 3 5][e]
 
 [dlg GENERIC_HELP_2]
 Input the 6 digits of a
@@ -25,17 +23,17 @@ Choose the first 3 digits of
 [n]the Event to load.
 [n](3 digits, [clr 2]○ button[clr 0] to end)[w][e]
 
-[dlg Message_EventID_Minor [Event Select]]
+[dlg Message_EventID_Minor]
 Choose the last 3 digits of
 [n]the Event to load.
 [n](3 digits, [clr 2]○ button[clr 0] to end)[w][e]
 
-[dlg Message_KFEventID_Minor [KeyFree Event Select]]
+[dlg Message_KFEventID_Minor]
 Choose the first 3 digits of
 [n]the KeyFree Event to load.
 [n](3 digits, [clr 2]○ button[clr 0] to end)[w][e]
 
-[dlg Message_KFEventID_Major [KeyFree Event Select]]
+[dlg Message_KFEventID_Major]
 Choose the last 3 digits of
 [n]the KeyFree Event to load.
 [n](3 digits, [clr 2]○ button[clr 0] to end)[w][e]
