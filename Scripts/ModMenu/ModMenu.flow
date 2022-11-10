@@ -23,9 +23,11 @@ global int gBitFlagAmount;
 // Procedures
 void ModMenuDisplay()
 {
-    ALL_ENABLE_SHARE_PLAY(); // Re-enables screen recording
-    BIT_OFF( 4099 ); // Removes your "tired" status
-    PrintPosition(); // Logs your current coordinates
+    // Re-enables screen recording
+    ALL_ENABLE_SHARE_PLAY();
+    BIT_OFF(8746);
+    // Logs your current coordinates
+    PrintPosition();
 
     /* Vanilla Start */
     gBitFlagAmount = 8960;

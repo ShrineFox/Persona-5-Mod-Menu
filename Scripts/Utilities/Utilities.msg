@@ -64,8 +64,8 @@ Are you sure you want to
 [n]IDs may softlock the game.[w][e]
 
 [dlg Message_ConfirmFloatInput]
-Are you sure you want to[n]
-enter the number [clr 1][f 2 4 0].[f 2 4 1][clr 0]?[w][e]
+Are you sure you want to
+[n]enter the number [clr 1][f 2 4 0].[f 2 4 1][clr 0]?[w][e]
 
 [dlg Message_ReloadConfirm]
 The field needs to be reloaded
@@ -76,7 +76,7 @@ The field needs to be reloaded
 Choose Party Member[w][e]
 
 [sel Options_Units]
-Joker[e]
+[f 4 2] [f 4 1][e]
 [f 2 4 2][e]
 [f 2 4 3][e]
 [f 2 4 4][e]

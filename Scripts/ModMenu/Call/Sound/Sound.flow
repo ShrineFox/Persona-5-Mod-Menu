@@ -24,8 +24,7 @@ void SoundMenu()
 
 void SelectBGM()
 {
-    SystemMessage(Message_BGMSelect);
-    int bgmId = NumberMenu(3);
+    int bgmId = NumberMenu(3, Title_BGMID);
     if (bgmId == -1)
         return;
     BGM(bgmId);

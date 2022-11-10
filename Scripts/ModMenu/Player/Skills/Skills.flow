@@ -34,7 +34,7 @@ void AddSkillByID()
 
     SystemMessage(Message_AddSkillByID);
 
-    int skillId = NumberMenu(4);
+    int skillId = NumberMenu(4, Title_SkillID);
     if (skillId == -1)
     {
         return;

@@ -32,30 +32,33 @@ int SystemMenu(int messageId, int optionsMsgId)
 // "What Should I Do?" style menu
 int Menu(int optionsMsgId)
 {
-    return SEL_GENERIC_NOT_HELP(-1, optionsMsgId);
+    int selection = SEL_GENERIC_NOT_HELP(-1, optionsMsgId);
+    return selection;
 }
 
 // "What Should I Do?" style menu with caption
 int NameMenu(int nameMsgId, int optionsMsgId)
 {
-    return SEL_GENERIC_NOT_HELP(nameMsgId, optionsMsgId);
+    int selection = SEL_GENERIC_NOT_HELP(nameMsgId, optionsMsgId);
+    return selection;
 }
 
 // "What Should I Do?" style menu with caption and descriptions
 int DescriptionMenu(int nameMsgId, int optionsMsgId)
 {
-    return SEL_GENERIC(nameMsgId, optionsMsgId);
+    int selection = SEL_GENERIC(nameMsgId, optionsMsgId);
+    return selection;
 }
 
 // "What Should I Do?" style menu with 0-9 digit entry, 
 // returns int with a set number of digits
-int NumberMenu(int digitCount)
+int NumberMenu(int digitCount, int nameMsgId)
 {
     int number = 0;
-
+    
     for (int i = 0; i < digitCount; i++)
     {
-        int digit = Menu(Options_Digits);
+        int digit = NameMenu(nameMsgId, Options_Digits);
 
         if (digit == -1)
         {
@@ -75,11 +78,6 @@ int NumberMenu(int digitCount)
     PUTS("NumberMenu returned: ");
     PUT(number);
 
-    if (ConfirmNumber(number) == 0)
-    {
-        return -1;
-    }
-
     return number;
 }
 
@@ -87,7 +85,8 @@ int NumberMenu(int digitCount)
 // with no confirmation. Used for Confidant Rank
 int NumberMenuTen()
 {
-    return Menu(Options_DigitsTen);
+    int selection = Menu(Options_DigitsTen);
+    return selection;
 }
 
 // "What Should I Do?" style menu with 0-9 digit entry, 
@@ -214,27 +213,20 @@ void ToggleFlag(int flagId, bool confirm)
     }
 }
 
-// Confirms if the user wants to reload the field right now if required
-bool ConfirmReloadField()
+void ReloadCurrentField()
 {
-    if (SystemMenu(Message_ReloadConfirm, Options_YesNo) == 0)
+    /* Royal Start */
+    if (FLD_GET_MAJOR() != 21 && FLD_GET_MINOR() != 1)
     {
-        /* Royal Start */
-        if (FLD_GET_MAJOR() != 21 && FLD_GET_MINOR() != 1)
-        {
-            /* Royal End */
-            CALL_FIELD(FLD_GET_MAJOR(), FLD_GET_MINOR(), 0, 0);
-            /* Royal Start */
-        }
-        else
-        {
-            FLD_MY_PALACE_ENTER();
-        }
         /* Royal End */
-        return true;
+        CALL_FIELD(FLD_GET_MAJOR(), FLD_GET_MINOR(), 0, 0);
+        /* Royal Start */
     }
-
-    return false;
+    else
+    {
+        FLD_MY_PALACE_ENTER();
+    }
+    /* Royal End */
 }
 
 void ReloadPreviousField()
@@ -244,3 +236,5 @@ void ReloadPreviousField()
         CALL_FIELD(FLD_GET_PREV_MAJOR(), FLD_GET_PREV_MINOR(), 0, 0);
     }
 }
+
+enum FlagSection

@@ -40,14 +40,12 @@ void AddPersonasMenu()
                 return;
             case 0:
                 // Add Persona by ID
-                SystemMessage(Message_AddPersonaByID);
-                personaId = NumberMenu(3);
+                personaId = NumberMenu(3, Title_PersonaID);
                 if (personaId == -1)
                 {
                     return;
                 }
                 ADD_PERSONA_STOCK(personaId);
-                SystemMessage(Message_PersonaAdded);
                 break;
             case 1:
                 // Add Persona by Name
@@ -57,12 +55,10 @@ void AddPersonasMenu()
                     return;
                 }
                 ADD_PERSONA_STOCK(personaId);
-                SystemMessage(Message_PersonaAdded);
                 break;
             case 2:
                 // Reserve/ReservePersonas.flow
                 ReservePersonasPage1();
-                SystemMessage(Message_PersonaAdded);
                 break;
         }
     }

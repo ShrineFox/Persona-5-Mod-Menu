@@ -36,18 +36,15 @@ void SpawnNPCsMenu()
 
 void NpcSpawnSelect()
 {
-    SystemMessage(Message_SpawnNPC_First);
-    int modelIdMajor = NumberMenu(4);
+    int modelIdMajor = NumberMenu(4, Title_NPCFirst);
     if (modelIdMajor == -1)
         return;
 
-    SystemMessage(Message_SpawnNPC_Middle);
-    int modelIdMinor = NumberMenu(3);
+    int modelIdMinor = NumberMenu(3, Title_NPCMiddle);
     if (modelIdMinor == -1)
         return;
 
-    SystemMessage(Message_SpawnNPC_Last);
-    int modelIdSub = NumberMenu(2);
+    int modelIdSub = NumberMenu(2, Title_NPCLast);
     if (modelIdSub == -1)
         return;
 
@@ -75,7 +72,6 @@ int NpcSpawn(int modelIdMajor, int modelIdMinor, int modelIdSub)
 
 void NpcScale()
 {
-    SystemMessage(Message_NPCScale);
     float temp = FloatMenu();
     if (temp == -1)
         return;
@@ -85,20 +81,21 @@ void NpcScale()
 
 void NpcAttachItemModel()
 {
-    SystemMessage(Message_NPCItem_First);
-    int itemModelMajor = NumberMenu(4);
+    int itemModelMajor = NumberMenu(4, Title_NPCItemMajor);
     if (itemModelMajor == -1)
         return;
-    SystemMessage(Message_NPCItem_Last);
-    int itemModelMinor = NumberMenu(3);
+    int itemModelMinor = NumberMenu(3, Title_NPCItemMinor);
     if (itemModelMinor == -1)
+        return;
+    int npcBoneID = NumberMenu(3, Title_NPCItemBoneID);
+    if (npcBoneID == -1)
         return;
     //FLD_PC_MODEL_ATTACH_ITEM( resHandle, itemModelMajor, itemModelMinor );
     int itemModel = FLD_ITEM_MODEL_LOAD(itemModelMajor, itemModelMinor);
     FLD_MODEL_LOADSYNC(itemModel);
     FLD_MODEL_SET_VISIBLE(itemModel, 1, 0);
-    FLD_MODEL_ATTACH_TRANSLATE(itemModel, gLastSpawnedNpcModelHandle, 101);
-    FLD_MODEL_ATTACH_ROTATE(itemModel, gLastSpawnedNpcModelHandle, 101);
+    FLD_MODEL_ATTACH_TRANSLATE(itemModel, gLastSpawnedNpcModelHandle, npcBoneID);
+    FLD_MODEL_ATTACH_ROTATE(itemModel, gLastSpawnedNpcModelHandle, npcBoneID);
 }
 
 void NpcSpawnObjectModel()
@@ -110,12 +107,10 @@ void NpcSpawnObjectModel()
     float yr = FLD_MODEL_GET_Y_ROTATE(gLastSpawnedNpcModelHandle);
     float zr = FLD_MODEL_GET_Z_ROTATE(gLastSpawnedNpcModelHandle);
 
-    SystemMessage(Message_NPCObject_First);
-    int objModelMajor = NumberMenu(3);
+    int objModelMajor = NumberMenu(3, Title_NPCObjMajor);
     if (objModelMajor == -1)
         return;
-    SystemMessage(Message_NPCObject_Last);
-    int objModelMinor = NumberMenu(3);
+    int objModelMinor = NumberMenu(3, Title_NPCObjMinor);
     if (objModelMinor == -1)
         return;
 

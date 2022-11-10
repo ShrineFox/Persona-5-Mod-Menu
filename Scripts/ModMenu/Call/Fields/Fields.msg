@@ -22,20 +22,14 @@ Enter IDs of field to
 Reload the field that
 [n]you're currently on.[e]
 
-[dlg Message_FieldSelect_Major]
-Choose the first 3 digits of
-[n]the field to load.
-[n](3 digits, [clr 2]○ button[clr 0] to end)[w][e]
+[dlg Title_FieldMajor]
+Field Major (3 Digits)[w][e]
 
-[dlg Message_FieldSelect_Minor]
-Choose the last 3 digits of
-[n]the field to load.
-[n](3 digits, [clr 2]○ button[clr 0] to end)[w][e]
+[dlg Title_FieldMinor]
+Field Minor (3 Digits)[w][e]
 
-[dlg Message_FieldSelect_Entrance]
-Choose the 4 digit ID of
-[n]the entrance to spawn in.
-[n](4 digits, [clr 2]○ button[clr 0] to end)[w][e]
+[dlg Title_FieldEnter]
+Entrance ID (4 Digits)[w][e]
 
 [msg Title_FieldCategories]
 Field Categories[e]

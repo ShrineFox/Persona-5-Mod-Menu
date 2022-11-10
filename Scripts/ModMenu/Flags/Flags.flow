@@ -27,7 +27,7 @@ void FlagsMenu()
             case -1:
                 return;
             case 0:
-                ToggleFlags_ByID();
+                ToggleBitflags_ByID();
                 break;
             case 1:
                 FlagCategoriesMenu();
@@ -35,7 +35,8 @@ void FlagsMenu()
             case 2:
                 // Randomize Flags
                 SystemMessage(Message_RandomizeFlags);
-                int chance = NumberMenu(3);
+                int chance = 
+                    (3);
                 if (chance != -1)
                 {
                     RandomizeFlags(chance);
@@ -55,26 +56,27 @@ void FlagsMenu()
     }
 }
 
-void ToggleFlags_ByID()
+void ToggleBitflags_ByID()
 {
     while (true)
     {
-        int selection = DescriptionMenu(Title_ToggleFlagsByID, Options_ToggleFlagsByID);
+        int selection = DescriptionMenu(Title_ToggleByID, Options_ToggleByID);
         switch (selection)
         {
             case -1:
                 return;
             case 0:
                 // Set Individual Flag
-                ToggleFlag(NumberMenu(5), true);
+                int selection = NumberMenu(5, Title_FlagID);
+                ToggleFlag(selection, true);
                 break;
             case 1:
                 // Set Start Range
-                range1 = NumberMenu(5);
+                range1 = NumberMenu(5, Title_RangeStart);
                 break;
             case 2:
                 // Set End Range
-                range2 = NumberMenu(5);
+                range2 = NumberMenu(5, Title_RangeEnd);
                 break;
             case 3:
                 // Enable Range

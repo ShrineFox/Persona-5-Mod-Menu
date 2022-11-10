@@ -53,7 +53,7 @@ void PlayerMenu()
 
 void PlayerSetMoney()
 {
-    int yen = NumberMenu(7);
+    int yen = NumberMenu(7, Title_Yen);
 
     if (yen > 0)
     {
@@ -66,6 +66,9 @@ void PlayerSetMoney()
 
 void SetPlayerName()
 {
+    /* Royal Start */
+        BIT_OFF(12052);
+    /* Royal End */
     INIT_IME_DRIVER();
     CALL_NAME_ENTRY();
     END_IME_DRIVER();
@@ -73,6 +76,9 @@ void SetPlayerName()
 
 void SetTeamName()
 {
+    /* Royal Start */
+        BIT_OFF(12052);
+    /* Royal End */
     INIT_IME_DRIVER();
     CALL_PHANTOM_NAME_ENTRY();
     END_IME_DRIVER();

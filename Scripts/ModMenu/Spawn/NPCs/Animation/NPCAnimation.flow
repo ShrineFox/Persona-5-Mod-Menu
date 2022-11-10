@@ -39,8 +39,7 @@ void NPCAnimationMenu(int lastSpawnedNpcModelHandle)
 
 void NPCAnimSelectGAPId()
 {
-    SystemMessage(Message_LastNPCGAPDigits);
-    int npcGAPMinorID = NumberMenu(3);
+    int npcGAPMinorID = NumberMenu(3, Title_NPCGAPID);
     if (npcGAPMinorID != -1)
         return;
 
@@ -49,9 +48,7 @@ void NPCAnimSelectGAPId()
 
 void NPCAnimSelectIndex()
 {
-    SystemMessage(Message_NPCGapAnimIndex);
-
-    int temp = NumberMenu(2);
+    int temp = NumberMenu(2, Title_NPCAnimID);
     if (temp != -1)
         gNpcAnimGapIndex = temp;
 }
@@ -64,8 +61,6 @@ void NPCAnimSetLoop()
 
 void NPCAnimSetSpeed()
 {
-    SystemMessage(Message_NPCGapSpeed);
-
     float temp = FloatMenu();
     if (temp != -1)
         gNpcAnimSpeed = temp / 10;
@@ -73,9 +68,7 @@ void NPCAnimSetSpeed()
 
 void NPCAnimSetTime()
 {
-    SystemMessage(Message_NPCGapTime);
-
-    int temp = NumberMenu(2);
+    int temp = NumberMenu(2, Title_NPCGAPTime);
     if (temp != -1)
         gNpcAnimTime = temp * 30;
 }

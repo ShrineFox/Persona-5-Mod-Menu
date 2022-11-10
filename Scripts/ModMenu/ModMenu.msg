@@ -2,7 +2,7 @@
 [w][e]
 
 [msg Title_ModMenu]
-Amicitia Mod Menu[e]
+Amicitia Mod Menu[w][e]
 
 [sel Options_ModMenu]
 Phone/Auto-Recover[ref 0 1][e]

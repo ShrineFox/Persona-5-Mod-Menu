@@ -1,0 +1,94 @@
+﻿import("MapFlags.msg");
+
+void MapFlagsMenu()
+{
+    while (true)
+    {
+        int selection = DescriptionMenu(Title_MapFlags, Options_MapFlags);
+        switch (selection)
+        {
+            case -1:
+                return;
+            case 0:
+                // Unset Tired Status
+                BIT_OFF(4099);
+                break;
+            case 1:
+                SetHideout();
+                break;
+            case 2:
+                // Enable Fast Travel
+                BIT_OFF(6147);
+                break;
+            case 3:
+                EnableHangoutSpots();
+                break;
+            case 4:
+                // Go out at night
+                BIT_ON(1184);
+                BIT_ON(1195);
+                break;
+            case 5:
+                // Thieves Den
+                BIT_ON(2117);
+                break;
+        }
+    }
+}
+
+void SetHideout()
+{
+    int selection = NameMenu(Title_Hideout, Options_Hideout);
+    switch (selection)
+    {
+        case -1:
+            return;
+        case 0:
+            BIT_ON(74);
+            BIT_OFF(75);
+            BIT_OFF(76);
+            BIT_OFF(77);
+            break;
+        case 1:
+            BIT_OFF(74);
+            BIT_ON(75);
+            BIT_OFF(76);
+            BIT_OFF(77);
+            break;
+        case 2:
+            BIT_OFF(74);
+            BIT_OFF(75);
+            BIT_ON(76);
+            BIT_OFF(77);
+            break;
+        case 3:
+            BIT_OFF(74);
+            BIT_OFF(75);
+            BIT_OFF(76);
+            BIT_ON(77);
+            break;
+    }
+}
+
+void EnableHangoutSpots()
+{
+    BIT_ON(4291); // Kichijoji
+    /* Vanilla Start */
+    for (int i = 8096; i < 8120; i++)
+    {
+        BIT_ON(i);
+    }
+    /* Vanilla End */
+    /* Royal Start */
+    for (int i = 10144; i < 10168; i++)
+    {
+        BIT_ON(i);
+    }
+    /* Royal End */
+    BIT_ON(8126); // Shinjuku
+    BIT_ON(8127); // Akihabara
+
+    // Activiate 3rd semester spots
+    BIT_ON(1008);
+    BIT_OFF(1012);
+}

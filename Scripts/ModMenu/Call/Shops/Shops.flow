@@ -2,8 +2,7 @@ import("Shops.msg");
 
 void ShopsMenu()
 {
-	SystemMessage(Message_ShopID);
-    int ShopID = NumberMenu(2);
+    int ShopID = NumberMenu(2, Title_ShopID);
     if (ShopID == -1)
         return;
 	else

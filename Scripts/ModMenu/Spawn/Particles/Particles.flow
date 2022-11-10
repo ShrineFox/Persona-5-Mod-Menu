@@ -45,7 +45,7 @@ void SpawnParticlesMenu()
                 }
                 break;
             case 1:
-                particleNumber = NumberMenu(3);
+                particleNumber = NumberMenu(3, Title_ParticleID);
                 if (particleNumber == -1)
                 {
                     particleNumber = 0;
@@ -66,12 +66,10 @@ void SpawnParticlesMenu()
                 SetEPL();
                 break;
             case 3:
-                SystemMessage(Message_ParticleScale);
                 particleScale = FloatMenu() / 10;
                 SetEPL();
                 break;
             case 4:
-                SystemMessage(Message_ParticleSpeed);
                 particleSpeed = FloatMenu() / 10;
                 SetEPL();
                 break;
@@ -82,7 +80,6 @@ void SpawnParticlesMenu()
                 SetEPL();
                 break;
             case 6:
-                SystemMessage(Message_ParticleAlpha);
                 particleAlpha = FloatMenu() / 10;
                 SetEPL();
                 break;

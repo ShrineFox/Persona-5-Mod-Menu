@@ -4,6 +4,18 @@
 [dlg Title_PlayerAnimation]
 Player Animation[w][e]
 
+[dlg Title_FldGAPID]
+Field GAP ID (3 Digits)[w][e]
+
+[dlg Title_GAPID]
+GAP ID (3 Digits)[w][e]
+
+[dlg Title_GAPTime]
+Anim Length (2 Digits)[w][e]
+
+[dlg Title_AnimID]
+Animation Index (2 Digits)[w][e]
+
 [sel Options_PlayerAnimation]
 Set Joker Field .GAP[ref 0 2][e]
 Set Animation Test GAP[ref 1 3][e]

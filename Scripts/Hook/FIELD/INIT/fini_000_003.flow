@@ -42,12 +42,12 @@ void ItemGet()
     int j = 0;
     for (j = 0; j < 9; j++)
     {
-        BIT_ON(0x40000000 + 48 + j);
+        BIT_ON(8448 + 48 + j);
     }
     // party editing
     int k = 0;
     for (k = 0; k < 7; k++)
     {
-        BIT_OFF(0x40000000 + 3 + k);
+        BIT_OFF(8448 + 3 + k);
     }
 }

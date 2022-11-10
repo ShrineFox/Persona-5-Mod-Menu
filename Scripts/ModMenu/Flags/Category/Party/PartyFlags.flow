@@ -22,13 +22,54 @@ void PartyFlagsMenu()
                 TogglePartyFollowers();
                 break;
             case 4:
-                ActivateBlackMaskAkechi();
+                ToggleBatonPass();
                 break;
             case 5:
+                ActivateBlackMaskAkechi();
+                break;
+            case 6:
                 ToggleYoshizawaName();
                 break;
-            // TODO: Add Showtimes
+            case 7:
+                ToggleShowTimes();
+                break;
         }
+    }
+}
+
+void ToggleShowTimes()
+{
+    while (true)
+    {
+        SetConfidantNames();
+        int selection = NameMenu(Title_Showtime, Options_Showtime);
+        if (selection == -1)
+            return;
+
+        if (selection == 11531)
+        {
+            // Joker/Kasumi
+            ToggleFlag(11542, false);
+        }
+        else
+        {
+            ToggleFlag(11525 + selection, false);
+        }
+    }
+}
+
+void ToggleBatonPass()
+{
+    while (true)
+    {
+        SetConfidantNames();
+        int selection = NameMenu(Title_Units, Options_Units);
+        if (selection == -1)
+            return;
+        int rank = NameMenu(Title_BatonRank, Options_BatonRank);
+        if (rank == -1)
+            return;
+        SET_COUNT(288 + selection, rank);
     }
 }
 
@@ -40,23 +81,23 @@ void TogglePartyMemberUnlocked()
         int selection = NameMenu(Title_Units, Options_UnitsNoJoker);
         if (selection == -1)
             return;
-        ToggleFlag(48 + selection, true);
+        ToggleFlag(8448 + 48 + selection, true);
     }
 }
 
 void TogglePartyEditing()
 {
     bool enable = true;
-    if (BIT_CHK(8451))
+    if (BIT_CHK(8448 + 3))
     {
         enable = false;
     }
-    for (int i = 8451; i < 8459; i++)
+    for (int i = 0; i < 7; i++)
     {
         if (enable)
-            BIT_ON(i);
+            BIT_ON(8448 + 3 + i);
         else
-            BIT_OFF(i);
+            BIT_OFF(8448 + 3 + i);
     }
 }
 
@@ -210,6 +251,6 @@ void ActivateBlackMaskAkechi()
 
 void ToggleYoshizawaName()
 {
-    ToggleFlag(11931, true);
-    BIT_OFF(11277);
+    ToggleFlag(2121, true);
+    ToggleFlag(5252, true);
 }

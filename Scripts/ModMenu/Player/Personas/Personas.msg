@@ -56,3 +56,6 @@ This will permanently remove all
 
 [dlg Message_PersonasDeleted]
 All Personas have been deleted.[w][e]
+
+[dlg Title_PersonaID]
+Persona ID (3 Digits)[w][e]

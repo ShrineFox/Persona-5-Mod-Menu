@@ -4,6 +4,18 @@
 [dlg Title_NPCAnimation]
 NPC Animation[w][e]
 
+[dlg Title_NPCFldGAPID]
+Field GAP ID (3 Digits)[w][e]
+
+[dlg Title_NPCGAPID]
+GAP ID (3 Digits)[w][e]
+
+[dlg Title_NPCGAPTime]
+Anim Length (2 Digits)[w][e]
+
+[dlg Title_NPCAnimID]
+Animation Index (2 Digits)[w][e]
+
 [sel Options_NPCAnimation]
 Set Animation Test .GAP[ref 0 2][e]
 Set Test Animation Index[ref 1 3][e]

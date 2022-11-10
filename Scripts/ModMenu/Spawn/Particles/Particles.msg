@@ -58,3 +58,6 @@ Set the particles's speed.
 Set the particles's opacity.
 [n](press [clr 2]○[clr 0] to end)
 [n]Default is 10.[w][e]
+
+[dlg Title_ParticleID]
+Particle ID (3 Digits)[w][e]

@@ -25,21 +25,18 @@ void PlayerModelMenu()
 void PlayerSetFieldModel()
 {
     int modelStart = 100000;
-    SystemMessage(Message_MiddleDigitsGMD);
-    int modelMiddle = NumberMenu(3);
+    int modelMiddle = NumberMenu(3, Title_JokerGMDMiddle);
     if (modelMiddle != -1)
     {
         modelMiddle *= 100;
-        SystemMessage(Message_LastDigitsGMD);
-        int modelLast = NumberMenu(2);
+        int modelLast = NumberMenu(2, Title_JokerGMDLast);
         if (modelLast != -1)
         {
             // Confirm entered number
             SET_COUNT(18, modelStart + modelMiddle + modelLast);
 
-            // Prompt reload of field to complete GMD swap
-            if (ConfirmReloadField())
-                return;
+            // Reload of field to complete GMD swap
+            ReloadCurrentField();
         }
     }
 }
@@ -56,13 +53,14 @@ void PlayerSetModelScale()
 
 void PlayerAttachItemModel()
 {
-    SystemMessage(Message_ItemSpawnAttachPlayerMajor);
-    int itemModelMajor = NumberMenu(4);
+    int itemModelMajor = NumberMenu(4, Title_JokerItemMajor);
     if (itemModelMajor == -1)
         return;
-    SystemMessage(Message_ItemSpawnAttachPlayerMinor);
-    int itemModelMinor = NumberMenu(3);
+    int itemModelMinor = NumberMenu(3, Title_JokerItemMinor);
     if (itemModelMinor == -1)
+        return;
+    int itemBoneID = NumberMenu(3, Title_JokerItemBoneID);
+    if (itemBoneID == -1)
         return;
 
     //FLD_PC_MODEL_ATTACH_ITEM( resHandle, itemModelMajor, itemModelMinor );
@@ -70,6 +68,6 @@ void PlayerAttachItemModel()
     FLD_MODEL_LOADSYNC(itemModel);
     FLD_MODEL_SET_VISIBLE(itemModel, 1, 0);
     int joker = FLD_PC_GET_RESHND(0);
-    FLD_MODEL_ATTACH_TRANSLATE(itemModel, joker, 101);
-    FLD_MODEL_ATTACH_ROTATE(itemModel, joker, 101);
+    FLD_MODEL_ATTACH_TRANSLATE(itemModel, joker, itemBoneID);
+    FLD_MODEL_ATTACH_ROTATE(itemModel, joker, itemBoneID);
 }

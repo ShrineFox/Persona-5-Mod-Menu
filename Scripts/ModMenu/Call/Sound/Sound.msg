@@ -21,3 +21,6 @@ Fade in the currently[n]selected BGM.[e]
 [dlg Message_BGMSelect]
 Enter the ID of the BGM
 [n]you would like to play.[w][e]
+
+[dlg Title_BGMID]
+BGM ID (3 Digits)[w][e]

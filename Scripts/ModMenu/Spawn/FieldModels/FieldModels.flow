@@ -30,12 +30,10 @@ void SpawnItemModel()
     float yr = FLD_MODEL_GET_Y_ROTATE(joker);
     float zr = FLD_MODEL_GET_Z_ROTATE(joker);
 
-    SystemMessage(Message_ItemSpawnMajor);
-    int itemModelMajor = NumberMenu(4);
+    int itemModelMajor = NumberMenu(4, Title_SpawnItemMajor);
     if (itemModelMajor != -1)
     {
-        SystemMessage(Message_ItemSpawnMinor);
-        int itemModelMinor = NumberMenu(3);
+        int itemModelMinor = NumberMenu(3, Title_SpawnItemMinor);
         if (itemModelMinor != -1)
         {
             int itemModel = FLD_ITEM_MODEL_LOAD(itemModelMajor, itemModelMinor);
@@ -57,12 +55,10 @@ void SpawnObjectModel()
     float yr = FLD_MODEL_GET_Y_ROTATE(joker);
     float zr = FLD_MODEL_GET_Z_ROTATE(joker);
 
-    SystemMessage(Message_ObjectSpawnMajor);
-    int objModelMajor = NumberMenu(3);
+    int objModelMajor = NumberMenu(3, Title_SpawnObjMajor);
     if (objModelMajor == -1)
         return;
-    SystemMessage(Message_ObjectSpawnMinor);
-    int objModelMinor = NumberMenu(3);
+    int objModelMinor = NumberMenu(3, Title_SpawnObjMinor);
     if (objModelMinor == -1)
         return;
 

@@ -2,6 +2,7 @@
 import("Party/PartyFlags.flow");
 import("Personas/PersonaFlags.flow");
 import("Room/RoomFlags.flow");
+import("Map/MapFlags.flow");
 import("FlagCategories.msg");
 
 void FlagCategoriesMenu()
@@ -28,6 +29,10 @@ void FlagCategoriesMenu()
             case 3:
                 // ./Category/Room/RoomFlags.flow
                 RoomFlagsMenu();
+                break;
+            case 4:
+                // ./Category/Map/MapFlags.flow
+                MapFlagsMenu();
                 break;
         }
     }
