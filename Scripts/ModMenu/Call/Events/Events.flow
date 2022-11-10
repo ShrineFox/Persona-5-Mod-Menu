@@ -29,7 +29,7 @@ void EventSelect_ByID()
     if (eventMinor == -1)
         return;
 
-    CALL_EVENT(eventMinor, eventMinor);
+    CALL_EVENT(eventMajor, eventMinor);
     ReloadPreviousField();
 }
 

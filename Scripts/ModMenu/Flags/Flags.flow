@@ -67,7 +67,7 @@ void ToggleBitflags_ByID()
                 return;
             case 0:
                 // Set Individual Flag
-                int selection = NumberMenu(5, Title_FlagID);
+                selection = NumberMenu(5, Title_FlagID);
                 ToggleFlag(selection, true);
                 break;
             case 1:
