@@ -4,13 +4,13 @@
 
 void SetArcanaNames()
 {
-    for ( int i = 0; i < 31; i++ )
+    for ( int i = 0; i < 32; i++ )
         SET_MSG_VAR( i, i, 3 );
 }
 
 void SetConfidantNames()
 {
-    for ( int i = 0; i < 31; i++ )
+    for ( int i = 0; i < 32; i++ )
         SET_MSG_VAR( i, i, 4 );
 }
 

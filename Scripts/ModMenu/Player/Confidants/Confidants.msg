@@ -7,6 +7,7 @@ Confidants[w][e]
 [sel Options_Confidants]
 Set Rank[ref 0 2][e]
 Toggle Romance Route[ref 1 3][e]
+Set Friendzone Id[ref 2 4][e]
 
 [dlg GENERIC_HELP_2]
 Choose a Confidant and
@@ -17,6 +18,11 @@ Choose a Confidant and
 Choose a romance-able
 [n]Confidant and switch their
 [n]romance route on/off.[e]
+
+[dlg GENERIC_HELP_4]
+Choose a romance-able
+[n]Confidant and switch to their
+[n]friendzone arcana Id.[e]
 
 [dlg Title_ConfidantRank]
 Set Confidant Rank[w][e]
@@ -43,6 +49,11 @@ Igor[ref 0 134][e]
 [f 2 4 26][e]
 [f 2 4 27][e]
 [f 2 4 28][e]
+[f 2 4 10][e] //Royal
+[f 2 4 31][e] //Royal
 
 [dlg Message_ConfidantRank]
 Enter the desired Confidant rank.[w][e]
+
+[dlg Title_ConfidantFriend]
+Input Confidant Id[w][e]

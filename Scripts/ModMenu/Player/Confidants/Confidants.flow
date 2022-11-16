@@ -15,6 +15,9 @@ void ConfidantsMenu()
             case 1:
                 RomanceRouteMenu();
                 break;
+            case 2:
+                FriendzoneMenu();
+                break;
         }
     }
 }
@@ -23,12 +26,18 @@ void ConfidantRankMenu()
 {
     SetConfidantNames();
     int cmmId = DescriptionMenu(Title_ConfidantRank, Options_ConfidantRank) + 1;
+	
+	if (cmmId == 22)
+		cmmId = 33;
+		
+	else if (cmmId == 23)
+		cmmId = 35;
 
-    if (cmmId <= 0 || cmmId >= 22)
+    if (cmmId <= 0 || (cmmId >= 22 && cmmId <= 32))
         return;
 
     SystemMessage(Message_ConfidantRank);
-    int lvl = NumberMenuTen() + 1;
+    int lvl = NumberMenuTen();
 
     if (lvl == 0)
         return;
@@ -55,4 +64,17 @@ void RomanceRouteMenu()
 
         ToggleFlag(6864 + lover, true);
     }
+}
+
+void FriendzoneMenu()
+{
+	while (true)
+	{
+		int friend = NumberMenu(2, Title_ConfidantFriend);
+		if (friend == -1)
+            return;
+		
+		CMM_FRIEND(friend);
+		return;
+	}
 }
