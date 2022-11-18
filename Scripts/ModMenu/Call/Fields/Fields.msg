@@ -5,22 +5,33 @@
 Call Field[w][e]
 
 [sel Options_Fields]
-Load Field[ref 0 2][e]
-Load Field (Manual Input)[ref 0 3][e]
-Reload Current Field[ref 2 4][e]
+Load Field[ref 0 3][e]
+Load Field (Manual Input)[ref 1 4][e]
+Reload Current Field[ref 2 5][e]
+Load Mementos Floor[ref 3 6][e]
+Load Mementos Floor (Manual Input)[ref 4 7][e]
 
-[dlg GENERIC_HELP_2]
+[dlg GENERIC_HELP_3]
 Choose a field to load
 [n]from a list of locations.[e]
 
-[dlg GENERIC_HELP_3]
+[dlg GENERIC_HELP_4]
 Enter IDs of field to
 [n]load. [clr 9]WARNING: Some IDs
 [n]softlock the game.[clr 0][e]
 
-[dlg GENERIC_HELP_4]
+[dlg GENERIC_HELP_5]
 Reload the field that
 [n]you're currently on.[e]
+
+[dlg GENERIC_HELP_6]
+Choose a Mementos floor
+[n]from a list of areas.[e]
+
+[dlg GENERIC_HELP_7]
+Enter IDs of floor to
+[n]load. [clr 9]WARNING: Some IDs
+[n]softlock the game.[clr 0][e]
 
 [dlg Title_FieldMajor]
 Field Major (3 Digits)[w][e]
@@ -55,6 +66,7 @@ Casino Palace[e]
 Ship Palace[e]
 Depths of Mementos[e]
 Qliphoth Tree[e]
+Laboratory Palace[e] // Royal
 
 [msg Title_ExtraFields]
 Extra Fields[e]
@@ -387,10 +399,10 @@ Lower port hallway[e]
 Lower port hallway[e]
 Safe room[e]
 
-[msg Title_MementosFields]
+[msg Title_DepthsFields]
 Mementos Depths Fields[e]
 
-[sel Options_MementosFields]
+[sel Options_DepthsFields]
 Entrance[e]
 Prison passageway[e]
 Prison passageway[e]
@@ -416,3 +428,23 @@ Path to the holy grail[e]
 Path to the holy grail[e]
 Shrine entrance[e]
 Velvet room (dungeon)[e]
+
+[msg Title_LabFields]
+Laboratory Fields[e]
+
+[sel Options_LabFields]
+Entrance[e]
+Entrance Hall[e]
+Passageway[e]
+Test Track[e]
+Eden[e]
+Auditorium[e]
+Psych Exam Room[e]
+Eden Stairway[e]
+Twilight Corridor[e]
+Monitoring Room[e]
+Warehouse[e]
+Therapy Room[e]
+Research Ward[e]
+Safe Room[e]
+Safe Room (warehouse)[e]

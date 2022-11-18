@@ -1,0 +1,41 @@
+﻿import("Mementos.msg");
+
+void MemeFloorMenu()
+{
+    while (true)
+    {
+        int area = NameMenu(Title_MemeAreas, Options_MemeAreas);
+        switch(area)
+        {
+            case -1:
+                int id = NameMenu(Title_M1Floors + area, Options_M1Floors + area);
+                GotoMemeField(area, id);
+                return;
+            case 8:
+                int mission = NumberMenu(2, Title_MissionList);
+                GotoMemeField(area, mission);
+                return;
+            default:
+                return;
+        }
+    }
+}
+
+void GotoMemeField(int area, int id)
+{
+    int entrance = NumberMenu(4, Title_MemeEnter);
+    if (entrance == -1)
+        return;
+
+    area = area + 1;
+    // Fix to account for Da'at being at end of area list
+    if (area == 9)
+        area = 10;
+    if (area == 10)
+        area = 11;
+    if (area == 12)
+        area = 9;
+
+    CALL_AT_DUNGEON(area, id, entrance);
+    return;
+}

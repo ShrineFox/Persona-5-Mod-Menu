@@ -1,4 +1,5 @@
-﻿import("Fields.msg");
+﻿import("Mementos/Mementos.flow");
+import("Fields.msg");
 
 void FieldMenu()
 {
@@ -31,6 +32,27 @@ void FieldMenu()
                 return;
             case 2:
                 ReloadCurrentField();
+                return;
+            case 3:
+                // Select Area/Floor from List
+                // ./Mementos/Mementos.flow
+                MemeFloorMenu();
+                break;
+            case 4:
+                // Manual ID Entry
+                int area = NumberMenu(2, Title_MemeArea);
+                if (area == -1)
+                    break;
+
+                int floor = NumberMenu(2, Title_MemeFloor);
+                if (floor == -1)
+                    break;
+
+                int entrance = NumberMenu(4, Title_FieldEnter);
+                if (entrance == -1)
+                    break;
+
+                CALL_AT_DUNGEON(area, floor, entrance);
                 return;
         }
     }
@@ -104,6 +126,9 @@ void FieldCategoryMenu()
                 break;
             case 19:
                 FieldQliphothTree();
+                break;
+            case 20:
+                FieldLabPalace();
                 break;
         }
     }
@@ -587,7 +612,7 @@ void FieldMementosPalace()
 {
     while (true)
     {
-        int selection = NameMenu(Title_MementosFields, Options_MementosFields);
+        int selection = NameMenu(Title_DepthsFields, Options_DepthsFields);
         switch (selection)
         {
             case -1:
@@ -625,6 +650,34 @@ void FieldQliphothTree()
             case 5: CALL_FIELD(160, 005, 0, 0); return;
             case 6: CALL_FIELD(160, 006, 0, 0); return;
             case 7: CALL_FIELD(160, 010, 0, 0); return;
+        }
+    }
+}
+
+void FieldLabPalace()
+{
+    while (true)
+    {
+        int selection = NameMenu(Title_LabFields, Options_LabFields);
+        switch (selection)
+        {
+            case -1:
+                return;
+            case 0: CALL_FIELD(162, 1, 0, 0); return;
+            case 1: CALL_FIELD(162, 2, 0, 0); return;
+            case 2: CALL_FIELD(162, 3, 0, 0); return;
+            case 3: CALL_FIELD(162, 4, 0, 0); return;
+            case 4: CALL_FIELD(162, 5, 0, 0); return;
+            case 5: CALL_FIELD(162, 7, 0, 0); return;
+            case 6: CALL_FIELD(162, 9, 0, 0); return;
+            case 7: CALL_FIELD(162, 10, 0, 0); return;
+            case 8: CALL_FIELD(162, 11, 0, 0); return;
+            case 9: CALL_FIELD(162, 12, 0, 0); return;
+            case 10: CALL_FIELD(162, 14, 0, 0); return;
+            case 11: CALL_FIELD(162, 15, 0, 0); return;
+            case 12: CALL_FIELD(162, 16, 0, 0); return;
+            case 13: CALL_FIELD(162, 51, 0, 0); return;
+            case 14: CALL_FIELD(162, 52, 0, 0); return;
         }
     }
 }

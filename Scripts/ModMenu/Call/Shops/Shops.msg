@@ -1,3 +1,6 @@
+[dlg Shops]
+[w][e]
+
 [dlg Message_ShopID]
 Choose the 2 digit ID of
 [n]the Shop to load.

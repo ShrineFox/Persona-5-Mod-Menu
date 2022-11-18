@@ -1,3 +1,6 @@
+[dlg Chats]
+[w][e]
+
 [dlg Message_ChatID]
 Choose the 4 digit ID of
 [n]the Chat to load.
