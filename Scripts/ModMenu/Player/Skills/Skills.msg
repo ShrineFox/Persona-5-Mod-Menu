@@ -5,9 +5,9 @@
 Skills[w][e]
 
 [sel Options_Skills]
-Add Skill[e]
+Add Skill (Alphabetical)[e]
 Add Skill (Manual Input)[e]
-Add Skill(Reserves)[e] 
+Add Skill (Reserves)[e] 
 
 [dlg Message_AddSkillByID]
 Input the ID of the Skill to add.

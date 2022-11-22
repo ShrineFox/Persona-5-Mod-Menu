@@ -2,7 +2,7 @@ import( "SkillSelect.msg" );
 
 int SkillSelectByName()
 {
-    int firstLetterIndex = Menu( SelSkillNameFirstLetter );
+    int firstLetterIndex = NameMenu(Title_SkillName, SelSkillNameFirstLetter );
     if ( firstLetterIndex == -1 )
         return -1;
     
@@ -29,7 +29,6 @@ int SkillSelectByName()
 
 int FirstLetterToSkillMenuIndex( int menuIndex )
 {
-
     switch ( menuIndex )
     {
         case 0: return SelSkillNameSetA + 0;

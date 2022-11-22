@@ -63,6 +63,8 @@ Agathion (312)[e]
 Ardha (321)[e]
 Alilat (425)[e] // Royal
 Atavaka[e] // Royal
+Al Azif[e] // Royal
+Agnes[e] // Royal
 Previous[e]
 
 [sel SelPersonaNameSetB]
@@ -104,6 +106,7 @@ Carmen (223)[e]
 Cait Sith (436)[e] // Royal
 Chimera[e] // Royal
 Cendrillon (240)[e] // Royal
+Celestine[e] // Royal
 
 [sel SelPersonaNameSetD]
 Decarabia[e]
@@ -111,6 +114,7 @@ Dominion[e]
 Dionysus[e]
 Dakini[e]
 Daisoujou[e]
+Diego[e] // Royal
 
 [sel SelPersonaNameSetE]
 Eligor[e]
@@ -136,6 +140,7 @@ Goemon (205)[e]
 Goemon (224)[e]
 Garuda (271)[e]
 Genbu[e]
+Gorokichi[e] // Royal
 
 [sel SelPersonaNameSetH]
 Hua Po[e]
@@ -149,6 +154,7 @@ Hecate (233)[e]
 Hell Biker[e]
 Horus[e]
 Hastur[e] // Royal
+Hereward[e] // Royal
 
 [sel SelPersonaNameSetI]
 Isis[e]
@@ -209,6 +215,7 @@ Loki (238)[e]
 Lucifer (253)[e]
 Lakshmi[e]
 Loa[e] // Royal
+Lucy[e] // Royal
 
 [sel SelPersonaNameSetM]
 Metatron[e]
@@ -369,6 +376,7 @@ Vanadis[e] // Royal
 
 [sel SelPersonaNameSetW]
 White Rider[e]
+William[e] // Royal
 
 [sel SelPersonaNameSetY]
 Yaksini[e]

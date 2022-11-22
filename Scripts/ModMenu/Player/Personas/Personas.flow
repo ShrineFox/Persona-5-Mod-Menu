@@ -27,6 +27,13 @@ void PersonasMenu()
     }
 }
 
+void AddPersona(int personaId)
+{
+    ADD_PERSONA_STOCK(personaId);
+    SET_MSG_VAR(0, personaId, 7);
+    SystemMessage(Message_PersonaAdded);
+}
+
 void AddPersonasMenu()
 {
     while (true)
@@ -39,26 +46,26 @@ void AddPersonasMenu()
             case -1:
                 return;
             case 0:
-                // Add Persona by ID
-                personaId = NumberMenu(3, Title_PersonaID);
-                if (personaId == -1)
-                {
-                    return;
-                }
-                ADD_PERSONA_STOCK(personaId);
-                break;
-            case 1:
                 // Add Persona by Name
                 personaId = PersonaSelectByName();
                 if (personaId == -1)
                 {
                     return;
                 }
-                ADD_PERSONA_STOCK(personaId);
+                AddPersona(personaId);
                 break;
-            case 2:
+            case 1:
                 // Reserve/ReservePersonas.flow
                 ReservePersonasPage1();
+                break;
+            case 2:
+                // Add Persona by ID
+                personaId = NumberMenu(3, Title_PersonaID);
+                if (personaId == -1)
+                {
+                    return;
+                }
+                AddPersona(personaId);
                 break;
         }
     }
@@ -66,7 +73,7 @@ void AddPersonasMenu()
 
 void DeleteAllPersonas()
 {
-    if (SystemMenu(Message_DeleteAllPersonas, Options_NoYes))
+    if (!SystemMenu(Message_DeleteAllPersonas, Options_YesNo))
     {
         CLEAR_PERSONA_STOCK();
         SystemMessage(Message_PersonasDeleted);

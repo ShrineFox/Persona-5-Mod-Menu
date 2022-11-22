@@ -94,7 +94,7 @@ int PersonaNameSelectionIndexToPersonaIndex( int menuIndex, int selIndex )
             // Adjust selection for Vanilla
             if (gBitFlagAmount == 8960 && selIndex > 13)
             {
-                selIndex = 16;
+                selIndex = 18;
             }
 
             switch ( selIndex )
@@ -116,7 +116,9 @@ int PersonaNameSelectionIndexToPersonaIndex( int menuIndex, int selIndex )
                 case 13: return 321;
                 case 14: return 425;
                 case 15: return 435;
-                case 16: return -2;
+                case 16: return 248;
+                case 17: return 246;
+                case 18: return -2;
             }
         }
 
@@ -181,6 +183,7 @@ int PersonaNameSelectionIndexToPersonaIndex( int menuIndex, int selIndex )
                 case 12: return 436;
                 case 13: return 434;
                 case 14: return 240;
+                case 15: return 244;
             }
         }
 
@@ -194,6 +197,7 @@ int PersonaNameSelectionIndexToPersonaIndex( int menuIndex, int selIndex )
                 case 2: return 100;
                 case 3: return 123;
                 case 4: return 282;
+                case 5: return 243;
             }
         }
 
@@ -237,6 +241,7 @@ int PersonaNameSelectionIndexToPersonaIndex( int menuIndex, int selIndex )
                 case 5: return 224;
                 case 6: return 271;
                 case 7: return 275;
+                case 8: return 245;
             }
         }
 
@@ -256,6 +261,7 @@ int PersonaNameSelectionIndexToPersonaIndex( int menuIndex, int selIndex )
                 case 8: return 281;
                 case 9: return 287;
                 case 10: return 429;
+                case 11: return 249;
             }
         }
 
@@ -346,6 +352,7 @@ int PersonaNameSelectionIndexToPersonaIndex( int menuIndex, int selIndex )
                 case 10: return 253;
                 case 11: return 266;
                 case 12: return 433;
+                case 13: return 247;
             }
         }
 
@@ -596,6 +603,7 @@ int PersonaNameSelectionIndexToPersonaIndex( int menuIndex, int selIndex )
             {
                 case -1: return -1;
                 case 0: return 284;
+                case 1: return 242;
             }
         }
 
