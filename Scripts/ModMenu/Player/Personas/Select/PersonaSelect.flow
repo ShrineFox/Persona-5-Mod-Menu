@@ -91,6 +91,12 @@ int PersonaNameSelectionIndexToPersonaIndex( int menuIndex, int selIndex )
 
         case SelPersonaNameSetA2:
         {
+            // Adjust selection for Vanilla
+            if (gBitFlagAmount == 8960 && selIndex > 13)
+            {
+                selIndex = 16;
+            }
+
             switch ( selIndex )
             {
                 case -1: return -1;
@@ -108,7 +114,9 @@ int PersonaNameSelectionIndexToPersonaIndex( int menuIndex, int selIndex )
                 case 11: return 300;
                 case 12: return 312;
                 case 13: return 321;
-                case 14: return -2;
+                case 14: return 425;
+                case 15: return 435;
+                case 16: return -2;
             }
         }
 
@@ -138,11 +146,18 @@ int PersonaNameSelectionIndexToPersonaIndex( int menuIndex, int selIndex )
 
         case SelPersonaNameSetB2:
         {
+            // Adjust selection for Vanilla
+            if (gBitFlagAmount == 8960 && selIndex > 0)
+            {
+                selIndex = 2;
+            }
+
             switch ( selIndex )
             {
                 case -1: return -1;
                 case 0: return 318;
-                case 1: return -2;
+                case 1: return 428;
+                case 2: return -2;
             }
         }
 
@@ -163,6 +178,9 @@ int PersonaNameSelectionIndexToPersonaIndex( int menuIndex, int selIndex )
                 case 9: return 204;
                 case 10: return 221;
                 case 11: return 223;
+                case 12: return 436;
+                case 13: return 434;
+                case 14: return 240;
             }
         }
 
@@ -188,6 +206,7 @@ int PersonaNameSelectionIndexToPersonaIndex( int menuIndex, int selIndex )
                 case 1: return 111;
                 case 2: return 269;
                 case 3: return 307;
+                case 4: return 250;
             }
         }
 
@@ -201,6 +220,7 @@ int PersonaNameSelectionIndexToPersonaIndex( int menuIndex, int selIndex )
                 case 2: return 95;
                 case 3: return 259;
                 case 4: return 272;
+                case 5: return 427;
             }
         }
 
@@ -235,6 +255,7 @@ int PersonaNameSelectionIndexToPersonaIndex( int menuIndex, int selIndex )
                 case 7: return 233;
                 case 8: return 281;
                 case 9: return 287;
+                case 10: return 429;
             }
         }
 
@@ -324,6 +345,7 @@ int PersonaNameSelectionIndexToPersonaIndex( int menuIndex, int selIndex )
                 case 9: return 238;
                 case 10: return 253;
                 case 11: return 266;
+                case 12: return 433;
             }
         }
 
@@ -353,6 +375,12 @@ int PersonaNameSelectionIndexToPersonaIndex( int menuIndex, int selIndex )
 
         case SelPersonaNameSetM2:
         {
+            // Adjust selection for Vanilla
+            if (gBitFlagAmount == 8960 && selIndex > 8)
+            {
+                selIndex = 12;
+            }
+
             switch ( selIndex )
             {
                 case -1: return -1;
@@ -365,7 +393,10 @@ int PersonaNameSelectionIndexToPersonaIndex( int menuIndex, int selIndex )
                 case 6: return 285;
                 case 7: return 295;
                 case 8: return 313;
-                case 9: return -2;
+                case 9: return 333;
+                case 10: return 424;
+                case 11: return 330;
+                case 12: return -2;
             }
         }
 
@@ -531,6 +562,8 @@ int PersonaNameSelectionIndexToPersonaIndex( int menuIndex, int selIndex )
                 case 7: return 198;
                 case 8: return 283;
                 case 9: return 301;
+                case 10: return 426;
+                case 11: return 430;
             }
         }
 
@@ -552,6 +585,8 @@ int PersonaNameSelectionIndexToPersonaIndex( int menuIndex, int selIndex )
                 case 0: return 19;
                 case 1: return 166;
                 case 2: return 299;
+                case 3: return 331;
+                case 4: return 241;
             }
         }
 
