@@ -10,7 +10,7 @@ Set Hideout[ref 1 4][e]
 Enable Fast Travel[ref 2 5][e]
 Enable Hangout Spots[ref 3 6][e]
 Enable Going Out At Night[ref 4 7][e]
-Enable Thieves Den[ref 5 8][e] // Royal
+Enable Thieves Den[ref 5 8][e]// Royal
 
 [dlg GENERIC_HELP_3]
 Make it so you can do

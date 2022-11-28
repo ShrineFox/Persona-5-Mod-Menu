@@ -359,7 +359,13 @@ namespace ModMenuBuilder
                 for (int i = 0; i < lines.Length; i++)
                 {
                     var line = lines[i].Trim();
-                    if (!line.Contains("0x") && Flag.FlagFuncs.Any(x => line.Contains(x)))
+                    if (line.Contains("Flag.Section"))
+                    {
+                        string newLine = lines[i].Replace("Flag.Section", "FlagR.Section");
+                        newLines.Add(newLine);
+                        Output.VerboseLog($"Flag enum updated in {Path.GetFileName(script)}: {line}\n\t==> {newLine}", ConsoleColor.DarkMagenta);
+                    }
+                    else if (!line.Contains("0x") && Flag.FlagFuncs.Any(x => line.Contains(x)))
                     {
                         // Attempt to convert vanilla bitflag to Royal flag
                         string flag = Flag.Get(line);

@@ -66,7 +66,7 @@ Casino Palace[e]
 Ship Palace[e]
 Depths of Mementos[e]
 Qliphoth Tree[e]
-Laboratory Palace[e] // Royal
+Laboratory Palace[e]// Royal
 
 [msg Title_ExtraFields]
 Extra Fields[e]

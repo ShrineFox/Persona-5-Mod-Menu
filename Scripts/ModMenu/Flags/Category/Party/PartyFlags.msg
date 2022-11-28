@@ -10,9 +10,9 @@ Toggle Party Editing[ref 1 3][e]
 Set Navigator[ref 2 4][e]
 Toggle Party Follower[ref 3 5][e]
 Toggle Baton Pass[ref 4 6][e]
-Toggle Black Mask Akechi[ref 5 7][e] // Royal
-Toggle Yoshizawa's Name[ref 6 8][e] // Royal
-Toggle Showtime[ref 7 9][e] // Royal
+Toggle Black Mask Akechi[ref 5 7][e]// Royal
+Toggle Yoshizawa's Name[ref 6 8][e]// Royal
+Toggle Showtime[ref 7 9][e]// Royal
 
 [dlg GENERIC_HELP_2]
 Toggle whether a party

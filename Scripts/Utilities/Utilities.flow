@@ -139,7 +139,7 @@ float FloatMenu()
 
 int ConfirmNumber(int number)
 {
-    SET_MSG_VAR(number, number, 0);
+    SET_MSG_VAR(0, number, 0);
     if (SystemMenu(Message_ConfirmNumberInput, Options_YesNo) == 0)
         return 1;
     else
@@ -150,8 +150,8 @@ int ConfirmNumber(int number)
 
 int ConfirmFloat(int number, int fractionalPart)
 {
-    SET_MSG_VAR(number, number, 0);
-    SET_MSG_VAR(fractionalPart, fractionalPart, 1);
+    SET_MSG_VAR(0, number, 0);
+    SET_MSG_VAR(1, fractionalPart, 0);
     if (SystemMenu(Message_ConfirmFloatInput, Options_YesNo) == 0)
         return 1;
     else
@@ -198,7 +198,7 @@ void ToggleFlag(int flagId, bool confirm)
         else
         {
             // Display flag number and status, ask user whether to turn on or off
-            SET_MSG_VAR(flagId, flagId, 0);
+            SET_MSG_VAR(0, flagId, 0);
             if (BIT_CHK(flagId) == 1)
             {
                 if (SystemMenu(Message_ToggleActiveFlag, Options_OnOff) == 1)
@@ -211,6 +211,15 @@ void ToggleFlag(int flagId, bool confirm)
             }
         }
     }
+}
+
+void FlagStatus(int flagId)
+{
+    SET_MSG_VAR(0, flagId, 0);
+    if (BIT_CHK(flagId) == 1)
+        SystemMessage(Msg_FlgEnabled);
+    else
+        SystemMessage(Msg_FlgDisabled);
 }
 
 void ReloadCurrentField()

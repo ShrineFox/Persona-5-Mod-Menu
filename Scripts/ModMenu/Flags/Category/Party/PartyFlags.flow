@@ -81,24 +81,38 @@ void TogglePartyMemberUnlocked()
         int selection = NameMenu(Title_Units, Options_UnitsNoJoker);
         if (selection == -1)
             return;
-        ToggleFlag(8448 + 48 + selection, true);
+
+        /* Royal Start */
+        int flg_pty = 11824 + selection;
+        /* Royal End */
+        /* Vanilla Start */
+        int flg_pty = 8496 + selection;
+        /* Vanilla End */
+        ToggleFlag(flg_pty, false);
+        FlagStatus(flg_pty);
     }
 }
 
 void TogglePartyEditing()
 {
     bool enable = true;
-    if (BIT_CHK(8448 + 3))
+    if (BIT_CHK(8451))
     {
         enable = false;
     }
     for (int i = 0; i < 7; i++)
     {
         if (enable)
-            BIT_ON(8448 + 3 + i);
+            BIT_ON(8451 + i);
         else
-            BIT_OFF(8448 + 3 + i);
+            BIT_OFF(8451 + i);
     }
+    /* Royal Start */
+    FlagStatus(11779);
+    /* Royal End */
+    /* Vanilla Start */
+    FlagStatus(8451);
+    /* Vanilla End */
 }
 
 void SetNavigator()
@@ -145,7 +159,15 @@ void TogglePartyFollowers()
         int selection = NameMenu(Title_Units, Options_UnitsNoJoker);
         if (selection == -1)
             return;
-        ToggleFlag(4114 + selection, true);
+        /* 
+        int flgId = 6162 + selection;
+
+        int flgId = 4114 + selection;
+         */
+
+        int flgId = Flag.Section2 + 18 + selection;
+        ToggleFlag(flgId, false);
+        FlagStatus(flgId);
     }
 }
 

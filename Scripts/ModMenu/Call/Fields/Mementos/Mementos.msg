@@ -15,7 +15,7 @@ Sheriruth (7)[e]
 Iweleth (8)[e]
 Requests / Missions (10)[e]
 Path Of Grail (11)[e]
-Da'at (9)[e] // Royal
+Da'at (9)[e]// Royal
 
 [msg Title_M1Floors]
 Qimranut[e]

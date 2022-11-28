@@ -3,22 +3,9 @@ import("Flags.msg");
 
 global int range1;
 global int range2;
-global int maxFlagAmount;
 
 void FlagsMenu()
 {
-    // Flags start at 0x2D66 (vanilla)
-    // Flags start at 0x3598 (royal)
-    // Header is 60 bytes
-
-    // Section is 0x460 bytes (8960 bits) long (vanilla)
-    // Section is 0x640 bytes (12800 bits) long (royal)
-
-    maxFlagAmount = 8960;
-    /* Royal Start */
-    maxFlagAmount = 12800;
-    /* Royal End */
-
     while (true)
     {
         int selection = DescriptionMenu(Title_Flags, Options_Flags);
@@ -34,13 +21,11 @@ void FlagsMenu()
                 break;
             case 2:
                 // Randomize Flags
-                SystemMessage(Message_RandomizeFlags);
-                int chance = 
-                    (3);
+                int chance = NumberMenu(3, Title_Percent);
                 if (chance != -1)
                 {
                     RandomizeFlags(chance);
-                    SET_MSG_VAR(chance, chance, 0);
+                    SET_MSG_VAR(0, chance, 0);
                     SystemMessage(Message_RandomizeComplete);
                 }
                 break;
@@ -67,16 +52,19 @@ void ToggleBitflags_ByID()
                 return;
             case 0:
                 // Set Individual Flag
-                selection = NumberMenu(5, Title_FlagID);
-                ToggleFlag(selection, true);
+                int flagId = NumberMenu(5, Title_FlagID);
+                ToggleFlag(flagId, false);
+                FlagStatus(flagId);
                 break;
             case 1:
                 // Set Start Range
                 range1 = NumberMenu(5, Title_RangeStart);
+                CheckRange();
                 break;
             case 2:
                 // Set End Range
                 range2 = NumberMenu(5, Title_RangeEnd);
+                CheckRange();
                 break;
             case 3:
                 // Enable Range
@@ -96,13 +84,20 @@ void ToggleBitflags_ByID()
 
 void RandomizeFlags(int chance)
 {
-    for (int i = 0; i < maxFlagAmount; i++)
+    for (int i = 0; i < gBitFlagAmount; i++)
     {
         if (RND(100) <= chance)
         {
             ToggleFlag(i, false);
         }
     }
+}
+
+void CheckRange()
+{
+    SET_MSG_VAR(0, range1, 0);
+    SET_MSG_VAR(1, range2, 1);
+    SystemMessage(Msg_RangeSet);
 }
 
 void PrintFlags(int enabledFlags)
@@ -126,25 +121,37 @@ void ToggleRange(int mode)
         range1 = 0;
     if (range2 < 0)
         range2 = 0;
-    if (range2 < maxFlagAmount)
-        range2 = maxFlagAmount;
+    if (range2 < gBitFlagAmount)
+        range2 = gBitFlagAmount;
 
-    SET_MSG_VAR(range1, range1, 0);
-    SET_MSG_VAR(range2, range2, 1);
+    SET_MSG_VAR(0, range1, 0);
+    SET_MSG_VAR(1, range2, 0);
 
     switch (mode)
     {
         case 0:
-            if (SystemMenu(Message_ConfirmEnableRange, Options_YesNo) == 0)
+            int enable = SystemMenu(Message_ConfirmEnableRange, Options_YesNo);
+            if (!enable)
+            {
                 EnableRange();
+                SystemMessage(Msg_RangeEnabled);
+            }
             break;
         case 1:
-            if (SystemMenu(Message_ConfirmDisableRange, Options_YesNo) == 0)
+            int disable = SystemMenu(Message_ConfirmDisableRange, Options_YesNo);
+            if (!disable)
+            {
                 DisableRange();
+                SystemMessage(Msg_RangeDisabled);
+            }
             break;
         case 2:
-            if (SystemMenu(Message_ConfirmFlipRange, Options_YesNo) == 0)
+            int flip = SystemMenu(Message_ConfirmFlipRange, Options_YesNo);
+            if (!flip)
+            {
                 FlipRange();
+                SystemMessage(Msg_RangeFlipped);
+            }
             break;
     }
 }

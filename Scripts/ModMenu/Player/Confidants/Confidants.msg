@@ -49,8 +49,8 @@ Igor[ref 0 134][e]
 [f 2 4 26][e]
 [f 2 4 27][e]
 [f 2 4 28][e]
-[f 2 4 10][e] //Royal
-[f 2 4 31][e] //Royal
+[f 2 4 10][e]//Royal
+[f 2 4 31][e]//Royal
 
 [dlg Message_ConfidantRank]
 Enter the desired Confidant rank.[w][e]

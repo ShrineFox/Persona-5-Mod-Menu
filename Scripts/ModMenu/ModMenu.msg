@@ -14,7 +14,7 @@ Camera[ref 5 6][e]
 Flags[ref 6 7][e]
 Spawn[ref 7 8][e]
 About[ref 8 9][e]
-Royal[ref 9 10][e] // Royal
+Royal[ref 9 10][e]// Royal
 
 [dlg GENERIC_HELP_1]
 View your IM messages[n]or auto heal the party,

@@ -85,7 +85,7 @@ Choose Party Member[w][e]
 [f 2 4 7][e]
 [f 2 4 8][e]
 [f 2 4 9][e]
-[f 2 4 10][e] // Royal
+[f 2 4 10][e]// Royal
 
 [sel Options_UnitsNoJoker]
 [f 2 4 2][e]
@@ -96,7 +96,7 @@ Choose Party Member[w][e]
 [f 2 4 7][e]
 [f 2 4 8][e]
 [f 2 4 9][e]
-[f 2 4 10][e] // Royal
+[f 2 4 10][e]// Royal
 
 [dlg Title_UnitsNavi]
 Choose Navigator[w][e]
@@ -104,7 +104,7 @@ Choose Navigator[w][e]
 [sel Options_UnitsNavi]
 [f 2 4 3][e]
 [f 2 4 8][e]
-[f 2 4 9][e] // Royal
+[f 2 4 9][e]// Royal
 
 [dlg Title_RomanceMenu]
 Toggle Romance Route[w][e]
@@ -121,11 +121,17 @@ Toggle Romance Route[w][e]
 [f 2 4 25][e]
 
 [dlg Message_ToggleActiveFlag]
-Flag[clr 1][f 2 4 0][clr 0] is [clr 13]On[clr 0].
+Flag [clr 1][var 0][clr 0] set to [clr 13]On[clr 0].
 [n]Would you like to turn it
 [n]on or off?[w][e]
 
 [dlg Message_ToggleInactiveFlag]
-Flag[clr 1][f 2 4 0][clr 0] is [clr 9]Off[clr 0].
+Flag [clr 1][var 0][clr 0] set to [clr 9]Off[clr 0].
 [n]Would you like to turn it
-[n]on or off?[w][e] 
+[n]on or off?[w][e]
+
+[dlg Msg_FlgEnabled]
+Flag [clr 1][var 0][clr 0] set to [clr 13]On[clr 0].[w][e]
+
+[dlg Msg_FlgDisabled]
+Flag [clr 1][var 0][clr 0] set to [clr 9]Off[clr 0].[w][e]

@@ -32,7 +32,7 @@ Enter the percent chance out of
 [n]randomly be toggled.[w][e]
 
 [dlg Message_RandomizeComplete]
-Flags have been [clr 1][f 2 4 0][clr 0]% randomized.
+Flags have been [clr 1][var 0][clr 0]% randomized.
 [n]have fun![w][e]
 
 [dlg Title_ToggleByID]
@@ -76,7 +76,7 @@ Are you sure you want to set
 
 [dlg Message_ConfirmFlipRange]
 Are you sure you want to set
-[n] Flags[clr 1][f 2 4 0][clr 0] through [clr 1][f 2 4 1][clr 0]
+[n] Flags[clr 1][var 0][clr 0] through [clr 1][var 1][clr 0]
 [n]to [clr 17]their opposite value[clr 0]?[w][e]
 
 [dlg Message_ToggleRangeComplete]
@@ -91,3 +91,18 @@ Range End (5 Digits)[w][e]
 
 [dlg Title_FlagID]
 Flag ID (5 Digits)[w][e]
+
+[dlg Title_Percent]
+Percentage (3 Digits)[w][e]
+
+[dlg Msg_RangeSet]
+Range set to [clr 1][var 0][clr 0] - [clr 1][var 1][clr 0].[w][e]
+
+[dlg Msg_RangeDisabled]
+Flags [clr 1][var 0][clr 0] - [clr 1][var 1][clr 0] set to [clr 9]Off[clr 0].[w][e]
+
+[dlg Msg_RangeEnabled]
+Flags [clr 1][var 0][clr 0] - [clr 1][var 1][clr 0] set to [clr 13]On[clr 0].[w][e]
+
+[dlg Msg_RangeFlipped]
+Flags [clr 1][var 0][clr 0] - [clr 1][var 1][clr 0] have been toggled.[w][e]

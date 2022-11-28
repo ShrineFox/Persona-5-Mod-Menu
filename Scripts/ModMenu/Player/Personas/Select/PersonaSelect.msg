@@ -61,10 +61,10 @@ Attis[e]
 Ananta[e]
 Agathion (312)[e]
 Ardha (321)[e]
-Alilat (425)[e] // Royal
-Atavaka[e] // Royal
-Al Azif[e] // Royal
-Agnes[e] // Royal
+Alilat (425)[e]// Royal
+Atavaka[e]// Royal
+Al Azif[e]// Royal
+Agnes[e]// Royal
 Previous[e]
 
 [sel SelPersonaNameSetB]
@@ -87,7 +87,7 @@ Next[e]
 
 [sel SelPersonaNameSetB2]
 Bugs (318)[e]
-Byakhee[e] // Royal
+Byakhee[e]// Royal
 Previous[e]
 
 [sel SelPersonaNameSetC]
@@ -103,10 +103,10 @@ Captain Kidd (202)[e]
 Carmen (204)[e]
 Captain Kidd (221)[e]
 Carmen (223)[e]
-Cait Sith (436)[e] // Royal
-Chimera[e] // Royal
-Cendrillon (240)[e] // Royal
-Celestine[e] // Royal
+Cait Sith (436)[e]// Royal
+Chimera[e]// Royal
+Cendrillon (240)[e]// Royal
+Celestine[e]// Royal
 
 [sel SelPersonaNameSetD]
 Decarabia[e]
@@ -114,14 +114,14 @@ Dominion[e]
 Dionysus[e]
 Dakini[e]
 Daisoujou[e]
-Diego[e] // Royal
+Diego[e]// Royal
 
 [sel SelPersonaNameSetE]
 Eligor[e]
 Emperor's Amulet[e]
 Ex-Belphegor[e]
 Ex-Moloch[e]
-Ella[e] // Royal
+Ella[e]// Royal
 
 [sel SelPersonaNameSetF]
 Forneus[e]
@@ -129,7 +129,7 @@ Flauros[e]
 Fuu-Ki[e]
 Futsunushi[e]
 Fortuna[e]
-Fafnir[e] // Royal
+Fafnir[e]// Royal
 
 [sel SelPersonaNameSetG]
 Ganesha[e]
@@ -140,7 +140,7 @@ Goemon (205)[e]
 Goemon (224)[e]
 Garuda (271)[e]
 Genbu[e]
-Gorokichi[e] // Royal
+Gorokichi[e]// Royal
 
 [sel SelPersonaNameSetH]
 Hua Po[e]
@@ -153,8 +153,8 @@ Hecate (214)[e]
 Hecate (233)[e]
 Hell Biker[e]
 Horus[e]
-Hastur[e] // Royal
-Hereward[e] // Royal
+Hastur[e]// Royal
+Hereward[e]// Royal
 
 [sel SelPersonaNameSetI]
 Isis[e]
@@ -214,8 +214,8 @@ Lucifer (230)[e]
 Loki (238)[e]
 Lucifer (253)[e]
 Lakshmi[e]
-Loa[e] // Royal
-Lucy[e] // Royal
+Loa[e]// Royal
+Lucy[e]// Royal
 
 [sel SelPersonaNameSetM]
 Metatron[e]
@@ -245,9 +245,9 @@ Mercurius (232)[e]
 Matador[e]
 Mitra[e]
 Mandrake (313)[e]
-Mishaguji (333)[e] // Royal
-Macabre[e] // Royal
-Maria[e] // Royal
+Mishaguji (333)[e]// Royal
+Macabre[e]// Royal
+Maria[e]// Royal
 Previous[e]
 
 [sel SelPersonaNameSetN]
@@ -360,8 +360,8 @@ Thanatos Picaro[e]
 Tsukiyomi Picaro[e]
 Trumpeter[e]
 Throne[e]
-Thunderbird[e] // Royal
-Tam Lin[e] // Royal
+Thunderbird[e]// Royal
+Tam Lin[e]// Royal
 
 [sel SelPersonaNameSetU]
 Unicorn[e]
@@ -371,12 +371,12 @@ Uriel[e]
 Valkyrie[e]
 Vishnu[e]
 Vasuki[e]
-Vohu Manah[e] // Royal
-Vanadis[e] // Royal
+Vohu Manah[e]// Royal
+Vanadis[e]// Royal
 
 [sel SelPersonaNameSetW]
 White Rider[e]
-William[e] // Royal
+William[e]// Royal
 
 [sel SelPersonaNameSetY]
 Yaksini[e]
