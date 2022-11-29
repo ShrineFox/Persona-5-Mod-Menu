@@ -39,16 +39,16 @@ void ToggleBag()
     if (showBag)
     {
         // Show
-        BIT_ON(4206);
-        BIT_OFF(4207);
-        BIT_OFF(4112);
+        BIT_ON(Flag.Section2 + 110);
+        BIT_OFF(Flag.Section2 + 111);
+        BIT_OFF(Flag.Section2 + 16);
     }
     else
     {
         // Hide
-        BIT_OFF(4206);
-        BIT_ON(4207);
-        BIT_ON(4112);
+        BIT_OFF(Flag.Section2 + 110);
+        BIT_ON(Flag.Section2 + 111);
+        BIT_ON(Flag.Section2 + 16);
     }
 
     ReloadCurrentField();

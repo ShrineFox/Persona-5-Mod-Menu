@@ -13,8 +13,8 @@ import("introduction.msg");
 
 void General_0150_002_100_hook()
 {
-	BIT_OFF( 8453 );
-	BIT_OFF( 320 );
+	BIT_OFF( Flag.Section4 + 5 );
+	BIT_OFF( Flag.Section0 + 320 );
 	MSG_SYSTEM( ModMenuEnable ); 
 	
     if ( GET_COUNT( 144 ) == 10050 || GET_COUNT( 150 ) == 80050 )

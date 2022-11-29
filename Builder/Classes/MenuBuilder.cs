@@ -365,29 +365,6 @@ namespace ModMenuBuilder
                         newLines.Add(newLine);
                         Output.VerboseLog($"Flag enum updated in {Path.GetFileName(script)}: {line}\n\t==> {newLine}", ConsoleColor.DarkMagenta);
                     }
-                    else if (!line.Contains("0x") && Flag.FlagFuncs.Any(x => line.Contains(x)))
-                    {
-                        // Attempt to convert vanilla bitflag to Royal flag
-                        string flag = Flag.Get(line);
-                        int convertedFlag = -1;
-                        if (flag != "")
-                        {
-                            try
-                            {
-                                convertedFlag = Flag.ConvertToRoyal(Convert.ToInt32(flag));
-                            }
-                            catch { }
-                        }
-                        // Replace line and notify user of this change
-                        if (convertedFlag != -1 && convertedFlag.ToString() != flag)
-                        {
-                            string newLine = lines[i].Replace(flag, convertedFlag.ToString());
-                            newLines.Add(newLine);
-                            Output.VerboseLog($"Bitflag updated in {Path.GetFileName(script)}: {line}\n\t==> {newLine}", ConsoleColor.Magenta);
-                        }
-                        else // Use original flag if flag could not be converted to Royal
-                            newLines.Add(lines[i]);
-                    }
                     else // Add original line if no changes needed
                         newLines.Add(lines[i]);
                 }

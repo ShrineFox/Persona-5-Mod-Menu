@@ -3,6 +3,8 @@ import("Flags.msg");
 
 global int range1;
 global int range2;
+const int flg_PauseMenu = Flag.Section0 + 320;
+const int flg_ModMenu = Flag.Section4 + 5;
 
 void FlagsMenu()
 {
@@ -160,7 +162,7 @@ void EnableRange()
 {
     for (int i = range1; i < range2; i++)
     {
-        if (i != 320 && i != 11781)
+        if (i != flg_PauseMenu && i != flg_ModMenu)
             BIT_ON(i);
     }
 }
@@ -169,7 +171,7 @@ void DisableRange()
 {
     for (int i = range1; i < range2; i++)
     {
-        if (i != 320 && i != 11781)
+        if (i != flg_PauseMenu && i != flg_ModMenu)
             BIT_OFF(i);
     }
 }
@@ -178,7 +180,7 @@ void FlipRange()
 {
     for (int i = range1; i < range2; i++)
     {
-        if (i != 320 && i != 11781)
+        if (i != flg_PauseMenu && i != flg_ModMenu)
         {
             if (BIT_CHK(i))
                 BIT_OFF(i);

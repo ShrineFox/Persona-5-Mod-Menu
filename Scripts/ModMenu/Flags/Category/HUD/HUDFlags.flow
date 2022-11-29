@@ -41,10 +41,10 @@ void InvertHUD()
     int invert = SystemMenu(Message_InvertHUD, Options_OnOff);
     if (invert)
     {
-        BIT_ON(8487);
+        BIT_ON(Flag.Section4 + 39);
     }
     else
     {
-        BIT_OFF(8487);
+        BIT_OFF(Flag.Section4 + 39);
     }
 }

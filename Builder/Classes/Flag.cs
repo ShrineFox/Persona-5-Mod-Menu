@@ -66,25 +66,5 @@ namespace ModMenuBuilder
 
             return result;
         }
-
-        public static string[] FlagFuncs = new string[] { "BIT_ON", "BIT_OFF", "BIT_CHK", "ToggleFlag" };
-
-        public static string Get(string line)
-        {
-            string newLine = line.Replace("( ","(").Replace(" )",")").Replace(" (", "(").Replace(") ",")");
-            foreach (var func in FlagFuncs)
-            {
-                if (newLine.Contains(func + "("))
-                {
-                    string value = "";
-                    int index = newLine.IndexOf(func + "(") + func.Length + 1;
-                    string newLine2 = newLine.Substring(index);
-                    value = newLine2.Split(' ', ',', ')', '+', '-', '*', '/')[0];
-                    if (value != "")
-                        return value;
-                }
-            }
-            return "";
-        }
     }
 }

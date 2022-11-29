@@ -46,14 +46,16 @@ void ToggleShowTimes()
         if (selection == -1)
             return;
 
-        if (selection == 11531)
+        if (selection == 7)
         {
             // Joker/Kasumi
-            ToggleFlag(11542, false);
+            int jokersumi = Flag.Section3 + 278;
+            ToggleFlag(jokersumi, false);
         }
         else
         {
-            ToggleFlag(11525 + selection, false);
+            int flagId = Flag.Section3 + 261 + selection;
+            ToggleFlag(flagId, false);
         }
     }
 }
@@ -82,12 +84,7 @@ void TogglePartyMemberUnlocked()
         if (selection == -1)
             return;
 
-        /* Royal Start */
-        int flg_pty = 11824 + selection;
-        /* Royal End */
-        /* Vanilla Start */
-        int flg_pty = 8496 + selection;
-        /* Vanilla End */
+        int flg_pty = Flag.Section4 + 48 + selection;
         ToggleFlag(flg_pty, false);
         FlagStatus(flg_pty);
     }
@@ -96,23 +93,20 @@ void TogglePartyMemberUnlocked()
 void TogglePartyEditing()
 {
     bool enable = true;
-    if (BIT_CHK(8451))
+    if (BIT_CHK(Flag.Section4 + 3))
     {
         enable = false;
     }
     for (int i = 0; i < 7; i++)
     {
         if (enable)
-            BIT_ON(8451 + i);
+            BIT_ON(Flag.Section4 + 3 + i);
         else
-            BIT_OFF(8451 + i);
+            BIT_OFF(Flag.Section4 + 3 + i);
     }
-    /* Royal Start */
-    FlagStatus(11779);
-    /* Royal End */
-    /* Vanilla Start */
-    FlagStatus(8451);
-    /* Vanilla End */
+
+    int flgId = Flag.Section4 + 3;
+    FlagStatus(flgId);
 }
 
 void SetNavigator()
@@ -126,24 +120,24 @@ void SetNavigator()
             case -1:
                 return;
             case 0: // Morgana
-                BIT_ON(8204);
-                BIT_OFF(8205);
+                BIT_ON(Flag.Section3 + 12);
+                BIT_OFF(Flag.Section3 + 13);
                 /* Royal Start */
-                BIT_OFF(11543);
+                BIT_OFF(Flag.Section3 + 279);
                 /* Royal End */
                 break;
             case 1: // Futaba
-                BIT_OFF(8204);
-                BIT_ON(8205);
+                BIT_OFF(Flag.Section3 + 12);
+                BIT_ON(Flag.Section3 + 13);
                 /* Royal Start */
-                BIT_OFF(11543);
+                BIT_OFF(Flag.Section3 + 279);
                 /* Royal End */
                 break;
             case 2: // Akechi
-                BIT_OFF(8204);
-                BIT_OFF(8205);
+                BIT_OFF(Flag.Section3 + 12);
+                BIT_OFF(Flag.Section3 + 13);
                 /* Royal Start */
-                BIT_ON(11543);
+                BIT_ON(Flag.Section3 + 279);
                 /* Royal End */
                 break;
         }
@@ -152,18 +146,13 @@ void SetNavigator()
 
 void TogglePartyFollowers()
 {
-    BIT_ON(4161);
+    BIT_ON(Flag.Section2 + 65);
     while (true)
     {
         SetConfidantNames();
         int selection = NameMenu(Title_Units, Options_UnitsNoJoker);
         if (selection == -1)
             return;
-        /* 
-        int flgId = 6162 + selection;
-
-        int flgId = 4114 + selection;
-         */
 
         int flgId = Flag.Section2 + 18 + selection;
         ToggleFlag(flgId, false);
@@ -174,17 +163,17 @@ void TogglePartyFollowers()
 void ActivateBlackMaskAkechi()
 {
     /* Royal Start */
-    if (BIT_CHK(12048))
+    if (BIT_CHK(FlagR.Section4 + 272))
     {
         // Revert Black Mask Akechi Appearance
         int selection = SystemMenu(Message_BlackMaskActive, Options_YesNo);
         if (selection == 0) // Yes
-            BIT_OFF(12048);
+            BIT_OFF(FlagR.Section4 + 272);
     }
     else
     {
         // Update To Black Mask Appearance
-        BIT_ON(12048);
+        BIT_ON(FlagR.Section4 + 272);
         int selection = SystemMenu(Message_BlackMaskInactive, Options_YesNo);
         if (selection == 0) // Yes
         {
@@ -262,7 +251,7 @@ void ActivateBlackMaskAkechi()
             SET_EQUIP(9, 3, (28672 + 13));
             RECOVERY_ALL();
 
-            if (!BIT_CHK(11790))
+            if (!BIT_CHK(FlagR.Section4 + 14))
             {
                 SET_ITEM_NUM(28672 + 24, 0);
             }
@@ -273,6 +262,8 @@ void ActivateBlackMaskAkechi()
 
 void ToggleYoshizawaName()
 {
-    ToggleFlag(2121, true);
-    ToggleFlag(5252, true);
+    int flg1 = FlagR.Section0 + 2121;
+    ToggleFlag(flg1, false);
+    int flg2 = FlagR.Section0 + 2180;
+    ToggleFlag(flg2, false);
 }

@@ -25,7 +25,7 @@ void ModMenuDisplay()
 {
     // Re-enables screen recording
     ALL_ENABLE_SHARE_PLAY();
-    BIT_OFF(8746);
+    BIT_OFF(Flag.Section5 + 42);
     // Logs your current coordinates
     PrintPosition();
 
@@ -106,3 +106,4 @@ enum FlagR
     Section4 = 11776,
     Section5 = 12288
 }
+

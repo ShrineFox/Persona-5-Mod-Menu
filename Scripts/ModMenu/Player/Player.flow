@@ -67,7 +67,7 @@ void PlayerSetMoney()
 void SetPlayerName()
 {
     /* Royal Start */
-        BIT_OFF(12052);
+        BIT_OFF(Flag.Section4 + 276);
     /* Royal End */
     INIT_IME_DRIVER();
     CALL_NAME_ENTRY();
@@ -77,7 +77,7 @@ void SetPlayerName()
 void SetTeamName()
 {
     /* Royal Start */
-        BIT_OFF(12052);
+        BIT_OFF(Flag.Section4 + 276);
     /* Royal End */
     INIT_IME_DRIVER();
     CALL_PHANTOM_NAME_ENTRY();

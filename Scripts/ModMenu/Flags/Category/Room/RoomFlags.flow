@@ -26,7 +26,8 @@ void CollectibleFlagsMenu()
         int selection = NameMenu(Title_CollectibleFlags, Options_CollectibleFlags);
         if (selection == -1)
             return;
-        ToggleFlag(3456 + selection, true);
+        int flgId = Flag.Section1 + 1408 + selection;
+        ToggleFlag(flgId, true);
     }
 }
 
@@ -40,43 +41,43 @@ void FurnitureFlagsMenu()
             case -1:
                 return;
             case 0: // Plant
-                ToggleFlag(4230, true);
+                ToggleFlag(Flag.Section2 + 134, true);
                 break;
             case 1: // Sayuri
-                ToggleFlag(101, true);
+                ToggleFlag(Flag.Section0 + 101, true);
                 break;
             case 2: // DVD Player
-                ToggleFlag(3142, true);
+                ToggleFlag(Flag.Section1 + 1094, true);
                 break;
             case 3: // Game Console
-                ToggleFlag(3146, true);
+                ToggleFlag(Flag.Section1 + 1098, true);
                 break;
             case 4: // Old TV Set
-                ToggleFlag(4232, true);
+                ToggleFlag(Flag.Section2 + 136, true);
                 break;
             case 5: // Radio
-                ToggleFlag(4233, true);
+                ToggleFlag(Flag.Section2 + 137, true);
                 break;
             case 6: // Cat Bed
-                ToggleFlag(8121, true);
+                ToggleFlag(Flag.Section2 + 4025, true);
                 break;
             case 7: // Bookshelf
-                ToggleFlag(4229, true);
+                ToggleFlag(Flag.Section2 + 133, true);
                 break;
             case 8: // Work Bench
-                ToggleFlag(4231, true);
+                ToggleFlag(Flag.Section2 + 135, true);
                 break;
             case 9: // Visitors Table
-                ToggleFlag(8176, true);
+                ToggleFlag(Flag.Section2 + 4080, true);
                 break;
             case 10: // Training Chair
-                ToggleFlag(3144, true);
+                ToggleFlag(Flag.Section1 + 1096, true);
                 break;
             case 11: // Winter Heater
-                ToggleFlag(8147, true);
+                ToggleFlag(Flag.Section2 + 4051, true);
                 break;
             case 12: // Laptop
-                ToggleFlag(3237, true);
+                ToggleFlag(Flag.Section1 + 1189, true);
                 break;
             case 13:
                 UFOGameFlagsMenu();
@@ -92,6 +93,9 @@ void UFOGameFlagsMenu()
         int selection = NameMenu(Title_UFOGameFlags, Options_UFOGameFlags);
         if (selection == -1)
             return;
-        ToggleFlag(8186 + selection, true);
+        int flgId = Flag.Section2 + 4096 + selection, false;
+
+        ToggleFlag(flgId, false);
+        FlagStatus(flgId);
     }
 }

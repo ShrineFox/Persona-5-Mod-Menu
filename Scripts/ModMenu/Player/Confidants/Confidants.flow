@@ -61,8 +61,8 @@ void RomanceRouteMenu()
         int lover = NameMenu(Title_RomanceMenu, Options_RomanceMenu);
         if (lover == -1)
             return;
-
-        ToggleFlag(6864 + lover, true);
+        int flgId = Flag.Section2 + 2768 + lover;
+        ToggleFlag(flgId, true);
     }
 }
 
