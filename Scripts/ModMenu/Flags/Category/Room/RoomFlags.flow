@@ -93,7 +93,7 @@ void UFOGameFlagsMenu()
         int selection = NameMenu(Title_UFOGameFlags, Options_UFOGameFlags);
         if (selection == -1)
             return;
-        int flgId = Flag.Section2 + 4096 + selection, false;
+        int flgId = Flag.Section2 + 4096 + selection;
 
         ToggleFlag(flgId, false);
         FlagStatus(flgId);
