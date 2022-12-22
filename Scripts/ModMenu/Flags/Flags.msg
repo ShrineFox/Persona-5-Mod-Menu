@@ -66,12 +66,12 @@ Give all flags in the[n]selected range their[n]opposite value.[e]
 
 [dlg Message_ConfirmEnableRange]
 Are you sure you want to set
-[n]Flags [clr 1][f 2 4 0][clr 0] through [clr 1][f 2 4 1][clr 0]
+[n]Flags [clr 1][var 0][clr 0] through [clr 1][var 1][clr 0]
 [n]to [clr 13]On[clr 0]?[w][e]
 
 [dlg Message_ConfirmDisableRange]
 Are you sure you want to set
-[n]Flags [clr 1][f 2 4 0][clr 0] through [clr 1][f 2 4 1][clr 0]
+[n]Flags [clr 1][var 0][clr 0] through [clr 1][var 1][clr 0]
 [n]to [clr 9]Off[clr 0]?[w][e]
 
 [dlg Message_ConfirmFlipRange]

@@ -19,6 +19,8 @@ global int unitId;
 global int gFieldMajor;
 global int gFieldMinor;
 global int gBitFlagAmount;
+bool controller;
+bool teleSkip;
 
 // Procedures
 void ModMenuDisplay()
@@ -36,7 +38,21 @@ void ModMenuDisplay()
     gBitFlagAmount = 12800;
     /* Royal End */
 
-    while ( true )
+    // Detect controller and skip to teleport 
+    if (!controller)
+    {
+        controller = PAD_CHK_PRESS(PadButton.Any);
+        teleSkip = PAD_CHK_PRESS(PadButton.Cross);
+    }
+    if (teleSkip)
+    {
+        // Crappy workaround for teleport not starting up
+        MSG(0);
+        Teleport();
+        return;
+    }
+    
+    while (true)
     {
         int selection = DescriptionMenu(Title_ModMenu, Options_ModMenu);
         switch (selection)
@@ -52,7 +68,14 @@ void ModMenuDisplay()
                 break;
             case 2:
                 // ModMenu/Teleport.flow
-                Teleport();
+                if (controller)
+                {
+                    Teleport();
+                }
+                else
+                {
+                    PUTS("Controller not detected.");
+                }
                 break;
             case 3:
                 // ModMenu/Call/Call.flow
@@ -85,25 +108,5 @@ void ModMenuDisplay()
             /* Royal End */
         }
     }
-}
-
-enum Flag
-{
-    Section0 = 0,
-    Section1 = 2048,
-    Section2 = 4096,
-    Section3 = 8192,
-    Section4 = 8448,
-    Section5 = 8704
-}
-
-enum FlagR
-{
-    Section0 = 0,
-    Section1 = 3702,
-    Section2 = 6144,
-    Section3 = 11264,
-    Section4 = 11776,
-    Section5 = 12288
 }
 

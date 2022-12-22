@@ -163,17 +163,17 @@ void TogglePartyFollowers()
 void ActivateBlackMaskAkechi()
 {
     /* Royal Start */
-    if (BIT_CHK(FlagR.Section4 + 272))
+    if (BIT_CHK(Flag.Section4 + 272))
     {
         // Revert Black Mask Akechi Appearance
         int selection = SystemMenu(Message_BlackMaskActive, Options_YesNo);
         if (selection == 0) // Yes
-            BIT_OFF(FlagR.Section4 + 272);
+            BIT_OFF(Flag.Section4 + 272);
     }
     else
     {
         // Update To Black Mask Appearance
-        BIT_ON(FlagR.Section4 + 272);
+        BIT_ON(Flag.Section4 + 272);
         int selection = SystemMenu(Message_BlackMaskInactive, Options_YesNo);
         if (selection == 0) // Yes
         {
@@ -251,7 +251,7 @@ void ActivateBlackMaskAkechi()
             SET_EQUIP(9, 3, (28672 + 13));
             RECOVERY_ALL();
 
-            if (!BIT_CHK(FlagR.Section4 + 14))
+            if (!BIT_CHK(Flag.Section4 + 14))
             {
                 SET_ITEM_NUM(28672 + 24, 0);
             }
@@ -262,8 +262,8 @@ void ActivateBlackMaskAkechi()
 
 void ToggleYoshizawaName()
 {
-    int flg1 = FlagR.Section0 + 2121;
+    int flg1 = Flag.Section0 + 2121;
     ToggleFlag(flg1, false);
-    int flg2 = FlagR.Section0 + 2180;
+    int flg2 = Flag.Section0 + 2180;
     ToggleFlag(flg2, false);
 }

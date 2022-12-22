@@ -60,12 +60,12 @@ On[e]
 
 [dlg Message_ConfirmNumberInput]
 Are you sure you want to
-[n]enter the number [clr 1][f 2 4 0][clr 0]? Incorrect
+[n]enter the number [clr 1][var 0][clr 0]? Incorrect
 [n]IDs may softlock the game.[w][e]
 
 [dlg Message_ConfirmFloatInput]
 Are you sure you want to
-[n]enter the number [clr 1][f 2 4 0].[f 2 4 1][clr 0]?[w][e]
+[n]enter the number [clr 1][var 0].[var 1][clr 0]?[w][e]
 
 [dlg Message_ReloadConfirm]
 The field needs to be reloaded
@@ -77,48 +77,48 @@ Choose Party Member[w][e]
 
 [sel Options_Units]
 [f 4 2] [f 4 1][e]
-[f 2 4 2][e]
-[f 2 4 3][e]
-[f 2 4 4][e]
-[f 2 4 5][e]
-[f 2 4 6][e]
-[f 2 4 7][e]
-[f 2 4 8][e]
-[f 2 4 9][e]
-[f 2 4 10][e]// Royal
+[var 2][e]
+[var 3][e]
+[var 4][e]
+[var 5][e]
+[var 6][e]
+[var 7][e]
+[var 8][e]
+[var 9][e]
+[var 10][e]// Royal
 
 [sel Options_UnitsNoJoker]
-[f 2 4 2][e]
-[f 2 4 3][e]
-[f 2 4 4][e]
-[f 2 4 5][e]
-[f 2 4 6][e]
-[f 2 4 7][e]
-[f 2 4 8][e]
-[f 2 4 9][e]
-[f 2 4 10][e]// Royal
+[var 2][e]
+[var 3][e]
+[var 4][e]
+[var 5][e]
+[var 6][e]
+[var 7][e]
+[var 8][e]
+[var 9][e]
+[var 10][e]// Royal
 
 [dlg Title_UnitsNavi]
 Choose Navigator[w][e]
 
 [sel Options_UnitsNavi]
-[f 2 4 3][e]
-[f 2 4 8][e]
-[f 2 4 9][e]// Royal
+[var 3][e]
+[var 8][e]
+[var 9][e]// Royal
 
 [dlg Title_RomanceMenu]
 Toggle Romance Route[w][e]
 
 [sel Options_RomanceMenu]
-[f 2 4 6][e]
-[f 2 4 7][e]
-[f 2 4 4][e]
-[f 2 4 8][e]
-[f 2 4 17][e]
-[f 2 4 21][e]
-[f 2 4 22][e]
-[f 2 4 23][e]
-[f 2 4 25][e]
+[var 6][e]
+[var 7][e]
+[var 4][e]
+[var 8][e]
+[var 17][e]
+[var 21][e]
+[var 22][e]
+[var 23][e]
+[var 25][e]
 
 [dlg Message_ToggleActiveFlag]
 Flag [clr 1][var 0][clr 0] set to [clr 13]On[clr 0].

@@ -5,51 +5,51 @@
 Party Cut-ins Test[w][e]
 
 [sel Options_PartyCutins]
-[f 2 4 2][ref 0 331][e]
-[f 2 4 3][ref 1 332][e]
-[f 2 4 4][ref 2 333][e]
-[f 2 4 5][ref 3 334][e]
-[f 2 4 6][ref 4 335][e]
-[f 2 4 7][ref 5 336][e]
-[f 2 4 8][ref 6 337][e]
-[f 2 4 9][ref 7 338][e]
-Villain [f 2 4 9][ref 8 339][e]
+[var 2][ref 0 331][e]
+[var 3][ref 1 332][e]
+[var 4][ref 2 333][e]
+[var 5][ref 3 334][e]
+[var 6][ref 4 335][e]
+[var 7][ref 5 336][e]
+[var 8][ref 6 337][e]
+[var 9][ref 7 338][e]
+Villain [var 9][ref 8 339][e]
 
 [dlg GENERIC_HELP_331]
 Test the dialogue Cut-ins
-[n]for [f 2 4 2].[e]
+[n]for [var 2].[e]
 
 [dlg GENERIC_HELP_332]
 Test the dialogue Cut-ins
-[n]for [f 2 4 3].[e]
+[n]for [var 3].[e]
 
 [dlg GENERIC_HELP_333]
 Test the dialogue Cut-ins
-[n]for [f 2 4 4].[e]
+[n]for [var 4].[e]
 
 [dlg GENERIC_HELP_334]
 Test the dialogue Cut-ins
-[n]for [f 2 4 5].[e]
+[n]for [var 5].[e]
 
 [dlg GENERIC_HELP_335]
 Test the dialogue Cut-ins
-[n]for [f 2 4 6].[e]
+[n]for [var 6].[e]
 
 [dlg GENERIC_HELP_336]
 Test the dialogue Cut-ins
-[n]for [f 2 4 7].[e]
+[n]for [var 7].[e]
 
 [dlg GENERIC_HELP_337]
 Test the dialogue Cut-ins
-[n]for [f 2 4 8].[e]
+[n]for [var 8].[e]
 
 [dlg GENERIC_HELP_338]
 Test the dialogue Cut-ins
-[n]for [f 2 4 9].[e]
+[n]for [var 9].[e]
 
 [dlg GENERIC_HELP_339]
 Test the dialogue Cut-ins
-[n]for Villain [f 2 4 9].[e]
+[n]for Villain [var 9].[e]
 
 [msg Title_CutinOrientation]
 Cutin Orientation[w][e]

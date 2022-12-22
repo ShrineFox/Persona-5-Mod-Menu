@@ -27,10 +27,11 @@ Change social stats, items,
 [n]animations, money or name.[e]
 
 [dlg GENERIC_HELP_3]
-Clip through walls and explore
-[n] out of bounds areas. Hold
-[n][clr 18]□ button[clr 0] to change axis.
-[n][clr 9](Controller only or softlock!)[clr 0][e]
+D-Pad/L1/R1: Move player
+[n]○/□: Rotate player
+[n]L2/R2/╳: Adjust speed
+[n](Requires controller)//Royal
+[e]
 
 [dlg GENERIC_HELP_4]
 Call battles, fields, & events,

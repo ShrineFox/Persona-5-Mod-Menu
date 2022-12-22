@@ -79,16 +79,6 @@ namespace ModMenuBuilder
             }
             Output.Log($"Done removing version-specific codeblocks from .flow files.", ConsoleColor.Green);
 
-            // Update flag IDs from PS3 to Royal
-            foreach (var script in Directory.GetFiles(tempDir,
-                "*.flow", SearchOption.AllDirectories))
-            {
-                using (FileSys.WaitForFile(script)) { }
-                if (Program.SelectedGame.Type.ToString().Equals("Royal"))
-                    Royalify(script); 
-            }
-            Output.Log($"Done converting bitflags in .flow files.", ConsoleColor.Green);
-
             // Removes lines with a "// Royal" or "// Vanilla" comment from .msg depending on version
             foreach (var script in Directory.GetFiles(tempDir,
                 "*", SearchOption.AllDirectories))
@@ -347,32 +337,6 @@ namespace ModMenuBuilder
                 else
                     Output.Log($"\tCould not find script to change joypad button names in: {script}", ConsoleColor.Red);
             }
-        }
-
-        private static void Royalify(string script)
-        {
-            if (File.Exists(script))
-            {
-                var lines = File.ReadAllLines(script);
-                List<string> newLines = new List<string>();
-
-                for (int i = 0; i < lines.Length; i++)
-                {
-                    var line = lines[i].Trim();
-                    if (line.Contains("Flag.Section"))
-                    {
-                        string newLine = lines[i].Replace("Flag.Section", "FlagR.Section");
-                        newLines.Add(newLine);
-                        Output.VerboseLog($"Flag enum updated in {Path.GetFileName(script)}: {line}\n\t==> {newLine}", ConsoleColor.DarkMagenta);
-                    }
-                    else // Add original line if no changes needed
-                        newLines.Add(lines[i]);
-                }
-
-                File.WriteAllText(script, String.Join("\n", newLines), Encoding.Unicode);
-            }
-            else
-                Output.Log($"\tCould not find script to replace Royal bitflags in: {script}", ConsoleColor.Red);
         }
 
         private static void RemoveMsgComments(string script)

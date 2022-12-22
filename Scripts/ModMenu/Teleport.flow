@@ -1,59 +1,76 @@
 ﻿void Teleport()
 {
-    const float ADD_VELOCITY_PER_PRESS = 5f;
-
+    // Get player resource handle
     int playerResHandle = FLD_PC_GET_RESHND(0);
 
-    float playerVelocityX = 0f;
-    float playerVelocityY = 0f;
-    float playerVelocityZ = 0f;
+    // Velocity to add per frame
+    const float ADD_VELOCITY_PER_PRESS = 3f;
+
+    float velocity_x = 0f;
+    float velocity_y = 0f;
+    float velocity_z = 0f;
     int runs = 0;
 
+    // Stop executing when Triangle button is pressed
     while (!PAD_CHK_PRESS(PadButton.Triangle))
     {
+        // Get current player position
+        float player_x = FLD_MODEL_GET_X_TRANSLATE(playerResHandle);
+        float player_y = FLD_MODEL_GET_Y_TRANSLATE(playerResHandle);
+        float player_z = FLD_MODEL_GET_Z_TRANSLATE(playerResHandle);
+        // Get current player rotation
+        float rot_x = FLD_MODEL_GET_X_ROTATE(playerResHandle);
+        float rot_y = FLD_MODEL_GET_Y_ROTATE(playerResHandle);
+        float rot_z = FLD_MODEL_GET_Z_ROTATE(playerResHandle);
+
+        // Bring velocity closer to zero
         ++runs;
-        if (runs > 4)
+        float multiplier = 1f;
+        if (runs > 5)
         {
+            multiplier = 1f;
             runs = 0;
-            playerVelocityX /= 2;
-            playerVelocityY /= 2;
-            playerVelocityZ /= 2;
+            velocity_x /= 3f;
+            velocity_y /= 3f;
+            velocity_z /= 3f;
         }
 
+        // If a button is pressed...
         if (PAD_CHK_PRESS(PadButton.Any))
         {
+            // Multiply velocity
+            if (PAD_CHK_PRESS(PadButton.R2))
+                multiplier *= 4f;
+            if (PAD_CHK_PRESS(PadButton.Cross))
+                multiplier *= 6f;
+            // Divide velocity
+            if (PAD_CHK_PRESS(PadButton.L2))
+                multiplier /= 10f;
+            // Move north/east/south/west
             if (PAD_CHK_PRESS(PadButton.Up))
-            {
-                if (PAD_CHK_PRESS(PadButton.Square))
-                    playerVelocityZ += ADD_VELOCITY_PER_PRESS;
-                else
-                    playerVelocityY += ADD_VELOCITY_PER_PRESS;
-            }
-
+                velocity_z += ADD_VELOCITY_PER_PRESS * multiplier;
             if (PAD_CHK_PRESS(PadButton.Right))
-            {
-                playerVelocityX += ADD_VELOCITY_PER_PRESS;
-            }
-
+                velocity_x -= ADD_VELOCITY_PER_PRESS * multiplier;
             if (PAD_CHK_PRESS(PadButton.Down))
-            {
-                if (PAD_CHK_PRESS(PadButton.Square))
-                    playerVelocityZ -= ADD_VELOCITY_PER_PRESS;
-                else
-                    playerVelocityY -= ADD_VELOCITY_PER_PRESS;
-            }
-
+                velocity_z -= ADD_VELOCITY_PER_PRESS * multiplier;
             if (PAD_CHK_PRESS(PadButton.Left))
-            {
-                playerVelocityX -= ADD_VELOCITY_PER_PRESS;
-            }
+                velocity_x += ADD_VELOCITY_PER_PRESS * multiplier;
+            // Move up/down
+            if (PAD_CHK_PRESS(PadButton.R1))
+                velocity_y += ADD_VELOCITY_PER_PRESS * multiplier;
+            if (PAD_CHK_PRESS(PadButton.L1))
+                velocity_y -= ADD_VELOCITY_PER_PRESS * multiplier;
+            // Rotate on Y axis
+            if (PAD_CHK_PRESS(PadButton.Square))
+                FLD_MODEL_SET_ROTATE(playerResHandle, rot_x, rot_y + ADD_VELOCITY_PER_PRESS, rot_z, 0);
+            if (PAD_CHK_PRESS(PadButton.Circle) || PAD_CHK_PRESS(PadButton.Cross))
+                FLD_MODEL_SET_ROTATE(playerResHandle, rot_x, rot_y - ADD_VELOCITY_PER_PRESS, rot_z, 0);
         }
 
-        float x = FLD_MODEL_GET_X_TRANSLATE(playerResHandle) + playerVelocityX;
-        float y = FLD_MODEL_GET_Y_TRANSLATE(playerResHandle) + playerVelocityY;
-        float z = FLD_MODEL_GET_Z_TRANSLATE(playerResHandle) + playerVelocityZ;
-        FLD_MODEL_RUN_TRANSLATE(playerResHandle, x, y, z);
-
+        // Move player in direction of velocity
+        FLD_MODEL_SET_TRANSLATE(playerResHandle, player_x + velocity_x, player_y + velocity_y, player_z + velocity_z, 0);
+        FLD_MODEL_SYNC_TRANSLATE(playerResHandle);
+        FLD_MODEL_SYNC_ROTATE(playerResHandle);
         SYNC();
     }
 }
