@@ -21,6 +21,8 @@ global int gFieldMinor;
 global int gBitFlagAmount;
 bool controller;
 bool teleSkip;
+int selDigit;
+bool cancelDigit;
 
 // Procedures
 void ModMenuDisplay()
@@ -38,20 +40,30 @@ void ModMenuDisplay()
     gBitFlagAmount = 12800;
     /* Royal End */
 
-    // Detect controller and skip to teleport 
+    // Detect controller
     if (!controller)
     {
         controller = PAD_CHK_PRESS(PadButton.Any);
-        teleSkip = PAD_CHK_PRESS(PadButton.Cross);
     }
-    if (teleSkip)
+    if (controller)
     {
-        // Crappy workaround for teleport not starting up
-        MSG(0);
-        Teleport();
-        return;
+        // Skip to Teleport function if Confirm button is held
+        teleSkip = PAD_CHK_PRESS(PadButton.Cross);
+        if (teleSkip)
+        {
+            Teleport();
+            return;
+        }
     }
-    
+
+    /*
+     * Zeal Tex Test
+    if (!controller)
+        return;
+    InputNumber(5);
+    return;
+    */
+
     while (true)
     {
         int selection = DescriptionMenu(Title_ModMenu, Options_ModMenu);
@@ -69,13 +81,7 @@ void ModMenuDisplay()
             case 2:
                 // ModMenu/Teleport.flow
                 if (controller)
-                {
                     Teleport();
-                }
-                else
-                {
-                    PUTS("Controller not detected.");
-                }
                 break;
             case 3:
                 // ModMenu/Call/Call.flow
@@ -110,3 +116,212 @@ void ModMenuDisplay()
     }
 }
 
+int InputNumber(int digitCount)
+{
+    int number = 0;
+    // Reset all digits
+    int digit1 = 0;
+    int digit2 = 0;
+    int digit3 = 0;
+    int digit4 = 0;
+    int digit5 = 0;
+    // Reset selected digit
+    selDigit = 0;
+
+    // For each digit in digit count...
+    for (int i = 0; i < digitCount; i++)
+    {
+        // Have user select digit from pad
+        ZealPad();
+
+        // If back button is not pressed...
+        if (!cancelDigit)
+        {
+            // Save digit to temp variable
+            if (i == 0)
+            {
+                digit1 = selDigit;
+                digit2 = 0;
+                digit3 = 0;
+                digit4 = 0;
+                digit5 = 0;
+                //PUTS("Digit 1:")
+            }
+            else if (i == 1)
+            {
+                digit2 = selDigit;
+                digit3 = 0;
+                digit4 = 0;
+                digit5 = 0;
+                //PUTS("Digit 2:")
+            }
+            else if (i == 2)
+            {
+                digit3 = selDigit;
+                digit4 = 0;
+                digit5 = 0;
+                //PUTS("Digit 3:")
+            }
+            else if (i == 3)
+            {
+                digit4 = selDigit;
+                digit5 = 0;
+                //PUTS("Digit 4:")
+            }
+            else if (i == 4)
+            {
+                digit5 = selDigit;
+                //PUTS("Digit 5:")
+            }
+            else
+            {
+                //PUTS("Digit Not Saved (Out of Range):");
+            }
+            //PUT(selDigit);
+        }
+        else // If back button is pressed...
+        {
+            // If selecting first digit...
+            if (i == 0)
+            {
+                // End number selection
+                PUTS("Cancelled Number Selection.");
+                return -1;
+            }
+            else
+            {
+                // Back up to previous digit selection
+                i -= 2;
+                PUTS("Selecting Previous Digit...");
+                break;
+            }
+            cancelDigit = false;
+        }
+    }
+
+    // Calculate final number
+    switch (digitCount)
+    {
+        case 1:
+            number = digit1;
+            break;
+        case 2:
+            number = (digit1 * 10) + digit2;
+            break;
+        case 3:
+            number = (digit1 * 100) + (digit2 * 10) + digit3;
+            break;
+        case 4:
+            number = (digit1 * 1000) + (digit2 * 100) + (digit3 * 10) + digit4;
+            break;
+        case 5:
+            number = (digit1 * 10000) + (digit2 * 1000) + (digit3 * 100) + (digit4 * 10) + digit5;
+            break;
+        default:
+            number = -1;
+            break;
+    }
+    PUTS("You entered:")
+    PUT(number)
+    return number;
+}
+
+void DisplayPad()
+{
+    if (!BIT_CHK(selDigit))
+    {
+        ZEAL_TEX_READ(selDigit,selDigit);
+        BIT_ON(selDigit);
+        PUTS("Loaded Pad Texture:");
+        PUT(selDigit);
+    }
+    SYNC();
+    ZEAL_TEX_SYNC(selDigit);
+    SYNC();
+    ZEAL_TEX_DISP(selDigit,selDigit);
+    SYNC();
+    //PUTS("Highlighted Digit:");
+    //PUT(selDigit);
+}
+
+void HidePad()
+{
+    //if (BIT_CHK(selDigit))
+    {
+        SYNC();
+        ZEAL_TEX_FREE(selDigit, selDigit);
+        BIT_OFF(selDigit);
+        SYNC();
+        PUTS("Unloaded Pad Texture:");
+        PUT(selDigit);
+    }
+}
+
+void ZealPad()
+{
+    // Wait for all buttons to be released
+    while (PAD_CHK_PRESS(PadButton.Any)) { SYNC(); }
+
+    bool reload = false;
+    while (true)
+    {
+        if (reload)
+        {
+            DisplayPad();
+            reload = false;
+            // Wait for all buttons to be released
+            while (PAD_CHK_PRESS(PadButton.Any)) { SYNC(); }
+        }
+
+        if (PAD_CHK_PRESS(PadButton.Any))
+        {
+            if (PAD_CHK_TRIG(PadButton.Up) && (selDigit > 0) && (selDigit < 7))
+            {
+                HidePad();
+                selDigit += 3;
+                reload = true;
+            }
+            else if (PAD_CHK_TRIG(PadButton.Down) && (selDigit > 3) && (selDigit < 10))
+            {
+                HidePad();
+                selDigit -= 3;
+                reload = true;
+            }
+            else if (PAD_CHK_TRIG(PadButton.Right) && (selDigit >= 0) && (selDigit < 9))
+            {
+                HidePad();
+                selDigit += 1;
+                reload = true;
+            }
+            else if (PAD_CHK_TRIG(PadButton.Left) && (selDigit > 0) && (selDigit < 10))
+            {
+                HidePad();
+                selDigit -= 1;
+                reload = true;
+            }
+            else if (PAD_CHK_TRIG(PadButton.Up) && (selDigit == 0))
+            {
+                HidePad();
+                selDigit += 2;
+                reload = true;
+            }
+            else if (PAD_CHK_TRIG(PadButton.Cross))
+            {
+                HidePad();
+                PUTS("Confirmed Entry:");
+                PUT(selDigit);
+                return;
+            }
+            else if (PAD_CHK_TRIG(PadButton.Circle))
+            {
+                HidePad();
+                cancelDigit = true;
+                return;
+            }
+        }
+
+        SYNC();
+    }
+    
+    return;
+}

@@ -11,8 +11,11 @@
     float velocity_z = 0f;
     int runs = 0;
 
-    // Stop executing when Triangle button is pressed
-    while (!PAD_CHK_PRESS(PadButton.Triangle))
+    // Wait for all buttons to be released
+    while(PAD_CHK_PRESS(PadButton.Any)) { SYNC(); }
+
+    // Stop executing when Circle button is pressed
+    while (!PAD_CHK_PRESS(PadButton.Circle))
     {
         // Get current player position
         float player_x = FLD_MODEL_GET_X_TRANSLATE(playerResHandle);
@@ -39,12 +42,12 @@
         if (PAD_CHK_PRESS(PadButton.Any))
         {
             // Multiply velocity
-            if (PAD_CHK_PRESS(PadButton.R2))
-                multiplier *= 4f;
             if (PAD_CHK_PRESS(PadButton.Cross))
-                multiplier *= 6f;
+                multiplier *= 3f;
+            if (PAD_CHK_PRESS(PadButton.Triangle))
+                multiplier *= 5f;
             // Divide velocity
-            if (PAD_CHK_PRESS(PadButton.L2))
+            if (PAD_CHK_PRESS(PadButton.Square))
                 multiplier /= 10f;
             // Move north/east/south/west
             if (PAD_CHK_PRESS(PadButton.Up))
@@ -56,15 +59,15 @@
             if (PAD_CHK_PRESS(PadButton.Left))
                 velocity_x += ADD_VELOCITY_PER_PRESS * multiplier;
             // Move up/down
-            if (PAD_CHK_PRESS(PadButton.R1))
+            if (PAD_CHK_PRESS(PadButton.R2))
                 velocity_y += ADD_VELOCITY_PER_PRESS * multiplier;
-            if (PAD_CHK_PRESS(PadButton.L1))
+            if (PAD_CHK_PRESS(PadButton.L2))
                 velocity_y -= ADD_VELOCITY_PER_PRESS * multiplier;
             // Rotate on Y axis
-            if (PAD_CHK_PRESS(PadButton.Square))
-                FLD_MODEL_SET_ROTATE(playerResHandle, rot_x, rot_y + ADD_VELOCITY_PER_PRESS, rot_z, 0);
-            if (PAD_CHK_PRESS(PadButton.Circle) || PAD_CHK_PRESS(PadButton.Cross))
-                FLD_MODEL_SET_ROTATE(playerResHandle, rot_x, rot_y - ADD_VELOCITY_PER_PRESS, rot_z, 0);
+            if (PAD_CHK_PRESS(PadButton.R1))
+                FLD_MODEL_SET_ROTATE(playerResHandle, rot_x, rot_y + ADD_VELOCITY_PER_PRESS * multiplier, rot_z, 0);
+            if (PAD_CHK_PRESS(PadButton.L1))
+                FLD_MODEL_SET_ROTATE(playerResHandle, rot_x, rot_y - ADD_VELOCITY_PER_PRESS * multiplier, rot_z, 0);
         }
 
         // Move player in direction of velocity

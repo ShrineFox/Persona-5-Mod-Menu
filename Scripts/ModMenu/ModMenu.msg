@@ -27,9 +27,9 @@ Change social stats, items,
 [n]animations, money or name.[e]
 
 [dlg GENERIC_HELP_3]
-D-Pad/L1/R1: Move player
-[n]○/□: Rotate player
-[n]L2/R2/╳: Adjust speed
+D-Pad/L2/R2: Move player
+[n]L1/R1/: Rotate player
+[n]△/□/╳: Adjust speed
 [n](Requires controller)//Royal
 [e]
 
