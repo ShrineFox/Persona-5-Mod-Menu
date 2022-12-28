@@ -441,7 +441,7 @@ void MiscBossMenu2()
 
 void EventBattle()
 {
-    while (true)
+    while (true && !PAD_CHK_PRESS(PadButton.L2))
     {
         int selection = NameMenu(Title_EventBattles, Options_EventBattles);
         switch (selection)

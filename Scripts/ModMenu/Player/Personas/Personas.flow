@@ -4,7 +4,7 @@ import("Personas.msg");
 
 void PersonasMenu()
 {
-    while (true)
+    while (true && !PAD_CHK_PRESS(PadButton.L2))
     {
         int selection = DescriptionMenu(Title_Personas, Options_Personas);
         switch (selection)
@@ -36,7 +36,7 @@ void AddPersona(int personaId)
 
 void AddPersonasMenu()
 {
-    while (true)
+    while (true && !PAD_CHK_PRESS(PadButton.L2))
     {
         int personaId;
 

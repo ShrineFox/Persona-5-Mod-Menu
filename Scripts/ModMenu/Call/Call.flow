@@ -10,7 +10,7 @@ import("Call.msg");
 
 void CallMenu()
 {
-    while (true)
+    while (true && !PAD_CHK_PRESS(PadButton.L2))
     {
         int selection = DescriptionMenu(Title_Call, Options_Call);
         switch (selection)

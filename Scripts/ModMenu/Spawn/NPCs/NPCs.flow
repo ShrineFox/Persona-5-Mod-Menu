@@ -6,7 +6,7 @@ global int gLastSpawnedNpcModelHandle;
 
 void SpawnNPCsMenu()
 {
-    while (true)
+    while (true && !PAD_CHK_PRESS(PadButton.L2))
     {
         int selection = DescriptionMenu(Title_SpawnNPCs, Options_SpawnNPCs);
 

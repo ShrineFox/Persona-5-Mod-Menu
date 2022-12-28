@@ -2,7 +2,7 @@
 
 void EventMenu()
 {
-    while (true)
+    while (true && !PAD_CHK_PRESS(PadButton.L2))
     {
         int selection = DescriptionMenu(Title_Events, Options_Events);
         switch (selection)

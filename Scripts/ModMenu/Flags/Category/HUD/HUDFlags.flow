@@ -2,7 +2,7 @@
 
 void HUDFlagsMenu()
 {
-    while (true)
+    while (true && !PAD_CHK_PRESS(PadButton.L2))
     {
         int selection = DescriptionMenu(Title_HUDFlags, Options_HUDFlags);
         switch (selection)

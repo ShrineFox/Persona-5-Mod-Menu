@@ -95,7 +95,7 @@ float FloatMenu()
 {
     int i = 0;
     float ipart = 0;
-    while (true)
+    while (true && !PAD_CHK_PRESS(PadButton.L2))
     {
         float digit = Menu(Options_Digits);
 
@@ -116,7 +116,7 @@ float FloatMenu()
 
     i = 0;
     float fpart = 0;
-    while (true)
+    while (true && !PAD_CHK_PRESS(PadButton.L2))
     {
         float digit = Menu(Options_Digits);
 

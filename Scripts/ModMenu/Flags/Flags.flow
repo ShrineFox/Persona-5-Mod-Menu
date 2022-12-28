@@ -8,7 +8,7 @@ const int flg_ModMenu = Flag.Section4 + 5;
 
 void FlagsMenu()
 {
-    while (true)
+    while (true && !PAD_CHK_PRESS(PadButton.L2))
     {
         int selection = DescriptionMenu(Title_Flags, Options_Flags);
         switch (selection)
@@ -45,7 +45,7 @@ void FlagsMenu()
 
 void ToggleBitflags_ByID()
 {
-    while (true)
+    while (true && !PAD_CHK_PRESS(PadButton.L2))
     {
         int selection = DescriptionMenu(Title_ToggleByID, Options_ToggleByID);
         switch (selection)

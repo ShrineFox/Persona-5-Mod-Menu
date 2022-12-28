@@ -4,7 +4,7 @@ import("Animation/PlayerAnimation.flow");
 
 void PlayerAppearanceMenu()
 {
-    while (true)
+    while (true && !PAD_CHK_PRESS(PadButton.L2))
     {
         int selection = DescriptionMenu(Title_PlayerAppearance, Options_PlayerAppearance);
 

@@ -2,7 +2,7 @@ import("Royal.msg");
 
 void RoyalMenu()
 {
-    while (true)
+    while (true && !PAD_CHK_PRESS(PadButton.L2))
     {
         int selection = DescriptionMenu(Title_Royal, Options_Royal);
         switch (selection)

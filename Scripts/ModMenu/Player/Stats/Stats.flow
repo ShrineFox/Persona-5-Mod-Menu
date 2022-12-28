@@ -2,7 +2,7 @@ import("Stats.msg");
 
 void StatsMenu()
 {
-    while (true)
+    while (true && !PAD_CHK_PRESS(PadButton.L2))
     {
         int selection = DescriptionMenu(Title_Stats, Options_Stats);
 

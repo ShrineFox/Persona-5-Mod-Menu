@@ -2,7 +2,7 @@
 
 void RoomFlagsMenu()
 {
-    while (true)
+    while (true && !PAD_CHK_PRESS(PadButton.L2))
     {
         int selection = DescriptionMenu(Title_RoomFlags, Options_RoomFlags);
         switch (selection)
@@ -21,7 +21,7 @@ void RoomFlagsMenu()
 
 void CollectibleFlagsMenu()
 {
-    while (true)
+    while (true && !PAD_CHK_PRESS(PadButton.L2))
     {
         int selection = NameMenu(Title_CollectibleFlags, Options_CollectibleFlags);
         if (selection == -1)
@@ -33,7 +33,7 @@ void CollectibleFlagsMenu()
 
 void FurnitureFlagsMenu()
 {
-    while (true)
+    while (true && !PAD_CHK_PRESS(PadButton.L2))
     {
         int selection = NameMenu(Title_FurnitureFlags, Options_FurnitureFlags);
         switch (selection)
@@ -88,7 +88,7 @@ void FurnitureFlagsMenu()
 
 void UFOGameFlagsMenu()
 {
-    while (true)
+    while (true && !PAD_CHK_PRESS(PadButton.L2))
     {
         int selection = NameMenu(Title_UFOGameFlags, Options_UFOGameFlags);
         if (selection == -1)

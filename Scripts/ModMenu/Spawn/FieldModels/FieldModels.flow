@@ -2,7 +2,7 @@
 
 void SpawnFieldModelsMenu()
 {
-    while (true)
+    while (true && !PAD_CHK_PRESS(PadButton.L2))
     {
         int selection = DescriptionMenu(Title_FieldModels, Options_FieldModels);
 

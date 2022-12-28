@@ -2,7 +2,7 @@
 
 void SoundMenu()
 {
-    while (true)
+    while (true && !PAD_CHK_PRESS(PadButton.L2))
     {
         int selection = NameMenu(Title_SoundTest, Options_SoundTest);
         switch (selection)

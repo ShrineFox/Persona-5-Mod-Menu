@@ -2,7 +2,7 @@
 
 void ItemsMenu()
 {
-    while (true)
+    while (true && !PAD_CHK_PRESS(PadButton.L2))
     {
         int itemType = DescriptionMenu(Title_Items, Options_Items);
 

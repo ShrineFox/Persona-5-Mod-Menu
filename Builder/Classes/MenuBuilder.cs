@@ -37,8 +37,23 @@ namespace ModMenuBuilder
 
             UnpackPACs(); // Get .bf files from .PAC files
             ProcessScripts(); // Enable/disable game-specific elements of Mod Menu .flow/.msg and reindex .msg files
+            CopyDDS(); // Move .dds files to destination
 
             Output.Log("\nDone!", ConsoleColor.Green);
+        }
+
+        private static void CopyDDS()
+        {
+            foreach(var file in Directory.GetFiles(assetsDir, "*.dds", SearchOption.AllDirectories))
+            {
+                string destination = Path.Combine(Path.Combine(outputDir, "test"), "zeal_tex");
+                if (!Directory.Exists(destination))
+                    Directory.CreateDirectory(destination);
+                string destFile = Path.Combine(destination, Path.GetFileName(file));
+                if (!File.Exists(destFile))
+                    File.Copy(file, destFile);
+            }
+            Output.Log($"Done copying .dds files.", ConsoleColor.Green);
         }
 
         public static void UnpackPACs()

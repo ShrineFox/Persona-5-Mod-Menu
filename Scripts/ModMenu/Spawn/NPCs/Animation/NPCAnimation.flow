@@ -8,7 +8,7 @@ global int gNpcAnimTime;
 
 void NPCAnimationMenu(int lastSpawnedNpcModelHandle)
 {
-    while (true)
+    while (true && !PAD_CHK_PRESS(PadButton.L2))
     {
         int selection = DescriptionMenu(Title_NPCAnimation, Options_NPCAnimation);
         switch (selection)

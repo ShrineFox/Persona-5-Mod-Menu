@@ -73,3 +73,6 @@ Created using [clr 1]TGE[clr 0]'s [clr 1]Atlus-Script-Tools[clr 0].
 [n]github.com/tge-was-taken/Atlus-Script-Tools[w][e]
 For more information, visit:
 [n][clr 1]shrinefox.com[clr 0][w][e]
+
+[dlg Message_ZealRslt]
+You entered: [clr 1][var 0][clr 0][w][e]

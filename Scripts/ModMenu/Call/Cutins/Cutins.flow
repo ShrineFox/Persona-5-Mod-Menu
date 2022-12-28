@@ -3,7 +3,7 @@ import("Cutins.msg");
 void CutinsMenu()
 {
     SetConfidantNames();
-    while (true)
+    while (true && !PAD_CHK_PRESS(PadButton.L2))
     {
         int selection = DescriptionMenu(Title_PartyCutins, Options_PartyCutins);
         switch (selection) 
@@ -43,7 +43,7 @@ void CutinsMenu()
 
 void CutinMenu(int msgID)
 {
-    while (true)
+    while (true && !PAD_CHK_PRESS(PadButton.L2))
     {
         int selection = NameMenu(Title_CutinOrientation, Options_CutinOrientation);
         if ( selection == -1 )

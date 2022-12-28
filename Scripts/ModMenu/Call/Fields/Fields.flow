@@ -3,7 +3,7 @@ import("Fields.msg");
 
 void FieldMenu()
 {
-    while (true)
+    while (true && !PAD_CHK_PRESS(PadButton.L2))
     {
         int selection = DescriptionMenu(Title_Fields, Options_Fields);
         switch (selection)
@@ -60,7 +60,7 @@ void FieldMenu()
 
 void FieldCategoryMenu()
 {
-    while (true)
+    while (true && !PAD_CHK_PRESS(PadButton.L2))
     {
         int selection = NameMenu(Title_FieldCategories, Options_FieldCategories);
         switch (selection)
@@ -136,7 +136,7 @@ void FieldCategoryMenu()
 
 void FieldExtra()
 {
-    while (true)
+    while (true && !PAD_CHK_PRESS(PadButton.L2))
     {
         int selection = NameMenu(Title_ExtraFields, Options_ExtraFields);
         switch (selection)
@@ -151,7 +151,7 @@ void FieldExtra()
 
 void FieldShibuya()
 {
-    while (true)
+    while (true && !PAD_CHK_PRESS(PadButton.L2))
     {
         int selection = NameMenu(Title_ShibuyaFields, Options_ShibuyaFields);
         switch (selection)
@@ -176,7 +176,7 @@ void FieldShibuya()
 
 void FieldYongenJaya()
 {
-    while (true)
+    while (true && !PAD_CHK_PRESS(PadButton.L2))
     {
         int selection = NameMenu(Title_YongenJayaFields, Options_YongenJayaFields);
         switch (selection)
@@ -196,7 +196,7 @@ void FieldYongenJaya()
 
 void FieldSchool()
 {
-    while (true)
+    while (true && !PAD_CHK_PRESS(PadButton.L2))
     {
         int selection = NameMenu(Title_SchoolFields, Options_SchoolFields);
         switch (selection)
@@ -226,7 +226,7 @@ void FieldSchool()
 
 void FieldAkihabara()
 {
-    while (true)
+    while (true && !PAD_CHK_PRESS(PadButton.L2))
     {
         int selection = NameMenu(Title_AkihabaraFields, Options_AkihabaraFields);
         switch (selection)
@@ -241,7 +241,7 @@ void FieldAkihabara()
 
 void FieldShinjuku()
 {
-    while (true)
+    while (true && !PAD_CHK_PRESS(PadButton.L2))
     {
         int selection = NameMenu(Title_ShinjukuFields, Options_ShinjukuFields);
         switch (selection)
@@ -256,7 +256,7 @@ void FieldShinjuku()
 
 void FieldHangoutPlaces()
 {
-    while (true)
+    while (true && !PAD_CHK_PRESS(PadButton.L2))
     {
         int selection = NameMenu(Title_HangoutFields, Options_HangoutFields);
         switch (selection)
@@ -286,7 +286,7 @@ void FieldHangoutPlaces()
 
 void FieldMementos()
 {
-    while (true)
+    while (true && !PAD_CHK_PRESS(PadButton.L2))
     {
         int selection = NameMenu(Title_MementosFields, Options_MementosFields);
         switch (selection)
@@ -300,7 +300,7 @@ void FieldMementos()
 
 void FieldSmallRooms()
 {
-    while (true)
+    while (true && !PAD_CHK_PRESS(PadButton.L2))
     {
         int selection = NameMenu(Title_RoomFields, Options_RoomFields);
         switch (selection)
@@ -334,7 +334,7 @@ void FieldSmallRooms()
 
 void FieldEarlyFields()
 {
-    while (true)
+    while (true && !PAD_CHK_PRESS(PadButton.L2))
     {
         int selection = NameMenu(Title_EarlyFields, Options_EarlyFields);
         switch (selection)
@@ -378,7 +378,7 @@ void FieldEarlyFields()
 
 void FieldPrologue()
 {
-    while (true)
+    while (true && !PAD_CHK_PRESS(PadButton.L2))
     {
         int selection = NameMenu(Title_PrologueFields, Options_PrologueFields);
         switch (selection)
@@ -394,7 +394,7 @@ void FieldPrologue()
 
 void FieldCastlePalace()
 {
-    while (true)
+    while (true && !PAD_CHK_PRESS(PadButton.L2))
     {
         int selection = NameMenu(Title_CastleFields, Options_CastleFields);
         switch (selection)
@@ -430,7 +430,7 @@ void FieldCastlePalace()
 
 void FieldMuseumPalace()
 {
-    while (true)
+    while (true && !PAD_CHK_PRESS(PadButton.L2))
     {
         int selection = NameMenu(Title_MuseumFields, Options_MuseumFields);
         switch (selection)
@@ -454,7 +454,7 @@ void FieldMuseumPalace()
 
 void FieldBankPalace()
 {
-    while (true)
+    while (true && !PAD_CHK_PRESS(PadButton.L2))
     {
         int selection = NameMenu(Title_BankFields, Options_BankFields);
         switch (selection)
@@ -481,7 +481,7 @@ void FieldBankPalace()
 
 void FieldSpacePalace()
 {
-    while (true)
+    while (true && !PAD_CHK_PRESS(PadButton.L2))
     {
         int selection = NameMenu(Title_SpaceFields, Options_SpaceFields);
         switch (selection)
@@ -511,7 +511,7 @@ void FieldSpacePalace()
 
 void FieldPyramidPalace()
 {
-    while (true)
+    while (true && !PAD_CHK_PRESS(PadButton.L2))
     {
         int selection = NameMenu(Title_PyramidFields, Options_PyramidFields);
         switch (selection)
@@ -538,7 +538,7 @@ void FieldPyramidPalace()
 
 void FieldCasinoPalace()
 {
-    while (true)
+    while (true && !PAD_CHK_PRESS(PadButton.L2))
     {
         int selection = NameMenu(Title_CasinoFields, Options_CasinoFields);
         switch (selection)
@@ -567,7 +567,7 @@ void FieldCasinoPalace()
 
 void FieldCruisePalace()
 {
-    while (true)
+    while (true && !PAD_CHK_PRESS(PadButton.L2))
     {
         int selection = NameMenu(Title_CruiseFields, Options_CruiseFields);
         switch (selection)
@@ -610,7 +610,7 @@ void FieldCruisePalace()
 
 void FieldMementosPalace()
 {
-    while (true)
+    while (true && !PAD_CHK_PRESS(PadButton.L2))
     {
         int selection = NameMenu(Title_DepthsFields, Options_DepthsFields);
         switch (selection)
@@ -635,7 +635,7 @@ void FieldMementosPalace()
 
 void FieldQliphothTree()
 {
-    while (true)
+    while (true && !PAD_CHK_PRESS(PadButton.L2))
     {
         int selection = NameMenu(Title_QliphothFields, Options_QliphothFields);
         switch (selection)
@@ -656,7 +656,7 @@ void FieldQliphothTree()
 
 void FieldLabPalace()
 {
-    while (true)
+    while (true && !PAD_CHK_PRESS(PadButton.L2))
     {
         int selection = NameMenu(Title_LabFields, Options_LabFields);
         switch (selection)

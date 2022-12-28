@@ -8,7 +8,7 @@ import("Player.msg");
 
 void PlayerMenu()
 {
-    while (true)
+    while (true && !PAD_CHK_PRESS(PadButton.L2))
     {
         int selection = DescriptionMenu(Title_Player, Options_Player);
         switch (selection)

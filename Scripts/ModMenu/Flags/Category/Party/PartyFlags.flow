@@ -2,7 +2,7 @@
 
 void PartyFlagsMenu()
 {
-    while (true)
+    while (true && !PAD_CHK_PRESS(PadButton.L2))
     {
         int selection = DescriptionMenu(Title_PartyFlags, Options_PartyFlags);
         switch (selection)
@@ -39,7 +39,7 @@ void PartyFlagsMenu()
 
 void ToggleShowTimes()
 {
-    while (true)
+    while (true && !PAD_CHK_PRESS(PadButton.L2))
     {
         SetConfidantNames();
         int selection = NameMenu(Title_Showtime, Options_Showtime);
@@ -62,7 +62,7 @@ void ToggleShowTimes()
 
 void ToggleBatonPass()
 {
-    while (true)
+    while (true && !PAD_CHK_PRESS(PadButton.L2))
     {
         SetConfidantNames();
         int selection = NameMenu(Title_Units, Options_Units);
@@ -77,7 +77,7 @@ void ToggleBatonPass()
 
 void TogglePartyMemberUnlocked()
 {
-    while (true)
+    while (true && !PAD_CHK_PRESS(PadButton.L2))
     {
         SetConfidantNames();
         int selection = NameMenu(Title_Units, Options_UnitsNoJoker);
@@ -111,7 +111,7 @@ void TogglePartyEditing()
 
 void SetNavigator()
 {
-    while (true)
+    while (true && !PAD_CHK_PRESS(PadButton.L2))
     {
         SetConfidantNames();
         int selection = NameMenu(Title_UnitsNavi, Options_UnitsNavi);
@@ -147,7 +147,7 @@ void SetNavigator()
 void TogglePartyFollowers()
 {
     BIT_ON(Flag.Section2 + 65);
-    while (true)
+    while (true && !PAD_CHK_PRESS(PadButton.L2))
     {
         SetConfidantNames();
         int selection = NameMenu(Title_Units, Options_UnitsNoJoker);

@@ -2,7 +2,7 @@
 
 void MemeFloorMenu()
 {
-    while (true)
+    while (true && !PAD_CHK_PRESS(PadButton.L2))
     {
         int area = NameMenu(Title_MemeAreas, Options_MemeAreas);
         switch(area)

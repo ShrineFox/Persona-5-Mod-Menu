@@ -5,7 +5,7 @@ import("Spawn.msg");
 
 void SpawnMenu()
 {
-    while (true)
+    while (true && !PAD_CHK_PRESS(PadButton.L2))
     {
         int selection = DescriptionMenu(Title_Spawn, Options_Spawn);
         switch (selection)

@@ -4,7 +4,7 @@ import("Skills.msg");
 
 void SkillsMenu()
 {
-    while (true)
+    while (true && !PAD_CHK_PRESS(PadButton.L2))
     {
         int selection = NameMenu(Title_Skills, Options_Skills);
         switch (selection)

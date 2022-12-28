@@ -2,7 +2,7 @@
 
 void ConfidantsMenu()
 {
-    while (true)
+    while (true && !PAD_CHK_PRESS(PadButton.L2))
     {
         int selection = DescriptionMenu(Title_Confidants, Options_Confidants);
         switch (selection)
@@ -55,7 +55,7 @@ void ConfidantRankMenu()
 
 void RomanceRouteMenu()
 {
-    while (true)
+    while (true && !PAD_CHK_PRESS(PadButton.L2))
     {
         SetConfidantNames();
         int lover = NameMenu(Title_RomanceMenu, Options_RomanceMenu);
@@ -68,7 +68,7 @@ void RomanceRouteMenu()
 
 void FriendzoneMenu()
 {
-	while (true)
+	while (true && !PAD_CHK_PRESS(PadButton.L2))
 	{
 		int friend = NumberMenu(2, Title_ConfidantFriend);
 		if (friend == -1)

@@ -8,7 +8,7 @@ global int gFldAnimTime;
 
 void PlayerAnimationMenu()
 {
-    while (true)
+    while (true && !PAD_CHK_PRESS(PadButton.L2))
     {
         int selection = DescriptionMenu(Title_PlayerAnimation, Options_PlayerAnimation);
         switch (selection)
