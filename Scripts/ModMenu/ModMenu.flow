@@ -1,6 +1,5 @@
 // Import Utility Scripts
 import("../Utilities/Utilities.flow");
-import("../Utilities/ZealPad.flow");
 // Import Menu Option Text
 import("ModMenu.msg");
 // Import Submenu Scripts
@@ -20,26 +19,26 @@ global int unitId;
 global int gFieldMajor;
 global int gFieldMinor;
 global int gBitFlagAmount;
-bool controller;
 bool teleSkip;
 
 // Procedures
 void ModMenuDisplay()
 {
-    // ZealPad Test
-    /*
-    int result = InputNumber(5);
-    SET_MSG_VAR(0, result, 0);
-    MSG_WND_DSP();
-    MSG(Message_ZealRslt);
-    MSG_WND_CLS();
-    return;
-    */
-
     DetectController();
     PrintPosition();
     SetFlagAmt();
     EnableSharePlay();
+
+    // Skip to Teleport function if Confirm button is held
+    if (controller)
+    {
+        teleSkip = PAD_CHK_PRESS(PadButton.Cross);
+        if (teleSkip)
+        {
+            Teleport();
+            return;
+        }
+    }
 
     while (true && !PAD_CHK_PRESS(PadButton.L2))
     {
@@ -81,7 +80,7 @@ void ModMenuDisplay()
                 SpawnMenu();
                 break;
             case 8:
-                SystemMessage( Message_About );
+                SystemMessage(Message_About);
                 break;
             /* Royal Start */
             case 9:
@@ -89,25 +88,6 @@ void ModMenuDisplay()
                 RoyalMenu();
                 break;
             /* Royal End */
-        }
-    }
-}
-
-void DetectController()
-{
-    // Detect controller
-    if (!controller)
-    {
-        controller = PAD_CHK_PRESS(PadButton.Any);
-    }
-    if (controller)
-    {
-        // Skip to Teleport function if Confirm button is held
-        teleSkip = PAD_CHK_PRESS(PadButton.Cross);
-        if (teleSkip)
-        {
-            Teleport();
-            return;
         }
     }
 }

@@ -1,6 +1,9 @@
 import("AssignNames.flow");
 import("Math.flow");
 import("Utilities.msg");
+import("ZealPad.flow");
+
+bool controller;
 
 // Regular text window
 void Message(int messageId)
@@ -54,6 +57,10 @@ int DescriptionMenu(int nameMsgId, int optionsMsgId)
 // returns int with a set number of digits
 int NumberMenu(int digitCount, int nameMsgId)
 {
+    if (controller)
+    {
+        return InputNumber(digitCount);
+    }
     int number = 0;
     
     for (int i = 0; i < digitCount; i++)
@@ -246,4 +253,11 @@ void ReloadPreviousField()
     }
 }
 
-enum FlagSection
+void DetectController()
+{
+    // Detect controller
+    if (!controller)
+    {
+        controller = PAD_CHK_PRESS(PadButton.Any);
+    }
+}

@@ -38,21 +38,39 @@ namespace ModMenuBuilder
             UnpackPACs(); // Get .bf files from .PAC files
             ProcessScripts(); // Enable/disable game-specific elements of Mod Menu .flow/.msg and reindex .msg files
             CopyDDS(); // Move .dds files to destination
+            if (Program.Options.NewPlatform && Program.Options.Joypad == "NX")
+                UpperCaseOutput(); // Make all files/folders in output path uppercase
 
             Output.Log("\nDone!", ConsoleColor.Green);
         }
 
+        private static void UpperCaseOutput()
+        {
+            foreach (var directory in Directory.GetDirectories(outputDir, "*", SearchOption.AllDirectories).Reverse())
+            {
+                string newDir = Path.Combine(outputDir, directory.Substring(outputDir.Length).TrimStart(Path.DirectorySeparatorChar).ToUpper());
+                if (newDir != directory)
+                {
+                    Directory.Move(directory, newDir + "_");
+                    Directory.Move(newDir + "_", newDir);
+                }
+            }
+            Thread.Sleep(500);
+            foreach (var file in Directory.GetFiles(outputDir, "*", SearchOption.AllDirectories))
+            {
+                string newFile = Path.Combine(outputDir, file.Substring(outputDir.Length).TrimStart(Path.DirectorySeparatorChar).ToUpper());
+                if (newFile != file)
+                {
+                    File.Move(file, newFile + "_");
+                    File.Move(newFile + "_", newFile);
+                }
+            }
+            Output.Log($"Done uppercasing output files/directories.", ConsoleColor.Green);
+        }
+
         private static void CopyDDS()
         {
-            foreach(var file in Directory.GetFiles(assetsDir, "*.dds", SearchOption.AllDirectories))
-            {
-                string destination = Path.Combine(Path.Combine(outputDir, "test"), "zeal_tex");
-                if (!Directory.Exists(destination))
-                    Directory.CreateDirectory(destination);
-                string destFile = Path.Combine(destination, Path.GetFileName(file));
-                if (!File.Exists(destFile))
-                    File.Copy(file, destFile);
-            }
+            FileSys.CopyDir(Path.Combine(assetsDir, "test"), Path.Combine(outputDir, "test"));
             Output.Log($"Done copying .dds files.", ConsoleColor.Green);
         }
 

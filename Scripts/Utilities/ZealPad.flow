@@ -1,112 +1,112 @@
-﻿int selDigit;
-bool cancelDigit;
-bool endEarly;
+﻿int selDigit; // currently highlighted digit
+int enterDigit; // last confirmed digit entry
+bool cancelDigit; // whether user pressed back
+bool endEarly; // whether user pressed select
 int digit1;
 int digit2;
 int digit3;
 int digit4;
 int digit5;
-int currentSlot;
 
 int InputNumber(int digitCount)
 {
     // TODO: Use something other than bitflags to check if dds already loaded!
-    for (int i = 100; i < 200; i++)
+    for (int i = 0; i < 200; i++)
     {
         BIT_OFF(i);
     }
 
-    int number = 0;
-    currentSlot = 0;
-    // Reset all digits
+    ShowBG();
+    ResetDigits();
+
+    // For each digit in digit count...
+    for (int i = 0; i < digitCount; i++)
+    {
+        enterDigit = -1;
+        // Have user select digit from pad
+        ZealPad();
+
+        // If end button was pressed...
+        if (endEarly)
+        {
+            endEarly = false;
+            digitCount = i;
+            UpdateDigits(i);
+            COMSE_PLAY(3); // chime
+            break; // Exit for loop
+        }
+        else if (cancelDigit) // If back button was pressed...
+        {
+            cancelDigit = false;
+            if (i == 0)
+            {
+                break; // Exit for loop
+            }
+            else
+            {
+                UpdateDigits(i - 1);
+                i -= 2; // Go back 1 digit
+            }
+        }
+        else
+        {
+            enterDigit = selDigit;
+            UpdateDigits(i);
+            if (i + 1 == digitCount)
+                COMSE_PLAY(3); // chime
+        }
+    }
+
+    HideValue();
+    HideBG();
+
+    return CalculateValue(digitCount);
+}
+
+void ResetDigits()
+{
     digit1 = -1;
     digit2 = -1;
     digit3 = -1;
     digit4 = -1;
     digit5 = -1;
-    // Reset selected digit
     selDigit = 0;
-
-    // For each digit in digit count...
-    for (int i = 0; i < digitCount; i++)
-    {
-        // Have user select digit from pad
-        currentSlot = i + 1;
-        ZealPad();
-
-        if (!cancelDigit) // If confirm or end button was pressed...
-        {
-            // If end button was pressed...
-            if (endEarly)
-            {
-                // Only calculate results with digits entered thus far
-                digitCount = i;
-                endEarly = false;
-            }
-            else // If confirm was pressed...
-            {
-                // Save digit to temp variable
-                UpdateDigits();
-            }
-        }
-        else // If back button was pressed...
-        {
-            // If selecting first digit...
-            if (currentSlot <= 1)
-            {
-                // End number selection
-                PUTS("Cancelled Number Selection.");
-                return -1;
-            }
-            else
-            {
-                // Back up to previous digit selection
-                i -= 2;
-                PUTS("Going back one digit...");
-            }
-            cancelDigit = false;
-        }
-    }
-
-    number = CalculateValue(digitCount);
-
-    PUTS("You entered:")
-    PUT(number)
-    return number;
 }
 
-void UpdateDigits()
+void UpdateDigits(int currentSlot)
 {
+    HideValue();
     switch (currentSlot)
     {
-        case 1:
-            digit1 = selDigit;
+        case 0:
+            digit1 = enterDigit;
             digit2 = -1;
             digit3 = -1;
             digit4 = -1;
             digit5 = -1;
             break;
-        case 2:
-            digit2 = selDigit;
+        case 1:
+            digit2 = enterDigit;
             digit3 = -1;
             digit4 = -1;
             digit5 = -1;
             break;
-        case 3:
-            digit3 = selDigit;
+        case 2:
+            digit3 = enterDigit;
             digit4 = -1;
             digit5 = -1;
             break;
-        case 4:
-            digit4 = selDigit;
+        case 3:
+            digit4 = enterDigit;
             digit5 = -1;
             break;
-        case 5:
-            digit5 = selDigit;
+        case 4:
+            digit5 = enterDigit;
             break;
         default:
             break;
     }
+    ShowValue();
 }
 
 int CalculateValue(int digitCount)
@@ -114,7 +114,7 @@ int CalculateValue(int digitCount)
     int number = -1;
 
     if (digit1 == -1)
-        digit1 = 0;
+        return -1;
     if (digit2 == -1)
         digit2 = 0;
     if (digit3 == -1)
@@ -160,50 +160,85 @@ void ZealPad()
         {
             ShowPad();
             reload = false;
-            while (PAD_CHK_PRESS(PadButton.Any)) { SYNC(); }
+            //while (PAD_CHK_PRESS(PadButton.Any)) { SYNC(); }
         }
 
         if (PAD_CHK_PRESS(PadButton.Any))
         {
-            if (PAD_CHK_TRIG(PadButton.Up) && (selDigit > 0) && (selDigit < 7))
+            if (PAD_CHK_TRIG(PadButton.Up))
             {
+                COMSE_PLAY(0);
                 HidePad();
-                selDigit += 3;
                 reload = true;
+
+                if (selDigit == 8)
+                    selDigit = 0;
+                else if (selDigit > 0)
+                {
+                    if (selDigit < 7)
+                        selDigit += 3;
+                    else
+                        selDigit -= 6;
+                }
+                else
+                    selDigit = 2;
             }
-            else if (PAD_CHK_TRIG(PadButton.Down) && (selDigit > 3) && (selDigit < 10))
+            else if (PAD_CHK_TRIG(PadButton.Down))
             {
+                COMSE_PLAY(0);
                 HidePad();
-                selDigit -= 3;
                 reload = true;
+
+                if (selDigit == 2)
+                    selDigit = 0;
+                else if (selDigit > 0)
+                {
+                    if (selDigit > 3)
+                    {
+                        selDigit -= 3;
+                    }
+                    else
+                        selDigit += 6;
+                }
+                else
+                    selDigit = 8;
+
             }
-            else if (PAD_CHK_TRIG(PadButton.Right) && (selDigit >= 0) && (selDigit < 9))
+            else if (PAD_CHK_TRIG(PadButton.Right))
             {
+                COMSE_PLAY(0);
                 HidePad();
-                selDigit += 1;
                 reload = true;
+
+                if (selDigit == 0)
+                    selDigit = 3;
+                else if (selDigit != 3 && selDigit != 6 && selDigit != 9)
+                    selDigit += 1;
+                else
+                    selDigit -= 2;
             }
-            else if (PAD_CHK_TRIG(PadButton.Left) && (selDigit > 0) && (selDigit < 10))
+            else if (PAD_CHK_TRIG(PadButton.Left))
             {
+                COMSE_PLAY(0);
                 HidePad();
-                selDigit -= 1;
                 reload = true;
+
+                if (selDigit == 0)
+                    selDigit = 1;
+                else if (selDigit != 1 && selDigit != 4 && selDigit != 7)
+                    selDigit -= 1;
+                else
+                    selDigit += 2;
             }
-            else if (PAD_CHK_TRIG(PadButton.Up) && (selDigit == 0))
+            else if (PAD_CHK_TRIG(PadButton.Circle))
             {
+                COMSE_PLAY(1); // enter
                 HidePad();
-                selDigit += 2;
-                reload = true;
-            }
-            else if (PAD_CHK_TRIG(PadButton.Cross) && !PAD_CHK_TRIG(PadButton.Circle))
-            {
-                HidePad();
-                PUTS("Confirmed Entry:");
-                PUT(selDigit);
                 return;
             }
-            else if (PAD_CHK_TRIG(PadButton.Circle) && !PAD_CHK_TRIG(PadButton.Cross))
+            else if (PAD_CHK_TRIG(PadButton.Cross))
             {
+                COMSE_PLAY(2); //back
                 HidePad();
                 cancelDigit = true;
                 return;
@@ -229,25 +264,15 @@ void ShowPad()
         ZEAL_TEX_READ(selDigit, selDigit);
         BIT_ON(selDigit);
     }
-    SYNC();
     ZEAL_TEX_SYNC(selDigit);
-    SYNC();
     ZEAL_TEX_DISP(selDigit, 0);
-    SYNC();
-
-    ShowValue();
     SYNC();
 }
 
 void HidePad()
 {
-    //if (BIT_CHK(selDigit))
-    {
-        ZEAL_TEX_FREE(selDigit, 0);
-        BIT_OFF(selDigit);
-    }
-    SYNC();
-    HideValue();
+    ZEAL_TEX_FREE(selDigit, 0);
+    BIT_OFF(selDigit);
     SYNC();
 }
 
@@ -255,34 +280,29 @@ void ShowDigit(int position, int value)
 {
     if (value != -1)
     {
-        // i.e. digit 2, selected 3 = 123
+        // i.e. digit 4, selected 2 = 132
         int dds = 100 + (10 * position) + value;
         if (!BIT_CHK(dds))
         {
             ZEAL_TEX_READ(dds, dds);
             BIT_ON(dds);
         }
-        SYNC();
         ZEAL_TEX_SYNC(dds);
-        SYNC();
         ZEAL_TEX_DISP(dds, 0);
-        SYNC();
     }
+    SYNC();
 }
 
 void HideDigit(int position, int value)
 {
     if (value != -1)
     {
-        // i.e. digit 2, selected 3 = 123
+        // i.e. digit 4, selected 2 = 142
         int dds = 100 + (position * 10) + value;
-        //if (BIT_CHK(dds))
-        {
-            ZEAL_TEX_FREE(dds, 0);
-            BIT_OFF(dds);
-            SYNC();
-        }
+        ZEAL_TEX_FREE(dds, 0);
+        BIT_OFF(dds);
     }
+    SYNC();
 }
 
 void ShowValue()
@@ -301,4 +321,24 @@ void HideValue()
     HideDigit(3, digit3);
     HideDigit(4, digit4);
     HideDigit(5, digit5);
+}
+
+void ShowBG()
+{
+    if (!BIT_CHK(10))
+    {
+        ZEAL_TEX_READ(10, 10);
+        BIT_ON(10);
+    }
+    ZEAL_TEX_READ(10, 10);
+    ZEAL_TEX_SYNC(10);
+    ZEAL_TEX_DISP(10, 0);
+    SYNC();
+}
+
+void HideBG()
+{
+    ZEAL_TEX_FREE(10, 0);
+    BIT_OFF(10);
+    SYNC();
 }
