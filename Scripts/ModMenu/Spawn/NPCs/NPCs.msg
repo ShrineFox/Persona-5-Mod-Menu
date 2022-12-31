@@ -32,39 +32,39 @@ Input a [clr 9]GMD filename[clr 0]
 
 [dlg Message_SpawnNPC_First]
 Set the first (4 digits) of the NPC
-[n]filename to load. (Press [clr 2]○[clr 0] to end)[w][e]
+[n]filename to load. (Press [clr 2]back[clr 0] to end)[w][e]
 
 [dlg Message_SpawnNPC_Middle]
 Set the next (3 digits) of the NPC
-[n]model filename to load. (Press [clr 2]○[clr 0] to end)[w][e]
+[n]model filename to load. (Press [clr 2]back[clr 0] to end)[w][e]
 
 [dlg Message_SpawnNPC_Last]
 Set the last (2 digits) of the NPC
-[n]model filename to load. (Press [clr 2]○[clr 0] to end)[w][e]
+[n]model filename to load. (Press [clr 2]back[clr 0] to end)[w][e]
 
 [dlg Message_NPCItem_First]
 Enter the first half of the model's
 [n]ID from data.cpk/model/item.
-[n](Max 4 digits, press [clr 2]○[clr 0] to end).[w][e]
+[n](Max 4 digits, press [clr 2]back[clr 0] to end).[w][e]
 
 [dlg Message_NPCItem_Last]
 Enter the last half of the model's
 [n]ID from data.cpk/model/item.
-[n](Max 3 digits, press [clr 2]○[clr 0] to end).[w][e]
+[n](Max 3 digits, press [clr 2]back[clr 0] to end).[w][e]
 
 [dlg Message_NPCObject_First]
 Enter the first half of the
 [n]model's ID from data.cpk/model/field_tex/object.
-[n](Max 3 digits, press [clr 2]○[clr 0] to end).[w][e]
+[n](Max 3 digits, press [clr 2]back[clr 0] to end).[w][e]
 
 [dlg Message_NPCObject_Last]
 Enter the last half of the
 [n]model's ID from data.cpk/model/field_tex/object.
-[n](Max 3 digits, press [clr 2]○[clr 0] to end).[w][e]
+[n](Max 3 digits, press [clr 2]back[clr 0] to end).[w][e]
 
 [dlg Message_NPCScale]
 Set the character's model scale.
-[n](press [clr 2]○[clr 0] to end)
+[n](press [clr 2]back[clr 0] to end)
 [n]Default is 10.[w][e]
 
 [dlg Title_NPCFirst]

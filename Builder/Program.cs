@@ -48,23 +48,58 @@ namespace ModMenuBuilder
                 Options = SimpleCommandLineParser.Default.Parse<ProgramOptions>(args);
 
                 // Set the platform type. Used for output directory structure (Old: PS3/PS4, New: Switch/PC)
-                if (Options.NewPlatform)
-                    SelectedGame.Platform = PlatformType.New;
-                else
-                    SelectedGame.Platform = PlatformType.Old;
-
-                // Set game abbreviation and type depending on if Royal or Vanilla
-                if (!Options.Game.ToUpper().Equals("P5R"))
+                switch(Options.Game)
                 {
-                    SelectedGame.ShortName = "P5";
-                    SelectedGame.Type = GameType.Vanilla;
-                    SelectedGame.Platform = PlatformType.Old;
+                    case "P5_PS3":
+                        SelectedGame.Version = GameVersion.P5_PS3;
+                        SelectedGame.Platform = PlatformType.Old;
+                        SelectedGame.Type = GameType.Vanilla;
+                        SelectedGame.ShortName = "P5";
+                        SelectedGame.ConsoleName = "PS3";
+                        break;
+                    case "P5_PS3_EX":
+                        SelectedGame.Version = GameVersion.P5_PS3_EX;
+                        SelectedGame.Platform = PlatformType.Old;
+                        SelectedGame.Type = GameType.Vanilla;
+                        SelectedGame.ShortName = "P5EX";
+                        SelectedGame.ConsoleName = "PS3";
+                        break;
+                    case "P5_PS4":
+                        SelectedGame.Version = GameVersion.P5_PS4;
+                        SelectedGame.Platform = PlatformType.Old;
+                        SelectedGame.Type = GameType.Vanilla;
+                        SelectedGame.ShortName = "P5";
+                        SelectedGame.ConsoleName = "PS4";
+                        break;
+                    case "P5R_PS4":
+                        SelectedGame.Version = GameVersion.P5R_PS4;
+                        SelectedGame.Platform = PlatformType.Old;
+                        SelectedGame.Type = GameType.Royal;
+                        SelectedGame.ShortName = "P5R";
+                        SelectedGame.ConsoleName = "PS4";
+                        break;
+                    case "P5R_Switch":
+                        SelectedGame.Version = GameVersion.P5R_Switch;
+                        SelectedGame.Platform = PlatformType.New;
+                        SelectedGame.Type = GameType.Royal;
+                        SelectedGame.ShortName = "P5R";
+                        SelectedGame.ConsoleName = "Switch";
+                        break;
+                    case "P5R_PC":
+                        SelectedGame.Version = GameVersion.P5R_PC;
+                        SelectedGame.Platform = PlatformType.New;
+                        SelectedGame.Type = GameType.Royal;
+                        SelectedGame.ShortName = "P5R";
+                        SelectedGame.ConsoleName = "PC";
+                        break;
+                    default:
+                        Output.Log($"Game selection is not valid!", ConsoleColor.Red);
+                        return;
                 }
 
                 if (!File.Exists(Options.Compiler))
                 {
-                    Output.Log($"Could not find AtlusScriptCompiler.exe at path: {Options.Compiler}");
-                    Console.ReadKey();
+                    Output.Log($"Could not find AtlusScriptCompiler.exe at path: {Options.Compiler}", ConsoleColor.Red);
                     return;
                 }
             }
@@ -78,9 +113,9 @@ namespace ModMenuBuilder
                 return;
             }
 
-            Output.Log($"Building {SelectedGame.ShortName} ({SelectedGame.Platform} platforms) Mod Menu" +
-                $"\n\tButton Names: {Options.Joypad}\n\tReindex messages: {Options.Reindex}" +
-                $"\n\tDecompile output: {Options.Decompile}\n\tRepack .PACs: {Options.Pack}" +
+            Output.Log($"Building {SelectedGame.Version} Mod Menu" +
+                $"\n\tDecompile output: {Options.Decompile}" +
+                $"\n\tRepack .PACs: {Options.Pack}" +
                 $"\n\tVersion string: {Options.Version}\n\n");
 
             // Begin building Mod Menu output
@@ -114,14 +149,8 @@ namespace ModMenuBuilder
         [Option("e", "encoding", "P5|P5R_EFIGS|SJ", "Specifies the encoding to compile with. (default: P5R_EFIGS)")]
         public string Encoding { get; set; } = "P5R_EFIGS";
 
-        [Option("g", "game", "P5|P5R", "Specifies the game to generate output for. (default: P5R)")]
-        public string Game { get; set; } = "P5R";
-
-        [Option("j", "joypad", "PS|MS|NX", "Specifies the controller button names to use. (default: MS)")]
-        public string Joypad { get; set; } = "MS";
-
-        [Option("n", "newplatform", "bool", "Whether to use PC/Switch directory structure instead of Sony. (default: false)")]
-        public bool NewPlatform { get; set; } = false;
+        [Option("g", "game", "P5_PS3|P5_PS3_EX|P5_PS4|P5R_PS4|P5R_Switch|P5R_PC", "Specifies the game to generate output for. (default: P5R_PC)")]
+        public string Game { get; set; } = "P5R_PC";
 
         [Option("o", "output", "path", "Specifies the path to the directory to use as output. (default: .exe directory)")]
         public string Output { get; set; } = "";
@@ -148,13 +177,25 @@ namespace ModMenuBuilder
     {
         public GameType Type { get; set; } = GameType.Royal;
         public PlatformType Platform { get; set; } = PlatformType.New;
+        public GameVersion Version { get; set; } = GameVersion.P5R_PC;
         public string ShortName { get; set; } = "P5R";
+        public string ConsoleName { get; set; } = "PC";
     }
 
     public enum GameType
     {
         Royal,
         Vanilla
+    }
+
+    public enum GameVersion
+    {
+        P5_PS3,
+        P5_PS3_EX,
+        P5_PS4,
+        P5R_PS4,
+        P5R_Switch,
+        P5R_PC
     }
 
     public enum PlatformType

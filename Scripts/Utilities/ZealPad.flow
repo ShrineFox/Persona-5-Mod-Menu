@@ -75,7 +75,9 @@ void ResetDigits()
 
 void UpdateDigits(int currentSlot)
 {
+    /* PC Start */
     HideValue();
+    /* PC End */
     switch (currentSlot)
     {
         case 0:
@@ -106,7 +108,10 @@ void UpdateDigits(int currentSlot)
         default:
             break;
     }
+    /* PC Start */
     ShowValue();
+    /* PC End */
+    SYNC();
 }
 
 int CalculateValue(int digitCount)
@@ -262,9 +267,12 @@ void ShowPad()
     if (!BIT_CHK(selDigit))
     {
         ZEAL_TEX_READ(selDigit, selDigit);
+        SYNC();
         BIT_ON(selDigit);
     }
     ZEAL_TEX_SYNC(selDigit);
+    SYNC();
+    WAIT(1);
     ZEAL_TEX_DISP(selDigit, 0);
     SYNC();
 }
@@ -272,6 +280,8 @@ void ShowPad()
 void HidePad()
 {
     ZEAL_TEX_FREE(selDigit, 0);
+    SYNC();
+    WAIT(1);
     BIT_OFF(selDigit);
     SYNC();
 }
@@ -307,20 +317,24 @@ void HideDigit(int position, int value)
 
 void ShowValue()
 {
+    /* PC Start */
     ShowDigit(1, digit1);
     ShowDigit(2, digit2);
     ShowDigit(3, digit3);
     ShowDigit(4, digit4);
     ShowDigit(5, digit5);
+    /* PC End */
 }
 
 void HideValue()
 {
+    /* PC Start */
     HideDigit(1, digit1);
     HideDigit(2, digit2);
     HideDigit(3, digit3);
     HideDigit(4, digit4);
     HideDigit(5, digit5);
+    /* PC End */
 }
 
 void ShowBG()
@@ -330,8 +344,8 @@ void ShowBG()
         ZEAL_TEX_READ(10, 10);
         BIT_ON(10);
     }
-    ZEAL_TEX_READ(10, 10);
     ZEAL_TEX_SYNC(10);
+    SYNC();
     ZEAL_TEX_DISP(10, 0);
     SYNC();
 }

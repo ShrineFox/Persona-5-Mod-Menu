@@ -18,7 +18,7 @@ Royal[ref 9 10][e]// Royal
 
 [dlg GENERIC_HELP_1]
 View your IM messages[n]or auto heal the party,
-[n]just like the [clr 18]□ button[clr 0]
+[n]just like the [clr 18]IM button[clr 0]
 [n]normally does.[e]
 
 [dlg GENERIC_HELP_2]
@@ -28,8 +28,8 @@ Change social stats, items,
 
 [dlg GENERIC_HELP_3]
 D-Pad/L2/R2: Move player
-[n]L1/R1/: Rotate player
-[n]△/□/╳: Adjust speed
+[n]L1/R1: Rotate player
+[n]A/B/X: Adjust speed
 [n](Requires controller)//Royal
 [e]
 

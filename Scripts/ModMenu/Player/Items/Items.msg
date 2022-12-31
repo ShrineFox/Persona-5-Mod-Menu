@@ -56,11 +56,11 @@ Items that can be used to assign
 
 [dlg Message_ItemID]
 Enter the item ID you want.
-[n](4 digits, press [clr 2]○[clr 0] to end)[w][e]
+[n](4 digits, press [clr 2]back[clr 0] to end)[w][e]
 
 [dlg Message_ItemAmount]
 Enter how many items you want.
-[n](2 digits, press [clr 2]○[clr 0] to end)[w][e]
+[n](2 digits, press [clr 2]back[clr 0] to end)[w][e]
 
 [dlg Title_ItemID]
 Item ID (4 Digits)[w][e]

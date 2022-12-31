@@ -37,7 +37,7 @@ Add Persona (Manual Input)[e]
 
 [dlg Message_AddPersonaByID]
 Input the ID of the Persona to add.
-[n](3 digits, press [clr 2]○[clr 0] to end)[w][e]
+[n](3 digits, press [clr 2]back[clr 0] to end)[w][e]
 
 [dlg Message_PersonaAdded]
 The Persona [clr 1][var 0][clr 0] was

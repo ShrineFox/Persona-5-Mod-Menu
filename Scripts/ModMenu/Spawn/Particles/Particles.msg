@@ -46,17 +46,17 @@ Set the Opacity
 
 [dlg Message_ParticleScale]
 Set the particles's scale.
-[n](press [clr 2]○[clr 0] to end)
+[n](press [clr 2]back[clr 0] to end)
 [n]Default is 10.[w][e]
 
 [dlg Message_ParticleSpeed]
 Set the particles's speed.
-[n](press [clr 2]○[clr 0] to end)
+[n](press [clr 2]back[clr 0] to end)
 [n]Default is 10.[w][e]
 
 [dlg Message_ParticleAlpha]
 Set the particles's opacity.
-[n](press [clr 2]○[clr 0] to end)
+[n](press [clr 2]back[clr 0] to end)
 [n]Default is 10.[w][e]
 
 [dlg Title_ParticleID]

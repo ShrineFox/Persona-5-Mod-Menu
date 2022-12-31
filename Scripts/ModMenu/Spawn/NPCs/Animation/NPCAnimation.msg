@@ -55,27 +55,27 @@ Execute the animation playback
 
 [dlg Message_FirstNPCGAPDigits [GAP Select]]
 Set the first (4 digits) of the
-[n]NPC .GAP to load. ([clr 2]○ button[clr 0] to end)[w][e]
+[n]NPC .GAP to load. ([clr 2]back button[clr 0] to end)[w][e]
 
 [dlg Message_LastNPCGAPDigits [GAP Select]]
 Set the last (3 digits) of the
-[n]NPC .GAP to load. ([clr 2]○ button[clr 0] to end)[w][e]
+[n]NPC .GAP to load. ([clr 2]back button[clr 0] to end)[w][e]
 
 [dlg Message_NPCGapID]
 Select the .GAP ID.
-[n](3 digits, [clr 2]○ button[clr 0] to end)[w][e]
+[n](3 digits, [clr 2]back button[clr 0] to end)[w][e]
 
 [dlg Message_NPCGapAnimIndex]
 Select which animation to play.
-[n](2 digits, [clr 2]○ button[clr 0] to end)[w][e]
+[n](2 digits, [clr 2]back button[clr 0] to end)[w][e]
 
 [dlg Message_NPCGapLoop]
 Select whether to loop[n]the animation or not.[w][e]
 
 [dlg Message_NPCGapSpeed]
 Select the animation speed. Default is 10.
-[n]([clr 2]○ button[clr 0] to end)[w][e]
+[n]([clr 2]back button[clr 0] to end)[w][e]
 
 [dlg Message_NPCGapTime [Animation Test]]
 Select the number of seconds to play.
-[n](2 digits, [clr 2]○ button[clr 0] to end)[w][e]
+[n](2 digits, [clr 2]back button[clr 0] to end)[w][e]

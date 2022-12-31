@@ -61,15 +61,15 @@ Execute the animation playback
 
 [dlg Message_LastGAPDigits [GAP Select]]
 Set the last (3 digits) of the
-[n]Joker field GAP to load. ([clr 2]○ button[clr 0] to end)[w][e]
+[n]Joker field GAP to load. ([clr 2]back button[clr 0] to end)[w][e]
 
 [dlg Message_GapID]
 Select the GAP ID.
-[n](max. 3 digits, [clr 2]○ button[clr 0] to end)[w][e]
+[n](max. 3 digits, [clr 2]back button[clr 0] to end)[w][e]
 
 [dlg Message_GapAnimIndex]
 Select which animation to play.
-[n](max. 2 digits, [clr 2]○ button[clr 0] to end)[w][e]
+[n](max. 2 digits, [clr 2]back button[clr 0] to end)[w][e]
 
 [dlg Message_GapLoop]
 Select whether to loop
@@ -77,8 +77,8 @@ Select whether to loop
 
 [dlg Message_GapSpeed]
 Select the animation speed. Default is 10.
-[n]([clr 2]○ button[clr 0] to end)[w][e]
+[n]([clr 2]back button[clr 0] to end)[w][e]
 
 [dlg Message_GapTime [Animation Test]]
 Select the number of seconds to play.[w][e]
-[n](max. 2 digits, [clr 2]○ button[clr 0] to end)[w][e]
+[n](max. 2 digits, [clr 2]back button[clr 0] to end)[w][e]

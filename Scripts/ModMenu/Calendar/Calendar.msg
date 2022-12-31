@@ -30,7 +30,7 @@ Choose the next time
 
 [dlg Message_CalendarMonth]
 Choose what month to start in.
-[n]([clr 2]○ button[clr 0] to end)[w][e]
+[n]([clr 2]back button[clr 0] to end)[w][e]
 
 [dlg Title_CalendarMonth]
 Select a Month[e]
@@ -51,7 +51,7 @@ December[e]
 
 [dlg Message_CalendarDay]
 Choose what day to start on.
-[n](2 digits, [clr 2]○ button[clr 0] to end)[w][e]
+[n](2 digits, [clr 2]back button[clr 0] to end)[w][e]
 
 [dlg Message_CalendarInvalidDay]
 Invalid day selected.

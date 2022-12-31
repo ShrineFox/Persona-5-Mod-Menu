@@ -15,9 +15,10 @@ Disable Camera Shake[ref 6 9][e]
 
 [dlg GENERIC_HELP_2]
 Move the camera along the X, Y
-[n]or Z axis. Hold [clr 18]□[clr 0] to change
-[n]the axis. [clr 9]WARNING:
-[n]Controller only or softlock![clr 0][e]
+[n]or Z axis. Hold [clr 18]IM button[clr 0] to
+[n]change the axis.
+[n](Requires controller)//Royal
+[e]
 
 [dlg GENERIC_HELP_3]
 Adjust the camera's
@@ -45,4 +46,4 @@ Makes the camera stationary,
 
 [dlg Message_Camera]
 Use the D-Pad to manipulate the camera.
-[n]Press [clr 4]△[clr 0] to quit.[w][e]
+[n]([clr 4]menu button[clr 0] to quit.)[w][e]

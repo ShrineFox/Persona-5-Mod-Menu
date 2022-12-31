@@ -38,7 +38,7 @@ namespace ModMenuBuilder
             UnpackPACs(); // Get .bf files from .PAC files
             ProcessScripts(); // Enable/disable game-specific elements of Mod Menu .flow/.msg and reindex .msg files
             CopyDDS(); // Move .dds files to destination
-            if (Program.Options.NewPlatform && Program.Options.Joypad == "NX")
+            if (Program.SelectedGame.ConsoleName == "Switch")
                 UpperCaseOutput(); // Make all files/folders in output path uppercase
 
             Output.Log("\nDone!", ConsoleColor.Green);
@@ -103,7 +103,7 @@ namespace ModMenuBuilder
             DeleteTempFolder();
             CreateTempFolder();
 
-            // Removes lines with a "/* Royal */" or "/* Vanilla */" comment from .flow depending on version
+            // Removes lines with i.e. "/* Royal */" or "/* Vanilla */" comment from .flow depending on version
             foreach (var script in Directory.GetFiles(tempDir,
                 "*.flow", SearchOption.AllDirectories))
             {
@@ -121,15 +121,6 @@ namespace ModMenuBuilder
             }
             Output.Log($"Done removing version-specific lines in all scripts.", ConsoleColor.Green);
 
-            // Change joypad button names depending on options
-            foreach (var script in Directory.GetFiles(tempDir,
-                "*.msg", SearchOption.AllDirectories))
-            {
-                using (FileSys.WaitForFile(script)) { }
-                ReplaceJoypadKeys(script); 
-            }
-            Output.Log($"Done updating joypad button names in .msg files.", ConsoleColor.Green);
-
             // Reindex and compile each Hook script
             foreach (var script in Directory.GetFiles(Path.Combine(tempDir, "Hook"),
             "*.flow", SearchOption.AllDirectories))
@@ -137,53 +128,24 @@ namespace ModMenuBuilder
                 CompileHookScript(script);
             }
 
+            // Replace file in .PAC and save new .PAC to output dir
+            foreach (var script in Directory.GetFiles(Path.Combine(tempDir, "Hook"),
+            "*.flow", SearchOption.AllDirectories))
+            {
+                RepackPAC(script);
+            }
+
             DeleteTempFolder();
         }
 
-        private static void DeleteTempFolder()
+        private static void RepackPAC(string script)
         {
-            if (Directory.Exists(tempDir))
-            {
-                foreach (var file in Directory.GetFiles(tempDir, "*", SearchOption.AllDirectories))
-                {
-                    using (FileSys.WaitForFile(file)) { };
-                }
-                Thread.Sleep(500);
-                Output.Log($"Deleting Temp folder...", ConsoleColor.White);
-                Directory.Delete(tempDir, true);
-                Output.Log($"Deleted Temp folder.", ConsoleColor.Green);
-                Thread.Sleep(500);
-            }
-        }
-
-        private static void CreateTempFolder()
-        {
-            Output.Log($"Copying Scripts to Temp folder...", ConsoleColor.White);
-            FileSys.CopyDir(scriptsDir, tempDir);
-            Output.Log($"Created Temp folder.", ConsoleColor.Green);
-        }
-
-        private static void CompileHookScript(string script)
-        {
-            string outputScript = "";
-            if (Program.Options.Reindex)
-            {
-                ReindexMsgs(script);
-            }
-            else
-            {
-                outputScript = Compile(script);
-                // Decompile newly generated script for debugging
-                if (Program.Options.Decompile)
-                    Decompile(outputScript);
-            }
-
-            // Replace file and save new .PAC to output dir
             if (Program.SelectedGame.Platform == PlatformType.Old)
             {
                 // Get .PAC Name
                 string pakName = "";
                 string scriptName = Path.GetFileName(script).Split('.')[0];
+                string outputScript = Path.Combine(outputDir, Path.Combine(Path.GetDirectoryName(script), Path.GetFileNameWithoutExtension(script) + ".bf").Replace(Exe.Directory() + "\\Temp\\Hook\\", ""));
 
                 switch (scriptName)
                 {
@@ -223,9 +185,13 @@ namespace ModMenuBuilder
                         }
                         // Save .PAC to output folder
                         string outputPAC = Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(outputScript)), pakName + ".pac");
-                        Directory.CreateDirectory(Path.GetDirectoryName(outputPAC));
-                        Thread.Sleep(200);
+                        if (File.Exists(outputPAC))
+                            File.Delete(outputPAC);
+                        string newDir = Path.GetDirectoryName(outputPAC);
+                        Directory.CreateDirectory(newDir);
+                        while (!Directory.Exists(newDir)) { }
                         newPak.Save(outputPAC);
+                        using (FileSys.WaitForFile(outputPAC)) { };
                         Output.Log($"Saved repacked .PAC to: {outputPAC}", ConsoleColor.Green);
                     }
                     else
@@ -239,6 +205,45 @@ namespace ModMenuBuilder
                     File.Move(outputScript, newOutputPath);
                     Output.Log($"Moved unpacked output script for Aemulus to: {newOutputPath}", ConsoleColor.Green);
                 }
+            }
+        }
+
+        private static void DeleteTempFolder()
+        {
+            if (Directory.Exists(tempDir))
+            {
+                foreach (var file in Directory.GetFiles(tempDir, "*", SearchOption.AllDirectories))
+                {
+                    using (FileSys.WaitForFile(file)) { };
+                }
+                Thread.Sleep(500);
+                Output.Log($"Deleting Temp folder...", ConsoleColor.White);
+                Directory.Delete(tempDir, true);
+                Output.Log($"Deleted Temp folder.", ConsoleColor.Green);
+                Thread.Sleep(500);
+            }
+        }
+
+        private static void CreateTempFolder()
+        {
+            Output.Log($"Copying Scripts to Temp folder...", ConsoleColor.White);
+            FileSys.CopyDir(scriptsDir, tempDir);
+            Output.Log($"Created Temp folder.", ConsoleColor.Green);
+        }
+
+        private static void CompileHookScript(string script)
+        {
+            string outputScript = "";
+            if (Program.Options.Reindex)
+            {
+                ReindexMsgs(script);
+            }
+            else
+            {
+                outputScript = Compile(script);
+                // Decompile newly generated script for debugging
+                if (Program.Options.Decompile)
+                    Decompile(outputScript);
             }
         }
 
@@ -348,30 +353,6 @@ namespace ModMenuBuilder
             return importPaths;
         }
 
-        private static void ReplaceJoypadKeys(string script)
-        {
-            if (Program.Options.Joypad != "PS")
-            {
-                if (File.Exists(script))
-                {
-                    var lines = File.ReadAllLines(script);
-                    List<string> newLines = new List<string>();
-                    for (int i = 0; i < lines.Length; i++)
-                    {
-                        string line = lines[i];
-                        if (Program.Options.Joypad == "MS")
-                            line = line.Replace("□", "X").Replace("△", "Y").Replace("○", "B").Replace("╳", "A");
-                        if (Program.Options.Joypad == "NX")
-                            line = line.Replace("□", "Y").Replace("△", "X").Replace("○", "A").Replace("╳", "B");
-                        newLines.Add(line);
-                    }
-                    File.WriteAllText(script, String.Join("\n", newLines), Encoding.Unicode);
-                }
-                else
-                    Output.Log($"\tCould not find script to change joypad button names in: {script}", ConsoleColor.Red);
-            }
-        }
-
         private static void RemoveMsgComments(string script)
         {
             // Remove lines with the opposite game type's comment from Mod Menu .msg
@@ -419,11 +400,19 @@ namespace ModMenuBuilder
 
             if (File.Exists(script))
             {
-                // Comment out blocks for opposing game type, and remove comments
-                string text = RemoveBetween(File.ReadAllText(script)
-                    .Replace($"/* {removeType} Start */", $"/* {removeType} Start ")
-                    .Replace($"/* {removeType} End */", $" {removeType} End */"), "/*", "*/");
+                // Comment out blocks for opposing game type
+                string text = File.ReadAllText(script);
+                text = text.Replace($"/* {removeType} Start */", $"/* {removeType} Start ")
+                    .Replace($"/* {removeType} End */", $" {removeType} End */");
 
+                // Remove lines with the wrong console name's comment from Mod Menu .msg
+                foreach (var console in new List<string>() { "PS3", "PS4", "Switch", "PC" }.Where(x => !x.Equals(Program.SelectedGame.ConsoleName)))
+                {
+                    text = text.Replace($"/* {console} Start */", $"/* {console} Start ")
+                    .Replace($"/* {console} End */", $" {console} End */");
+                }
+
+                text = RemoveBetween(text, "/*", "*/");
                 File.WriteAllText(script, text, Encoding.Unicode);
             }
             else

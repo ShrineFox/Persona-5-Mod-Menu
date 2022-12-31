@@ -21,22 +21,22 @@ Input the 6 digits of a
 [dlg Message_EventID_Major]
 Choose the first 3 digits of
 [n]the Event to load.
-[n](3 digits, [clr 2]○ button[clr 0] to end)[w][e]
+[n](3 digits, [clr 2]back button[clr 0] to end)[w][e]
 
 [dlg Message_EventID_Minor]
 Choose the last 3 digits of
 [n]the Event to load.
-[n](3 digits, [clr 2]○ button[clr 0] to end)[w][e]
+[n](3 digits, [clr 2]back button[clr 0] to end)[w][e]
 
 [dlg Message_KFEventID_Minor]
 Choose the first 3 digits of
 [n]the KeyFree Event to load.
-[n](3 digits, [clr 2]○ button[clr 0] to end)[w][e]
+[n](3 digits, [clr 2]back button[clr 0] to end)[w][e]
 
 [dlg Message_KFEventID_Major]
 Choose the last 3 digits of
 [n]the KeyFree Event to load.
-[n](3 digits, [clr 2]○ button[clr 0] to end)[w][e]
+[n](3 digits, [clr 2]back button[clr 0] to end)[w][e]
 
 [dlg Title_EventMajor]
 Event Major ID (3 Digits)[w][e]

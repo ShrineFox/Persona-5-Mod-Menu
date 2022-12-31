@@ -34,11 +34,11 @@ Joker GMD (Last 2 Digits)[w][e]
 
 [dlg Message_MiddleDigitsGMD]
 Set the middle (3 digits) of the
-[n]Joker GMD to load. ([clr 2]○ button[clr 0] to end)[w][e]
+[n]Joker GMD to load. ([clr 2]back button[clr 0] to end)[w][e]
 
 [dlg Message_LastDigitsGMD]
 Set the last (2 digits) of the
-[n]Joker GMD to load. ([clr 2]○ button[clr 0] to end)[w][e]
+[n]Joker GMD to load. ([clr 2]back button[clr 0] to end)[w][e]
 
 [dlg Title_JokerItemMajor]
 Item GMD (First 4 Digits)[w][e]
@@ -51,8 +51,8 @@ Joker Bone ID (3 Digits)[w][e]
 
 [dlg Message_ItemSpawnAttachPlayerMajor]
 Enter the first half of the model's[n]ID from /model/item.
-[n](4 digits, [clr 2]○ button[clr 0] to end).[w][e]
+[n](4 digits, [clr 2]back button[clr 0] to end).[w][e]
 
 [dlg Message_ItemSpawnAttachPlayerMinor]
 Enter the first last of the model's[n]ID from /model/item.
-[n](3 digits, [clr 2]○ button[clr 0] to end).[w][e]
+[n](3 digits, [clr 2]back button[clr 0] to end).[w][e]

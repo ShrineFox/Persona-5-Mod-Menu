@@ -38,7 +38,7 @@ Increase your [clr 26]Kindness[clr 0] stat
 
 [dlg Message_StatsPoints]
 Add how many points?
-[n](3 digits, [clr 2]○ button[clr 0] to end)[w][e] 
+[n](3 digits, [clr 2]back button[clr 0] to end)[w][e] 
 
 [dlg Title_Points]
 Add Points (3 Digits)[w][e]

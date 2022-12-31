@@ -16,6 +16,7 @@ namespace ModMenuBuilder
 {
     public partial class BuilderForm : DarkUI.Forms.DarkForm
     {
+        bool changedSettings = false;
         public BuilderForm()
         {
             InitializeComponent();
@@ -26,6 +27,20 @@ namespace ModMenuBuilder
                 txt_OutPath.Text = File.ReadAllText("outputPath.txt");
             if (File.Exists("version.txt"))
                 txt_Version.Text = File.ReadAllText("version.txt");
+            try
+            {
+                comboBox_Version.SelectedIndex = comboBox_Version.Items.IndexOf("P5R_PC");
+                if (File.Exists("game.txt"))
+                    comboBox_Version.SelectedIndex = comboBox_Version.Items.IndexOf(File.ReadAllText("game.txt"));
+            } catch { }
+            try
+            {
+                comboBox_Encoding.SelectedIndex = comboBox_Encoding.Items.IndexOf("P5R_EFIGS");
+                if (File.Exists("encoding.txt"))
+                    comboBox_Encoding.SelectedIndex = comboBox_Encoding.Items.IndexOf(File.ReadAllText("encoding.txt"));
+            }
+            catch { }
+            changedSettings = true;
 
 #if DEBUG
             Program.Show();
@@ -43,7 +58,9 @@ namespace ModMenuBuilder
             rtb_Log.Clear();
 
             List<string> args = new List<string>();
-           
+
+            args.Add("-g"); args.Add(comboBox_Version.Text);
+            args.Add("-e"); args.Add(comboBox_Encoding.Text);
             args.Add("-c"); args.Add(txt_Path.Text);
             if (chk_Decompile.Checked)
             {
@@ -53,30 +70,9 @@ namespace ModMenuBuilder
             {
                 args.Add("-r"); args.Add("true");
             }
-            if (!radio_Old.Checked)
-            {
-                args.Add("-n"); args.Add("true");
-            }
             if (chk_RepackPACs.Checked)
             {
                 args.Add("-p"); args.Add("true");
-            }
-            if (radio_Vanilla.Checked)
-            {
-                args.Add("-g"); args.Add("P5");
-                args.Add("-e"); args.Add("P5");
-            }
-            if (radio_Nintendo.Checked)
-            {
-                args.Add("-j"); args.Add("NX");
-            }
-            if (radio_Playstation.Checked)
-            {
-                args.Add("-j"); args.Add("PS");
-            }
-            if (radio_Xbox.Checked)
-            {
-                args.Add("-j"); args.Add("MS");
             }
             if (!string.IsNullOrEmpty(txt_Version.Text))
             {
@@ -89,9 +85,11 @@ namespace ModMenuBuilder
             else
                 Output.VerboseLogging = false;
             btn_Build.Enabled = false;
+
             Task.Run(() => {
                 Program.StartWithOptions(args.ToArray());
             });
+
             btn_Build.Enabled = true;
             SystemSounds.Exclamation.Play();
         }
@@ -126,33 +124,29 @@ namespace ModMenuBuilder
 
         private void Version_Changed(object sender, EventArgs e)
         {
-            if (radio_Vanilla.Checked)
+            if (comboBox_Version.Text.Contains("P5_") || comboBox_Version.Text.Contains("PS4"))
             {
-                radio_Old.Checked = true;
-                groupBox_Platform.Enabled = false;
+                chk_RepackPACs.Enabled = true;
             }
             else
-            {
-                groupBox_Platform.Enabled = true;
-            }
-        }
-
-        private void Platform_Changed(object sender, EventArgs e)
-        {
-            if (radio_New.Checked)
             {
                 chk_RepackPACs.Checked = false;
                 chk_RepackPACs.Enabled = false;
             }
-            else
-            {
-                chk_RepackPACs.Enabled = true;
-            }
+
+            if (changedSettings)
+                File.WriteAllText("game.txt", comboBox_Version.Text);
         }
 
         private void VersionString_Changed(object sender, EventArgs e)
         {
             File.WriteAllText("version.txt", txt_Version.Text);
+        }
+
+        private void Encoding_Changed(object sender, EventArgs e)
+        {
+            if (changedSettings)
+                File.WriteAllText("encoding.txt", comboBox_Encoding.Text);
         }
     }
 }
