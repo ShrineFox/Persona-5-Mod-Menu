@@ -1,7 +1,8 @@
-# Attention
-This repository has very recently (November 2022) been restructured in response to Persona 5 Royal coming to PC and Switch.  
-These changes make it easier to maintain the PS3 and PS4 versions of the menu while keeing all changes in sync with the new ports.  
-**No update has been released just yet**, but you can expect a new release as soon as bugs have been sufficiently fixed ([track progress here](https://trello.com/c/On4NnqmQ/54-persona-5r-mod-menu-update).)
+# ATTENTION PC/SWITCH USERS
+**No update for PC/Switch has been released just yet!!**  
+You can expect a new release as soon as bugs have been sufficiently fixed ([track progress here](https://trello.com/c/On4NnqmQ/54-persona-5r-mod-menu-update).)
+This repository has very recently been restructured. These changes make it easier to maintain the PS3 and PS4 versions of the menu while keeing all changes in sync with the new PC/Switch ports.  
+Thank you for your patience.
 
 # Persona 5 (Royal) Mod Menu
 **Custom scripts for P5 & P5R that replace the square button function with a fully featured trainer**
@@ -34,7 +35,7 @@ These changes make it easier to maintain the PS3 and PS4 versions of the menu wh
 
 ## Editing the Menu
 If you'd like to make changes to the script and build your own version of the mod, follow these steps.  
-1. Download ``ModMenuBuilder.zip`` from the [latest release]().
+1. Download ``ModMenuBuilder.zip`` from the [latest release](https://github.com/ShrineFox/Persona-5-Mod-Menu/releases).
 2. Extract it and run ``ModMenuBuilder.exe``.
 3. Download and extract ``AtlusScriptCompiler``. Add the path to the ``.exe`` in the ModMenuBuilder.
 4. Set the directory where you want the Mod Menu output to be built. i.e. ``Steam\steamapps\common\P5R\Reloaded\Mods\p5rpc.misc.modmenu\P5REssentials\CPK\EN.CPK``
