@@ -24,10 +24,53 @@ void TitleSelect()
             case 0:
                 return;
             case 1:
+                ItemGet();
+                BattleSetup();
                 CALL_FIELD(0, 100, 0, 0);
                 return;
         }
     }
+}
+
+void BattleSetup()
+{
+    //Party Member IDs
+    int joker = 1;
+    int ryuji = 2;
+    int morgana = 3;
+    int ann = 4;
+    int yusuke = 5;
+    int makoto = 6;
+    int haru = 7;
+    int futaba = 8;
+    int akechi = 9;
+    int sumire = 10;
+
+    int partyCount = 10;
+    /* Vanilla Start */
+    partyCount = 9;
+    /* Vanilla End */
+    for (int i = 1; i < partyCount + 1; i++)
+    {
+        // Removes everyone but Joker from party
+        if (i != joker)
+            PARTY_OUT(i);
+        
+        if (i != futaba)
+        {
+            //Gives every party member the Down Shot skill
+            ADD_PERSONA_SKILL(i, 200 + i, 405);
+            // Set HP to 999
+            SET_HP(i, 999);
+            SET_SP(i, 999);
+        }
+    }
+
+    // Add members back to your party
+    PARTY_IN(morgana);
+
+    //Load test field
+    CALL_FIELD(0, 100, 0, 0);
 }
 
 void ItemGet()

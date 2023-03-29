@@ -18,6 +18,7 @@ void PlayerMenu()
             case 0:
                 // Appearance/PlayerAppearance.flow
                 PlayerAppearanceMenu();
+                break;
             case 1:
                 SetPlayerName();
                 break;
