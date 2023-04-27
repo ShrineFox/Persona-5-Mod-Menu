@@ -14,6 +14,7 @@ Party Cut-ins Test[w][e]
 [var 8][ref 6 337][e]
 [var 9][ref 7 338][e]
 Villain [var 9][ref 8 339][e]
+[var 1][ref 9 340][e]
 
 [dlg GENERIC_HELP_331]
 Test the dialogue Cut-ins
@@ -50,6 +51,10 @@ Test the dialogue Cut-ins
 [dlg GENERIC_HELP_339]
 Test the dialogue Cut-ins
 [n]for Villain [var 9].[e]
+
+[dlg GENERIC_HELP_340]
+Test the choice selection
+[n]portraits for [var 1].[e]
 
 [msg Title_CutinOrientation]
 Cutin Orientation[w][e]
@@ -353,3 +358,27 @@ Left[e]
 [msg GoroExpressionLeft [Goro]]
 [f 4 17 1 -1 -1 -1 -1 -1 -1 -1 10 3 300 1]Cutin Test[w][e]
 [f 4 17 1 -1 -1 -1 -1 -1 -1 -1 10 10 300 1]Cutin Test[w][e]
+
+[sel JokerSEL_0]
+[selTex 0]Glasses[e]
+Exit[e]
+
+[sel JokerSEL_1]
+[selTex 1]Phantom Thief[e]
+Exit[e]
+
+[sel JokerSEL_2]
+[selTex 2]Interrogation[e]
+Exit[e]
+
+[sel JokerSEL_3]
+[selTex 3]No Glasses[e]
+Exit[e]
+
+[sel JokerSEL_4]
+[selTex 4]Thinking Glasses[e]
+Exit[e]
+
+[sel JokerSEL_5]
+[selTex 5]Steamed Glasses[e]
+Exit[e]

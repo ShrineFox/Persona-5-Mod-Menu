@@ -36,7 +36,10 @@ void CutinsMenu()
                 break;    
             case 8:
                 CutinMenu( GoroExpressionRight );
-                break;    
+                break;
+            case 9:
+                PortraitMenu();
+                break;
         }
     }
 }
@@ -49,5 +52,23 @@ void CutinMenu(int msgID)
         if ( selection == -1 )
             return;
         Message( msgID + selection );
+    }
+}
+
+void PortraitMenu()
+{
+    int maxSELPortraits = 5;
+    /* Royal Start */
+    maxSELPortraits = 6;
+    /* Royal End */
+
+    for (int i = 0; i < maxSELPortraits; i++)
+    {
+        MSG_WND_DSP();
+        MSG(0, 0);
+        int response = SEL(JokerSEL_0 + i);
+        MSG_WND_CLS();
+        if (response != 0)
+            break;
     }
 }

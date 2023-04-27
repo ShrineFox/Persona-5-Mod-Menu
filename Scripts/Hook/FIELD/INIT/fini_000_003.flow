@@ -81,6 +81,16 @@ void ItemGet()
     {
         SET_ITEM_NUM(0x7010 + i, 1);
     }
+    // all melee weapons
+    for (i = 0; i < 295; i++)
+    {
+        SET_ITEM_NUM(0x0000 + i, 1);
+    }
+    // all ranged weapons
+    for (i = 0; i < 255; i++)
+    {
+        SET_ITEM_NUM(0x8000 + i, 1);
+    }
     // unlock party
     int j = 0;
     for (j = 0; j < 9; j++)
