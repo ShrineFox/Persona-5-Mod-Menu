@@ -13,6 +13,7 @@ Font Test[ref 4 6][e]
 Sound Test[ref 5 7][e]
 Chat[ref 6 8][e]
 Shop[ref 7 9][e]
+Timer[ref 8 10][e]
 
 [dlg GENERIC_HELP_2]
 Choose a type of battle
@@ -46,3 +47,10 @@ Enter the ID of a chat
 
 [dlg GENERIC_HELP_9]
 Enter the ID of a shop to open.[e]
+
+[dlg GENERIC_HELP_10]
+Display a timer for a certain
+[n]number of seconds.[e]
+
+[dlg Title_Seconds]
+Seconds[w][e]
