@@ -1,61 +1,61 @@
 ﻿[msg Mementos]
 [e]
 
-[msg Title_MemeAreas]
+[msg Title_MAreas]
 Mementos Areas[e]
 
-[sel Options_MemeAreas]
-Qimranut (1)[e]
-Aiyatsubus (2)[e]
-Chemdah (3)[e]
-Kaitul (4)[e]
-Akzeriyyuth (5)[e]
-Adyeshach(6)[e]
-Sheriruth (7)[e]
-Iweleth (8)[e]
-Requests / Missions (10)[e]
-Path Of Grail (11)[e]
-Da'at (9)[e]// Royal
+[sel Opt_MAreas]
+Qimranut[e]
+Aiyatsubus[e]
+Chemdah[e]
+Kaitul[e]
+Akzeriyyuth[e]
+Adyeshach[e]
+Sheriruth[e]
+Iweleth[e]
+Missions[e]
+Path Of Grail[e]
+Da'at[e]// Royal
 
-[msg Title_M1Floors]
+[msg Title_M1F]
 Qimranut[e]
 
-[msg Title_M2Floors]
+[msg Title_M2F]
 Aiyatsubus[e]
 
-[msg Title_M3Floors]
+[msg Title_M3F]
 Chemdah[e]
 
-[msg Title_M4Floors]
+[msg Title_M4F]
 Kaitul[e]
 
-[msg Title_M5Floors]
+[msg Title_M5F]
 Akzeriyyuth[e]
 
-[msg Title_M6Floors]
+[msg Title_M6F]
 Adyeshach[e]
 
-[msg Title_M7Floors]
+[msg Title_M7F]
 Sheriruth[e]
 
-[msg Title_M8Floors]
+[msg Title_M8F]
 Iweleth[e]
 
-[msg Title_M10Floors]
+[msg Title_M10F]
 Mission[e]
 
-[msg Title_M11Floors]
+[msg Title_M11F]
 Path Of Grail[e]
 
-[msg Title_M9Floors]
+[msg Title_M9F]
 Da'at[e]
 
-[sel Options_M1Floors]
+[sel Opt_M1F]
 Entry #00 - 000_000 (NULL)[e]
 Entry #01 - 191_001[e]
 Entry #02 - 191_011[e]
 
-[sel Options_Meme2Floors]
+[sel Opt_M2F]
 Entry #00 - 000_000 (NULL)[e]
 Entry #01 - 191_051[e]
 Entry #02 - 191_051[e]
@@ -64,8 +64,8 @@ Entry #04 - 191_065[e]
 Entry #05 - 191_051[e]
 Entry #06 - 191_051[e]
 Entry #07 - 191_061[e]
-     
-[msg Options_Meme3Floors]
+
+[msg Opt_M3F]
 Entry #00 - 000_000 (NULL)[e]
 Entry #01 - 193_001[e]
 Entry #02 - 193_001[e]
@@ -75,8 +75,8 @@ Entry #05 - 193_015[e]
 Entry #06 - 193_001[e]
 Entry #07 - 193_001[e]
 Entry #08 - 193_011[e]
-     
-[msg Options_M4Floors]
+
+[msg Opt_M4F]
 Entry #00 - 000_000 (NULL)[e]
 Entry #01 - 193_051[e]
 Entry #02 - 193_051[e]
@@ -88,8 +88,8 @@ Entry #07 - 193_051[e]
 Entry #08 - 193_051[e]
 Entry #09 - 193_051[e]
 Entry #10 - 193_061[e]
-     
-[msg Options_M5Floors]
+
+[msg Opt_M5F]
 Entry #00 - 000_000 (NULL)[e]
 Entry #01 - 194_001[e]
 Entry #02 - 194_001[e]
@@ -103,8 +103,8 @@ Entry #09 - 194_001[e]
 Entry #10 - 194_001[e]
 Entry #11 - 194_001[e]
 Entry #12 - 194_011[e]
-     
-[msg Options_M6Floors]
+
+[msg Opt_M6F]
 Entry #00 - 000_000 (NULL)[e]
 Entry #01 - 194_051[e]
 Entry #02 - 194_051[e]
@@ -119,8 +119,8 @@ Entry #10 - 194_051[e]
 Entry #11 - 194_051[e]
 Entry #12 - 194_051[e]
 Entry #13 - 194_061[e]
-     
-[msg Options_M7Floors]
+
+[msg Opt_M7F]
 Entry #00 - 000_000 (NULL)[e]
 Entry #01 - 192_001[e]
 Entry #02 - 192_001[e]
@@ -136,20 +136,20 @@ Entry #11 - 192_001[e]
 Entry #12 - 192_001[e]
 Entry #13 - 192_001[e]
 Entry #14 - 192_011[e]
-     
-[msg Options_M8Floors]
+
+[msg Opt_M8F]
 Entry #00 - 000_000 (NULL)[e]
 Entry #01 - 192_061[e]
 
-[msg Options_M10Floors]
+[msg Opt_M10F]
  [e]
 
-[msg Options_M11Floors]
+[msg Opt_M11F]
 Entry #00 - 000_000 (NULL)[e]
 Entry #00 - 192_061 (NULL)[e]
 Entry #00 - 192_062 (NULL)[e]
 
-[msg Options_M9Floors]
+[msg Opt_M9F]
 Entry #00 - 000_000 (NULL)[e]
 Entry #01 - 195_001[e]
 Entry #02 - 195_001[e]

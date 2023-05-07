@@ -49,6 +49,22 @@ void CallMenu()
                 // Shops/Shops.flow
                 ShopsMenu();
                 break;
+            case 8:
+                // Timer
+                SetTimer();
+                break;  
         }
     }
+}
+
+void SetTimer()
+{
+    int seconds = NumberMenu(5, Title_Seconds);
+    if (seconds == -1)
+        return;
+    TIMER_SETUP();
+    TIMER_SETUP_SYNC();
+    TIMER_SET_TIME(seconds);
+    TIMER_SET_VISIBLE(1);
+    TIMER_SET_PAUSE(0);
 }

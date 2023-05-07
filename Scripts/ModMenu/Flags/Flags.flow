@@ -33,11 +33,15 @@ void FlagsMenu()
                 break;
             case 3:
                 // Print Enabled Flags
-                PrintFlags(true);
+                PrintOnFlags();
                 break;
             case 4:
                 // Print Disabled Flags
-                PrintFlags(false);
+                PrintOffFlags();
+                break;
+            case 5:
+                // Print Count Values
+                PrintCount();
                 break;
         }
     }
@@ -80,6 +84,10 @@ void ToggleBitflags_ByID()
                 // Flip Range
                 ToggleRange(2);
                 break;
+            case 6:
+                // Set Count Value
+                SetCount();
+                break;
         }
     }
 }
@@ -102,19 +110,49 @@ void CheckRange()
     SystemMessage(Msg_RangeSet);
 }
 
-void PrintFlags(int enabledFlags)
+void PrintOnFlags()
 {
     for (int i = 0; i < gBitFlagAmount; i++)
     {
-        if (enabledFlags && BIT_CHK(i))
-        {
-            PUT(i);
-        }
-        else if (!enabledFlags && !BIT_CHK(i))
+        if (BIT_CHK(i))
         {
             PUT(i);
         }
     }
+}
+
+void PrintOffFlags()
+{
+    for (int i = 0; i < gBitFlagAmount; i++)
+    {
+        if (!BIT_CHK(i))
+        {
+            PUT(i);
+        }
+    }
+}
+
+void PrintCount()
+{
+    for (int i = 0; i < 256; i++)
+    {
+        PUT(GET_COUNT(i));
+    }
+}
+
+void SetCount()
+{
+    int countID = NumberMenu(3, Title_CountID);
+    if (countID == -1)
+        return;
+    int countValue = NumberMenu(6, Title_CountValue);
+    if (countValue == -1)
+        return;
+
+    SET_COUNT(countID, countValue);
+    SET_MSG_VAR(0, countID, 0);
+    SET_MSG_VAR(1, countValue, 0);
+    SystemMessage(Msg_ConfirmCount);
 }
 
 void ToggleRange(int mode)

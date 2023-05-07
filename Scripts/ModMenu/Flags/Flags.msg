@@ -8,8 +8,9 @@ Flags[w][e]
 Toggle by ID[ref 0 2][e]
 Toggle by Category[ref 1 3][e]
 Randomize Flags[ref 2 4][e]
-Print Enabled Flags[ref 3 5][e] // Vanilla
-Print Disabled Flags[ref 4 6][e] // Vanilla
+Print Enabled Flags[ref 3 5][e]
+Print Disabled Flags[ref 4 6][e]
+Print Count Values[ref 5 7][e]
 
 [dlg GENERIC_HELP_2]
 Choose an individual bitflag[n]or a range of flags[n]to turn on/off.[e]
@@ -24,7 +25,10 @@ Randomly toggle a specified[n]percentage of all flags.[e]
 Print a list of enabled flags[n]to the TTY log.[e]
 
 [dlg GENERIC_HELP_6]
-Print a list of disabled flags[n]to the TTY log.[e] 
+Print a list of disabled flags[n]to the TTY log.[e]
+
+[dlg GENERIC_HELP_7]
+Print a list of count values[n]to the TTY log.[e]
 
 [dlg Message_RandomizeFlags]
 Enter the percent chance out of
@@ -45,6 +49,7 @@ Set End Range[ref 2 13][e]
 Enable All Flags in Range[ref 3 14][e]
 Disable All Flags in Range[ref 4 15][e]
 Flip All Flags in Range[ref 5 16][e]
+Set Count Value[ref 6 17][e]
 
 [dlg GENERIC_HELP_11]
 Choose an individual bitflag[n]by ID and turn it[n]on or off.[e]
@@ -63,6 +68,9 @@ Turn off all flags in the[n]selected range.[e]
 
 [dlg GENERIC_HELP_16]
 Give all flags in the[n]selected range their[n]opposite value.[e]
+
+[dlg GENERIC_HELP_17]
+Choose a count value by[n]ID and change the[n]value it stores.[e]
 
 [dlg Message_ConfirmEnableRange]
 Are you sure you want to set
@@ -106,3 +114,12 @@ Flags [clr 1][var 0][clr 0] - [clr 1][var 1][clr 0] set to [clr 13]On[clr 0].[w]
 
 [dlg Msg_RangeFlipped]
 Flags [clr 1][var 0][clr 0] - [clr 1][var 1][clr 0] have been toggled.[w][e]
+
+[dlg Title_CountID]
+Count ID (3 Digits)[w][e]
+
+[dlg Title_CountValue]
+Count Value (6 Digits)[w][e]
+
+[dlg Msg_ConfirmCount]
+Count [clr 1][var 0][clr 0] set to [clr 1][var 1][clr 0].[w][e]
