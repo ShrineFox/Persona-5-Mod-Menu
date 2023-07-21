@@ -7,6 +7,7 @@ import("Sound/Sound.flow");
 import("Chats/Chats.flow");
 import("Shops/Shops.flow");
 import("Call.msg");
+import("Tutorials/Tutorial.flow");
 
 void CallMenu()
 {
@@ -52,6 +53,10 @@ void CallMenu()
             case 8:
                 // Timer
                 SetTimer();
+                break;  
+            case 9:
+                // Tutorial
+                TutorialMenu();
                 break;  
         }
     }
