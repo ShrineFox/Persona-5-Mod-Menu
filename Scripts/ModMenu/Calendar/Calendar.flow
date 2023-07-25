@@ -96,7 +96,6 @@ void ChangeWeather()
     {
         CLEAR_WEATHER();
         PUSH_WEATHER(selection);
-        POP_WEATHER();
     }
 }
 
