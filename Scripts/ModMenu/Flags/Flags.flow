@@ -112,28 +112,28 @@ void CheckRange()
 
 void PrintOnFlags()
 {
+    PUTS("Start Enabled Flag Dump");
     for (int i = 0; i < gBitFlagAmount; i++)
     {
         if (BIT_CHK(i))
         {
-            PUTS("Start Enabled Flag Dump");
             PUT(i);
-            PUTS("End Enabled Flag Dump");
         }
     }
+    PUTS("End Enabled Flag Dump");
 }
 
 void PrintOffFlags()
 {
+    PUTS("Start Disabled Flag Dump");
     for (int i = 0; i < gBitFlagAmount; i++)
     {
         if (!BIT_CHK(i))
         {
-            PUTS("Start Disabled Flag Dump");
             PUT(i);
-            PUTS("End Disabled Flag Dump");
         }
     }
+    PUTS("End Disabled Flag Dump");
 }
 
 void PrintCount()
