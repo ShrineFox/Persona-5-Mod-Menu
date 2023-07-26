@@ -116,7 +116,9 @@ void PrintOnFlags()
     {
         if (BIT_CHK(i))
         {
+            PUTS("Start Enabled Flag Dump");
             PUT(i);
+            PUTS("End Enabled Flag Dump");
         }
     }
 }
@@ -127,7 +129,9 @@ void PrintOffFlags()
     {
         if (!BIT_CHK(i))
         {
+            PUTS("Start Disabled Flag Dump");
             PUT(i);
+            PUTS("End Disabled Flag Dump");
         }
     }
 }
