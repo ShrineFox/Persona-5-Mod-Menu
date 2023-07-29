@@ -138,10 +138,12 @@ void PrintOffFlags()
 
 void PrintCount()
 {
+	PUTS("Start Count Value Dump");
     for (int i = 0; i < 256; i++)
     {
         PUT(GET_COUNT(i));
     }
+	PUTS("End Count Value Dump");
 }
 
 void SetCount()
