@@ -14,6 +14,7 @@ Skills[ref 5 7][e]
 Items[ref 6 8][e]
 Social Stats[ref 7 9][e]
 Confidants[ref 8 10][e]
+Set Security Level[ref 9 11][e]
 
 [dlg GENERIC_HELP_2]
 Change Joker's field GAP/GMD,
@@ -55,5 +56,12 @@ Add points to your Knowledge,
 Select a Confidant and set your
 [n]current rank with their Arcana.[e]
 
+[dlg GENERIC_HELP_11]
+Set the percentage of the Palace
+[n]Security Level Gauge.[e]
+
 [dlg Title_Yen]
 Add Yen (7 Digits)[w][e]
+
+[dlg Title_Security]
+Security Level (3 Digits)[w][e]
