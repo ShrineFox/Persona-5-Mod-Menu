@@ -1,17 +1,13 @@
-﻿import("Camera.msg");
+﻿import("../../Utilities/Math.flow");
+import("Camera.msg");
 
 // Global Variables
-global float rotX;
-global float rotY;
-global float rotZ;
+global float camerarot_x;
+global float camerarot_y;
+global float camerarot_z;
 
 void CameraMenu()
 {
-    if ((rotX == 0f) && (rotY == 0f) && (rotZ == 0f))
-    {
-        CameraGetRotation();
-    }
-
     while (true && !PAD_CHK_PRESS(PadButton.L2))
     {
         int selection = DescriptionMenu(Title_Camera, Options_Camera);
@@ -24,21 +20,15 @@ void CameraMenu()
                 CameraPosition();
                 break;
             case 1:
-                CameraFOV();
+                CameraFOVZoom();
                 break;
             case 2:
-                CameraZoom();
-                break;
-            case 3:
-                CameraRotation();
-                break;
-            case 4:
                 CameraUnlock();
                 break;
-            case 5:
+            case 3:
                 CameraLock();
                 break;
-            case 6:
+            case 4:
                 CAMERA_SHAKE_STOP();
                 break;
         }
@@ -47,225 +37,203 @@ void CameraMenu()
 
 void CameraPosition()
 {
-    CameraLock();
-    SystemMessage(Message_Camera);
+    DetectController();
+    if (!controller)
+        return;
 
-    while (!PAD_CHK_PRESS(PadButton.Triangle))
-    {
-        bool anyValueSet = false;
+    // Velocity to add per frame
+    const float ADD_VELOCITY_PER_PRESS = 3f;
 
-        if (PAD_CHK_PRESS(PadButton.Any)) // if any button is pressed
-        {
-            float x = FLD_CAMERA_GET_X_POS();
-            float y = FLD_CAMERA_GET_Y_POS();
-            float z = FLD_CAMERA_GET_Z_POS();
-            float multiplier = 1f;
-
-            if (PAD_CHK_PRESS(PadButton.Cross))
-                multiplier = 3f;
-
-            if (PAD_CHK_PRESS(PadButton.Up))
-            {
-                if (PAD_CHK_PRESS(PadButton.Square))
-                    z = z + (5f * multiplier);
-                else
-                    y = y + (5f * multiplier);
-                anyValueSet = true;
-            }
-
-            if (PAD_CHK_PRESS(PadButton.Right))
-            {
-                x = x + (5f * multiplier);
-                anyValueSet = true;
-            }
-
-            if (PAD_CHK_PRESS(PadButton.Down))
-            {
-                if (PAD_CHK_PRESS(PadButton.Square))
-                    z = z - (5f * multiplier);
-                else
-                    y = y - (5f * multiplier);
-                anyValueSet = true;
-            }
-
-            if (PAD_CHK_PRESS(PadButton.Left))
-            {
-                x = x - (5f * multiplier);
-                anyValueSet = true;
-            }
-
-            if (anyValueSet)
-                FLD_CAMERA_SET_POS(x, y, z);
-        }
-
-        WAIT(3);
-    }
-}
-
-void CameraFOV()
-{
-    CameraLock();
-    SystemMessage(Message_Camera);
-
-    while (!PAD_CHK_PRESS(PadButton.Triangle))
-    {
-        bool anyValueSet = false;
-
-        if (PAD_CHK_PRESS(PadButton.Any))
-        {
-            float fov = FLD_CAMERA_GET_FOVY();
-            float multiplier = 1f;
-
-            if (PAD_CHK_PRESS(PadButton.Cross))
-                multiplier = 5f;
-
-            if (PAD_CHK_PRESS(PadButton.Up))
-            {
-                fov = fov + (1f * multiplier);
-                anyValueSet = true;
-            }
-
-            if (PAD_CHK_PRESS(PadButton.Right))
-            {
-                fov = fov + (1f * multiplier);
-                anyValueSet = true;
-            }
-
-            if (PAD_CHK_PRESS(PadButton.Down))
-            {
-                fov = fov - (1f * multiplier);
-                anyValueSet = true;
-            }
-
-            if (PAD_CHK_PRESS(PadButton.Left))
-            {
-                fov = fov + (1f * multiplier);
-                anyValueSet = true;
-            }
-
-            if (anyValueSet)
-                FLD_CAMERA_SET_FOVY(fov);
-        }
-
-        WAIT(3);
-    }
-}
-
-void CameraZoom()
-{
-    CameraLock();
-    SystemMessage(Message_Camera);
-
-    while (!PAD_CHK_PRESS(PadButton.Triangle))
-    {
-        bool anyValueSet = false;
-
-        if (PAD_CHK_PRESS(PadButton.Any))
-        {
-            int zoom = 1;
-            float multiplier = 1f;
-
-            if (PAD_CHK_PRESS(PadButton.Cross))
-                multiplier = 5f;
-
-            if (PAD_CHK_PRESS(PadButton.Up))
-            {
-                zoom = zoom + (1f * multiplier);
-                anyValueSet = true;
-            }
-
-            if (PAD_CHK_PRESS(PadButton.Right))
-            {
-                zoom = zoom + (1f * multiplier);
-                anyValueSet = true;
-            }
-
-            if (PAD_CHK_PRESS(PadButton.Down))
-            {
-                zoom = zoom - (1f * multiplier);
-                anyValueSet = true;
-            }
-
-            if (PAD_CHK_PRESS(PadButton.Left))
-            {
-                zoom = zoom + (1f * multiplier);
-                anyValueSet = true;
-            }
-
-            if (anyValueSet)
-                FLD_CAMERA_ZOOM(zoom);
-        }
-
-        WAIT(3);
-    }
-}
-
-void CameraRotation()
-{
-    CameraLock();
-    const float ADD_VELOCITY_PER_PRESS = 15f;
-    float cameraVelocityX = 0f;
-    float cameraVelocityY = 0f;
-    float cameraVelocityZ = 0f;
-
+    float velocity_x = 0f;
+    float velocity_y = 0f;
+    float velocity_z = 0f;
     int runs = 0;
 
-    SystemMessage(Message_Camera);
-    while (!PAD_CHK_PRESS(PadButton.Triangle))
+    // Get current camera rotation
+    CameraGetRotation();
+    CameraLock();
+
+    // Wait for all buttons to be released
+    while (PAD_CHK_PRESS(PadButton.Any)) { SYNC(); }
+
+    float rot_velocity = 0f;
+    int rot_axis = 0;
+
+    // Stop executing when Circle button is pressed
+    while (!PAD_CHK_PRESS(PadButton.Circle))
     {
-        if (++runs > 4)
+        // Get current camera position
+        float camera_x = FLD_CAMERA_GET_X_POS();
+        float camera_y = FLD_CAMERA_GET_Y_POS();
+        float camera_z = FLD_CAMERA_GET_Z_POS();
+
+        // Bring velocity closer to zero
+        ++runs;
+        float multiplier = 1f;
+        if (runs > 5)
         {
+            multiplier = 1f;
             runs = 0;
-            cameraVelocityX /= 2;
-            cameraVelocityY /= 2;
-            cameraVelocityZ /= 2;
+            velocity_x /= 3f;
+            velocity_y /= 3f;
+            velocity_z /= 3f;
+            rot_velocity /= 1.5f;
         }
 
+        // If a button is pressed...
         if (PAD_CHK_PRESS(PadButton.Any))
         {
+            // Multiply velocity
+            if (PAD_CHK_PRESS(PadButton.Cross))
+                multiplier *= 3f;
+            if (PAD_CHK_PRESS(PadButton.Triangle))
+                multiplier *= 5f;
+            // Change rotation axis
+            if (PAD_CHK_PRESS(PadButton.Select))
+            {
+                if (rot_axis == 2)
+                    rot_axis = 0;
+                else
+                    rot_axis++;
+                WAIT(10);
+            }
+            // Divide velocity
+            if (PAD_CHK_PRESS(PadButton.Square))
+                multiplier /= 10f;
+            // Camera position north/east/south/west speed
             if (PAD_CHK_PRESS(PadButton.Up))
-            {
-                if (PAD_CHK_PRESS(PadButton.Square))
-                {
-                    cameraVelocityZ += ADD_VELOCITY_PER_PRESS;
-                }
-                else
-                {
-                    cameraVelocityY += ADD_VELOCITY_PER_PRESS;
-                }
-            }
-
+                velocity_z += ADD_VELOCITY_PER_PRESS * multiplier;
             if (PAD_CHK_PRESS(PadButton.Right))
-            {
-                cameraVelocityX += ADD_VELOCITY_PER_PRESS;
-            }
-
+                velocity_x -= ADD_VELOCITY_PER_PRESS * multiplier;
             if (PAD_CHK_PRESS(PadButton.Down))
+                velocity_z -= ADD_VELOCITY_PER_PRESS * multiplier;
+            if (PAD_CHK_PRESS(PadButton.Left))
+                velocity_x += ADD_VELOCITY_PER_PRESS * multiplier;
+            // Camera position up/down speed
+            if (PAD_CHK_PRESS(PadButton.R2))
+                velocity_y += ADD_VELOCITY_PER_PRESS * multiplier;
+            if (PAD_CHK_PRESS(PadButton.L2))
+                velocity_y -= ADD_VELOCITY_PER_PRESS * multiplier;
+
+            // Camera rotation speed
+            if (PAD_CHK_PRESS(PadButton.R1))
             {
-                if (PAD_CHK_PRESS(PadButton.Square))
-                {
-                    cameraVelocityZ -= ADD_VELOCITY_PER_PRESS;
-                }
-                else
-                {
-                    cameraVelocityY -= ADD_VELOCITY_PER_PRESS;
-                }
+                rot_velocity += ADD_VELOCITY_PER_PRESS * multiplier;
+            }
+            if (PAD_CHK_PRESS(PadButton.L1))
+            {
+                rot_velocity -= ADD_VELOCITY_PER_PRESS * multiplier;
             }
 
-            if (PAD_CHK_PRESS(PadButton.Left))
+            // Rotate along selected axis
+            if (rot_velocity > 0.1f || rot_velocity < -0.1f)
             {
-                cameraVelocityX -= ADD_VELOCITY_PER_PRESS;
+                switch(rot_axis)
+                {
+                    case 0:
+                        CameraSetRotation(camerarot_x + rot_velocity, camerarot_y, camerarot_z);
+                        break;
+                    case 1:
+                        CameraSetRotation(camerarot_x, camerarot_y + rot_velocity, camerarot_z);
+                        break;
+                    case 2:
+                        CameraSetRotation(camerarot_x, camerarot_y, camerarot_z + rot_velocity);
+                        break;
+                    default:
+                        break;
+                }
             }
         }
 
-        rotX += cameraVelocityX;
-        rotY += cameraVelocityY;
-        rotZ += cameraVelocityZ;
-        CameraSetRotation(rotX, rotY, rotZ);
+        // Move camera in direction of velocity if not rotating
+        FLD_CAMERA_SET_POS(camera_x + velocity_x, camera_y + velocity_y, camera_z + velocity_z);
 
         SYNC();
     }
+
+    PrintCameraCoords();
 }
+
+void PrintCameraCoords()
+{
+    PUTS("Camera Pos X:");
+    PUTF(FLD_CAMERA_GET_X_POS());
+    PUTS("Camera Pos Y:");
+    PUTF(FLD_CAMERA_GET_Y_POS());
+    PUTS("Camera Pos Z:");
+    PUTF(FLD_CAMERA_GET_Z_POS());
+    float qX = 0f;
+    float qY = 0f;
+    float qZ = 0f;
+    float qW = 0f;
+    EulerToQuatDeg(camerarot_x, camerarot_y, camerarot_z, out qX, out qY, out qZ, out qW);
+    PUTS("Camera Rot X:");
+    PUTF(qX);
+    PUTS("Camera Rot Y:");
+    PUTF(qY);
+    PUTS("Camera Rot Z:");
+    PUTF(qZ);
+    PUTS("Camera Rot W:");
+    PUTF(qW);
+}
+
+void CameraFOVZoom()
+{
+    DetectController();
+    if (!controller)
+        return;
+
+    CameraLock();
+
+    const float ADD_VELOCITY_PER_PRESS = 3f;
+    float velocity_fov = 0f;
+    float velocity_zoom = 0f;
+    float fov = FLD_CAMERA_GET_FOVY();
+    int zoom = 1;
+    int runs = 0;
+
+    // Stop executing when Circle button is pressed
+    while (!PAD_CHK_PRESS(PadButton.Circle))
+    {
+        // Bring velocity closer to zero
+        ++runs;
+        float multiplier = 1.10f;
+        if (runs > 5)
+        {
+            multiplier = 1f;
+            runs = 0;
+            velocity_fov /= 2f;
+            velocity_zoom /= 2f;
+        }
+
+        // Multiply velocity
+        if (PAD_CHK_PRESS(PadButton.Cross))
+            multiplier *= 2f;
+        if (PAD_CHK_PRESS(PadButton.Triangle))
+            multiplier *= 3f;
+        // Divide velocity
+        if (PAD_CHK_PRESS(PadButton.Square))
+            multiplier /= 2f;
+
+        // Camera position north/east/south/west speed
+        if (PAD_CHK_PRESS(PadButton.Up))
+            velocity_zoom += ADD_VELOCITY_PER_PRESS * multiplier;
+        if (PAD_CHK_PRESS(PadButton.Down))
+            velocity_zoom -= ADD_VELOCITY_PER_PRESS * multiplier;
+        if (PAD_CHK_PRESS(PadButton.Right))
+            velocity_fov += ADD_VELOCITY_PER_PRESS * multiplier;
+        if (PAD_CHK_PRESS(PadButton.Left))
+            velocity_fov -= ADD_VELOCITY_PER_PRESS * multiplier;
+
+        fov += velocity_fov;
+        zoom += velocity_zoom;
+
+        FLD_CAMERA_SET_FOVY(fov);
+        FLD_CAMERA_ZOOM(zoom);
+        SYNC();
+    }
+}
+
 
 void CameraGetRotation()
 {
@@ -273,18 +241,21 @@ void CameraGetRotation()
     float y;
     float z;
     QuaternionToEuler(FLD_CAMERA_GET_X_ROT(), FLD_CAMERA_GET_Y_ROT(), FLD_CAMERA_GET_Z_ROT(), FLD_CAMERA_GET_W_ROT(), out x, out y, out z);
-    rotX = x;
-    rotY = y;
-    rotZ = z;
+    camerarot_x = x;
+    camerarot_y = y;
+    camerarot_z = z;
 }
 
 void CameraSetRotation(float x, float y, float z)
 {
-    float qX;
-    float qY;
-    float qZ;
-    float qW;
-    EulerToQuaternionDegrees(x, y, z, out float qX, out float qY, out float qZ, out float qW);
+    camerarot_x = x;
+    camerarot_y = y;
+    camerarot_z = z;
+    float qX = 0f;
+    float qY = 0f;
+    float qZ = 0f;
+    float qW = 0f;
+    EulerToQuatDeg(camerarot_x, camerarot_y, camerarot_z, out qX, out qY, out qZ, out qW);
     FLD_CAMERA_SET_ROT(qX, qY, qZ, qW);
 }
 
@@ -298,64 +269,4 @@ void CameraLock()
 {
     FLD_CAMERA_LOCK();
     FLD_CAMERA_BEHIND_LOCK();
-}
-
-void TeleportModeStart()
-{
-    const float ADD_VELOCITY_PER_PRESS = 5f;
-
-    int playerResHandle = FLD_PC_GET_RESHND(0);
-
-    float playerVelocityX = 0f;
-    float playerVelocityY = 0f;
-    float playerVelocityZ = 0f;
-    int runs = 0;
-
-    while (!PAD_CHK_PRESS(PadButton.Triangle))
-    {
-        ++runs;
-        if (runs > 4)
-        {
-            runs = 0;
-            playerVelocityX /= 2;
-            playerVelocityY /= 2;
-            playerVelocityZ /= 2;
-        }
-
-        if (PAD_CHK_PRESS(PadButton.Any))
-        {
-            if (PAD_CHK_PRESS(PadButton.Up))
-            {
-                if (PAD_CHK_PRESS(PadButton.Square))
-                    playerVelocityZ += ADD_VELOCITY_PER_PRESS;
-                else
-                    playerVelocityY += ADD_VELOCITY_PER_PRESS;
-            }
-
-            if (PAD_CHK_PRESS(PadButton.Right))
-            {
-                playerVelocityX += ADD_VELOCITY_PER_PRESS;
-            }
-
-            if (PAD_CHK_PRESS(PadButton.Down))
-            {
-                if (PAD_CHK_PRESS(PadButton.Square))
-                    playerVelocityZ -= ADD_VELOCITY_PER_PRESS;
-                else
-                    playerVelocityY -= ADD_VELOCITY_PER_PRESS;
-            }
-
-            if (PAD_CHK_PRESS(PadButton.Left))
-            {
-                playerVelocityX -= ADD_VELOCITY_PER_PRESS;
-            }
-        }
-
-        float x = FLD_MODEL_GET_X_TRANSLATE(playerResHandle) + playerVelocityX;
-        float y = FLD_MODEL_GET_Y_TRANSLATE(playerResHandle) + playerVelocityY;
-        float z = FLD_MODEL_GET_Z_TRANSLATE(playerResHandle) + playerVelocityZ;
-        FLD_MODEL_RUN_TRANSLATE(playerResHandle, x, y, z);
-
-        SYNC();
-    }
 }
