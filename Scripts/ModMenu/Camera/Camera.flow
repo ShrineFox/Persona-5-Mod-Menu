@@ -20,25 +20,25 @@ void CameraMenu()
         {
             case -1:
                 return;
-            case 1:
+            case 0:
                 CameraPosition();
                 break;
-            case 2:
+            case 1:
                 CameraFOV();
                 break;
-            case 3:
+            case 2:
                 CameraZoom();
                 break;
-            case 4:
+            case 3:
                 CameraRotation();
                 break;
-            case 5:
+            case 4:
                 CameraUnlock();
                 break;
-            case 6:
+            case 5:
                 CameraLock();
                 break;
-            case 7:
+            case 6:
                 CAMERA_SHAKE_STOP();
                 break;
         }

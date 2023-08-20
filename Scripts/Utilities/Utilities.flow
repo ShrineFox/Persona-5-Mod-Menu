@@ -59,7 +59,7 @@ int NumberMenu(int digitCount, int nameMsgId)
 {
     if (controller)
     {
-        return InputNumber(digitCount);
+        //return InputNumber(digitCount);
     }
     int number = 0;
     
