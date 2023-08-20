@@ -36,16 +36,16 @@ float PowF( int x, int n )
     return number;
 }
 
-void EulerToQuaternionDegrees( float x, float y, float z, out float qX, out float qY, out float qZ, out float qW )
+void EulerToQuatDeg( float x, float y, float z, out float qX, out float qY, out float qZ, out float qW )
 {
     x = DegreesToRadians( x );
     y = DegreesToRadians( y );
     z = DegreesToRadians( z );
 
-    EulerToQuaternion( x, y, z, out qX, out qY, out qZ, out qW );
+    EulerToQuat( x, y, z, out qX, out qY, out qZ, out qW );
 }
 
-void EulerToQuaternion( float x, float y, float z, out float qX, out float qY, out float qZ, out float qW )
+void EulerToQuat( float x, float y, float z, out float qX, out float qY, out float qZ, out float qW )
 {
     x *= 0.5f;
     y *= 0.5f;

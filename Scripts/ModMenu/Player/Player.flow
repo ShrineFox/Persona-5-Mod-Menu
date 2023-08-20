@@ -48,6 +48,10 @@ void PlayerMenu()
                 // Confidants/Confidants.flow
                 ConfidantsMenu();
                 break;
+            case 9:
+                // Set Security Level
+                SetSecurityLevel();
+                break;
         }
     }
 }
@@ -63,6 +67,21 @@ void PlayerSetMoney()
         CHANGE_GLOBAL_MONEY(yen, 0);
         DEL_GLOBAL_MONEY_PANEL();
     }
+}
+
+void SetSecurityLevel()
+{
+    int security = NumberMenu(3, Title_Security);
+
+    if (security == -1)
+        return;
+    if (security > 100) 
+        security = 100;
+    
+    //SET_COUNT(131, security);
+    //SET_COUNT(135, security);
+
+    FLD_SET_ALERT_VALUE( security );
 }
 
 void SetPlayerName()

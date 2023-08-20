@@ -28,6 +28,8 @@ void ModMenuDisplay()
     PrintPosition();
     SetFlagAmt();
     EnableSharePlay();
+    PrintOnFlags();
+    PrintCount();
 
     // Skip to Teleport function if Confirm button is held
     if (controller)
