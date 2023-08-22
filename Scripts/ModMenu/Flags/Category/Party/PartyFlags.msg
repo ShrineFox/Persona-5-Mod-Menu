@@ -83,3 +83,7 @@ Ryuji/Makoto[e]
 Joker/Akechi[e]
 Makoto/Haru[e]
 Joker/Kasumi[e]
+
+[dlg Message_EnablePartyEdit]
+Turn party editing from the Stats[n]
+menu on or off?[w][e]
