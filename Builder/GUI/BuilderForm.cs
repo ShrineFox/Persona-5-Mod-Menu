@@ -104,7 +104,7 @@ namespace ModMenuBuilder
 
         private void Path_Click(object sender, EventArgs e)
         {
-            var paths = WinFormsEvents.FilePath_Click("Choose AtlusScriptCompiler.exe", false, new string[] { "Executable File (*.exe)" });
+            var paths = WinFormsDialogs.SelectFile("Choose AtlusScriptCompiler.exe", false, new string[] { "Executable File (*.exe)" });
             if (paths.Count > 0)
             {
                 if (File.Exists(paths.First()))
@@ -117,7 +117,7 @@ namespace ModMenuBuilder
 
         private void OutPath_Click(object sender, EventArgs e)
         {
-            var path = WinFormsEvents.FolderPath_Click("Choose AtlusScriptCompiler.exe");
+            var path = WinFormsDialogs.SelectFolder("Choose Mod Output Folder");
             txt_OutPath.Text = path;
             File.WriteAllText("outputPath.txt", path);
         }

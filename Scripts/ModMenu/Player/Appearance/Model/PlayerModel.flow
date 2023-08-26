@@ -59,15 +59,40 @@ void PlayerAttachItemModel()
     int itemModelMinor = NumberMenu(3, Title_JokerItemMinor);
     if (itemModelMinor == -1)
         return;
-    int itemBoneID = NumberMenu(3, Title_JokerItemBoneID);
-    if (itemBoneID == -1)
-        return;
 
     //FLD_PC_MODEL_ATTACH_ITEM( resHandle, itemModelMajor, itemModelMinor );
     int itemModel = FLD_ITEM_MODEL_LOAD(itemModelMajor, itemModelMinor);
     FLD_MODEL_LOADSYNC(itemModel);
     FLD_MODEL_SET_VISIBLE(itemModel, 1, 0);
     int joker = FLD_PC_GET_RESHND(0);
-    FLD_MODEL_ATTACH_TRANSLATE(itemModel, joker, itemBoneID);
-    FLD_MODEL_ATTACH_ROTATE(itemModel, joker, itemBoneID);
+
+    int boneID = 0;
+    while (!PAD_CHK_PRESS(PadButton.Circle))
+    {
+        if (PAD_CHK_PRESS(PadButton.Any))
+        {
+            if (PAD_CHK_PRESS(PadButton.Left))
+            {
+                if (boneID >= 1)
+                    boneID--;
+            }
+            if (PAD_CHK_PRESS(PadButton.Right))
+            {
+                boneID++;
+            }
+            FLD_MODEL_ATTACH_TRANSLATE(itemModel, joker, boneID);
+            FLD_MODEL_ATTACH_ROTATE(itemModel, joker, boneID);
+            PUTS("Bone ID:");
+            PUT(boneID);
+        }
+        
+        SYNC();
+    }
+
+    SET_MSG_VAR(0, boneID, 0);
+
+    MSG_WND_DSP();
+    MSG(Message_BoneID, 0);
+    MSG_WND_CLS();
+    
 }

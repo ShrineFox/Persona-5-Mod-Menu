@@ -89,7 +89,7 @@ void CameraPosition()
             if (PAD_CHK_PRESS(PadButton.Triangle))
                 multiplier *= 5f;
             // Change rotation axis
-            if (PAD_CHK_PRESS(PadButton.Select))
+            if (PAD_CHK_TRIG(PadButton.Select))
             {
                 if (rot_axis == 2)
                     rot_axis = 0;
@@ -216,13 +216,13 @@ void CameraFOVZoom()
             multiplier /= 2f;
 
         // Camera position north/east/south/west speed
-        if (PAD_CHK_PRESS(PadButton.Up))
+        if (PAD_CHK_TRIG(PadButton.Up))
             velocity_zoom += ADD_VELOCITY_PER_PRESS * multiplier;
-        if (PAD_CHK_PRESS(PadButton.Down))
+        if (PAD_CHK_TRIG(PadButton.Down))
             velocity_zoom -= ADD_VELOCITY_PER_PRESS * multiplier;
-        if (PAD_CHK_PRESS(PadButton.Right))
+        if (PAD_CHK_TRIG(PadButton.Right))
             velocity_fov += ADD_VELOCITY_PER_PRESS * multiplier;
-        if (PAD_CHK_PRESS(PadButton.Left))
+        if (PAD_CHK_TRIG(PadButton.Left))
             velocity_fov -= ADD_VELOCITY_PER_PRESS * multiplier;
 
         fov += velocity_fov;

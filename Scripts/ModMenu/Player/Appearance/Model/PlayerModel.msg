@@ -46,9 +46,6 @@ Item GMD (First 4 Digits)[w][e]
 [dlg Title_JokerItemMinor]
 Item GMD (Last 3 Digits)[w][e]
 
-[dlg Title_JokerItemBoneID]
-Joker Bone ID (3 Digits)[w][e]
-
 [dlg Message_ItemSpawnAttachPlayerMajor]
 Enter the first half of the model's[n]ID from /model/item.
 [n](4 digits, [clr 2]back button[clr 0] to end).[w][e]
@@ -56,3 +53,6 @@ Enter the first half of the model's[n]ID from /model/item.
 [dlg Message_ItemSpawnAttachPlayerMinor]
 Enter the first last of the model's[n]ID from /model/item.
 [n](3 digits, [clr 2]back button[clr 0] to end).[w][e]
+
+[dlg Message_BoneID]
+Bone ID: [clr 1][var 0][clr 0][w][e]

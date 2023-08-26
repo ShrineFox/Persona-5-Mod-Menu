@@ -23,6 +23,22 @@ void SpawnFieldModelsMenu()
 void SpawnItemModel()
 {
     int joker = FLD_PC_GET_RESHND(0);
+
+    int itemModelMajor = NumberMenu(4, Title_SpawnItemMajor);
+    if (itemModelMajor == -1)
+        return;
+    int itemModelMinor = NumberMenu(3, Title_SpawnItemMinor);
+    if (itemModelMinor == -1)
+        return;
+
+    int itemModel = FLD_ITEM_MODEL_LOAD(itemModelMajor, itemModelMinor);
+
+    // Allow player to reposition model
+    SetModelPosition(joker, itemModel);
+}
+
+void SetModelPosition(int joker, int model)
+{
     float x = FLD_MODEL_GET_X_TRANSLATE(joker);
     float y = FLD_MODEL_GET_Y_TRANSLATE(joker);
     float z = FLD_MODEL_GET_Z_TRANSLATE(joker);
@@ -30,30 +46,158 @@ void SpawnItemModel()
     float yr = FLD_MODEL_GET_Y_ROTATE(joker);
     float zr = FLD_MODEL_GET_Z_ROTATE(joker);
 
-    int itemModelMajor = NumberMenu(4, Title_SpawnItemMajor);
-    if (itemModelMajor != -1)
+    // Load item model at Joker's coordinates
+    FLD_MODEL_LOADSYNC(model);
+    FLD_MODEL_SET_TRANSLATE(model, x, y, z, 0);
+    FLD_MODEL_SET_ROTATE(model, xr, yr, zr, 0);
+    FLD_MODEL_SET_VISIBLE(model, 1, 0);
+
+    DetectController();
+    if (!controller)
+        return;
+
+    FLD_SET_CAMERA_FAR_MODE(0);
+
+    // Hide Joker model
+    FLD_MODEL_SET_VISIBLE(joker, 0, 0);
+
+    const float ADD_VELOCITY_PER_PRESS = 3f;
+    float velocity_x = 0f;
+    float velocity_y = 0f;
+    float velocity_z = 0f;
+    int runs = 0;
+    float rot_velocity = 0f;
+    int rot_axis = 0;
+
+    // Stop executing when Circle button is pressed
+    while (!PAD_CHK_PRESS(PadButton.Circle))
     {
-        int itemModelMinor = NumberMenu(3, Title_SpawnItemMinor);
-        if (itemModelMinor != -1)
+        x = FLD_MODEL_GET_X_TRANSLATE(model);
+        y = FLD_MODEL_GET_Y_TRANSLATE(model);
+        z = FLD_MODEL_GET_Z_TRANSLATE(model);
+        xr = FLD_MODEL_GET_X_ROTATE(model);
+        yr = FLD_MODEL_GET_Y_ROTATE(model);
+        zr = FLD_MODEL_GET_Z_ROTATE(model);
+
+        // Bring velocity closer to zero
+        ++runs;
+        float multiplier = 1f;
+        if (runs > 5)
         {
-            int itemModel = FLD_ITEM_MODEL_LOAD(itemModelMajor, itemModelMinor);
-            FLD_MODEL_LOADSYNC(itemModel);
-            FLD_MODEL_SET_TRANSLATE(itemModel, x, y, z, 0);
-            FLD_MODEL_SET_ROTATE(itemModel, xr, yr, zr, 0);
-            FLD_MODEL_SET_VISIBLE(itemModel, 1, 0);
+            multiplier = 1f;
+            runs = 0;
+            velocity_x /= 3f;
+            velocity_y /= 3f;
+            velocity_z /= 3f;
+            rot_velocity /= 1.5f;
         }
+
+        // If a button is pressed...
+        if (PAD_CHK_PRESS(PadButton.Any))
+        {
+            // Multiply velocity
+            if (PAD_CHK_PRESS(PadButton.Cross))
+                multiplier *= 3f;
+            if (PAD_CHK_PRESS(PadButton.Triangle))
+                multiplier *= 5f;
+            // Change rotation axis
+            if (PAD_CHK_TRIG(PadButton.Select))
+            {
+                if (rot_axis >= 2)
+                    rot_axis = 0;
+                else
+                    rot_axis++;
+                WAIT(10);
+            }
+            // Divide velocity
+            if (PAD_CHK_PRESS(PadButton.Square))
+                multiplier /= 10f;
+            // Position north/east/south/west speed
+            if (PAD_CHK_PRESS(PadButton.Up))
+                velocity_z += ADD_VELOCITY_PER_PRESS * multiplier;
+            if (PAD_CHK_PRESS(PadButton.Right))
+                velocity_x -= ADD_VELOCITY_PER_PRESS * multiplier;
+            if (PAD_CHK_PRESS(PadButton.Down))
+                velocity_z -= ADD_VELOCITY_PER_PRESS * multiplier;
+            if (PAD_CHK_PRESS(PadButton.Left))
+                velocity_x += ADD_VELOCITY_PER_PRESS * multiplier;
+            // Position up/down speed
+            if (PAD_CHK_PRESS(PadButton.R2))
+                velocity_y += ADD_VELOCITY_PER_PRESS * multiplier;
+            if (PAD_CHK_PRESS(PadButton.L2))
+                velocity_y -= ADD_VELOCITY_PER_PRESS * multiplier;
+
+            // Rotation speed
+            if (PAD_CHK_PRESS(PadButton.R1))
+            {
+                rot_velocity += ADD_VELOCITY_PER_PRESS * multiplier;
+            }
+            if (PAD_CHK_PRESS(PadButton.L1))
+            {
+                rot_velocity -= ADD_VELOCITY_PER_PRESS * multiplier;
+            }
+        }
+
+        // Rotate along selected axis
+        switch (rot_axis)
+        {
+            case 0:
+                xr += rot_velocity;
+                break;
+            case 1:
+                yr += rot_velocity;
+                break;
+            case 2:
+                zr += rot_velocity;
+                break;
+            default:
+                break;
+        }
+        FLD_MODEL_SET_ROTATE(model, xr, yr, zr, 0);
+
+        // Translate along selected axis
+        x += velocity_x;
+        y += velocity_y;
+        z += velocity_z;
+        FLD_MODEL_SET_TRANSLATE(model, x, y, z, 0);
+        // Also translate joker so camera follows
+        FLD_MODEL_SET_TRANSLATE(joker, x, y, z, 0);
+
+        SYNC();
     }
+
+    // Show Joker model
+    FLD_MODEL_SET_VISIBLE(joker, 1, 0);
+
+    PrintModelCoords(model);
+}
+
+void PrintModelCoords(int model)
+{
+    PUTS("Model Pos X:");
+    PUTF(FLD_MODEL_GET_X_TRANSLATE(model));
+    PUTS("Model Pos Y:");
+    PUTF(FLD_MODEL_GET_Y_TRANSLATE(model));
+    PUTS("Model Pos Z:");
+    PUTF(FLD_MODEL_GET_Z_TRANSLATE(model));
+    float qX = 0f;
+    float qY = 0f;
+    float qZ = 0f;
+    float qW = 0f;
+    EulerToQuatDeg(FLD_MODEL_GET_X_ROTATE(model), FLD_MODEL_GET_Y_ROTATE(model), FLD_MODEL_GET_Z_ROTATE(model), out qX, out qY, out qZ, out qW);
+    PUTS("Model Rot X:");
+    PUTF(qX);
+    PUTS("Model Rot Y:");
+    PUTF(qY);
+    PUTS("Model Rot Z:");
+    PUTF(qZ);
+    PUTS("Model Rot W:");
+    PUTF(qW);
 }
 
 void SpawnObjectModel()
 {
     int joker = FLD_PC_GET_RESHND(0);
-    float x = FLD_MODEL_GET_X_TRANSLATE(joker);
-    float y = FLD_MODEL_GET_Y_TRANSLATE(joker);
-    float z = FLD_MODEL_GET_Z_TRANSLATE(joker);
-    float xr = FLD_MODEL_GET_X_ROTATE(joker);
-    float yr = FLD_MODEL_GET_Y_ROTATE(joker);
-    float zr = FLD_MODEL_GET_Z_ROTATE(joker);
 
     int objModelMajor = NumberMenu(3, Title_SpawnObjMajor);
     if (objModelMajor == -1)
@@ -63,8 +207,7 @@ void SpawnObjectModel()
         return;
 
     int objModel = FLD_OBJ_MODEL_LOAD(objModelMajor, objModelMinor);
-    FLD_MODEL_LOADSYNC(objModel);
-    FLD_MODEL_SET_TRANSLATE(objModel, x, y, z, 0);
-    FLD_MODEL_SET_ROTATE(objModel, xr, yr, zr, 0);
-    FLD_MODEL_SET_VISIBLE(objModel, 1, 0);
+
+    // Allow player to reposition model
+    SetModelPosition(joker, objModel);
 }
