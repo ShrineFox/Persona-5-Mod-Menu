@@ -79,45 +79,18 @@ void NpcScale()
 
 void NpcAttachItemModel()
 {
-    int itemModelMajor = NumberMenu(4, Title_NPCItemMajor);
-    if (itemModelMajor == -1)
+    int itemModel = SpawnItemModel(false);
+    if (itemModel == -1)
         return;
-    int itemModelMinor = NumberMenu(3, Title_NPCItemMinor);
-    if (itemModelMinor == -1)
-        return;
-    int npcBoneID = NumberMenu(3, Title_NPCItemBoneID);
-    if (npcBoneID == -1)
-        return;
-    //FLD_PC_MODEL_ATTACH_ITEM( resHandle, itemModelMajor, itemModelMinor );
-    int itemModel = FLD_ITEM_MODEL_LOAD(itemModelMajor, itemModelMinor);
-    FLD_MODEL_LOADSYNC(itemModel);
-    FLD_MODEL_SET_VISIBLE(itemModel, 1, 0);
-    FLD_MODEL_ATTACH_TRANSLATE(itemModel, gLastSpawnedNpcModelHandle, npcBoneID);
-    FLD_MODEL_ATTACH_ROTATE(itemModel, gLastSpawnedNpcModelHandle, npcBoneID);
+
+    AttachModel(gLastSpawnedNpcModelHandle, itemModel);
 }
 
 void NpcSpawnObjectModel()
 {
-    float x = FLD_MODEL_GET_X_TRANSLATE(gLastSpawnedNpcModelHandle);
-    float y = FLD_MODEL_GET_Y_TRANSLATE(gLastSpawnedNpcModelHandle);
-    float z = FLD_MODEL_GET_Z_TRANSLATE(gLastSpawnedNpcModelHandle);
-    float xr = FLD_MODEL_GET_X_ROTATE(gLastSpawnedNpcModelHandle);
-    float yr = FLD_MODEL_GET_Y_ROTATE(gLastSpawnedNpcModelHandle);
-    float zr = FLD_MODEL_GET_Z_ROTATE(gLastSpawnedNpcModelHandle);
-
-    int objModelMajor = NumberMenu(3, Title_NPCObjMajor);
-    if (objModelMajor == -1)
-        return;
-    int objModelMinor = NumberMenu(3, Title_NPCObjMinor);
-    if (objModelMinor == -1)
+    int objModel = SpawnObjectModel(false);
+    if (objModel == -1)
         return;
 
-    int objectModel = FLD_OBJ_MODEL_LOAD(objModelMajor, objModelMinor);
-    FLD_MODEL_LOADSYNC(objectModel);
-    //FLD_OBJ_MODEL_LINKBG( objectModel );
-    FLD_MODEL_SET_TRANSLATE(objectModel, x, y, z, 0);
-    FLD_MODEL_SET_ROTATE(objectModel, xr, yr, zr, 0);
-    FLD_MODEL_SYNC_TRANSLATE(objectModel);
-    FLD_MODEL_SYNC_ROTATE(objectModel);
-    FLD_MODEL_SET_VISIBLE(objectModel, 1, 0);
+    AttachModel(gLastSpawnedNpcModelHandle, objModel);
 }

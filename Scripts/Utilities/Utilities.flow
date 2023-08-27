@@ -291,6 +291,7 @@ void TransformModel(int reshandle)
     const float ADD_VELOCITY_PER_PRESS = 1.3f;
 
     bool rotateMode = false;
+    bool precisionMode = false;
     float velocity_x = 0f;
     float velocity_y = 0f;
     float velocity_z = 0f;
@@ -328,6 +329,13 @@ void TransformModel(int reshandle)
             else
                 rotateMode = true;
         }
+        if (PAD_CHK_TRIG(PadButton.Start))
+        {
+            if (precisionMode)
+                precisionMode = false;
+            else
+                precisionMode = true;
+        }
 
         // Increase velocity
         if (PAD_CHK_PRESS(PadButton.Cross))
@@ -337,6 +345,8 @@ void TransformModel(int reshandle)
         // Decrease velocity
         if (PAD_CHK_PRESS(PadButton.Square))
             multiplier /= 5f;
+        if (precisionMode)
+            multiplier /= 3f;
 
         // Move forward and backward in current facing direction
         if (PAD_CHK_PRESS(PadButton.Up))
@@ -475,4 +485,38 @@ void PrintModelCoords(int reshandle)
     PUTF(qZ);
     PUTS("Model Rot W:");
     PUTF(qW);
+}
+
+void AttachModel(int modelreshandle, int attachmenthandle)
+{
+    int boneID = 0;
+    bool boneChanged = false;
+    while (!PAD_CHK_PRESS(PadButton.Circle))
+    {
+        if (PAD_CHK_PRESS(PadButton.Any))
+        {
+            if (PAD_CHK_TRIG(PadButton.Left) || PAD_CHK_PRESS(PadButton.L2))
+            {
+                if (boneID >= 1)
+                    boneID--;
+                boneChanged = true;
+            }
+            if (PAD_CHK_TRIG(PadButton.Right) || PAD_CHK_PRESS(PadButton.R2))
+            {
+                boneID++;
+                boneChanged = true;
+            }
+
+            if (boneChanged)
+            {
+                FLD_MODEL_ATTACH_TRANSLATE(attachmenthandle, modelreshandle, boneID);
+                FLD_MODEL_ATTACH_ROTATE(attachmenthandle, modelreshandle, boneID);
+                PUTS("Bone ID:");
+                PUT(boneID);
+                boneChanged = false;
+            }
+        }
+
+        SYNC();
+    }
 }

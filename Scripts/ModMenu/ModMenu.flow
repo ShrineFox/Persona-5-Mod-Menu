@@ -7,12 +7,12 @@ import("Calendar/Calendar.flow");
 import("Call/Call.flow");
 import("Camera/Camera.flow");
 import("Flags/Flags.flow");
+import("Spawn/Spawn.flow");
 import("Player/Player.flow");
+import("Teleport.flow");
 /* Royal Start */
 import("Royal/Royal.flow");
 /* Royal End */
-import("Spawn/Spawn.flow");
-import("Teleport.flow");
 
 // Global Variables
 global int unitId;
