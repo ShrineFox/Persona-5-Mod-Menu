@@ -63,9 +63,7 @@ int NpcSpawn(int modelIdMajor, int modelIdMinor, int modelIdSub)
 
     int npcHandle = FLD_NPC_MODEL_LOAD(modelIdMajor, modelIdMinor, modelIdSub);
     FLD_MODEL_LOADSYNC(npcHandle);
-    FLD_MODEL_SET_TRANSLATE(npcHandle, x, y, z, 0);
-    FLD_MODEL_SET_ROTATE(npcHandle, xr, yr, zr, 0);
-    FLD_MODEL_SET_VISIBLE(npcHandle, 1, 0);
+    TransformModel(npcHandle);
 
     return npcHandle;
 }

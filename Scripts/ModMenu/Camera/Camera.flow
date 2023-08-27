@@ -123,29 +123,6 @@ void CameraPosition()
     PrintCameraCoords();
 }
 
-void PrintCameraCoords()
-{
-    PUTS("Camera Pos X:");
-    PUTF(FLD_CAMERA_GET_X_POS());
-    PUTS("Camera Pos Y:");
-    PUTF(FLD_CAMERA_GET_Y_POS());
-    PUTS("Camera Pos Z:");
-    PUTF(FLD_CAMERA_GET_Z_POS());
-    float qX = 0f;
-    float qY = 0f;
-    float qZ = 0f;
-    float qW = 0f;
-    EulerToQuatDeg(camRot_X, camRot_Y, camRot_Z, out qX, out qY, out qZ, out qW);
-    PUTS("Camera Rot X:");
-    PUTF(qX);
-    PUTS("Camera Rot Y:");
-    PUTF(qY);
-    PUTS("Camera Rot Z:");
-    PUTF(qZ);
-    PUTS("Camera Rot W:");
-    PUTF(qW);
-}
-
 void CameraFOVZoom()
 {
     DetectController();
@@ -270,4 +247,27 @@ void CameraLock()
 {
     FLD_CAMERA_LOCK();
     FLD_CAMERA_BEHIND_LOCK();
+}
+
+void PrintCameraCoords()
+{
+    PUTS("Camera Pos X:");
+    PUTF(FLD_CAMERA_GET_X_POS());
+    PUTS("Camera Pos Y:");
+    PUTF(FLD_CAMERA_GET_Y_POS());
+    PUTS("Camera Pos Z:");
+    PUTF(FLD_CAMERA_GET_Z_POS());
+    float qX = 0f;
+    float qY = 0f;
+    float qZ = 0f;
+    float qW = 0f;
+    EulerToQuatDeg(camRot_X, camRot_Y, camRot_Z, out qX, out qY, out qZ, out qW);
+    PUTS("Camera Rot X:");
+    PUTF(qX);
+    PUTS("Camera Rot Y:");
+    PUTF(qY);
+    PUTS("Camera Rot Z:");
+    PUTF(qZ);
+    PUTS("Camera Rot W:");
+    PUTF(qW);
 }

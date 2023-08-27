@@ -261,3 +261,218 @@ void DetectController()
         controller = PAD_CHK_PRESS(PadButton.Any);
     }
 }
+
+// Apply new rotation/translation to a model until mode is exited
+void TransformModel(int reshandle)
+{
+    int joker = FLD_PC_GET_RESHND(0);
+
+    // Require a controller
+    DetectController();
+    if (!controller)
+        return;
+
+    // Zoom camera out
+    FLD_SET_CAMERA_FAR_MODE(0);
+
+    if (joker != reshandle)
+    {
+        // Match Joker's rotation/translation
+        FLD_MODEL_SET_TRANSLATE(reshandle, FLD_MODEL_GET_X_TRANSLATE(joker), FLD_MODEL_GET_Y_TRANSLATE(joker), FLD_MODEL_GET_Z_TRANSLATE(joker), 0);
+        FLD_MODEL_SYNC_TRANSLATE(reshandle);
+        FLD_MODEL_SET_ROTATE(reshandle, FLD_MODEL_GET_X_ROTATE(joker), FLD_MODEL_GET_Y_ROTATE(joker), FLD_MODEL_GET_Z_ROTATE(joker), 0);
+        FLD_MODEL_SET_VISIBLE(reshandle, 1, 0);
+
+        // Hide Joker model
+        FLD_MODEL_SET_VISIBLE(joker, 0, 0);
+    }
+
+    // Velocity to add per frame
+    const float ADD_VELOCITY_PER_PRESS = 1.3f;
+
+    bool rotateMode = false;
+    float velocity_x = 0f;
+    float velocity_y = 0f;
+    float velocity_z = 0f;
+    float velocity_rot_x = 0f;
+    float velocity_rot_y = 0f;
+    float velocity_rot_z = 0f;
+    int runs = 0;
+
+    // Wait for all buttons to be released
+    while (PAD_CHK_PRESS(PadButton.Any)) { SYNC(); }
+
+    // Stop executing when Circle button is pressed
+    while (!PAD_CHK_PRESS(PadButton.Circle))
+    {
+        // Bring velocity closer to zero
+        ++runs;
+        float multiplier = 1f;
+        if (runs > 5)
+        {
+            multiplier = 1f;
+            runs = 0;
+            velocity_x /= 6f;
+            velocity_y /= 6f;
+            velocity_z /= 6f;
+            velocity_rot_x /= 6f;
+            velocity_rot_y /= 6f;
+            velocity_rot_z /= 6f;
+        }
+
+        // Change mode
+        if (PAD_CHK_TRIG(PadButton.Select))
+        {
+            if (rotateMode)
+                rotateMode = false;
+            else
+                rotateMode = true;
+        }
+
+        // Increase velocity
+        if (PAD_CHK_PRESS(PadButton.Cross))
+            multiplier *= 3f;
+        if (PAD_CHK_PRESS(PadButton.Triangle))
+            multiplier *= 5f;
+        // Decrease velocity
+        if (PAD_CHK_PRESS(PadButton.Square))
+            multiplier /= 5f;
+
+        // Move forward and backward in current facing direction
+        if (PAD_CHK_PRESS(PadButton.Up))
+        {
+            velocity_z += ADD_VELOCITY_PER_PRESS * multiplier;
+        }
+        if (PAD_CHK_PRESS(PadButton.Down))
+        {
+            velocity_z -= ADD_VELOCITY_PER_PRESS * multiplier;
+        }
+        if (PAD_CHK_PRESS(PadButton.Left))
+        {
+            if (rotateMode)
+                velocity_rot_y += ADD_VELOCITY_PER_PRESS * multiplier;
+            else
+                velocity_x += ADD_VELOCITY_PER_PRESS * multiplier;
+        }
+        if (PAD_CHK_PRESS(PadButton.Right))
+        {
+            if (rotateMode)
+                velocity_rot_y -= ADD_VELOCITY_PER_PRESS * multiplier;
+            else
+                velocity_x -= ADD_VELOCITY_PER_PRESS * multiplier;
+        }
+
+        // Tilt left/right
+        if (PAD_CHK_PRESS(PadButton.R1))
+        {
+            if (rotateMode)
+                velocity_rot_z -= ADD_VELOCITY_PER_PRESS * multiplier;
+            else
+                velocity_rot_y -= ADD_VELOCITY_PER_PRESS * multiplier;
+        }
+        if (PAD_CHK_PRESS(PadButton.L1))
+        {
+            if (rotateMode)
+                velocity_rot_z += ADD_VELOCITY_PER_PRESS * multiplier;
+            else
+                velocity_rot_y += ADD_VELOCITY_PER_PRESS * multiplier;
+        }
+
+        // Angle up/down
+        if (PAD_CHK_PRESS(PadButton.R2))
+        {
+            if (rotateMode)
+                velocity_rot_x += ADD_VELOCITY_PER_PRESS * multiplier;
+            else
+                velocity_y += ADD_VELOCITY_PER_PRESS * multiplier;
+        }
+        if (PAD_CHK_PRESS(PadButton.L2))
+        {
+            if (rotateMode)
+                velocity_rot_x -= ADD_VELOCITY_PER_PRESS * multiplier;
+            else
+                velocity_y -= ADD_VELOCITY_PER_PRESS * multiplier;
+        }
+
+        // Get current position
+        float x = FLD_MODEL_GET_X_TRANSLATE(reshandle);
+        float y = FLD_MODEL_GET_Y_TRANSLATE(reshandle);
+        float z = FLD_MODEL_GET_Z_TRANSLATE(reshandle);
+        float rot_x = FLD_MODEL_GET_X_ROTATE(reshandle) + velocity_rot_x;
+        float rot_y = FLD_MODEL_GET_Y_ROTATE(reshandle) + velocity_rot_y;
+        float rot_z = FLD_MODEL_GET_Z_ROTATE(reshandle) + velocity_rot_z;
+
+        // Prevent flipping when rotating
+        if (rot_x < -359.9f)
+            rot_x = -359.9f;
+        else if (rot_x > 359.9f)
+            rot_x = 359.9f;
+        if (rot_y < -359.9f)
+            rot_y = -359.9f;
+        else if (rot_y > 359.9f)
+            rot_y = 359.9f;
+        if (rot_z < -359.9f)
+            rot_z = -359.9f;
+        else if (rot_z > 359.9f)
+            rot_z = 359.9f;
+
+        // Set new rotation
+        FLD_MODEL_SET_ROTATE(reshandle, rot_x, rot_y, rot_z, 0);
+
+        // Get new position values
+        float out_x;
+        float out_y;
+        float out_z;
+        if (rotateMode)
+            OffsetTranslation(x, y, z, rot_x, rot_y, rot_z, 0f, 0f, velocity_z, out out_x, out out_y, out out_z);
+        else
+        {
+            out_x = x + velocity_x;
+            out_y = y + velocity_y;
+            out_z = z + velocity_z;
+        }
+
+        // Set new position values
+        FLD_PC_GET_RESHND(0)
+        FLD_MODEL_SET_TRANSLATE(reshandle, out_x, out_y, out_z, 0);
+        FLD_MODEL_SYNC_TRANSLATE(reshandle);
+        FLD_MODEL_SYNC_ROTATE(reshandle);
+        // Also reposition hidden Joker model so camera follows
+        if (joker != reshandle)
+        {
+            FLD_MODEL_SET_TRANSLATE(joker, out_x, out_y, out_z, 0);
+            FLD_MODEL_SYNC_TRANSLATE(joker);
+        }
+
+        SYNC();
+    }
+
+    // Show Joker model
+    if (joker != reshandle)
+        FLD_MODEL_SET_VISIBLE(joker, 1, 0);
+
+    PrintModelCoords(reshandle);
+}
+
+void PrintModelCoords(int reshandle)
+{
+    PUTS("Model Pos X:");
+    PUTF(FLD_MODEL_GET_X_TRANSLATE(reshandle));
+    PUTS("Model Pos Y:");
+    PUTF(FLD_MODEL_GET_Y_TRANSLATE(reshandle));
+    PUTS("Model Pos Z:");
+    PUTF(FLD_MODEL_GET_Z_TRANSLATE(reshandle));
+    float qX = 0f;
+    float qY = 0f;
+    float qZ = 0f;
+    float qW = 0f;
+    EulerToQuatDeg(FLD_MODEL_GET_X_ROTATE(reshandle), FLD_MODEL_GET_Y_ROTATE(reshandle), FLD_MODEL_GET_Z_ROTATE(reshandle), out qX, out qY, out qZ, out qW);
+    PUTS("Model Rot X:");
+    PUTF(qX);
+    PUTS("Model Rot Y:");
+    PUTF(qY);
+    PUTS("Model Rot Z:");
+    PUTF(qZ);
+    PUTS("Model Rot W:");
+    PUTF(qW);
+}
