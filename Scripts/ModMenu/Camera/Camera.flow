@@ -85,15 +85,17 @@ void CameraPosition()
         if (PAD_CHK_PRESS(PadButton.Square))
             multiplier /= 15f;
 
-        // Rotate camera up/down/left/right with d-pad
+        // Rotate camera up/down/left/right with d-pad (pitch/yaw)
         if (PAD_CHK_PRESS(PadButton.Up))
-            velocity_rot_x -= ADD_VELOCITY_PER_PRESS * multiplier;
-        if (PAD_CHK_PRESS(PadButton.Down))
             velocity_rot_x += ADD_VELOCITY_PER_PRESS * multiplier;
+        if (PAD_CHK_PRESS(PadButton.Down))
+            velocity_rot_x -= ADD_VELOCITY_PER_PRESS * multiplier;
         if (PAD_CHK_PRESS(PadButton.Left))
             velocity_rot_y += ADD_VELOCITY_PER_PRESS * multiplier;
         if (PAD_CHK_PRESS(PadButton.Right))
             velocity_rot_y -= ADD_VELOCITY_PER_PRESS * multiplier;
+
+        // tilt camera left/right (roll)
         if (PAD_CHK_PRESS(PadButton.R1))
             velocity_rot_z -= ADD_VELOCITY_PER_PRESS * multiplier;
         if (PAD_CHK_PRESS(PadButton.L1))
@@ -103,13 +105,16 @@ void CameraPosition()
         camRot_X += velocity_rot_x;
         camRot_Y += velocity_rot_y;
         camRot_Z += velocity_rot_z;
+        // Limit the vertical rotation to prevent flipping
+        if (DegreesToRadians(camRot_Z) > 90.0f) camRot_Z = RadiansToDegrees(90.0f);
+        if (DegreesToRadians(camRot_Z) < -90.0f) camRot_Z = RadiansToDegrees(- 90.0f);
         RotateCamera();
 
         // Translate in direction camera is facing
         if (PAD_CHK_PRESS(PadButton.R2))
-            velocity_translate += ADD_VELOCITY_PER_PRESS * multiplier;
-        if (PAD_CHK_PRESS(PadButton.L2))
             velocity_translate -= ADD_VELOCITY_PER_PRESS * multiplier;
+        if (PAD_CHK_PRESS(PadButton.L2))
+            velocity_translate += ADD_VELOCITY_PER_PRESS * multiplier;
         TranslateCamera(velocity_translate);
 
         SYNC();
@@ -143,7 +148,6 @@ void PrintCameraCoords()
 
 void CameraFOVZoom()
 {
-    /*
     DetectController();
     if (!controller)
         return;
@@ -162,7 +166,7 @@ void CameraFOVZoom()
     {
         // Bring velocity closer to zero
         ++runs;
-        float multiplier = 1.10f;
+        float multiplier = 2f;
         if (runs > 5)
         {
             multiplier = 1f;
@@ -197,7 +201,6 @@ void CameraFOVZoom()
         FLD_CAMERA_ZOOM(zoom);
         SYNC();
     }
-    */
 }
 
 
@@ -231,27 +234,28 @@ void RotateCamera()
 
 void TranslateCamera(float speed)
 {
-    // Convert rotation angles to radians
-    float cosP = COS(DegreesToRadians(camRot_y));
-    float sinP = SIN(DegreesToRadians(camRot_y));
-    float cosY = COS(DegreesToRadians(camRot_z));
-    float sinY = SIN(DegreesToRadians(camRot_z));
+    float forward_x = 0.0f;
+    float forward_y = 0.0f;
+    float forward_z = 1.0f;
 
-    // Calculate the direction vector based on the camera's rotation
-    float direction_x = cosY * cosP;
-    float direction_y = sinY * cosP;
-    float direction_z = sinP;
+    float tempX = 2.0f * (FLD_CAMERA_GET_Y_ROT() * forward_z - FLD_CAMERA_GET_Z_ROT() * forward_y);
+    float tempY = 2.0f * (FLD_CAMERA_GET_Z_ROT() * forward_x - FLD_CAMERA_GET_X_ROT() * forward_z);
+    float tempZ = 2.0f * (FLD_CAMERA_GET_X_ROT() * forward_y - FLD_CAMERA_GET_Y_ROT() * forward_x);
+
+    forward_x += FLD_CAMERA_GET_W_ROT() * tempX + FLD_CAMERA_GET_Y_ROT() * tempZ - FLD_CAMERA_GET_Z_ROT() * tempY;
+    forward_y += FLD_CAMERA_GET_W_ROT() * tempY + FLD_CAMERA_GET_Z_ROT() * tempX - FLD_CAMERA_GET_X_ROT() * tempZ;
+    forward_z += FLD_CAMERA_GET_W_ROT() * tempZ + FLD_CAMERA_GET_X_ROT() * tempY - FLD_CAMERA_GET_Y_ROT() * tempX;
 
     // Normalize direction vector to ensure it has a length of 1
-    float length = SQRT(direction_x * direction_x + direction_y * direction_y + direction_z * direction_z);
-    direction_x /= length;
-    direction_y /= length;
-    direction_z /= length;
+    float length = SQRT(forward_x * forward_x + forward_y * forward_y + forward_z * forward_z);
+    forward_x /= length;
+    forward_y /= length;
+    forward_z /= length;
 
     // Apply the rotation to the translation vector
-    camPos_X += (direction_x * speed);
-    camPos_Y += (direction_y * speed);
-    camPos_Z += (direction_z * speed);
+    camPos_X += (forward_x * speed);
+    camPos_Y += (forward_y * speed);
+    camPos_Z += (forward_z * speed);
 
     FLD_CAMERA_SET_POS(camPos_X, camPos_Y, camPos_Z);
 }
