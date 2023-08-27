@@ -1,7 +1,7 @@
 ﻿void Teleport()
 {
     // Get player resource handle
-    int playerResHandle = FLD_PC_GET_RESHND(0);
+    int joker = FLD_PC_GET_RESHND(0);
 
     // Velocity to add per frame
     const float ADD_VELOCITY_PER_PRESS = 3f;
@@ -17,14 +17,10 @@
     // Stop executing when Circle button is pressed
     while (!PAD_CHK_PRESS(PadButton.Circle))
     {
-        // Get current player position
-        float player_x = FLD_MODEL_GET_X_TRANSLATE(playerResHandle);
-        float player_y = FLD_MODEL_GET_Y_TRANSLATE(playerResHandle);
-        float player_z = FLD_MODEL_GET_Z_TRANSLATE(playerResHandle);
         // Get current player rotation
-        float rot_x = FLD_MODEL_GET_X_ROTATE(playerResHandle);
-        float rot_y = FLD_MODEL_GET_Y_ROTATE(playerResHandle);
-        float rot_z = FLD_MODEL_GET_Z_ROTATE(playerResHandle);
+        float rot_x = FLD_MODEL_GET_X_ROTATE(joker);
+        float rot_y = FLD_MODEL_GET_Y_ROTATE(joker);
+        float rot_z = FLD_MODEL_GET_Z_ROTATE(joker);
 
         // Bring velocity closer to zero
         ++runs;
@@ -49,31 +45,69 @@
             // Divide velocity
             if (PAD_CHK_PRESS(PadButton.Square))
                 multiplier /= 10f;
-            // Move north/east/south/west
+            
+            // Move forward/backward
             if (PAD_CHK_PRESS(PadButton.Up))
                 velocity_z += ADD_VELOCITY_PER_PRESS * multiplier;
-            if (PAD_CHK_PRESS(PadButton.Right))
-                velocity_x -= ADD_VELOCITY_PER_PRESS * multiplier;
             if (PAD_CHK_PRESS(PadButton.Down))
                 velocity_z -= ADD_VELOCITY_PER_PRESS * multiplier;
-            if (PAD_CHK_PRESS(PadButton.Left))
-                velocity_x += ADD_VELOCITY_PER_PRESS * multiplier;
+            // Rotate left/right
+            if (PAD_CHK_PRESS(PadButton.Left) || PAD_CHK_PRESS(PadButton.L1))
+                FLD_MODEL_SET_ROTATE(joker, rot_x, rot_y + ADD_VELOCITY_PER_PRESS * multiplier, rot_z, 0);
+            if (PAD_CHK_PRESS(PadButton.Right) || PAD_CHK_PRESS(PadButton.R1))
+                FLD_MODEL_SET_ROTATE(joker, rot_x, rot_y - ADD_VELOCITY_PER_PRESS * multiplier, rot_z, 0);
+
             // Move up/down
             if (PAD_CHK_PRESS(PadButton.R2))
                 velocity_y += ADD_VELOCITY_PER_PRESS * multiplier;
             if (PAD_CHK_PRESS(PadButton.L2))
                 velocity_y -= ADD_VELOCITY_PER_PRESS * multiplier;
-            // Rotate on Y axis
-            if (PAD_CHK_PRESS(PadButton.R1))
-                FLD_MODEL_SET_ROTATE(playerResHandle, rot_x, rot_y + ADD_VELOCITY_PER_PRESS * multiplier, rot_z, 0);
-            if (PAD_CHK_PRESS(PadButton.L1))
-                FLD_MODEL_SET_ROTATE(playerResHandle, rot_x, rot_y - ADD_VELOCITY_PER_PRESS * multiplier, rot_z, 0);
         }
 
-        // Move player in direction of velocity
-        FLD_MODEL_SET_TRANSLATE(playerResHandle, player_x + velocity_x, player_y + velocity_y, player_z + velocity_z, 0);
-        FLD_MODEL_SYNC_TRANSLATE(playerResHandle);
-        FLD_MODEL_SYNC_ROTATE(playerResHandle);
+        MovePlayer(velocity_x, velocity_y, velocity_z);
+
         SYNC();
     }
+}
+
+
+void MovePlayer(float x_offset, float y_offset, float z_offset)
+{
+    int joker = FLD_PC_GET_RESHND(0);
+
+    // Get current player position
+    float x = FLD_MODEL_GET_X_TRANSLATE(joker);
+    float y = FLD_MODEL_GET_Y_TRANSLATE(joker);
+    float z = FLD_MODEL_GET_Z_TRANSLATE(joker);
+    float rot_x = FLD_MODEL_GET_X_ROTATE(joker);
+    float rot_y = FLD_MODEL_GET_Y_ROTATE(joker);
+    float rot_z = FLD_MODEL_GET_Z_ROTATE(joker);
+
+    // Convert rotation angles to radians
+    float cosR = COS(rot_x);
+    float sinR = SIN(rot_x);
+    float cosP = COS(rot_y);
+    float sinP = SIN(rot_y);
+    float cosY = COS(rot_z);
+    float sinY = SIN(rot_z);
+
+    // Calculate the elements of the rotation matrix
+    float r11 = cosY * cosP;
+    float r12 = cosY * sinP * sinR - sinY * cosR;
+    float r13 = cosY * sinP * cosR + sinY * sinR;
+    float r21 = sinY * cosP;
+    float r22 = sinY * sinP * sinR + cosY * cosR;
+    float r23 = sinY * sinP * cosR - cosY * sinR;
+    float r31 = sinP * -1;
+    float r32 = cosP * sinR;
+    float r33 = cosP * cosR;
+
+    // Apply the rotation to the translation vector
+    x += (r11 * x_offset + r12 * y_offset + r13 * z_offset);
+    y += (r21 * x_offset + r22 * y_offset + r23 * z_offset);
+    z += (r31 * x_offset + r32 * y_offset + r33 * z_offset);
+
+    FLD_MODEL_SET_TRANSLATE(joker, x, y, z, 0);
+    FLD_MODEL_SYNC_TRANSLATE(joker);
+    FLD_MODEL_SYNC_ROTATE(joker);
 }
