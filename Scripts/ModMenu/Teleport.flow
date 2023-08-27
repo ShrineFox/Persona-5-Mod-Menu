@@ -1,7 +1,0 @@
-﻿void Teleport()
-{
-    // Get player resource handle
-    int joker = FLD_PC_GET_RESHND(0);
-
-    TransformModel(joker);
-}

@@ -467,23 +467,29 @@ void TransformModel(int reshandle)
 void PrintModelCoords(int reshandle)
 {
     PUTS("Model Pos X:");
-    PUTF(FLD_MODEL_GET_X_TRANSLATE(reshandle));
+    PUTF(FLD_MODEL_GET_X_WORLD_TRANSLATE(reshandle));
     PUTS("Model Pos Y:");
-    PUTF(FLD_MODEL_GET_Y_TRANSLATE(reshandle));
+    PUTF(FLD_MODEL_GET_Y_WORLD_TRANSLATE(reshandle));
     PUTS("Model Pos Z:");
-    PUTF(FLD_MODEL_GET_Z_TRANSLATE(reshandle));
+    PUTF(FLD_MODEL_GET_Z_WORLD_TRANSLATE(reshandle));
+    PUTS("Model Rot X:");
+    PUTF(FLD_MODEL_GET_X_ROTATE(reshandle));
+    PUTS("Model Rot Y:");
+    PUTF(FLD_MODEL_GET_Y_ROTATE(reshandle));
+    PUTS("Model Rot Z:");
+    PUTF(FLD_MODEL_GET_Z_ROTATE(reshandle));
     float qX = 0f;
     float qY = 0f;
     float qZ = 0f;
     float qW = 0f;
     EulerToQuatDeg(FLD_MODEL_GET_X_ROTATE(reshandle), FLD_MODEL_GET_Y_ROTATE(reshandle), FLD_MODEL_GET_Z_ROTATE(reshandle), out qX, out qY, out qZ, out qW);
-    PUTS("Model Rot X:");
+    PUTS("Model (Quaternion) Rot X:");
     PUTF(qX);
-    PUTS("Model Rot Y:");
+    PUTS("Model (Quaternion) Rot Y:");
     PUTF(qY);
-    PUTS("Model Rot Z:");
+    PUTS("Model (Quaternion) Rot Z:");
     PUTF(qZ);
-    PUTS("Model Rot W:");
+    PUTS("Model (Quaternion) Rot W:");
     PUTF(qW);
 }
 
