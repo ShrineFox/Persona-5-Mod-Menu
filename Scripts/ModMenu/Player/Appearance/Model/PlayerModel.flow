@@ -16,7 +16,7 @@ void PlayerModelMenu()
                 PlayerSetModelScale();
                 break;
             case 2:
-                PlayerAttachItemModel();
+                PlayerAttachItem();
                 break;
         }
     }
@@ -44,30 +44,18 @@ void PlayerSetFieldModel()
 void PlayerSetModelScale()
 {
     float temp = FloatMenu();
-    if (temp != -1)
-    {
-        float modelScale = temp / 10;
-        FLD_MODEL_SET_SCALE(FLD_PC_GET_RESHND(0), modelScale);
-    }
+    if (temp < 0f)
+        return;
+
+    float modelScale = temp / 10;
+    FLD_MODEL_SET_SCALE(FLD_PC_GET_RESHND(0), modelScale);
 }
 
-void PlayerAttachItemModel()
+void PlayerAttachItem()
 {
-    int itemModelMajor = NumberMenu(4, Title_JokerItemMajor);
-    if (itemModelMajor == -1)
-        return;
-    int itemModelMinor = NumberMenu(3, Title_JokerItemMinor);
-    if (itemModelMinor == -1)
-        return;
-    int itemBoneID = NumberMenu(3, Title_JokerItemBoneID);
-    if (itemBoneID == -1)
+    int itemModel = SpawnItemModel(false);
+    if (itemModel == -1)
         return;
 
-    //FLD_PC_MODEL_ATTACH_ITEM( resHandle, itemModelMajor, itemModelMinor );
-    int itemModel = FLD_ITEM_MODEL_LOAD(itemModelMajor, itemModelMinor);
-    FLD_MODEL_LOADSYNC(itemModel);
-    FLD_MODEL_SET_VISIBLE(itemModel, 1, 0);
-    int joker = FLD_PC_GET_RESHND(0);
-    FLD_MODEL_ATTACH_TRANSLATE(itemModel, joker, itemBoneID);
-    FLD_MODEL_ATTACH_ROTATE(itemModel, joker, itemBoneID);
+    AttachModel(FLD_PC_GET_RESHND(0), itemModel);
 }

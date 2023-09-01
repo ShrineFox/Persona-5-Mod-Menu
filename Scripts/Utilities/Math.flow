@@ -109,3 +109,31 @@ float RadiansToDegrees(float radians)
 {
     return radians / PI * 180f;
 }
+
+// Offset an object's translation based on its current position and rotation
+void OffsetTranslation(float x, float y, float z, float rot_x, float rot_y, float rot_z, float x_offset, float y_offset, float z_offset, out float out_x, out float out_y, out float out_z)
+{
+    // Convert rotation angles to radians
+    float cosR = COS(rot_x);
+    float sinR = SIN(rot_x);
+    float cosP = COS(rot_y);
+    float sinP = SIN(rot_y);
+    float cosY = COS(rot_z);
+    float sinY = SIN(rot_z);
+
+    // Calculate the elements of the rotation matrix
+    float r11 = cosY * cosP;
+    float r12 = cosY * sinP * sinR - sinY * cosR;
+    float r13 = cosY * sinP * cosR + sinY * sinR;
+    float r21 = sinY * cosP;
+    float r22 = sinY * sinP * sinR + cosY * cosR;
+    float r23 = sinY * sinP * cosR - cosY * sinR;
+    float r31 = sinP * -1;
+    float r32 = cosP * sinR;
+    float r33 = cosP * cosR;
+
+    // Apply the rotation to the translation vector
+    out_x = x + (r11 * x_offset + r12 * y_offset + r13 * z_offset);
+    out_y = y + (r21 * x_offset + r22 * y_offset + r23 * z_offset);
+    out_z = z + (r31 * x_offset + r32 * y_offset + r33 * z_offset);
+}

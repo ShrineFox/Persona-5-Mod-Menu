@@ -11,60 +11,51 @@ void SpawnFieldModelsMenu()
             case -1:
                 return;
             case 0: // Spawn Item
-                SpawnItemModel();
+                SpawnItemModel(true);
                 break;
             case 1: // Spawn Object
-                SpawnObjectModel();
+                SpawnObjectModel(true);
                 break;
         }
     }
 }
 
-void SpawnItemModel()
+int SpawnItemModel(bool transform)
 {
-    int joker = FLD_PC_GET_RESHND(0);
-    float x = FLD_MODEL_GET_X_TRANSLATE(joker);
-    float y = FLD_MODEL_GET_Y_TRANSLATE(joker);
-    float z = FLD_MODEL_GET_Z_TRANSLATE(joker);
-    float xr = FLD_MODEL_GET_X_ROTATE(joker);
-    float yr = FLD_MODEL_GET_Y_ROTATE(joker);
-    float zr = FLD_MODEL_GET_Z_ROTATE(joker);
-
     int itemModelMajor = NumberMenu(4, Title_SpawnItemMajor);
-    if (itemModelMajor != -1)
-    {
-        int itemModelMinor = NumberMenu(3, Title_SpawnItemMinor);
-        if (itemModelMinor != -1)
-        {
-            int itemModel = FLD_ITEM_MODEL_LOAD(itemModelMajor, itemModelMinor);
-            FLD_MODEL_LOADSYNC(itemModel);
-            FLD_MODEL_SET_TRANSLATE(itemModel, x, y, z, 0);
-            FLD_MODEL_SET_ROTATE(itemModel, xr, yr, zr, 0);
-            FLD_MODEL_SET_VISIBLE(itemModel, 1, 0);
-        }
-    }
+    if (itemModelMajor == -1)
+        return -1;
+    int itemModelMinor = NumberMenu(3, Title_SpawnItemMinor);
+    if (itemModelMinor == -1)
+        return -1;
+
+    int itemModel = FLD_ITEM_MODEL_LOAD(itemModelMajor, itemModelMinor);
+    FLD_MODEL_LOADSYNC(itemModel);
+
+    if (transform)
+        TransformModel(itemModel);
+    else
+        FLD_MODEL_SET_VISIBLE(itemModel, 1, 0);
+
+    return itemModel;
 }
 
-void SpawnObjectModel()
+int SpawnObjectModel(bool transform)
 {
-    int joker = FLD_PC_GET_RESHND(0);
-    float x = FLD_MODEL_GET_X_TRANSLATE(joker);
-    float y = FLD_MODEL_GET_Y_TRANSLATE(joker);
-    float z = FLD_MODEL_GET_Z_TRANSLATE(joker);
-    float xr = FLD_MODEL_GET_X_ROTATE(joker);
-    float yr = FLD_MODEL_GET_Y_ROTATE(joker);
-    float zr = FLD_MODEL_GET_Z_ROTATE(joker);
-
     int objModelMajor = NumberMenu(3, Title_SpawnObjMajor);
     if (objModelMajor == -1)
-        return;
+        return -1;
     int objModelMinor = NumberMenu(3, Title_SpawnObjMinor);
     if (objModelMinor == -1)
-        return;
+        return -1;
 
     int objModel = FLD_OBJ_MODEL_LOAD(objModelMajor, objModelMinor);
     FLD_MODEL_LOADSYNC(objModel);
-    FLD_MODEL_SET_TRANSLATE(objModel, x, y, z, 0);
-    FLD_MODEL_SET_ROTATE(objModel, xr, yr, zr, 0);
-    FLD_MODEL_SET_VISIBLE(objModel, 1, 0);
+
+    if (transform)
+        TransformModel(objModel);
+    else
+        FLD_MODEL_SET_VISIBLE(objModel, 1, 0);
+
+    return objModel;
 }
