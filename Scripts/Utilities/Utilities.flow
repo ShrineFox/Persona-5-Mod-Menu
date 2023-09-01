@@ -5,6 +5,15 @@ import("ZealPad.flow");
 
 bool controller;
 
+// Global Variables
+global float camRot_X;
+global float camRot_Y;
+global float camRot_Z;
+
+global float camPos_X;
+global float camPos_Y;
+global float camPos_Z;
+
 // Regular text window
 void Message(int messageId)
 {
@@ -260,4 +269,471 @@ void DetectController()
     {
         controller = PAD_CHK_PRESS(PadButton.Any);
     }
+}
+
+// Apply new rotation/translation to a model until mode is exited
+void TransformModel(int reshandle)
+{
+    int joker = FLD_PC_GET_RESHND(0);
+
+    // Require a controller
+    DetectController();
+    if (!controller)
+        return;
+
+    // Zoom camera out
+    FLD_SET_CAMERA_FAR_MODE(0);
+
+    if (joker != reshandle)
+    {
+        // Match Joker's rotation/translation
+        FLD_MODEL_SET_TRANSLATE(reshandle, FLD_MODEL_GET_X_TRANSLATE(joker), FLD_MODEL_GET_Y_TRANSLATE(joker), FLD_MODEL_GET_Z_TRANSLATE(joker), 0);
+        FLD_MODEL_SYNC_TRANSLATE(reshandle);
+        FLD_MODEL_SET_ROTATE(reshandle, FLD_MODEL_GET_X_ROTATE(joker), FLD_MODEL_GET_Y_ROTATE(joker), FLD_MODEL_GET_Z_ROTATE(joker), 0);
+        FLD_MODEL_SET_VISIBLE(reshandle, 1, 0);
+
+        // Hide Joker model
+        FLD_MODEL_SET_VISIBLE(joker, 0, 0);
+    }
+
+    // Velocity to add per frame
+    const float ADD_VELOCITY_PER_PRESS = 1.3f;
+
+    bool rotateMode = false;
+    bool precisionMode = false;
+    float velocity_x = 0f;
+    float velocity_y = 0f;
+    float velocity_z = 0f;
+    float velocity_rot_x = 0f;
+    float velocity_rot_y = 0f;
+    float velocity_rot_z = 0f;
+    int runs = 0;
+
+    // Wait for all buttons to be released
+    while (PAD_CHK_PRESS(PadButton.Any)) { SYNC(); }
+
+    // Stop executing when Circle button is pressed
+    while (!PAD_CHK_PRESS(PadButton.Circle))
+    {
+        // Bring velocity closer to zero
+        ++runs;
+        float multiplier = 1f;
+        if (runs > 5)
+        {
+            multiplier = 1f;
+            runs = 0;
+            velocity_x /= 6f;
+            velocity_y /= 6f;
+            velocity_z /= 6f;
+            velocity_rot_x /= 6f;
+            velocity_rot_y /= 6f;
+            velocity_rot_z /= 6f;
+        }
+
+        // Change mode
+        if (PAD_CHK_TRIG(PadButton.Select))
+        {
+            if (rotateMode)
+                rotateMode = false;
+            else
+                rotateMode = true;
+        }
+        if (PAD_CHK_TRIG(PadButton.Start))
+        {
+            if (precisionMode)
+                precisionMode = false;
+            else
+                precisionMode = true;
+        }
+
+        // Increase velocity
+        if (PAD_CHK_PRESS(PadButton.Cross))
+            multiplier *= 3f;
+        if (PAD_CHK_PRESS(PadButton.Triangle))
+            multiplier *= 5f;
+        // Decrease velocity
+        if (PAD_CHK_PRESS(PadButton.Square))
+            multiplier /= 5f;
+        if (precisionMode)
+            multiplier /= 3f;
+
+        // Move forward/backward
+        if (PAD_CHK_PRESS(PadButton.R2))
+        {
+            velocity_y += ADD_VELOCITY_PER_PRESS * multiplier;
+        }
+        if (PAD_CHK_PRESS(PadButton.L2))
+        {
+            velocity_y -= ADD_VELOCITY_PER_PRESS * multiplier;
+        }
+
+        // Move forward and backward in current facing direction
+        if (PAD_CHK_PRESS(PadButton.Up) || (ANALOG_ASTICK_CHECK(0, AnalogStick.Up, 0))
+        {
+            velocity_z += ADD_VELOCITY_PER_PRESS * multiplier;
+        }
+        if (PAD_CHK_PRESS(PadButton.Down) || ANALOG_ASTICK_CHECK(0, AnalogStick.Down, 0))
+        {
+            velocity_z -= ADD_VELOCITY_PER_PRESS * multiplier;
+        }
+        if (PAD_CHK_PRESS(PadButton.Left) || ANALOG_ASTICK_CHECK(0, AnalogStick.Left, 0))
+        {
+            velocity_x += ADD_VELOCITY_PER_PRESS * multiplier;
+        }
+        if (PAD_CHK_PRESS(PadButton.Right) || ANALOG_ASTICK_CHECK(0, AnalogStick.Right, 0))
+        {
+            velocity_x -= ADD_VELOCITY_PER_PRESS * multiplier;
+        }
+
+        // Rotate left/right/up/down using analog stick
+        if (ANALOG_ASTICK_CHECK(1, AnalogStick.Up, 0))
+        {
+            velocity_rot_x += ADD_VELOCITY_PER_PRESS * multiplier;
+        }
+        if (ANALOG_ASTICK_CHECK(1, AnalogStick.Down, 0))
+        {
+            velocity_rot_x -= ADD_VELOCITY_PER_PRESS * multiplier;
+        }
+        if (ANALOG_ASTICK_CHECK(1, AnalogStick.Left, 0))
+        {
+            velocity_rot_y += ADD_VELOCITY_PER_PRESS * multiplier;
+        }
+        if (ANALOG_ASTICK_CHECK(1, AnalogStick.Right, 0))
+        {
+            velocity_rot_y -= ADD_VELOCITY_PER_PRESS * multiplier;
+        }
+
+        // Tilt left/right
+        if (PAD_CHK_PRESS(PadButton.L1))
+        {
+            velocity_rot_z -= ADD_VELOCITY_PER_PRESS * multiplier;
+        }
+        if (PAD_CHK_PRESS(PadButton.R1))
+        {
+            velocity_rot_z += ADD_VELOCITY_PER_PRESS * multiplier;
+        }
+
+        // Get current position
+        float x = FLD_MODEL_GET_X_TRANSLATE(reshandle);
+        float y = FLD_MODEL_GET_Y_TRANSLATE(reshandle);
+        float z = FLD_MODEL_GET_Z_TRANSLATE(reshandle);
+        float rot_x = FLD_MODEL_GET_X_ROTATE(reshandle) + velocity_rot_x;
+        float rot_y = FLD_MODEL_GET_Y_ROTATE(reshandle) + velocity_rot_y;
+        float rot_z = FLD_MODEL_GET_Z_ROTATE(reshandle) + velocity_rot_z;
+
+        // Prevent flipping when rotating
+        if (rot_x < -359.9f)
+            rot_x = -359.9f;
+        else if (rot_x > 359.9f)
+            rot_x = 359.9f;
+        if (rot_y < -359.9f)
+            rot_y = -359.9f;
+        else if (rot_y > 359.9f)
+            rot_y = 359.9f;
+        if (rot_z < -359.9f)
+            rot_z = -359.9f;
+        else if (rot_z > 359.9f)
+            rot_z = 359.9f;
+
+        // Set new rotation
+        FLD_MODEL_SET_ROTATE(reshandle, rot_x, rot_y, rot_z, 0);
+
+        // Get new position values
+        x += velocity_x;
+        y += velocity_y;
+        z += velocity_z;
+
+        // Set new position values
+        FLD_PC_GET_RESHND(0)
+        FLD_MODEL_SET_TRANSLATE(reshandle, x, y, z, 0);
+        FLD_MODEL_SYNC_TRANSLATE(reshandle);
+        FLD_MODEL_SYNC_ROTATE(reshandle);
+        // Also reposition hidden Joker model so camera follows
+        if (joker != reshandle)
+        {
+            FLD_MODEL_SET_TRANSLATE(joker, x, y, z, 0);
+            FLD_MODEL_SYNC_TRANSLATE(joker);
+        }
+
+        SYNC();
+    }
+
+    // Show Joker model
+    if (joker != reshandle)
+        FLD_MODEL_SET_VISIBLE(joker, 1, 0);
+
+    PrintModelCoords(reshandle);
+}
+
+void PrintModelCoords(int reshandle)
+{
+    PUTS("Model Pos X:");
+    PUTF(FLD_MODEL_GET_X_WORLD_TRANSLATE(reshandle));
+    PUTS("Model Pos Y:");
+    PUTF(FLD_MODEL_GET_Y_WORLD_TRANSLATE(reshandle));
+    PUTS("Model Pos Z:");
+    PUTF(FLD_MODEL_GET_Z_WORLD_TRANSLATE(reshandle));
+    PUTS("Model Rot X:");
+    PUTF(FLD_MODEL_GET_X_ROTATE(reshandle));
+    PUTS("Model Rot Y:");
+    PUTF(FLD_MODEL_GET_Y_ROTATE(reshandle));
+    PUTS("Model Rot Z:");
+    PUTF(FLD_MODEL_GET_Z_ROTATE(reshandle));
+    float qX = 0f;
+    float qY = 0f;
+    float qZ = 0f;
+    float qW = 0f;
+    EulerToQuatDeg(FLD_MODEL_GET_X_ROTATE(reshandle), FLD_MODEL_GET_Y_ROTATE(reshandle), FLD_MODEL_GET_Z_ROTATE(reshandle), out qX, out qY, out qZ, out qW);
+    PUTS("Model (Quaternion) Rot X:");
+    PUTF(qX);
+    PUTS("Model (Quaternion) Rot Y:");
+    PUTF(qY);
+    PUTS("Model (Quaternion) Rot Z:");
+    PUTF(qZ);
+    PUTS("Model (Quaternion) Rot W:");
+    PUTF(qW);
+}
+
+void AttachModel(int modelreshandle, int attachmenthandle)
+{
+    int boneID = 0;
+    bool boneChanged = false;
+    while (!PAD_CHK_PRESS(PadButton.Circle))
+    {
+        if (PAD_CHK_PRESS(PadButton.Any))
+        {
+            if (PAD_CHK_TRIG(PadButton.Left) || PAD_CHK_PRESS(PadButton.L2))
+            {
+                if (boneID >= 1)
+                    boneID--;
+                boneChanged = true;
+            }
+            if (PAD_CHK_TRIG(PadButton.Right) || PAD_CHK_PRESS(PadButton.R2))
+            {
+                boneID++;
+                boneChanged = true;
+            }
+
+            if (boneChanged)
+            {
+                FLD_MODEL_ATTACH_TRANSLATE(attachmenthandle, modelreshandle, boneID);
+                FLD_MODEL_ATTACH_ROTATE(attachmenthandle, modelreshandle, boneID);
+                PUTS("Bone ID:");
+                PUT(boneID);
+                boneChanged = false;
+            }
+        }
+
+        SYNC();
+    }
+}
+
+enum AnalogStick
+{
+    Up,
+    Right,
+    Down,
+    Left
+}
+
+// Apply new rotation/translation to camera until mode is exited
+void TransformCamera()
+{
+    int joker = FLD_PC_GET_RESHND(0);
+
+    // Require a controller
+    DetectController();
+    if (!controller)
+        return;
+
+    // Get current camera rotation
+    GetCameraRotation();
+    GetCameraPosition();
+    CameraLock();
+    // Zoom camera out
+    FLD_SET_CAMERA_FAR_MODE(0);
+
+    // Velocity to add per frame
+    const float ADD_VELOCITY_PER_PRESS = 4f;
+
+    bool precisionMode = false;
+    float velocity_x = 0f;
+    float velocity_y = 0f;
+    float velocity_z = 0f;
+    float velocity_rot_x = 0f;
+    float velocity_rot_y = 0f;
+    float velocity_rot_z = 0f;
+    int runs = 0;
+
+    // Wait for all buttons to be released
+    while (PAD_CHK_PRESS(PadButton.Any)) { SYNC(); }
+
+    // Stop executing when Circle button is pressed
+    while (!PAD_CHK_PRESS(PadButton.Circle))
+    {
+        // Bring velocity closer to zero
+        ++runs;
+        float multiplier = 1f;
+        if (runs > 5)
+        {
+            multiplier = 1f;
+            runs = 0;
+            velocity_x /= 6f;
+            velocity_y /= 6f;
+            velocity_z /= 6f;
+            velocity_rot_x /= 6f;
+            velocity_rot_y /= 6f;
+            velocity_rot_z /= 6f;
+        }
+
+        if (PAD_CHK_TRIG(PadButton.Start))
+        {
+            if (precisionMode)
+                precisionMode = false;
+            else
+                precisionMode = true;
+        }
+
+        // Increase velocity
+        if (PAD_CHK_PRESS(PadButton.Cross))
+            multiplier *= 3f;
+        if (PAD_CHK_PRESS(PadButton.Triangle))
+            multiplier *= 5f;
+        // Decrease velocity
+        if (PAD_CHK_PRESS(PadButton.Square))
+            multiplier /= 5f;
+        if (precisionMode)
+            multiplier /= 3f;
+
+        // Move up/down
+        if (PAD_CHK_PRESS(PadButton.R2))
+        {
+            velocity_y += ADD_VELOCITY_PER_PRESS * multiplier;
+        }
+        if (PAD_CHK_PRESS(PadButton.L2))
+        {
+            velocity_y -= ADD_VELOCITY_PER_PRESS * multiplier;
+        }
+
+        // Move forward/back/left/right in current facing direction
+        if (PAD_CHK_PRESS(PadButton.Up) || (ANALOG_ASTICK_CHECK(0, AnalogStick.Up, 0))
+        {
+            velocity_z += ADD_VELOCITY_PER_PRESS * multiplier;
+        }
+        if (PAD_CHK_PRESS(PadButton.Down) || ANALOG_ASTICK_CHECK(0, AnalogStick.Down, 0))
+        {
+            velocity_z -= ADD_VELOCITY_PER_PRESS * multiplier;
+        }
+        if (PAD_CHK_PRESS(PadButton.Left) || ANALOG_ASTICK_CHECK(0, AnalogStick.Left, 0))
+        {
+            velocity_x += ADD_VELOCITY_PER_PRESS * multiplier;
+        }
+        if (PAD_CHK_PRESS(PadButton.Right) || ANALOG_ASTICK_CHECK(0, AnalogStick.Right, 0))
+        {
+            velocity_x -= ADD_VELOCITY_PER_PRESS * multiplier;
+        }
+
+        // Rotate left/right/up/down using analog stick
+        if (ANALOG_ASTICK_CHECK(1, AnalogStick.Up, 0))
+        {
+            velocity_rot_x += ADD_VELOCITY_PER_PRESS * multiplier * 2;
+        }
+        if (ANALOG_ASTICK_CHECK(1, AnalogStick.Down, 0))
+        {
+            velocity_rot_x -= ADD_VELOCITY_PER_PRESS * multiplier * 2;
+        }
+        if (ANALOG_ASTICK_CHECK(1, AnalogStick.Left, 0))
+        {
+            velocity_rot_y += ADD_VELOCITY_PER_PRESS * multiplier * 2;
+        }
+        if (ANALOG_ASTICK_CHECK(1, AnalogStick.Right, 0))
+        {
+            velocity_rot_y -= ADD_VELOCITY_PER_PRESS * multiplier * 2;
+        }
+
+        // Tilt left/right
+        if (PAD_CHK_PRESS(PadButton.L1))
+        {
+            velocity_rot_z -= ADD_VELOCITY_PER_PRESS * multiplier * 2;
+        }
+        if (PAD_CHK_PRESS(PadButton.R1))
+        {
+            velocity_rot_z += ADD_VELOCITY_PER_PRESS * multiplier * 2;
+        }
+
+        // Get new position values
+        camPos_X += velocity_x;
+        camPos_Y += velocity_y;
+        camPos_Z += velocity_z;
+        camRot_X += velocity_rot_x;
+        camRot_Y += velocity_rot_y;
+        camRot_Z += velocity_rot_z;
+
+        float x;
+        float y;
+        float z;
+        float w;
+        EulerToQuatDeg(camRot_X, camRot_Y, camRot_Z, out x, out y, out z, out w);
+        
+        // Set new position values
+        FLD_CAMERA_LOCK_INTERP(camPos_X, camPos_Y, camPos_Z, x, y, z, w, 0);
+
+        SYNC();
+    }
+
+    PrintCameraCoords();
+}
+
+void GetCameraRotation()
+{
+    float x;
+    float y;
+    float z;
+    QuaternionToEuler(FLD_CAMERA_GET_X_ROT(), FLD_CAMERA_GET_Y_ROT(), FLD_CAMERA_GET_Z_ROT(), FLD_CAMERA_GET_W_ROT(), out x, out y, out z);
+    camRot_X = x;
+    camRot_Y = y;
+    camRot_Z = z;
+}
+
+void GetCameraPosition()
+{
+    camPos_X = FLD_CAMERA_GET_X_POS();
+    camPos_Y = FLD_CAMERA_GET_Y_POS();
+    camPos_Z = FLD_CAMERA_GET_Z_POS();
+}
+
+void CameraUnlock()
+{
+    while (FLD_CAMERA_CHECK_LOCK() != 0)
+        FLD_CAMERA_UNLOCK();
+    FLD_CAMERA_BEHIND_UNLOCK();
+}
+
+void CameraLock()
+{
+    FLD_CAMERA_LOCK();
+    FLD_CAMERA_BEHIND_LOCK();
+}
+
+void PrintCameraCoords()
+{
+    PUTS("Camera Pos X:");
+    PUTF(FLD_CAMERA_GET_X_POS());
+    PUTS("Camera Pos Y:");
+    PUTF(FLD_CAMERA_GET_Y_POS());
+    PUTS("Camera Pos Z:");
+    PUTF(FLD_CAMERA_GET_Z_POS());
+    float qX = 0f;
+    float qY = 0f;
+    float qZ = 0f;
+    float qW = 0f;
+    EulerToQuatDeg(camRot_X, camRot_Y, camRot_Z, out qX, out qY, out qZ, out qW);
+    PUTS("Camera Rot X:");
+    PUTF(qX);
+    PUTS("Camera Rot Y:");
+    PUTF(qY);
+    PUTS("Camera Rot Z:");
+    PUTF(qZ);
+    PUTS("Camera Rot W:");
+    PUTF(qW);
 }

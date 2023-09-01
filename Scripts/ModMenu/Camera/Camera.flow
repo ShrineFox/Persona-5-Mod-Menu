@@ -1,14 +1,5 @@
-﻿import("../../Utilities/Math.flow");
+﻿import("../../Utilities/Utilities.flow");
 import("Camera.msg");
-
-// Global Variables
-global float camRot_X;
-global float camRot_Y;
-global float camRot_Z;
-
-global float camPos_X;
-global float camPos_Y;
-global float camPos_Z;
 
 void CameraMenu()
 {
@@ -45,6 +36,8 @@ void CameraPosition()
     if (!controller)
         return;
 
+    TransformCamera();
+
     // Velocity to add per frame
     const float ADD_VELOCITY_PER_PRESS = 3f;
 
@@ -61,11 +54,6 @@ void CameraPosition()
     // Wait for all buttons to be released
     while (PAD_CHK_PRESS(PadButton.Any)) { SYNC(); }
 
-    float rot_velocity_x = 0f;
-    float rot_velocity_y = 0f;
-    float rot_velocity_z = 0f;
-    int rot_axis = 0;
-
     // Stop executing when Circle button is pressed
     while (!PAD_CHK_PRESS(PadButton.Circle))
     {
@@ -76,83 +64,44 @@ void CameraPosition()
         {
             multiplier = 1f;
             runs = 0;
-            velocity_x /= 3f;
-            velocity_y /= 3f;
-            velocity_z /= 3f;
-            rot_velocity_x /= 1.5f;
-            rot_velocity_y /= 1.5f;
-            rot_velocity_z /= 1.5f;
+            velocity_rot_x /= 1.5f;
+            velocity_rot_y /= 1.5f;
+            velocity_rot_z /= 1.5f;
+            velocity_translate /= 2f;
         }
 
-        // If a button is pressed...
-        if (PAD_CHK_PRESS(PadButton.Any))
-        {
-            // Multiply velocity
-            if (PAD_CHK_PRESS(PadButton.Cross))
-                multiplier *= 3f;
-            if (PAD_CHK_PRESS(PadButton.Triangle))
-                multiplier *= 5f;
-            // Change rotation axis
-            if (PAD_CHK_PRESS(PadButton.Select))
-            {
-                if (rot_axis == 2)
-                    rot_axis = 0;
-                else
-                    rot_axis++;
-                WAIT(10);
-            }
-            // Divide velocity
-            if (PAD_CHK_PRESS(PadButton.Square))
-                multiplier /= 10f;
-            // Camera position north/east/south/west speed
-            if (PAD_CHK_PRESS(PadButton.Up) || ANALOG_ASTICK_CHECK(0, 0, 0))
-                velocity_z += ADD_VELOCITY_PER_PRESS * multiplier;
-            if (PAD_CHK_PRESS(PadButton.Right) || ANALOG_ASTICK_CHECK(0, 1, 0))
-                velocity_x -= ADD_VELOCITY_PER_PRESS * multiplier;
-            if (PAD_CHK_PRESS(PadButton.Down) || ANALOG_ASTICK_CHECK(0, 2, 0))
-                velocity_z -= ADD_VELOCITY_PER_PRESS * multiplier;
-            if (PAD_CHK_PRESS(PadButton.Left) || ANALOG_ASTICK_CHECK(0, 3, 0))
-                velocity_x += ADD_VELOCITY_PER_PRESS * multiplier;
-            // Camera position up/down speed
-            if (PAD_CHK_PRESS(PadButton.R2))
-                velocity_y += ADD_VELOCITY_PER_PRESS * multiplier;
-            if (PAD_CHK_PRESS(PadButton.L2))
-                velocity_y -= ADD_VELOCITY_PER_PRESS * multiplier;
+        // Multiply velocity
+        if (PAD_CHK_PRESS(PadButton.Cross))
+            multiplier *= 3f;
+        if (PAD_CHK_PRESS(PadButton.Triangle))
+            multiplier *= 5f;
+        if (PAD_CHK_PRESS(PadButton.Square))
+            multiplier /= 15f;
 
-            // Camera rotation speed
+        // Rotate camera up/down/left/right with d-pad (pitch/yaw)
+        if (PAD_CHK_PRESS(PadButton.Up) || ANALOG_ASTICK_CHECK(1, AnalogStick.Up, 0))
+            velocity_rot_x += ADD_VELOCITY_PER_PRESS * multiplier;
+        if (PAD_CHK_PRESS(PadButton.Down) || ANALOG_ASTICK_CHECK(1, AnalogStick.Down, 0)))
+            velocity_rot_x -= ADD_VELOCITY_PER_PRESS * multiplier;
+        if (PAD_CHK_PRESS(PadButton.Left) || ANALOG_ASTICK_CHECK(1, AnalogStick.Left, 0)))
+            velocity_rot_y += ADD_VELOCITY_PER_PRESS * multiplier;
+        if (PAD_CHK_PRESS(PadButton.Right) || ANALOG_ASTICK_CHECK(1, AnalogStick.Right, 0)))
+            velocity_rot_y -= ADD_VELOCITY_PER_PRESS * multiplier;
 
-            if (ANALOG_ASTICK_CHECK(1, 0, 0)) //rstick up
-            {
-                rot_velocity_x -= ADD_VELOCITY_PER_PRESS * multiplier;
-                CameraSetRotation(camerarot_x + rot_velocity_x, camerarot_y, camerarot_z);
-            }
-            if (ANALOG_ASTICK_CHECK(1, 2, 0)) //rstick down
-            {
-                rot_velocity_x += ADD_VELOCITY_PER_PRESS * multiplier;
-                CameraSetRotation(camerarot_x + rot_velocity_x, camerarot_y, camerarot_z);
-            }
+        // tilt camera left/right (roll)
+        if (PAD_CHK_PRESS(PadButton.R1))
+            velocity_rot_z -= ADD_VELOCITY_PER_PRESS * multiplier;
+        if (PAD_CHK_PRESS(PadButton.L1))
+            velocity_rot_z += ADD_VELOCITY_PER_PRESS * multiplier;
 
-            if (ANALOG_ASTICK_CHECK(1, 1, 0)) //rstick right 
-            {
-                rot_velocity_y -= ADD_VELOCITY_PER_PRESS * multiplier;
-                CameraSetRotation(camerarot_x, camerarot_y + rot_velocity_y, camerarot_z);
-            }
-            if (ANALOG_ASTICK_CHECK(1, 3, 0)) //rstick left 
-            {
-                rot_velocity_y += ADD_VELOCITY_PER_PRESS * multiplier;
-                CameraSetRotation(camerarot_x, camerarot_y + rot_velocity_y, camerarot_z);
-            }
-            if (PAD_CHK_PRESS(PadButton.R1))
-            {
-                rot_velocity_z -= ADD_VELOCITY_PER_PRESS * multiplier;
-                CameraSetRotation(camerarot_x, camerarot_y, camerarot_z + rot_velocity_z);
-            }
-            if (PAD_CHK_PRESS(PadButton.L1))
-            {
-                rot_velocity_z += ADD_VELOCITY_PER_PRESS * multiplier;
-                CameraSetRotation(camerarot_x, camerarot_y, camerarot_z + rot_velocity_z);
-            }
-        }
+        // Rotate in direction of velocity
+        camRot_X += velocity_rot_x;
+        camRot_Y += velocity_rot_y;
+        camRot_Z += velocity_rot_z;
+        // Limit the vertical rotation to prevent flipping
+        if (DegreesToRadians(camRot_Z) > 90.0f) camRot_Z = RadiansToDegrees(90.0f);
+        if (DegreesToRadians(camRot_Z) < -90.0f) camRot_Z = RadiansToDegrees(-90.0f);
+        RotateCamera();
 
         // Translate in direction camera is facing
         if (PAD_CHK_PRESS(PadButton.R2))
@@ -224,25 +173,6 @@ void CameraFOVZoom()
     }
 }
 
-
-void GetCameraRotation()
-{
-    float x;
-    float y;
-    float z;
-    QuaternionToEuler(FLD_CAMERA_GET_X_ROT(), FLD_CAMERA_GET_Y_ROT(), FLD_CAMERA_GET_Z_ROT(), FLD_CAMERA_GET_W_ROT(), out x, out y, out z);
-    camRot_X = x;
-    camRot_Y = y;
-    camRot_Z = z;
-}
-
-void GetCameraPosition()
-{
-    camPos_X = FLD_CAMERA_GET_X_POS();
-    camPos_Y = FLD_CAMERA_GET_Y_POS();
-    camPos_Z = FLD_CAMERA_GET_Z_POS();
-}
-
 void RotateCamera()
 {
     float qX = 0f;
@@ -281,15 +211,3 @@ void TranslateCamera(float speed)
     FLD_CAMERA_SET_POS(camPos_X, camPos_Y, camPos_Z);
 }
 
-void CameraUnlock()
-{
-    while (FLD_CAMERA_CHECK_LOCK() != 0)
-        FLD_CAMERA_UNLOCK();
-    FLD_CAMERA_BEHIND_UNLOCK();
-}
-
-void CameraLock()
-{
-    FLD_CAMERA_LOCK();
-    FLD_CAMERA_BEHIND_LOCK();
-}
