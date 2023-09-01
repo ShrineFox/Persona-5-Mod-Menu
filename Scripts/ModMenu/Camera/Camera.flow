@@ -56,7 +56,9 @@ void CameraPosition()
     // Wait for all buttons to be released
     while (PAD_CHK_PRESS(PadButton.Any)) { SYNC(); }
 
-    float rot_velocity = 0f;
+    float rot_velocity_x = 0f;
+    float rot_velocity_y = 0f;
+    float rot_velocity_z = 0f;
     int rot_axis = 0;
 
     // Stop executing when Circle button is pressed
@@ -77,7 +79,9 @@ void CameraPosition()
             velocity_x /= 3f;
             velocity_y /= 3f;
             velocity_z /= 3f;
-            rot_velocity /= 1.5f;
+            rot_velocity_x /= 1.5f;
+            rot_velocity_y /= 1.5f;
+            rot_velocity_z /= 1.5f;
         }
 
         // If a button is pressed...
@@ -101,13 +105,13 @@ void CameraPosition()
             if (PAD_CHK_PRESS(PadButton.Square))
                 multiplier /= 10f;
             // Camera position north/east/south/west speed
-            if (PAD_CHK_PRESS(PadButton.Up))
+            if (PAD_CHK_PRESS(PadButton.Up) || ANALOG_ASTICK_CHECK(0, 0, 0))
                 velocity_z += ADD_VELOCITY_PER_PRESS * multiplier;
-            if (PAD_CHK_PRESS(PadButton.Right))
+            if (PAD_CHK_PRESS(PadButton.Right) || ANALOG_ASTICK_CHECK(0, 1, 0))
                 velocity_x -= ADD_VELOCITY_PER_PRESS * multiplier;
-            if (PAD_CHK_PRESS(PadButton.Down))
+            if (PAD_CHK_PRESS(PadButton.Down) || ANALOG_ASTICK_CHECK(0, 2, 0))
                 velocity_z -= ADD_VELOCITY_PER_PRESS * multiplier;
-            if (PAD_CHK_PRESS(PadButton.Left))
+            if (PAD_CHK_PRESS(PadButton.Left) || ANALOG_ASTICK_CHECK(0, 3, 0))
                 velocity_x += ADD_VELOCITY_PER_PRESS * multiplier;
             // Camera position up/down speed
             if (PAD_CHK_PRESS(PadButton.R2))
@@ -116,32 +120,37 @@ void CameraPosition()
                 velocity_y -= ADD_VELOCITY_PER_PRESS * multiplier;
 
             // Camera rotation speed
+
+            if (ANALOG_ASTICK_CHECK(1, 0, 0)) //rstick up
+            {
+                rot_velocity_x -= ADD_VELOCITY_PER_PRESS * multiplier;
+                CameraSetRotation(camerarot_x + rot_velocity_x, camerarot_y, camerarot_z);
+            }
+            if (ANALOG_ASTICK_CHECK(1, 2, 0)) //rstick down
+            {
+                rot_velocity_x += ADD_VELOCITY_PER_PRESS * multiplier;
+                CameraSetRotation(camerarot_x + rot_velocity_x, camerarot_y, camerarot_z);
+            }
+
+            if (ANALOG_ASTICK_CHECK(1, 1, 0)) //rstick right 
+            {
+                rot_velocity_y -= ADD_VELOCITY_PER_PRESS * multiplier;
+                CameraSetRotation(camerarot_x, camerarot_y + rot_velocity_y, camerarot_z);
+            }
+            if (ANALOG_ASTICK_CHECK(1, 3, 0)) //rstick left 
+            {
+                rot_velocity_y += ADD_VELOCITY_PER_PRESS * multiplier;
+                CameraSetRotation(camerarot_x, camerarot_y + rot_velocity_y, camerarot_z);
+            }
             if (PAD_CHK_PRESS(PadButton.R1))
             {
-                rot_velocity += ADD_VELOCITY_PER_PRESS * multiplier;
+                rot_velocity_z -= ADD_VELOCITY_PER_PRESS * multiplier;
+                CameraSetRotation(camerarot_x, camerarot_y, camerarot_z + rot_velocity_z);
             }
             if (PAD_CHK_PRESS(PadButton.L1))
             {
-                rot_velocity -= ADD_VELOCITY_PER_PRESS * multiplier;
-            }
-
-            // Rotate along selected axis
-            if (rot_velocity > 0.1f || rot_velocity < -0.1f)
-            {
-                switch(rot_axis)
-                {
-                    case 0:
-                        CameraSetRotation(camerarot_x + rot_velocity, camerarot_y, camerarot_z);
-                        break;
-                    case 1:
-                        CameraSetRotation(camerarot_x, camerarot_y + rot_velocity, camerarot_z);
-                        break;
-                    case 2:
-                        CameraSetRotation(camerarot_x, camerarot_y, camerarot_z + rot_velocity);
-                        break;
-                    default:
-                        break;
-                }
+                rot_velocity_z += ADD_VELOCITY_PER_PRESS * multiplier;
+                CameraSetRotation(camerarot_x, camerarot_y, camerarot_z + rot_velocity_z);
             }
         }
 
@@ -261,7 +270,8 @@ void CameraSetRotation(float x, float y, float z)
 
 void CameraUnlock()
 {
-    FLD_CAMERA_UNLOCK();
+    while (FLD_CAMERA_CHECK_LOCK() != 0)
+        FLD_CAMERA_UNLOCK();
     FLD_CAMERA_BEHIND_UNLOCK();
 }
 
