@@ -2,9 +2,13 @@
 import("Camera.msg");
 
 // Global Variables
-global float camerarot_x;
-global float camerarot_y;
-global float camerarot_z;
+global float camRot_X;
+global float camRot_Y;
+global float camRot_Z;
+
+global float camPos_X;
+global float camPos_Y;
+global float camPos_Z;
 
 void CameraMenu()
 {
@@ -44,13 +48,14 @@ void CameraPosition()
     // Velocity to add per frame
     const float ADD_VELOCITY_PER_PRESS = 3f;
 
-    float velocity_x = 0f;
-    float velocity_y = 0f;
-    float velocity_z = 0f;
+    float velocity_translate = 0f;
+    float velocity_rot_x = 0f;
+    float velocity_rot_y = 0f;
+    float velocity_rot_z = 0f;
     int runs = 0;
 
     // Get current camera rotation
-    CameraGetRotation();
+    GetCameraRotation();
     CameraLock();
 
     // Wait for all buttons to be released
@@ -64,11 +69,6 @@ void CameraPosition()
     // Stop executing when Circle button is pressed
     while (!PAD_CHK_PRESS(PadButton.Circle))
     {
-        // Get current camera position
-        float camera_x = FLD_CAMERA_GET_X_POS();
-        float camera_y = FLD_CAMERA_GET_Y_POS();
-        float camera_z = FLD_CAMERA_GET_Z_POS();
-
         // Bring velocity closer to zero
         ++runs;
         float multiplier = 1f;
@@ -154,36 +154,17 @@ void CameraPosition()
             }
         }
 
-        // Move camera in direction of velocity if not rotating
-        FLD_CAMERA_SET_POS(camera_x + velocity_x, camera_y + velocity_y, camera_z + velocity_z);
+        // Translate in direction camera is facing
+        if (PAD_CHK_PRESS(PadButton.R2))
+            velocity_translate -= ADD_VELOCITY_PER_PRESS * multiplier;
+        if (PAD_CHK_PRESS(PadButton.L2))
+            velocity_translate += ADD_VELOCITY_PER_PRESS * multiplier;
+        TranslateCamera(velocity_translate);
 
         SYNC();
     }
 
     PrintCameraCoords();
-}
-
-void PrintCameraCoords()
-{
-    PUTS("Camera Pos X:");
-    PUTF(FLD_CAMERA_GET_X_POS());
-    PUTS("Camera Pos Y:");
-    PUTF(FLD_CAMERA_GET_Y_POS());
-    PUTS("Camera Pos Z:");
-    PUTF(FLD_CAMERA_GET_Z_POS());
-    float qX = 0f;
-    float qY = 0f;
-    float qZ = 0f;
-    float qW = 0f;
-    EulerToQuatDeg(camerarot_x, camerarot_y, camerarot_z, out qX, out qY, out qZ, out qW);
-    PUTS("Camera Rot X:");
-    PUTF(qX);
-    PUTS("Camera Rot Y:");
-    PUTF(qY);
-    PUTS("Camera Rot Z:");
-    PUTF(qZ);
-    PUTS("Camera Rot W:");
-    PUTF(qW);
 }
 
 void CameraFOVZoom()
@@ -206,7 +187,7 @@ void CameraFOVZoom()
     {
         // Bring velocity closer to zero
         ++runs;
-        float multiplier = 1.10f;
+        float multiplier = 2f;
         if (runs > 5)
         {
             multiplier = 1f;
@@ -225,13 +206,13 @@ void CameraFOVZoom()
             multiplier /= 2f;
 
         // Camera position north/east/south/west speed
-        if (PAD_CHK_PRESS(PadButton.Up))
+        if (PAD_CHK_TRIG(PadButton.Up))
             velocity_zoom += ADD_VELOCITY_PER_PRESS * multiplier;
-        if (PAD_CHK_PRESS(PadButton.Down))
+        if (PAD_CHK_TRIG(PadButton.Down))
             velocity_zoom -= ADD_VELOCITY_PER_PRESS * multiplier;
-        if (PAD_CHK_PRESS(PadButton.Right))
+        if (PAD_CHK_TRIG(PadButton.Right))
             velocity_fov += ADD_VELOCITY_PER_PRESS * multiplier;
-        if (PAD_CHK_PRESS(PadButton.Left))
+        if (PAD_CHK_TRIG(PadButton.Left))
             velocity_fov -= ADD_VELOCITY_PER_PRESS * multiplier;
 
         fov += velocity_fov;
@@ -244,28 +225,60 @@ void CameraFOVZoom()
 }
 
 
-void CameraGetRotation()
+void GetCameraRotation()
 {
     float x;
     float y;
     float z;
     QuaternionToEuler(FLD_CAMERA_GET_X_ROT(), FLD_CAMERA_GET_Y_ROT(), FLD_CAMERA_GET_Z_ROT(), FLD_CAMERA_GET_W_ROT(), out x, out y, out z);
-    camerarot_x = x;
-    camerarot_y = y;
-    camerarot_z = z;
+    camRot_X = x;
+    camRot_Y = y;
+    camRot_Z = z;
 }
 
-void CameraSetRotation(float x, float y, float z)
+void GetCameraPosition()
 {
-    camerarot_x = x;
-    camerarot_y = y;
-    camerarot_z = z;
+    camPos_X = FLD_CAMERA_GET_X_POS();
+    camPos_Y = FLD_CAMERA_GET_Y_POS();
+    camPos_Z = FLD_CAMERA_GET_Z_POS();
+}
+
+void RotateCamera()
+{
     float qX = 0f;
     float qY = 0f;
     float qZ = 0f;
     float qW = 0f;
-    EulerToQuatDeg(camerarot_x, camerarot_y, camerarot_z, out qX, out qY, out qZ, out qW);
+    EulerToQuatDeg(camRot_X, camRot_Y, camRot_Z, out qX, out qY, out qZ, out qW);
     FLD_CAMERA_SET_ROT(qX, qY, qZ, qW);
+}
+
+void TranslateCamera(float speed)
+{
+    float forward_x = 0.0f;
+    float forward_y = 0.0f;
+    float forward_z = 1.0f;
+
+    float tempX = 2.0f * (FLD_CAMERA_GET_Y_ROT() * forward_z - FLD_CAMERA_GET_Z_ROT() * forward_y);
+    float tempY = 2.0f * (FLD_CAMERA_GET_Z_ROT() * forward_x - FLD_CAMERA_GET_X_ROT() * forward_z);
+    float tempZ = 2.0f * (FLD_CAMERA_GET_X_ROT() * forward_y - FLD_CAMERA_GET_Y_ROT() * forward_x);
+
+    forward_x += FLD_CAMERA_GET_W_ROT() * tempX + FLD_CAMERA_GET_Y_ROT() * tempZ - FLD_CAMERA_GET_Z_ROT() * tempY;
+    forward_y += FLD_CAMERA_GET_W_ROT() * tempY + FLD_CAMERA_GET_Z_ROT() * tempX - FLD_CAMERA_GET_X_ROT() * tempZ;
+    forward_z += FLD_CAMERA_GET_W_ROT() * tempZ + FLD_CAMERA_GET_X_ROT() * tempY - FLD_CAMERA_GET_Y_ROT() * tempX;
+
+    // Normalize direction vector to ensure it has a length of 1
+    float length = SQRT(forward_x * forward_x + forward_y * forward_y + forward_z * forward_z);
+    forward_x /= length;
+    forward_y /= length;
+    forward_z /= length;
+
+    // Apply the rotation to the translation vector
+    camPos_X += (forward_x * speed);
+    camPos_Y += (forward_y * speed);
+    camPos_Z += (forward_z * speed);
+
+    FLD_CAMERA_SET_POS(camPos_X, camPos_Y, camPos_Z);
 }
 
 void CameraUnlock()
