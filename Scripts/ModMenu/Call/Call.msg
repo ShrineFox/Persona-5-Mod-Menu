@@ -14,6 +14,7 @@ Sound Test[ref 5 7][e]
 Chat[ref 6 8][e]
 Shop[ref 7 9][e]
 Timer[ref 8 10][e]
+Tutorial[ref 9 11][e]
 
 [dlg GENERIC_HELP_2]
 Choose a type of battle
@@ -51,6 +52,10 @@ Enter the ID of a shop to open.[e]
 [dlg GENERIC_HELP_10]
 Display a timer for a certain
 [n]number of seconds.[e]
+
+[dlg GENERIC_HELP_11]
+Enter the Id of a tutorial
+[n]to trigger.[e]
 
 [dlg Title_Seconds]
 Seconds[w][e]

@@ -1,0 +1,19 @@
+﻿import("Tutorial.msg");
+
+void TutorialMenu()
+{
+    while (true && !PAD_CHK_PRESS(PadButton.L2))
+    {
+        int category = NameMenu(Title_TutorialTest, Options_TutorialTest);
+        
+		if (category == -1)
+			return;
+		
+		int tutorialId = NumberMenu(3, Title_TutorialID);
+		
+		if (tutorialId == -1)
+			return;
+			
+		CALL_TUTORIAL( category, tutorialId );
+    }
+}
