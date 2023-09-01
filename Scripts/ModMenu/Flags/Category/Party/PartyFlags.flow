@@ -85,28 +85,34 @@ void TogglePartyMemberUnlocked()
             return;
 
         int flg_pty = Flag.Section4 + 48 + selection;
+        // Toggle partial party member unlock
         ToggleFlag(flg_pty, false);
         FlagStatus(flg_pty);
+        // Toggle full party member unlock
+        ToggleFlag(flg_pty + 148, false);
+        FlagStatus(flg_pty + 148);
     }
 }
 
 void TogglePartyEditing()
 {
-    bool enable = true;
-    if (BIT_CHK(Flag.Section4 + 3))
+    bool enable = false;
+    if (SystemMenu(Message_EnablePartyEdit, Options_OnOff) == 1)
+        enable = true;
+
+    for (int i = 0; i < 8; i++)
     {
-        enable = false;
-    }
-    for (int i = 0; i < 7; i++)
-    {
-        if (enable)
-            BIT_ON(Flag.Section4 + 3 + i);
-        else
-            BIT_OFF(Flag.Section4 + 3 + i);
+        // Don't disable triangle menu, confidant or request menus
+        if (i != 2 && i != 3 && i != 4)
+        {
+            if (enable)
+                BIT_ON(Flag.Section4 + 3 + i);
+            else
+                BIT_OFF(Flag.Section4 + 3 + i);
+        }
     }
 
-    int flgId = Flag.Section4 + 3;
-    FlagStatus(flgId);
+    FlagStatus(Flag.Section4 + 3);
 }
 
 void SetNavigator()

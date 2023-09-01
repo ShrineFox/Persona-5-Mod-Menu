@@ -63,16 +63,6 @@ void CalendarSetNextDaySelect()
 	{
 		month += 12;
 	}
-	
-    // You can only go backwards one day at a time
-    if (((month == thisMonth) && ((day - thisDay) < -1)) ||
-         ((month - thisMonth == -1) && (thisDay == 1 && day != daysInMonth)) ||
-         (month - thisMonth < -1)
-       )
-    {
-        SystemMessage(Message_CalendarTooFarBack);
-        return;
-    }
 
     SET_NEXT_DAY(month, day, 0);
 }
@@ -80,7 +70,14 @@ void CalendarSetNextDaySelect()
 void CallCalendar()
 {
     CalendarFade();
+
+    // Disable calendar animation to allow going back multiple days
+    BIT_OFF(Flag.Section5 + 17);
+
     CALL_CALENDAR();
+
+    // Re-enable the animation
+    BIT_ON(Flag.Section5 + 17);
 }
 
 void LoopCurrentTime()
