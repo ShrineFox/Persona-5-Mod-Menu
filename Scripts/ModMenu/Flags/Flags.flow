@@ -59,8 +59,11 @@ void ToggleBitflags_ByID()
             case 0:
                 // Set Individual Flag
                 int flagId = NumberMenu(5, Title_FlagID);
-                ToggleFlag(flagId, false);
-                FlagStatus(flagId);
+                if (flagId != -1)
+                {
+                    ToggleFlag(flagId, false);
+                    FlagStatus(flagId);
+                }
                 break;
             case 1:
                 // Set Start Range
@@ -105,6 +108,8 @@ void RandomizeFlags(int chance)
 
 void CheckRange()
 {
+    if (range1 == -1 || range2 == -1)
+        return;
     SET_MSG_VAR(0, range1, 0);
     SET_MSG_VAR(1, range2, 1);
     SystemMessage(Msg_RangeSet);
