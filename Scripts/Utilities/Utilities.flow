@@ -309,6 +309,9 @@ void TransformModel(int reshandle)
     float velocity_rot_z = 0f;
     int runs = 0;
 
+    GetCameraRotation();
+	float camRot_Y_Rad = 180 - camRot_Y * 3.14159f / 180;
+	
     // Wait for all buttons to be released
     while (PAD_CHK_PRESS(PadButton.Any)) { SYNC(); }
 
@@ -366,23 +369,27 @@ void TransformModel(int reshandle)
         {
             velocity_y -= ADD_VELOCITY_PER_PRESS * multiplier;
         }
-
-        // Move forward and backward in current facing direction
+		
+        // Move forward and backward based on camera rotation
         if (PAD_CHK_PRESS(PadButton.Up) || (ANALOG_ASTICK_CHECK(0, AnalogStick.Up, 0))
         {
-            velocity_z += ADD_VELOCITY_PER_PRESS * multiplier;
+			velocity_x -= ADD_VELOCITY_PER_PRESS * multiplier * SIN(camRot_Y_Rad);
+			velocity_z += ADD_VELOCITY_PER_PRESS * multiplier * COS(camRot_Y_Rad);
         }
         if (PAD_CHK_PRESS(PadButton.Down) || ANALOG_ASTICK_CHECK(0, AnalogStick.Down, 0))
         {
-            velocity_z -= ADD_VELOCITY_PER_PRESS * multiplier;
+			velocity_x += ADD_VELOCITY_PER_PRESS * multiplier * SIN(camRot_Y_Rad);
+			velocity_z -= ADD_VELOCITY_PER_PRESS * multiplier * COS(camRot_Y_Rad);
         }
         if (PAD_CHK_PRESS(PadButton.Left) || ANALOG_ASTICK_CHECK(0, AnalogStick.Left, 0))
         {
-            velocity_x += ADD_VELOCITY_PER_PRESS * multiplier;
+			velocity_x += ADD_VELOCITY_PER_PRESS * multiplier * COS(camRot_Y_Rad);
+			velocity_z += ADD_VELOCITY_PER_PRESS * multiplier * SIN(camRot_Y_Rad);
         }
         if (PAD_CHK_PRESS(PadButton.Right) || ANALOG_ASTICK_CHECK(0, AnalogStick.Right, 0))
         {
-            velocity_x -= ADD_VELOCITY_PER_PRESS * multiplier;
+			velocity_x -= ADD_VELOCITY_PER_PRESS * multiplier * COS(camRot_Y_Rad);
+			velocity_z -= ADD_VELOCITY_PER_PRESS * multiplier * SIN(camRot_Y_Rad);
         }
 
         // Rotate left/right/up/down using analog stick
@@ -614,23 +621,28 @@ void TransformCamera()
         {
             velocity_y -= ADD_VELOCITY_PER_PRESS * multiplier;
         }
-
-        // Move forward/back/left/right in current facing direction
+		
+		float camRot_Y_Rad = 180 - camRot_Y * 3.14159f / 180;
+        // Move forward and backward based on current camera rotation
         if (PAD_CHK_PRESS(PadButton.Up) || (ANALOG_ASTICK_CHECK(0, AnalogStick.Up, 0))
         {
-            velocity_z += ADD_VELOCITY_PER_PRESS * multiplier;
+			velocity_x -= ADD_VELOCITY_PER_PRESS * multiplier * SIN(camRot_Y_Rad);
+			velocity_z += ADD_VELOCITY_PER_PRESS * multiplier * COS(camRot_Y_Rad);
         }
         if (PAD_CHK_PRESS(PadButton.Down) || ANALOG_ASTICK_CHECK(0, AnalogStick.Down, 0))
         {
-            velocity_z -= ADD_VELOCITY_PER_PRESS * multiplier;
+			velocity_x += ADD_VELOCITY_PER_PRESS * multiplier * SIN(camRot_Y_Rad);
+			velocity_z -= ADD_VELOCITY_PER_PRESS * multiplier * COS(camRot_Y_Rad);
         }
         if (PAD_CHK_PRESS(PadButton.Left) || ANALOG_ASTICK_CHECK(0, AnalogStick.Left, 0))
         {
-            velocity_x += ADD_VELOCITY_PER_PRESS * multiplier;
+			velocity_x += ADD_VELOCITY_PER_PRESS * multiplier * COS(camRot_Y_Rad);
+			velocity_z += ADD_VELOCITY_PER_PRESS * multiplier * SIN(camRot_Y_Rad);
         }
         if (PAD_CHK_PRESS(PadButton.Right) || ANALOG_ASTICK_CHECK(0, AnalogStick.Right, 0))
         {
-            velocity_x -= ADD_VELOCITY_PER_PRESS * multiplier;
+			velocity_x -= ADD_VELOCITY_PER_PRESS * multiplier * COS(camRot_Y_Rad);
+			velocity_z -= ADD_VELOCITY_PER_PRESS * multiplier * SIN(camRot_Y_Rad);
         }
 
         // Rotate left/right/up/down using analog stick
@@ -654,11 +666,11 @@ void TransformCamera()
         // Tilt left/right
         if (PAD_CHK_PRESS(PadButton.L1))
         {
-            velocity_rot_z -= ADD_VELOCITY_PER_PRESS * multiplier * 2;
+            velocity_rot_z += ADD_VELOCITY_PER_PRESS * multiplier * 2;
         }
         if (PAD_CHK_PRESS(PadButton.R1))
         {
-            velocity_rot_z += ADD_VELOCITY_PER_PRESS * multiplier * 2;
+            velocity_rot_z -= ADD_VELOCITY_PER_PRESS * multiplier * 2;
         }
 
         // Get new position values
