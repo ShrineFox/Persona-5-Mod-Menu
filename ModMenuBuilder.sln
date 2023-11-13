@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30717.126
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33815.320
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModMenuBuilder", "ModMenuBuilder.csproj", "{6F4A7560-A37C-4D0C-AD8E-03D2776A88D5}"
 EndProject
@@ -10,6 +10,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleCommandLine", "..\SimpleCommandLine\Source\SimpleCommandLine\SimpleCommandLine.csproj", "{7A1F22A9-5EED-4F8D-A3C9-A99B8ECFACB0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShrineFox.IO", "..\ShrineFox.IO\ShrineFox.IO.csproj", "{7640412A-7372-4925-B20C-0178D8818A8F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AtlusScriptLibrary", "..\Atlus-Script-Tools\Source\AtlusScriptLibrary\AtlusScriptLibrary.csproj", "{62EE486F-AE33-4DBB-AC4C-409A22CB04AD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AtlusScriptCompiler", "..\Atlus-Script-Tools\Source\AtlusScriptCompiler\AtlusScriptCompiler.csproj", "{58E13E8A-EA32-4627-A798-58E4648D812E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +55,22 @@ Global
 		{7640412A-7372-4925-B20C-0178D8818A8F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7640412A-7372-4925-B20C-0178D8818A8F}.Release|x64.ActiveCfg = Release|Any CPU
 		{7640412A-7372-4925-B20C-0178D8818A8F}.Release|x64.Build.0 = Release|Any CPU
+		{62EE486F-AE33-4DBB-AC4C-409A22CB04AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62EE486F-AE33-4DBB-AC4C-409A22CB04AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62EE486F-AE33-4DBB-AC4C-409A22CB04AD}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{62EE486F-AE33-4DBB-AC4C-409A22CB04AD}.Debug|x64.Build.0 = Debug|Any CPU
+		{62EE486F-AE33-4DBB-AC4C-409A22CB04AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62EE486F-AE33-4DBB-AC4C-409A22CB04AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62EE486F-AE33-4DBB-AC4C-409A22CB04AD}.Release|x64.ActiveCfg = Release|Any CPU
+		{62EE486F-AE33-4DBB-AC4C-409A22CB04AD}.Release|x64.Build.0 = Release|Any CPU
+		{58E13E8A-EA32-4627-A798-58E4648D812E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58E13E8A-EA32-4627-A798-58E4648D812E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58E13E8A-EA32-4627-A798-58E4648D812E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{58E13E8A-EA32-4627-A798-58E4648D812E}.Debug|x64.Build.0 = Debug|Any CPU
+		{58E13E8A-EA32-4627-A798-58E4648D812E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58E13E8A-EA32-4627-A798-58E4648D812E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58E13E8A-EA32-4627-A798-58E4648D812E}.Release|x64.ActiveCfg = Release|Any CPU
+		{58E13E8A-EA32-4627-A798-58E4648D812E}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

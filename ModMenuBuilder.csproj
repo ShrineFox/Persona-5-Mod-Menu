@@ -80,6 +80,14 @@
     <None Include="$(SolutionDir)Scripts\**" CopyToOutputDirectory="Always" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Atlus-Script-Tools\Source\AtlusScriptCompiler\AtlusScriptCompiler.csproj">
+      <Project>{58e13e8a-ea32-4627-a798-58e4648d812e}</Project>
+      <Name>AtlusScriptCompiler</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Atlus-Script-Tools\Source\AtlusScriptLibrary\AtlusScriptLibrary.csproj">
+      <Project>{62ee486f-ae33-4dbb-ac4c-409a22cb04ad}</Project>
+      <Name>AtlusScriptLibrary</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AtlusFileSystemLibrary\Source\AtlusFileSystemLibrary\AtlusFileSystemLibrary.csproj">
       <Project>{9960b785-6207-44e8-ba42-ec7f6f785344}</Project>
       <Name>AtlusFileSystemLibrary</Name>

@@ -11,6 +11,11 @@ using ShrineFox.IO;
 using System.Text.RegularExpressions;
 using System.Media;
 using System.Threading;
+using AtlusScriptCompiler;
+using AtlusScriptLibrary.Common.Logging;
+using AtlusScriptLibrary.MessageScriptLanguage;
+using AtlusScriptLibrary.Common.Text.Encodings;
+using AtlusScriptLibrary.FlowScriptLanguage;
 
 namespace ModMenuBuilder
 {
@@ -238,13 +243,16 @@ namespace ModMenuBuilder
             {
                 ReindexMsgs(script);
             }
+
+            // Create new .bf in output folder (again)
+            outputScript = Compile(script);
+
+            // Decompile newly generated script for debugging
+            if (Program.Options.Decompile)
+                Decompile(outputScript);
             else
-            {
-                outputScript = Compile(script);
-                // Decompile newly generated script for debugging
-                if (Program.Options.Decompile)
-                    Decompile(outputScript);
-            }
+                DeleteDecompiledOutput(Path.GetDirectoryName(outputScript));
+            
         }
 
         private static void ReindexMsgs(string script)
@@ -264,13 +272,6 @@ namespace ModMenuBuilder
                 foreach (var msg in msgList)
                     ReindexMsg(msg);
                 Output.Log($"Reindexed .msg files referenced in scripts!", ConsoleColor.Cyan);
-                // Create new .bf in output folder (again)
-                outputScript = Compile(script);
-                // Decompile newly generated script for debugging
-                if (Program.Options.Decompile)
-                    Decompile(outputScript);
-                else
-                    DeleteDecompiledOutput(Path.GetDirectoryName(outputScript));
             }
             else
                 Output.Log($"Could not access file for reindexing: {script + ".msg.h"}", ConsoleColor.Red);
@@ -476,11 +477,54 @@ namespace ModMenuBuilder
                 Output.Log($"\tFailed to reindex .msg, file not found: {msgFile}", ConsoleColor.Red);
         }
 
+        private static void InitializeScriptCompiler(string inputPath, string outputPath)
+        {
+            AtlusScriptCompiler.Program.IsActionAssigned = false;
+            AtlusScriptCompiler.Program.InputFilePath = inputPath;
+            AtlusScriptCompiler.Program.OutputFilePath = outputPath;
+            //AtlusScriptCompiler.Program.MessageScriptEncoding = AtlusEncoding.GetEncoding(Program.Options.Encoding);
+            AtlusScriptCompiler.Program.MessageScriptTextEncodingName = Program.Options.Encoding;
+            switch (Path.GetExtension(inputPath).ToLower())
+            {
+                case ".bmd":
+                    AtlusScriptCompiler.Program.InputFileFormat = InputFileFormat.MessageScriptBinary;
+                    break;
+                case ".bf":
+                    AtlusScriptCompiler.Program.InputFileFormat = InputFileFormat.FlowScriptBinary;
+                    break;
+                case ".msg":
+                    AtlusScriptCompiler.Program.InputFileFormat = InputFileFormat.MessageScriptTextSource;
+                    break;
+                case ".flow":
+                    AtlusScriptCompiler.Program.InputFileFormat = InputFileFormat.FlowScriptTextSource;
+                    break;
+            }
+            switch (Path.GetExtension(outputPath).ToLower())
+            {
+                case ".bmd":
+                    AtlusScriptCompiler.Program.OutputFileFormat = OutputFileFormat.V1BE;
+                    break;
+                case ".bf":
+                    AtlusScriptCompiler.Program.OutputFileFormat = OutputFileFormat.V3BE;
+                    break;
+                case ".msg":
+                    AtlusScriptCompiler.Program.OutputFileFormat = OutputFileFormat.None;
+                    break;
+                case ".flow":
+                    AtlusScriptCompiler.Program.OutputFileFormat = OutputFileFormat.None;
+                    break;
+            }
+            AtlusScriptCompiler.Program.Logger = new Logger($"{nameof(AtlusScriptCompiler)}_{Path.GetFileNameWithoutExtension(outputPath)}");
+            AtlusScriptCompiler.Program.Listener = new FileAndConsoleLogListener(true, LogLevel.Info | LogLevel.Warning | LogLevel.Error | LogLevel.Fatal);
+        }
+
         private static string Compile(string script)
         {
             string outDir = Program.Options.Output;
             string outputFile = Path.Combine(outDir, Path.Combine(Path.GetDirectoryName(script), Path.GetFileNameWithoutExtension(script) + ".bf").Replace(Exe.Directory() + "\\Temp\\Hook\\", ""));
             Directory.CreateDirectory(Path.GetDirectoryName(outputFile));
+
+            InitializeScriptCompiler(script, outputFile);
 
             string[] args = new string[] {
                 $"\"{script}\"", "-Compile",
@@ -491,7 +535,15 @@ namespace ModMenuBuilder
                 "-Hook" };
 
             Output.Log($"Compiling script: {script}", ConsoleColor.Yellow);
-            Exe.Run(Program.Options.Compiler, string.Join(" ", args));
+            Output.VerboseLog($"\targs: {string.Join(" ", args)}");
+            try
+            {
+                AtlusScriptCompiler.Program.Main(args);
+            }
+            catch (Exception e)
+            {
+                Output.Log(e.Message.ToString(), ConsoleColor.Red);
+            }
 
             using (FileSys.WaitForFile(outputFile)) { }
             if (File.Exists(outputFile))
@@ -505,14 +557,23 @@ namespace ModMenuBuilder
         private static void Decompile(string bf)
         {
             string[] args = new string[] {
-                $"\"{bf}\"", "-Deompile",
+                $"\"{bf}\"", "-Decompile",
                 "-Encoding", Program.Options.Encoding,
                 "-Library", Program.SelectedGame.ShortName
             };
 
+            InitializeScriptCompiler(bf, bf + ".flow");
+
             Output.Log($"Decompiling script: {bf}");
             Output.VerboseLog($"\targs: {string.Join(" ", args)}");
-            Exe.Run(Program.Options.Compiler, string.Join(" ", args));
+            try
+            {
+                AtlusScriptCompiler.Program.Main(args);
+            }
+            catch (Exception e)
+            {
+                Output.Log(e.Message.ToString(), ConsoleColor.Red);
+            }
 
             using (FileSys.WaitForFile(bf + ".flow")) { }
             if (File.Exists(bf + ".flow"))

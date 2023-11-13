@@ -17,7 +17,6 @@ namespace ModMenuBuilder
         public static Game SelectedGame { get; private set; } = new Game();
         public static string exeDir;
 
-        [STAThread]
         private static void Main(string[] args)
         {
             WinForms.SetDefaultIcon();
@@ -96,12 +95,6 @@ namespace ModMenuBuilder
                         Output.Log($"Game selection is not valid!", ConsoleColor.Red);
                         return;
                 }
-
-                if (!File.Exists(Options.Compiler))
-                {
-                    Output.Log($"Could not find AtlusScriptCompiler.exe at path: {Options.Compiler}", ConsoleColor.Red);
-                    return;
-                }
             }
             catch (Exception e)
             {
@@ -140,8 +133,6 @@ namespace ModMenuBuilder
 
     public class ProgramOptions
     {
-        [Option("c", "compiler", "path", "The path to AtlusScriptCompiler.exe.", Required = true)]
-        public string Compiler { get; set; }
 
         [Option("d", "decompile", "bool", "Whether to decompile output scripts for debugging. (default: false)")]
         public bool Decompile { get; set; } = false;

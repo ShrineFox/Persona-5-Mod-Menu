@@ -21,8 +21,7 @@ namespace ModMenuBuilder
         {
             InitializeComponent();
             Output.LogControl = rtb_Log;
-            if (File.Exists("compilerPath.txt"))
-                txt_Path.Text = File.ReadAllText("compilerPath.txt");
+
             if (File.Exists("outputPath.txt"))
                 txt_OutPath.Text = File.ReadAllText("outputPath.txt");
             if (File.Exists("version.txt"))
@@ -44,7 +43,6 @@ namespace ModMenuBuilder
 
 #if DEBUG
             Program.Show();
-            System.Threading.Thread.Sleep(200);
             Output.LogControl = null;
             chk_Reindex.Checked = false;
             chk_Decompile.Checked = true;
@@ -61,7 +59,6 @@ namespace ModMenuBuilder
 
             args.Add("-g"); args.Add(comboBox_Version.Text);
             args.Add("-e"); args.Add(comboBox_Encoding.Text);
-            args.Add("-c"); args.Add(txt_Path.Text);
             if (chk_Decompile.Checked)
             {
                 args.Add("-d"); args.Add("true");
@@ -96,23 +93,10 @@ namespace ModMenuBuilder
 
         private void Path_Changed(object sender, EventArgs e)
         {
-            if (File.Exists(txt_Path.Text) && Directory.Exists(txt_OutPath.Text))
+            if (Directory.Exists(txt_OutPath.Text))
                 btn_Build.Enabled = true;
             else
                 btn_Build.Enabled = false;
-        }
-
-        private void Path_Click(object sender, EventArgs e)
-        {
-            var paths = WinFormsDialogs.SelectFile("Choose AtlusScriptCompiler.exe", false, new string[] { "Executable File (*.exe)" });
-            if (paths.Count > 0)
-            {
-                if (File.Exists(paths.First()))
-                {
-                    txt_Path.Text = paths.First();
-                    File.WriteAllText("compilerPath.txt", paths.First());
-                }
-            }
         }
 
         private void OutPath_Click(object sender, EventArgs e)
