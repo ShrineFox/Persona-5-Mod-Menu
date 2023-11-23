@@ -23,15 +23,21 @@ namespace ModMenuBuilder
             // Set Logging Stuff
             Output.Logging = true;
             Output.LogToFile = true;
-            #if DEBUG
+#if DEBUG
                 Output.VerboseLogging = true;
                 Output.LogPath = "ModMenuBuilder_DebugLog.txt";
-            #endif
+#endif
             // Get executing directory
             exeDir = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
 
             if (args.Length > 0)
+            {
                 StartWithOptions(args);
+#if DEBUG
+                Console.WriteLine("Done building, press any key to exit.");
+                Console.ReadKey();
+#endif
+            }
             else
             {
                 Hide();
@@ -99,10 +105,7 @@ namespace ModMenuBuilder
             catch (Exception e)
             {
                 // Show error if arguments are invalid and quit processing
-                Output.Log(e.Message);
-#if DEBUG
-                Console.ReadKey();
-#endif
+                Output.Log($"ERROR CAUGHT: {e.Message}", ConsoleColor.DarkRed);
                 return;
             }
 

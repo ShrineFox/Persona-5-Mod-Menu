@@ -531,24 +531,23 @@ namespace ModMenuBuilder
                 "-OutFormat", "V3BE",
                 "-Encoding", Program.Options.Encoding,
                 "-Library", Program.SelectedGame.ShortName,
-                "-Out", $"\"{outputFile}\"",
+                "-Out", outputFile,
                 "-Hook" };
 
             Output.Log($"Compiling script: {script}", ConsoleColor.Yellow);
-            Output.VerboseLog($"\targs: {string.Join(" ", args)}");
+            Output.VerboseLog($"\targs: {string.Join(" ", args)}\n");
+            
             try
             {
                 AtlusScriptCompiler.Program.Main(args);
             }
             catch (Exception e)
             {
-                Output.Log(e.Message.ToString(), ConsoleColor.Red);
+                Output.Log($"ERROR CAUGHT: {e.Message}", ConsoleColor.DarkRed);
             }
 
             using (FileSys.WaitForFile(outputFile)) { }
-            if (File.Exists(outputFile))
-                Output.Log($"Compiled script successfully: {outputFile}", ConsoleColor.Green);
-            else
+            if (!File.Exists(outputFile))
                 Output.Log($"Failed to compile script: {outputFile}", ConsoleColor.Red);
 
             return outputFile;
@@ -565,14 +564,14 @@ namespace ModMenuBuilder
             InitializeScriptCompiler(bf, bf + ".flow");
 
             Output.Log($"Decompiling script: {bf}");
-            Output.VerboseLog($"\targs: {string.Join(" ", args)}");
+            Output.VerboseLog($"\targs: {string.Join(" ", args)}\n");
             try
             {
                 AtlusScriptCompiler.Program.Main(args);
             }
             catch (Exception e)
             {
-                Output.Log(e.Message.ToString(), ConsoleColor.Red);
+                Output.Log($"ERROR CAUGHT: {e.Message}", ConsoleColor.DarkRed);
             }
 
             using (FileSys.WaitForFile(bf + ".flow")) { }
