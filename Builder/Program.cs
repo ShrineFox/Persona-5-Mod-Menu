@@ -17,6 +17,7 @@ namespace ModMenuBuilder
         public static Game SelectedGame { get; private set; } = new Game();
         public static string exeDir;
 
+        [STAThread]
         private static void Main(string[] args)
         {
             WinForms.SetDefaultIcon();

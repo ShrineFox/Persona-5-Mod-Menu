@@ -140,7 +140,9 @@ namespace ModMenuBuilder
                 RepackPAC(script);
             }
 
+#if !DEBUG
             DeleteTempFolder();
+#endif
         }
 
         private static void RepackPAC(string script)
