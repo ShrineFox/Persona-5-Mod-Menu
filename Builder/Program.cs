@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using TGE.SimpleCommandLine;
 using ShrineFox.IO;
+using System.Runtime;
+using Newtonsoft.Json;
 
 namespace ModMenuBuilder
 {
@@ -16,43 +18,57 @@ namespace ModMenuBuilder
         public static ProgramOptions Options { get; private set; }
         public static Game SelectedGame { get; private set; } = new Game();
         public static string exeDir;
+        public static string jsonPath = "./settings.json";
 
         [STAThread]
         private static void Main(string[] args)
         {
             WinForms.SetDefaultIcon();
-            // Set Logging Stuff
-            Output.Logging = true;
-            Output.LogToFile = true;
-#if DEBUG
-                Output.VerboseLogging = true;
-                Output.LogPath = "ModMenuBuilder_DebugLog.txt";
-#endif
-            // Get executing directory
-            exeDir = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
+            SetupOutputLogging();
+            GetExeDir();
 
             if (args.Length > 0)
             {
-                StartWithOptions(args);
+                // Validate input arguments, or show usage information if no arguments
+                Options = SimpleCommandLineParser.Default.Parse<ProgramOptions>(args);
+
+                // Begin preparing for script building based on options
+                StartWithOptions();
+
 #if DEBUG
+                // On debug build, don't immediately close program when finished
                 Console.WriteLine("Done building, press any key to exit.");
                 Console.ReadKey();
 #endif
             }
             else
             {
+                // Show GUI if program was started without any commandline arguments
+                Program.Options = new ProgramOptions();
                 Hide();
                 Application.Run(new BuilderForm());
             }
         }
 
-        public static void StartWithOptions(string[] args)
+        private static void GetExeDir()
+        {
+            exeDir = Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location);
+        }
+
+        private static void SetupOutputLogging()
+        {
+            Output.Logging = true;
+            Output.LogToFile = true;
+#if DEBUG
+            Output.VerboseLogging = true;
+            Output.LogPath = "ModMenuBuilder_DebugLog.txt";
+#endif
+        }
+
+        public static void StartWithOptions()
         {
             try
             {
-                // Validate input arguments, or show usage information if no arguments
-                Options = SimpleCommandLineParser.Default.Parse<ProgramOptions>(args);
-
                 // Set the platform type. Used for output directory structure (Old: PS3/PS4, New: Switch/PC)
                 switch(Options.Game)
                 {
@@ -127,11 +143,25 @@ namespace ModMenuBuilder
 
         public static void Hide()
         {
-            ShowWindow(handle, SW_HIDE); //hide the console
+            ShowWindow(handle, SW_HIDE); // hide the console window
         }
         public static void Show()
         {
-            ShowWindow(handle, SW_SHOW); //show the console
+            ShowWindow(handle, SW_SHOW); // show the console window
+        }
+
+        public static void SaveOptionsJson()
+        {
+            if (Options == null)
+                return;
+            string jsonText = JsonConvert.SerializeObject(Options, Formatting.Indented);
+            File.WriteAllText(jsonPath, jsonText);
+        }
+
+        public static void LoadOptions()
+        {
+            if (File.Exists(jsonPath))
+                Options = JsonConvert.DeserializeObject<ProgramOptions>(File.ReadAllText(jsonPath));
         }
     }
 

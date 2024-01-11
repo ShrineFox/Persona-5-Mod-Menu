@@ -9,86 +9,80 @@ using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using DarkUI;
+using System.Xml.Linq;
+using MetroSet_UI.Forms;
 using ShrineFox.IO;
 
 namespace ModMenuBuilder
 {
-    public partial class BuilderForm : DarkUI.Forms.DarkForm
+    public partial class BuilderForm : MetroSetForm
     {
-        bool changedSettings = false;
         public BuilderForm()
         {
+            // TODO: Figure out why scripts don't build with the GUI anymore
             InitializeComponent();
+
+            // Set Dark Theme
+            Theme.ApplyToForm(this);
+
+            // Display output of AtlusScriptCompiler in RichTextBox control
             Output.LogControl = rtb_Log;
 
-            if (File.Exists("outputPath.txt"))
-                txt_OutPath.Text = File.ReadAllText("outputPath.txt");
-            if (File.Exists("version.txt"))
-                txt_Version.Text = File.ReadAllText("version.txt");
-            try
-            {
-                comboBox_Version.SelectedIndex = comboBox_Version.Items.IndexOf("P5R_PC");
-                if (File.Exists("game.txt"))
-                    comboBox_Version.SelectedIndex = comboBox_Version.Items.IndexOf(File.ReadAllText("game.txt"));
-            } catch { }
-            try
-            {
-                comboBox_Encoding.SelectedIndex = comboBox_Encoding.Items.IndexOf("P5R_EFIGS");
-                if (File.Exists("encoding.txt"))
-                    comboBox_Encoding.SelectedIndex = comboBox_Encoding.Items.IndexOf(File.ReadAllText("encoding.txt"));
-            }
-            catch { }
-            changedSettings = true;
+            // Load previously used options from .json if available
+            Program.LoadOptions();
+            comboBox_Encoding.SelectedIndex = comboBox_Encoding.Items.IndexOf(Program.Options.Encoding);
+            comboBox_Version.SelectedIndex = comboBox_Version.Items.IndexOf(Program.Options.Game);
+            txt_OutPath.Text = Program.Options.Output;
+            txt_Version.Text = Program.Options.Version;
+            chk_Decompile.Checked = Program.Options.Decompile;
+            chk_Reindex.Checked = Program.Options.Reindex;
+            chk_RepackPACs.Checked = Program.Options.Pack;
 
+            SetDebugDefaults();
+        }
+
+        private void SetDebugDefaults()
+        {
 #if DEBUG
+            // When debugging, log to console window instead of form control
             Program.Show();
             Output.LogControl = null;
+            // Default to decompiling output and not reindexing (faster)
             chk_Reindex.Checked = false;
             chk_Decompile.Checked = true;
 #endif
-
-            rtb_Log.Text += $"{this.Text} by ShrineFox\nProcesses and compiles scripts for Persona 5 on PS3, PS4, PC and Switch.";
         }
 
         private void BuildButton_Click(object sender, EventArgs e)
         {
             rtb_Log.Clear();
 
-            List<string> args = new List<string>();
+            // Save form values to options, then save to .json
+            Program.Options.Game = comboBox_Version.Text;
+            Program.Options.Encoding = comboBox_Encoding.Text;
+            Program.Options.Output = txt_OutPath.Text;
+            Program.Options.Decompile = chk_Decompile.Checked;
+            Program.Options.Reindex = chk_Reindex.Checked;
+            Program.Options.Version = txt_Version.Text;
+            Program.Options.Pack = chk_RepackPACs.Checked;
+            Program.SaveOptionsJson();
 
-            args.Add("-g"); args.Add(comboBox_Version.Text);
-            args.Add("-e"); args.Add(comboBox_Encoding.Text);
-            if (chk_Decompile.Checked)
-            {
-                args.Add("-d"); args.Add("true");
-            }
-            if (chk_Reindex.Checked)
-            {
-                args.Add("-r"); args.Add("true");
-            }
-            if (chk_RepackPACs.Checked)
-            {
-                args.Add("-p"); args.Add("true");
-            }
-            if (!string.IsNullOrEmpty(txt_Version.Text))
-            {
-                args.Add("-v"); args.Add(txt_Version.Text);
-            }
-            args.Add("-o"); args.Add(txt_OutPath.Text);
-
+            // Use verbose logging if checked
             if (chk_VerboseLog.Checked)
                 Output.VerboseLogging = true;
             else
                 Output.VerboseLogging = false;
+
+            // Disable build button until building is finished
             btn_Build.Enabled = false;
 
             Task.Run(() => {
-                Program.StartWithOptions(args.ToArray());
+                // Begin script building process
+                Program.StartWithOptions();
+                // Alert user that building is complete
+                btn_Build.Enabled = true;
+                SystemSounds.Exclamation.Play();
             });
-
-            btn_Build.Enabled = true;
-            SystemSounds.Exclamation.Play();
         }
 
         private void Path_Changed(object sender, EventArgs e)
@@ -103,7 +97,6 @@ namespace ModMenuBuilder
         {
             var path = WinFormsDialogs.SelectFolder("Choose Mod Output Folder");
             txt_OutPath.Text = path;
-            File.WriteAllText("outputPath.txt", path);
         }
 
         private void Version_Changed(object sender, EventArgs e)
@@ -117,20 +110,7 @@ namespace ModMenuBuilder
                 chk_RepackPACs.Checked = false;
                 chk_RepackPACs.Enabled = false;
             }
-
-            if (changedSettings)
-                File.WriteAllText("game.txt", comboBox_Version.Text);
         }
 
-        private void VersionString_Changed(object sender, EventArgs e)
-        {
-            File.WriteAllText("version.txt", txt_Version.Text);
-        }
-
-        private void Encoding_Changed(object sender, EventArgs e)
-        {
-            if (changedSettings)
-                File.WriteAllText("encoding.txt", comboBox_Encoding.Text);
-        }
     }
 }

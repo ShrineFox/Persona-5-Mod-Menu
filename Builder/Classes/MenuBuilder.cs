@@ -481,6 +481,7 @@ namespace ModMenuBuilder
 
         private static void InitializeScriptCompiler(string inputPath, string outputPath)
         {
+            // Tip: Change the protection level of AtlusScriptCompiler.Program to public
             AtlusScriptCompiler.Program.IsActionAssigned = false;
             AtlusScriptCompiler.Program.InputFilePath = inputPath;
             AtlusScriptCompiler.Program.OutputFilePath = outputPath;
