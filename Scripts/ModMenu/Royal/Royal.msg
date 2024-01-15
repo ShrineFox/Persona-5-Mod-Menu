@@ -27,8 +27,8 @@ View Thieves Den Videos menu.[e]
 [dlg GENERIC_HELP_6]
 View Thieves Den Music menu.[e]
 
-[dlg GENERIC_HELP_6]
+[dlg GENERIC_HELP_7]
 View Thieves Den Gallery menu.[e]
 
-[dlg GENERIC_HELP_6]
+[dlg GENERIC_HELP_8]
 Begin playing Tycoon minigame.[e]
