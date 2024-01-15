@@ -21,7 +21,7 @@ void HUDFlagsMenu()
 
 void ToggleHUD()
 {
-    int hud = SystemMenu(Message_ToggleHUD, Options_OnOff);
+    int hud = SystemMenu(Message_ToggleHUD, Options_ShowHide);
     if (hud) 
     {
         // Turn Off HUD
