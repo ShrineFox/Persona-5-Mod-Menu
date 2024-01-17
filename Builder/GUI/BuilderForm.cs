@@ -73,14 +73,10 @@ namespace ModMenuBuilder
             else
                 Output.VerboseLogging = false;
 
-            // Disable build button until building is finished
-            btn_Build.Enabled = false;
-
             Task.Run(() => {
                 // Begin script building process
                 Program.StartWithOptions();
                 // Alert user that building is complete
-                btn_Build.Enabled = true;
                 SystemSounds.Exclamation.Play();
             });
         }

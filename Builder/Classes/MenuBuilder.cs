@@ -16,6 +16,7 @@ using AtlusScriptLibrary.Common.Logging;
 using AtlusScriptLibrary.MessageScriptLanguage;
 using AtlusScriptLibrary.Common.Text.Encodings;
 using AtlusScriptLibrary.FlowScriptLanguage;
+using AtlusScriptLibrary.Common.Collections;
 
 namespace ModMenuBuilder
 {
@@ -266,17 +267,18 @@ namespace ModMenuBuilder
             
             // Re-order msgs based on output .h file
             Decompile(outputScript);
-            using (FileSys.WaitForFile(outputScript + ".msg.h")) { }
-            if (File.Exists(outputScript + ".msg.h"))
+            string hFile = outputScript + ".msg.h";
+            using (FileSys.WaitForFile(hFile)) { }
+            if (File.Exists(hFile))
             {
-                List<Tuple<int, string>> msgList = ReorderMsgsByH(msgs, outputScript + ".msg.h");
+                List<Tuple<int, string>> msgList = ReorderMsgsByH(msgs, hFile);
                 // Re-number HELP message names in referenced .msg files
                 foreach (var msg in msgList)
                     ReindexMsg(msg);
                 Output.Log($"Reindexed .msg files referenced in scripts!", ConsoleColor.Cyan);
             }
             else
-                Output.Log($"Could not access file for reindexing: {script + ".msg.h"}", ConsoleColor.Red);
+                Output.Log($"Could not access file for reindexing: {hFile}", ConsoleColor.Red);
         }
 
         private static void DeleteDecompiledOutput(string outDir)
@@ -292,13 +294,17 @@ namespace ModMenuBuilder
 
         private static List<Tuple<int,string>> ReorderMsgsByH(List<string> msgs, string msgHeader)
         {
+            // NOTE: This is a hacky workaround to figure out the order in which .msg files are compiled into
+            // the resulting .BF script. I put the name of the .msg file at the top of each file's contents.
+
             // Create list of .msgs and indexes
             List<Tuple<int, string>> msgList = new List<Tuple<int, string>>();
+
             foreach (var line in File.ReadAllLines(msgHeader))
             {
                 if (msgs.Any(x => Path.GetFileNameWithoutExtension(x).Equals(line.Split(' ')[2]))) 
                 {
-                    string path = msgs.Single(x => Path.GetFileNameWithoutExtension(x).Equals(line.Split(' ')[2]));
+                    string path = msgs.First(x => Path.GetFileNameWithoutExtension(x).Equals(line.Split(' ')[2]));
                     int index = Convert.ToInt32(line.Split('=')[1].TrimEnd(';').Trim());
                     msgList.Add(new Tuple<int, string>(index, path));
                 }
@@ -468,7 +474,7 @@ namespace ModMenuBuilder
                         }
                     }
 
-                    if (msgLines[i].Contains("[dlg GENERIC_HELP_"))
+                    if (msgLines[i].Contains("[dlg GENERIC_HELP_") || msgLines[i].Contains("[msg GENERIC_HELP_"))
                         msgLines[i] = $"[dlg GENERIC_HELP_{index}]";
                 }
 
@@ -491,15 +497,23 @@ namespace ModMenuBuilder
             {
                 case ".bmd":
                     AtlusScriptCompiler.Program.InputFileFormat = InputFileFormat.MessageScriptBinary;
+                    AtlusScriptCompiler.Program.DoCompile = false;
+                    AtlusScriptCompiler.Program.DoDecompile = true;
                     break;
                 case ".bf":
                     AtlusScriptCompiler.Program.InputFileFormat = InputFileFormat.FlowScriptBinary;
+                    AtlusScriptCompiler.Program.DoCompile = false;
+                    AtlusScriptCompiler.Program.DoDecompile = true;
                     break;
                 case ".msg":
                     AtlusScriptCompiler.Program.InputFileFormat = InputFileFormat.MessageScriptTextSource;
+                    AtlusScriptCompiler.Program.DoCompile = true;
+                    AtlusScriptCompiler.Program.DoDecompile = false;
                     break;
                 case ".flow":
                     AtlusScriptCompiler.Program.InputFileFormat = InputFileFormat.FlowScriptTextSource;
+                    AtlusScriptCompiler.Program.DoCompile = true;
+                    AtlusScriptCompiler.Program.DoDecompile = false;
                     break;
             }
             switch (Path.GetExtension(outputPath).ToLower())
@@ -540,14 +554,7 @@ namespace ModMenuBuilder
             Output.Log($"Compiling script: {script}", ConsoleColor.Yellow);
             Output.VerboseLog($"\targs: {string.Join(" ", args)}\n");
             
-            try
-            {
-                AtlusScriptCompiler.Program.Main(args);
-            }
-            catch (Exception e)
-            {
-                Output.Log($"ERROR CAUGHT: {e.Message}", ConsoleColor.DarkRed);
-            }
+            AtlusScriptCompiler.Program.Main(args);
 
             using (FileSys.WaitForFile(outputFile)) { }
             if (!File.Exists(outputFile))
@@ -558,30 +565,26 @@ namespace ModMenuBuilder
 
         private static void Decompile(string bf)
         {
+            string outFlow = bf + ".flow";
             string[] args = new string[] {
                 $"\"{bf}\"", "-Decompile",
                 "-Encoding", Program.Options.Encoding,
-                "-Library", Program.SelectedGame.ShortName
+                "-Library", Program.SelectedGame.ShortName,
+                $"-Out \"{outFlow}\""
             };
 
-            InitializeScriptCompiler(bf, bf + ".flow");
+            InitializeScriptCompiler(bf, outFlow);
 
             Output.Log($"Decompiling script: {bf}");
             Output.VerboseLog($"\targs: {string.Join(" ", args)}\n");
-            try
-            {
-                AtlusScriptCompiler.Program.Main(args);
-            }
-            catch (Exception e)
-            {
-                Output.Log($"ERROR CAUGHT: {e.Message}", ConsoleColor.DarkRed);
-            }
 
-            using (FileSys.WaitForFile(bf + ".flow")) { }
-            if (File.Exists(bf + ".flow"))
-                Output.Log($"Decompiled script successfully: {bf + ".flow"}", ConsoleColor.Green);
+            AtlusScriptCompiler.Program.Main(args);
+
+            using (FileSys.WaitForFile(outFlow)) { }
+            if (File.Exists(outFlow))
+                Output.Log($"Decompiled script successfully: {outFlow}", ConsoleColor.Green);
             else
-                Output.Log($"Failed to decompile script: {bf + ".flow"}", ConsoleColor.Red);
+                Output.Log($"Failed to decompile script: {outFlow}", ConsoleColor.Red);
         }
     }
 }
