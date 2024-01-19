@@ -1,0 +1,6 @@
+import("../../../ModMenu/Player/Player.flow");
+
+void General_0420_069_004()
+{
+    PlayerMenu();
+}

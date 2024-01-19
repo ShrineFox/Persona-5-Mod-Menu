@@ -1,0 +1,6 @@
+import("../../../ModMenu/Call/Call.flow");
+
+void General_0420_069_000()
+{
+    CallMenu();
+}

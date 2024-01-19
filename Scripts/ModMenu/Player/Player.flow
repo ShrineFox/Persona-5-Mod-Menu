@@ -1,10 +1,13 @@
-﻿import("Appearance/PlayerAppearance.flow");
+﻿import("../../Utilities/Utilities.flow");
+import("Appearance/PlayerAppearance.flow");
 import("Confidants/Confidants.flow");
 import("Items/Items.flow");
 import("Personas/Personas.flow");
 import("Skills/Skills.flow");
 import("Stats/Stats.flow");
 import("Player.msg");
+
+global int unitId;
 
 void PlayerMenu()
 {

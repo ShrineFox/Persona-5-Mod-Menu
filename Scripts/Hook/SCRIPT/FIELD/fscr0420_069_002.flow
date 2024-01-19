@@ -1,0 +1,6 @@
+import("../../../ModMenu/Camera/Camera.flow");
+
+void General_0420_069_002()
+{
+    CameraMenu();
+}

@@ -1,4 +1,5 @@
-﻿import("Battle/Battle.flow");
+﻿import("../../Utilities/Utilities.flow");
+import("Battle/Battle.flow");
 import("Cutins/Cutins.flow");
 import("Events/Events.flow");
 import("Fields/Fields.flow");

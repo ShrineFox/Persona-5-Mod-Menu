@@ -752,3 +752,43 @@ void PrintCameraCoords()
     PUTS("Camera Rot W:");
     PUTF(qW);
 }
+
+int SpawnItemModel(bool transform)
+{
+    int itemModelMajor = NumberMenu(4, Title_SpawnItemMajor);
+    if (itemModelMajor == -1)
+        return -1;
+    int itemModelMinor = NumberMenu(3, Title_SpawnItemMinor);
+    if (itemModelMinor == -1)
+        return -1;
+
+    int itemModel = FLD_ITEM_MODEL_LOAD(itemModelMajor, itemModelMinor);
+    FLD_MODEL_LOADSYNC(itemModel);
+
+    if (transform)
+        TransformModel(itemModel);
+    else
+        FLD_MODEL_SET_VISIBLE(itemModel, 1, 0);
+
+    return itemModel;
+}
+
+int SpawnObjectModel(bool transform)
+{
+    int objModelMajor = NumberMenu(3, Title_SpawnObjMajor);
+    if (objModelMajor == -1)
+        return -1;
+    int objModelMinor = NumberMenu(3, Title_SpawnObjMinor);
+    if (objModelMinor == -1)
+        return -1;
+
+    int objModel = FLD_OBJ_MODEL_LOAD(objModelMajor, objModelMinor);
+    FLD_MODEL_LOADSYNC(objModel);
+
+    if (transform)
+        TransformModel(objModel);
+    else
+        FLD_MODEL_SET_VISIBLE(objModel, 1, 0);
+
+    return objModel;
+}

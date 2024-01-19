@@ -135,3 +135,15 @@ Flag [clr 1][var 0][clr 0] set to [clr 13]On[clr 0].[w][e]
 
 [dlg Msg_FlgDisabled]
 Flag [clr 1][var 0][clr 0] set to [clr 9]Off[clr 0].[w][e]
+
+[dlg Title_SpawnItemMajor]
+Item GMD(First 4 Digits)[w][e]
+
+[dlg Title_SpawnItemMinor]
+Item GMD(Last 3 Digits)[w][e]
+
+[dlg Title_SpawnObjMajor]
+Object GMD(First 3 Digits)[w][e]
+
+[dlg Title_SpawnObjMinor]
+Object GMD(Last 3 Digits)[w][e]

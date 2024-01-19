@@ -1,0 +1,6 @@
+import("../../../ModMenu/Spawn/Spawn.flow");
+
+void General_0420_069_003()
+{
+    SpawnMenu();
+}

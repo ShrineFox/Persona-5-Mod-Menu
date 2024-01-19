@@ -97,7 +97,7 @@ void ToggleBitflags_ByID()
 
 void RandomizeFlags(int chance)
 {
-    for (int i = 0; i < gBitFlagAmount; i++)
+    for (int i = 0; i < GET_COUNT(8); i++)
     {
         if (RND(100) <= chance)
         {
@@ -118,7 +118,7 @@ void CheckRange()
 void PrintOnFlags()
 {
     PUTS("Start Enabled Flag Dump");
-    for (int i = 0; i < gBitFlagAmount; i++)
+    for (int i = 0; i < GET_COUNT(8); i++)
     {
         if (BIT_CHK(i))
         {
@@ -131,7 +131,7 @@ void PrintOnFlags()
 void PrintOffFlags()
 {
     PUTS("Start Disabled Flag Dump");
-    for (int i = 0; i < gBitFlagAmount; i++)
+    for (int i = 0; i < GET_COUNT(8); i++)
     {
         if (!BIT_CHK(i))
         {
@@ -172,8 +172,8 @@ void ToggleRange(int mode)
         range1 = 0;
     if (range2 < 0)
         range2 = 0;
-    if (range2 < gBitFlagAmount)
-        range2 = gBitFlagAmount;
+    if (range2 < GET_COUNT(8))
+        range2 = GET_COUNT(8);
 
     SET_MSG_VAR(0, range1, 0);
     SET_MSG_VAR(1, range2, 0);

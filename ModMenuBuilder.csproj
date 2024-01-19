@@ -74,6 +74,21 @@
   <ItemGroup>
     <None Include="Builder\App.config" />
     <None Include="packages.config" />
+    <None Include="Scripts\Hook\SCRIPT\FIELD\fscr0420_069_004.flow">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Scripts\Hook\SCRIPT\FIELD\fscr0420_069_003.flow">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Scripts\Hook\SCRIPT\FIELD\fscr0420_069_002.flow">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Scripts\Hook\SCRIPT\FIELD\fscr0420_069_001.flow">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Scripts\Hook\SCRIPT\FIELD\fscr0420_069_000.flow">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)' == 'Release' ">
     <None Include="$(SolutionDir)Assets\**" CopyToOutputDirectory="PreserveNewest" Visible="false" />

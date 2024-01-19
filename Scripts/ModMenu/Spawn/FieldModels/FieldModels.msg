@@ -35,15 +35,3 @@ Enter the first half of the model's
 Enter the first last of the model's
 [n]ID from data.cpk/model/field_tex/object.
 [n](3 digits, [clr 2]back button[clr 0] to end).[w][e]
-
-[dlg Title_SpawnItemMajor]
-Item GMD (First 4 Digits)[w][e]
-
-[dlg Title_SpawnItemMinor]
-Item GMD (Last 3 Digits)[w][e]
-
-[dlg Title_SpawnObjMajor]
-Object GMD (First 3 Digits)[w][e]
-
-[dlg Title_SpawnObjMinor]
-Object GMD (Last 3 Digits)[w][e]

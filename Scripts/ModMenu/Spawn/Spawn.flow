@@ -1,4 +1,5 @@
-﻿import("FieldModels/FieldModels.flow");
+﻿import("../../Utilities/Utilities.flow");
+import("FieldModels/FieldModels.flow");
 import("NPCs/NPCs.flow");
 import("Particles/Particles.flow");
 import("Spawn.msg");
