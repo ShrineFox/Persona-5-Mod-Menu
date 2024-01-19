@@ -716,8 +716,11 @@ void GetCameraPosition()
 
 void CameraUnlock()
 {
+    /* Royal Start */
     while (FLD_CAMERA_CHECK_LOCK() != 0)
         FLD_CAMERA_UNLOCK();
+    /* Royal End */
+    FLD_CAMERA_UNLOCK();
     FLD_CAMERA_BEHIND_UNLOCK();
 }
 

@@ -210,6 +210,8 @@ namespace ModMenuBuilder
                     // Move script into folder named after .PAC for Aemulus
                     string newOutputPath = Path.Combine(Path.Combine(Path.Combine(Path.GetDirectoryName(Path.GetDirectoryName(outputScript)), pakName), "etc"), Path.GetFileName(outputScript));
                     Directory.CreateDirectory(Path.GetDirectoryName(newOutputPath));
+                    if (File.Exists(newOutputPath))
+                        File.Delete(newOutputPath);
                     File.Move(outputScript, newOutputPath);
                     Output.Log($"Moved unpacked output script for Aemulus to: {newOutputPath}", ConsoleColor.Green);
                 }
