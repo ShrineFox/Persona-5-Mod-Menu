@@ -1,8 +1,7 @@
 # ATTENTION PC/SWITCH USERS
-**No update for PC/Switch has been released just yet!!**  
-You can expect a new release as soon as bugs have been sufficiently fixed ([track progress here](https://trello.com/c/On4NnqmQ/54-persona-5r-mod-menu-update).)
-This repository has very recently been restructured. These changes make it easier to maintain the PS3 and PS4 versions of the menu while keeing all changes in sync with the new PC/Switch ports.  
-Thank you for your patience.
+**The latest update is not complete**, but a preview release for PC can be found [here](https://github.com/ShrineFox/Persona-5-Mod-Menu/releases/tag/1.9). Thank you for your patience.  
+This repository has been restructured to support building for P5 PS3, as well as P5R on consoles and PC. These changes make it easier to maintain the mod on all platforms while keeping changes in sync.  
+You can expect a full release as soon as bugs have been sufficiently fixed ([track progress here](https://trello.com/c/On4NnqmQ/54-persona-5r-mod-menu-update).)
 
 # Persona 5 (Royal) Mod Menu
 **Custom scripts for P5 & P5R that replace the square button function with a fully featured trainer**
