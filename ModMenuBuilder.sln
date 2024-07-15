@@ -1,9 +1,9 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33815.320
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModMenuBuilder", "ModMenuBuilder.csproj", "{6F4A7560-A37C-4D0C-AD8E-03D2776A88D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModMenuBuilder", "ModMenuBuilder.csproj", "{6F4A7560-A37C-4D0C-AD8E-03D2776A88D5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AtlusFileSystemLibrary", "..\AtlusFileSystemLibrary\Source\AtlusFileSystemLibrary\AtlusFileSystemLibrary.csproj", "{9960B785-6207-44E8-BA42-EC7F6F785344}"
 EndProject
