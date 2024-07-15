@@ -2,19 +2,18 @@
 [w][e]
 
 [msg Title_ModMenu]
-Amicitia Mod Menu[w][e]
+P5 Mod Menu[w][e]
 
 [sel Options_ModMenu]
-Phone/Auto-Recover[ref 0 1][e]
-Player[ref 1 2][e]
-Teleport[ref 2 3][e]
-Call...[ref 3 4][e]
-Calendar[ref 4 5][e]
-Camera[ref 5 6][e]
-Flags[ref 6 7][e]
-Spawn[ref 7 8][e]
-About[ref 8 9][e]
-Royal[ref 9 10][e]// Royal
+Player[ref 0 1][e]
+Teleport[ref 1 2][e]
+Call...[ref 2 3][e]
+Calendar[ref 3 4][e]
+Camera[ref 4 5][e]
+Flags[ref 5 6][e]
+Spawn[ref 6 7][e]
+About[ref 7 8][e]
+Royal[ref 8 9][e]// Royal
 
 [dlg GENERIC_HELP_1]
 View your IM messages[n]or auto heal the party,

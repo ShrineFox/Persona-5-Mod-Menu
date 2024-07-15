@@ -1,0 +1,6 @@
+import("../../_CustomScripts/ModMenu/Flags/Flags.flow");
+
+void General_042_069_005()
+{
+	FlagsMenu();
+}

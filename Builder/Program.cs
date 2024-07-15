@@ -183,9 +183,6 @@ namespace ModMenuBuilder
         [Option("p", "pack", "bool", "Whether to output field scripts as repacked .PAC (old platform only). (default: false)")]
         public bool Pack { get; set; } = false;
 
-        [Option("r", "reindex", "bool", "Whether to re-number messages, takes longer but fixes descriptions. (default: false)")]
-        public bool Reindex { get; set; } = false;
-
         [Option("v", "version", "string", "Version string to show in About Menu option. (default: blank)")]
         public string Version { get; set; } = "";
     }

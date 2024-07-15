@@ -1,0 +1,7 @@
+import("../../_CustomScripts/CustomSquareMenu.flow");
+
+// Open mod menu instead of save dialog
+void fld_start_menu_hook()
+{
+	CustomFieldMenu();
+}

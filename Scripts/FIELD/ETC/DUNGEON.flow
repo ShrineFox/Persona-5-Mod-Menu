@@ -1,0 +1,13 @@
+import("../../_CustomScripts/CustomSquareMenu.flow");
+
+// Open custom menu instead of save dialog
+void dng_start_menu_hook()
+{
+	CustomDngMenu();
+}
+
+// Open custom menu instead of autoheal dialog
+void dng_square_menu_hook()
+{
+	CustomDngMenuSquare();
+}

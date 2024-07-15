@@ -35,7 +35,6 @@ namespace ModMenuBuilder
             txt_OutPath.Text = Program.Options.Output;
             txt_Version.Text = Program.Options.Version;
             chk_Decompile.Checked = Program.Options.Decompile;
-            chk_Reindex.Checked = Program.Options.Reindex;
             chk_RepackPACs.Checked = Program.Options.Pack;
 
             SetDebugDefaults();
@@ -62,7 +61,6 @@ namespace ModMenuBuilder
             Program.Options.Encoding = comboBox_Encoding.Text;
             Program.Options.Output = txt_OutPath.Text;
             Program.Options.Decompile = chk_Decompile.Checked;
-            Program.Options.Reindex = chk_Reindex.Checked;
             Program.Options.Version = txt_Version.Text;
             Program.Options.Pack = chk_RepackPACs.Checked;
             Program.SaveOptionsJson();

@@ -1,0 +1,6 @@
+import("../../_CustomScripts/ModMenu/Spawn/SpawnMenu.flow");
+
+void General_042_069_006()
+{
+	SpawnMenu();
+}

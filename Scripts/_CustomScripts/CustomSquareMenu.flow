@@ -1,0 +1,40 @@
+import("./Utilities/Utilities.flow");
+import("CustomSquareMenu.msg");
+
+// When the player presses Start in the overworld
+void CustomFieldMenu()
+{
+	LoadExternalScript(0420, 069, 000);
+}
+
+// When the player presses Start in the metaverse
+void CustomDngMenu()
+{
+	LoadExternalScript(0420, 069, 000);
+}
+
+// When the player presses Square in the metaverse
+// (for when saving isn't available)
+void CustomDngMenuSquare()
+{
+	MSG_WND_DSP();
+	MSG(MenuExplainSquare, 0);
+	int selection = SEL(DngOptionsSquare);
+	switch (selection)
+	{
+		case -1:
+			break;
+		case 0:
+			ThiefTools();
+			break;
+		case 1:
+			LoadExternalScript(0420, 069, 000);
+			break;
+	}
+}
+
+// Replacement for the Thief Tools menu
+void ThiefTools() 
+{
+
+}

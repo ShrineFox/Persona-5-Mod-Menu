@@ -5,8 +5,8 @@
 Spawn Field Models[w][e]
 
 [sel Options_FieldModels]
-Spawn Item Model[ref 0 2][e]
-Spawn Object Model[ref 1 3][e]
+Spawn Item Model[ref 0 3][e]
+Spawn Object Model[ref 1 4][e]
 
 [dlg GENERIC_HELP_2]
 Choose an item model to spawn

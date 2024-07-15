@@ -2,13 +2,6 @@
 import("../Utilities/Utilities.flow");
 // Import Menu Option Text
 import("ModMenu.msg");
-// Import Submenu Scripts
-import("Calendar/Calendar.flow");
-import("Call/Call.flow");
-import("Camera/Camera.flow");
-import("Flags/Flags.flow");
-import("Spawn/Spawn.flow");
-import("Player/Player.flow");
 /* Royal Start */
 import("Royal/Royal.flow");
 /* Royal End */
@@ -17,18 +10,12 @@ import("Royal/Royal.flow");
 global int unitId;
 global int gFieldMajor;
 global int gFieldMinor;
-global int gBitFlagAmount;
 bool teleSkip;
 
 // Procedures
 void ModMenuDisplay()
 {
     DetectController();
-    PrintPosition();
-    SetFlagAmt();
-    EnableSharePlay();
-    PrintOnFlags();
-    PrintCount();
 
     // Skip to Teleport function if Confirm button is held
     if (controller)
@@ -49,62 +36,43 @@ void ModMenuDisplay()
             case -1:
                 return;
             case 0:
-                CallOriginalSquareMenu();
+                // ModMenu/Player/Player.flow
+                LoadExternalScript(0420, 069, 001);
                 break;
             case 1:
-                // ModMenu/Player/Player.flow
-                PlayerMenu();
-                break;
-            case 2:
                 // ModMenu/Teleport.flow
                 if (controller)
                     TransformModel(FLD_PC_GET_RESHND(0));
                 break;
-            case 3:
+            case 2:
                 // ModMenu/Call/Call.flow
-                CallMenu();
+                LoadExternalScript(0420, 069, 002);
+                break;
+            case 3:
+                // ModMenu/Calendar/Calendar.flow
+                LoadExternalScript(0420, 069, 003);
                 break;
             case 4:
-                // ModMenu/Calendar/Calendar.flow
-                CalendarMenu();
+                // ModMenu/Camera/Camera.flow
+                LoadExternalScript(0420, 069, 004);
                 break;
             case 5:
-                // ModMenu/Camera/Camera.flow
-                CameraMenu();
+                // ModMenu/Flags/Flags.flow
+                LoadExternalScript(0420, 069, 005);
                 break;
             case 6:
-                // ModMenu/Flags/Flags.flow
-                FlagsMenu();
+                // ModMenu/Spawn/Spawn.flow
+                LoadExternalScript(0420, 069, 006);
                 break;
             case 7:
-                // ModMenu/Spawn/Spawn.flow
-                SpawnMenu();
-                break;
-            case 8:
                 SystemMessage(Message_About);
                 break;
             /* Royal Start */
-            case 9:
+            case 8:
                 // ModMenu/Royal/Royal.flow
                 RoyalMenu();
                 break;
             /* Royal End */
         }
     }
-}
-
-void EnableSharePlay()
-{
-    ALL_ENABLE_SHARE_PLAY();
-    BIT_OFF(Flag.Section5 + 42);
-}
-
-void SetFlagAmt()
-{
-    /* Vanilla Start */
-    gBitFlagAmount = 8960;
-    /* Vanilla End */
-    /* Royal Start */
-    gBitFlagAmount = 12800;
-    /* Royal End */
 }

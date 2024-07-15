@@ -752,3 +752,11 @@ void PrintCameraCoords()
     PUTS("Camera Rot W:");
     PUTF(qW);
 }
+
+void LoadExternalScript(int majorId, int minorId, int subId)
+{
+    int script = FLD_SCRIPT_READ(majorId, minorId, subId);
+    FLD_SCRIPT_READ_SYNC(script);
+    FLD_SCRIPT_EXEC(script, 0);
+    FLD_SCRIPT_FREE(script);
+}

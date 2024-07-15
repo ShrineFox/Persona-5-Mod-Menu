@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ModMenuBuilder": {
+      "commandName": "Project",
+      "commandLineArgs": "-g P5R_PC -e P5R_EFIGS -o C:\\Users\\Ryan\\Downloads\\P5R-Mod-Menu_PC_v1.9 -v 2.0"
+    }
+  }
+}

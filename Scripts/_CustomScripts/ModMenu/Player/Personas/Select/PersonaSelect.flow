@@ -92,7 +92,7 @@ int PersonaNameSelectionIndexToPersonaIndex( int menuIndex, int selIndex )
         case SelPersonaNameSetA2:
         {
             // Adjust selection for Vanilla
-            if (gBitFlagAmount == 8960 && selIndex > 13)
+            if (GET_COUNT(8) == 8960 && selIndex > 13)
             {
                 selIndex = 18;
             }
@@ -149,7 +149,7 @@ int PersonaNameSelectionIndexToPersonaIndex( int menuIndex, int selIndex )
         case SelPersonaNameSetB2:
         {
             // Adjust selection for Vanilla
-            if (gBitFlagAmount == 8960 && selIndex > 0)
+            if (GET_COUNT(8) == 8960 && selIndex > 0)
             {
                 selIndex = 2;
             }
@@ -383,7 +383,7 @@ int PersonaNameSelectionIndexToPersonaIndex( int menuIndex, int selIndex )
         case SelPersonaNameSetM2:
         {
             // Adjust selection for Vanilla
-            if (gBitFlagAmount == 8960 && selIndex > 8)
+            if (GET_COUNT(8) == 8960 && selIndex > 8)
             {
                 selIndex = 12;
             }

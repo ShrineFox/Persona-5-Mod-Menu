@@ -1,0 +1,6 @@
+import("../../_CustomScripts/ModMenu/Camera/Camera.flow");
+
+void General_042_069_004()
+{
+	CameraMenu();
+}
