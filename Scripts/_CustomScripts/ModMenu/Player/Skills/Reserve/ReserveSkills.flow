@@ -1,6 +1,6 @@
 import( "ReserveSkills.msg" );
 
-void ReserveSkillsPage1()
+void ReserveSkillsPage1(int unitId)
 {
 	ReserveSkills1();
 
@@ -41,11 +41,11 @@ void ReserveSkillsPage1()
 		case 29: AddSkill((unitId + 1), 167); return;
 		case 30: AddSkill((unitId + 1), 168); return;
 		case 31:
-			ReserveSkillsPage2();
+			ReserveSkillsPage2(unitId);
 			return;
 	}
 }
-void ReserveSkillsPage2()
+void ReserveSkillsPage2(int unitId)
 {
 	ReserveSkills2();
 	int ReserveSSelection2 = NameMenu(ReserveSkillSelect, SelReserveSkills2);
@@ -84,14 +84,14 @@ void ReserveSkillsPage2()
 		case 28: AddSkill((unitId + 1), 233); return;
 		case 29: AddSkill((unitId + 1), 234); return;
 		case 30:
-			ReserveSkillsPage3();
+			ReserveSkillsPage3(unitId);
 			return;
 		case 31:
-			ReserveSkillsPage1();
+			ReserveSkillsPage1(unitId);
 			return;
 	}
 }
-void ReserveSkillsPage3()
+void ReserveSkillsPage3(int unitId)
 {
 	ReserveSkills3();
 	int ReserveSSelection3 = NameMenu(ReserveSkillSelect, SelReserveSkills3);
@@ -130,14 +130,14 @@ void ReserveSkillsPage3()
 		case 28: AddSkill((unitId + 1), 308); return;
 		case 29: AddSkill((unitId + 1), 309); return;
 		case 30:
-			ReserveSkillsPage4();
+			ReserveSkillsPage4(unitId);
 			return;
 		case 31:
-			ReserveSkillsPage2();
+			ReserveSkillsPage2(unitId);
 			return;
 	}
 }
-void ReserveSkillsPage4()
+void ReserveSkillsPage4(int unitId)
 {
 	ReserveSkills4();
 	int ReserveSSelection4 = NameMenu(ReserveSkillSelect, SelReserveSkills4);
@@ -176,14 +176,14 @@ void ReserveSkillsPage4()
 		case 28: AddSkill((unitId + 1), 374); return;
 		case 29: AddSkill((unitId + 1), 377); return;
 		case 30:
-			ReserveSkillsPage5();
+			ReserveSkillsPage5(unitId);
 			return;
 		case 31:
-			ReserveSkillsPage3();
+			ReserveSkillsPage3(unitId);
 			return;
 	}
 }
-void ReserveSkillsPage5()
+void ReserveSkillsPage5(int unitId)
 {
 	ReserveSkills5();
 	int ReserveSSelection5 = NameMenu(ReserveSkillSelect, SelReserveSkills5);
@@ -222,14 +222,14 @@ void ReserveSkillsPage5()
 		case 28: AddSkill((unitId + 1), 763); return;
 		case 29: AddSkill((unitId + 1), 764); return;
 		case 30:
-			ReserveSkillsPage6();
+			ReserveSkillsPage6(unitId);
 			return;
 		case 31:
-			ReserveSkillsPage4();
+			ReserveSkillsPage4(unitId);
 			return;
 	}
 }
-void ReserveSkillsPage6()
+void ReserveSkillsPage6(int unitId)
 {
 	ReserveSkills6();
 	int ReserveSSelection6 = NameMenu(ReserveSkillSelect, SelReserveSkills6);
@@ -268,14 +268,14 @@ void ReserveSkillsPage6()
 		case 28: AddSkill((unitId + 1), 807); return;
 		case 29: AddSkill((unitId + 1), 808); return;
 		case 30:
-			ReserveSkillsPage7();
+			ReserveSkillsPage7(unitId);
 			return;
 		case 31:
-			ReserveSkillsPage5();
+			ReserveSkillsPage5(unitId);
 			return;
 	}
 }
-void ReserveSkillsPage7()
+void ReserveSkillsPage7(int unitId)
 {
 	ReserveSkills7();
 	int ReserveSSelection7 = NameMenu(ReserveSkillSelect, SelReserveSkills7);
@@ -314,14 +314,14 @@ void ReserveSkillsPage7()
 		case 28: AddSkill((unitId + 1), 971); return;
 		case 29: AddSkill((unitId + 1), 974); return;
 		case 30:
-			ReserveSkillsPage8();
+			ReserveSkillsPage8(unitId);
 			return;
 		case 31:
-			ReserveSkillsPage6();
+			ReserveSkillsPage6(unitId);
 			return;
 	}
 }
-void ReserveSkillsPage8()
+void ReserveSkillsPage8(int unitId)
 {
 	ReserveSkills8();
 	int ReserveSSelection8 = NameMenu(ReserveSkillSelect, SelReserveSkills8);
@@ -340,7 +340,7 @@ void ReserveSkillsPage8()
 		case 08: AddSkill((unitId + 1), 998); return;
 		case 09: AddSkill((unitId + 1), 999); return;
 		case 10:
-			ReserveSkillsPage7();
+			ReserveSkillsPage7(unitId);
 			return;
 	}
 }

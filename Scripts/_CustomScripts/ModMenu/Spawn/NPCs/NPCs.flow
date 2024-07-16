@@ -1,5 +1,6 @@
-﻿import("Animation/NPCAnimation.flow");
-import("NPCs.msg");
+﻿import("NPCs.msg");
+import("../FieldModels/FieldModels.flow");
+import("Animation/NPCAnimation.flow");
 
 // Global Variables
 global int gLastSpawnedNpcModelHandle;

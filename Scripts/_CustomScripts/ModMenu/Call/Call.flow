@@ -1,4 +1,5 @@
-﻿import("Battle/Battle.flow");
+﻿import("Call.msg");
+import("Battle/Battle.flow");
 import("Cutins/Cutins.flow");
 import("Events/Events.flow");
 import("Fields/Fields.flow");
@@ -6,8 +7,8 @@ import("Font/Font.flow");
 import("Sound/Sound.flow");
 import("Chats/Chats.flow");
 import("Shops/Shops.flow");
-import("Call.msg");
 import("Tutorials/Tutorial.flow");
+import("../../Utilities/Utilities.flow");
 
 void CallMenu()
 {

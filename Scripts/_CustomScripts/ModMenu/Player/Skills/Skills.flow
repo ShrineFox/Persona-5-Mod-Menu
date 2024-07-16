@@ -1,6 +1,6 @@
-﻿import("Reserve/ReserveSkills.flow");
+﻿import("Skills.msg");
+import("Reserve/ReserveSkills.flow");
 import("Select/SkillSelect.flow");
-import("Skills.msg");
 
 void SkillsMenu()
 {
@@ -77,11 +77,11 @@ void AddSkillByName()
 void AddReserveSkill()
 {
     SetConfidantNames();
-    unitId = NameMenu(Title_Units, Options_Units);
+    int unitId = NameMenu(Title_Units, Options_Units);
     if (unitId == -1)
     {
         return;
     }
     // Utilities/Skills/Reserve/ReserveSkills.flow
-    ReserveSkillsPage1();
+    ReserveSkillsPage1(unitId);
 }

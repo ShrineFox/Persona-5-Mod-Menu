@@ -1,5 +1,5 @@
-﻿import("Mementos/Mementos.flow");
-import("Fields.msg");
+﻿import("Fields.msg");
+import("Mementos/Mementos.flow");
 
 void FieldMenu()
 {

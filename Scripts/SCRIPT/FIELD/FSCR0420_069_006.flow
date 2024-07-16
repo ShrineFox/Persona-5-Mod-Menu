@@ -1,4 +1,4 @@
-import("../../_CustomScripts/ModMenu/Spawn/SpawnMenu.flow");
+import("../../_CustomScripts/ModMenu/Spawn/Spawn.flow");
 
 void General_042_069_006()
 {

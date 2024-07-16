@@ -1,15 +1,10 @@
-// Import Utility Scripts
-import("../Utilities/Utilities.flow");
-// Import Menu Option Text
 import("ModMenu.msg");
+import("../Utilities/Utilities.flow");
 /* Royal Start */
 import("Royal/Royal.flow");
 /* Royal End */
 
 // Global Variables
-global int unitId;
-global int gFieldMajor;
-global int gFieldMinor;
 bool teleSkip;
 
 // Procedures

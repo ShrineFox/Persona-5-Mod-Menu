@@ -96,8 +96,12 @@ namespace ModMenuBuilder
 
                 if (!File.Exists(dummyPath))
                 {
-                    File.CreateText(dummyPath);
+                    File.CreateText(dummyPath).Close();
                     Output.VerboseLog($"Created dummy file: {dummyPath}");
+                    if (dummyPath.Contains("\\SCRIPT\\FIELD\\"))
+                    {
+                        // CreateFallbackBF(dummyPath, file);
+                    }
                 }
             }
             Output.Log($"Finished creating dummy .BF files.");

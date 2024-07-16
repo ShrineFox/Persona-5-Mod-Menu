@@ -1,6 +1,6 @@
-﻿import("Reserve/ReservePersonas.flow");
+﻿import("Personas.msg");
+import("Reserve/ReservePersonas.flow");
 import("Select/PersonaSelect.flow");
-import("Personas.msg");
 
 void PersonasMenu()
 {

@@ -14,7 +14,7 @@ void RoyalMenu()
                 break;
             case 1:
                 SetConfidantNames();
-                unitId = NameMenu(Title_Units, Options_Units);
+                int unitId = NameMenu(Title_Units, Options_Units);
                 if (unitId != -1)
                 {
                     FLD_SET_TRANSFORM(unitId);

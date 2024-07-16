@@ -1,5 +1,5 @@
-import("./Utilities/Utilities.flow");
 import("CustomSquareMenu.msg");
+import("./Utilities/Utilities.flow");
 
 // When the player presses Start in the overworld
 void CustomFieldMenu()
@@ -18,7 +18,7 @@ void CustomDngMenu()
 void CustomDngMenuSquare()
 {
 	MSG_WND_DSP();
-	MSG(MenuExplainSquare, 0);
+	MSG(Msg_Blank);
 	int selection = SEL(DngOptionsSquare);
 	switch (selection)
 	{
@@ -31,6 +31,7 @@ void CustomDngMenuSquare()
 			LoadExternalScript(0420, 069, 000);
 			break;
 	}
+	MSG_WND_CLS();
 }
 
 // Replacement for the Thief Tools menu

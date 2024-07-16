@@ -1,5 +1,5 @@
-﻿import("../../Utilities/Utilities.flow");
-import("Camera.msg");
+﻿import("Camera.msg");
+import("../../Utilities/Utilities.flow");
 
 void CameraMenu()
 {

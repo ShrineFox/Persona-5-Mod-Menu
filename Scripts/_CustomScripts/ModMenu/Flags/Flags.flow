@@ -1,5 +1,6 @@
-﻿import("Category/FlagCategories.flow");
-import("Flags.msg");
+﻿import("Flags.msg");
+import("Category/FlagCategories.flow");
+import("../../Utilities/Utilities.flow");
 
 global int range1;
 global int range2;

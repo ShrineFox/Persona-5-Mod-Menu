@@ -2,6 +2,7 @@
 import("NPCs/NPCs.flow");
 import("Particles/Particles.flow");
 import("Spawn.msg");
+import("../../Utilities/Utilities.flow");
 
 void SpawnMenu()
 {
