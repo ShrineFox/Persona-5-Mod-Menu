@@ -81,11 +81,11 @@ void CameraPosition()
         // Rotate camera up/down/left/right with d-pad (pitch/yaw)
         if (PAD_CHK_PRESS(PadButton.Up) || ANALOG_ASTICK_CHECK(1, AnalogStick.Up, 0))
             velocity_rot_x += ADD_VELOCITY_PER_PRESS * multiplier;
-        if (PAD_CHK_PRESS(PadButton.Down) || ANALOG_ASTICK_CHECK(1, AnalogStick.Down, 0)))
+        if (PAD_CHK_PRESS(PadButton.Down) || ANALOG_ASTICK_CHECK(1, AnalogStick.Down, 0))
             velocity_rot_x -= ADD_VELOCITY_PER_PRESS * multiplier;
-        if (PAD_CHK_PRESS(PadButton.Left) || ANALOG_ASTICK_CHECK(1, AnalogStick.Left, 0)))
+        if (PAD_CHK_PRESS(PadButton.Left) || ANALOG_ASTICK_CHECK(1, AnalogStick.Left, 0))
             velocity_rot_y += ADD_VELOCITY_PER_PRESS * multiplier;
-        if (PAD_CHK_PRESS(PadButton.Right) || ANALOG_ASTICK_CHECK(1, AnalogStick.Right, 0)))
+        if (PAD_CHK_PRESS(PadButton.Right) || ANALOG_ASTICK_CHECK(1, AnalogStick.Right, 0))
             velocity_rot_y -= ADD_VELOCITY_PER_PRESS * multiplier;
 
         // tilt camera left/right (roll)

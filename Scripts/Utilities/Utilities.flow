@@ -371,7 +371,7 @@ void TransformModel(int reshandle)
         }
 		
         // Move forward and backward based on camera rotation
-        if (PAD_CHK_PRESS(PadButton.Up) || (ANALOG_ASTICK_CHECK(0, AnalogStick.Up, 0))
+        if (PAD_CHK_PRESS(PadButton.Up) || (ANALOG_ASTICK_CHECK(0, AnalogStick.Up, 0)))
         {
 			velocity_x -= ADD_VELOCITY_PER_PRESS * multiplier * SIN(camRot_Y_Rad);
 			velocity_z += ADD_VELOCITY_PER_PRESS * multiplier * COS(camRot_Y_Rad);
@@ -451,7 +451,7 @@ void TransformModel(int reshandle)
         z += velocity_z;
 
         // Set new position values
-        FLD_PC_GET_RESHND(0)
+        FLD_PC_GET_RESHND(0);
         FLD_MODEL_SET_TRANSLATE(reshandle, x, y, z, 0);
         FLD_MODEL_SYNC_TRANSLATE(reshandle);
         FLD_MODEL_SYNC_ROTATE(reshandle);
@@ -624,7 +624,7 @@ void TransformCamera()
 		
 		float camRot_Y_Rad = 180 - camRot_Y * 3.14159f / 180;
         // Move forward and backward based on current camera rotation
-        if (PAD_CHK_PRESS(PadButton.Up) || (ANALOG_ASTICK_CHECK(0, AnalogStick.Up, 0))
+        if (PAD_CHK_PRESS(PadButton.Up) || (ANALOG_ASTICK_CHECK(0, AnalogStick.Up, 0)))
         {
 			velocity_x -= ADD_VELOCITY_PER_PRESS * multiplier * SIN(camRot_Y_Rad);
 			velocity_z += ADD_VELOCITY_PER_PRESS * multiplier * COS(camRot_Y_Rad);
