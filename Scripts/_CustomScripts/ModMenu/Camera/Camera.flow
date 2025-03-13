@@ -32,8 +32,7 @@ void CameraMenu()
 
 void CameraPosition()
 {
-    DetectController();
-    if (!controller)
+    if (!DetectController())
         return;
 
     TransformCamera();
@@ -118,8 +117,7 @@ void CameraPosition()
 
 void CameraFOVZoom()
 {
-    DetectController();
-    if (!controller)
+    if (!DetectController())
         return;
 
     CameraLock();

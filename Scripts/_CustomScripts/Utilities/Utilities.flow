@@ -66,29 +66,32 @@ int DescriptionMenu(int nameMsgId, int optionsMsgId)
 // returns int with a set number of digits
 int NumberMenu(int digitCount, int nameMsgId)
 {
-    if (controller)
-    {
-        return InputNumpad(digitCount);
-    }
     int number = 0;
 
-    for (int i = 0; i < digitCount; i++)
+    if (DetectController())
     {
-        int digit = NameMenu(nameMsgId, Options_Digits);
-
-        if (digit == -1)
+        number = Call_NumPad(digitCount);
+    }
+    else
+    {
+        for (int i = 0; i < digitCount; i++)
         {
-            // Returns -1 if cancelled before any number has been entered
-            if (i == 0)
-            {
-                return -1;
-            }
-            else
-                break;
-        }
+            int digit = NameMenu(nameMsgId, Options_Digits);
 
-        number *= 10;
-        number += digit;
+            if (digit == -1)
+            {
+                // Returns -1 if cancelled before any number has been entered
+                if (i == 0)
+                {
+                    return -1;
+                }
+                else
+                    break;
+            }
+
+            number *= 10;
+            number += digit;
+        }
     }
 
     PUTS("NumberMenu returned: ");
@@ -264,11 +267,12 @@ void ReloadPreviousField()
 
 void DetectController()
 {
-    // Detect controller
-    if (!controller)
+    if (PAD_CHK_PRESS(PadButton.Any))
     {
-        controller = PAD_CHK_PRESS(PadButton.Any);
+        controller = true;
     }
+
+    return controller;
 }
 
 // Apply new rotation/translation to a model until mode is exited
@@ -276,9 +280,7 @@ void TransformModel(int reshandle)
 {
     int joker = FLD_PC_GET_RESHND(0);
 
-    // Require a controller
-    DetectController();
-    if (!controller)
+    if (!DetectController())
         return;
 
     // Zoom camera out
@@ -548,9 +550,7 @@ void TransformCamera()
 {
     int joker = FLD_PC_GET_RESHND(0);
 
-    // Require a controller
-    DetectController();
-    if (!controller)
+    if (!DetectController())
         return;
 
     // Get current camera rotation
