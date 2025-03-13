@@ -1,7 +1,7 @@
 import("AssignNames.flow");
 import("Math.flow");
 import("Utilities.msg");
-import("ZealPad.flow");
+import("NumPad.flow");
 
 bool controller;
 
@@ -68,7 +68,7 @@ int NumberMenu(int digitCount, int nameMsgId)
 {
     if (controller)
     {
-        //return InputNumber(digitCount);
+        return InputNumpad(digitCount);
     }
     int number = 0;
 

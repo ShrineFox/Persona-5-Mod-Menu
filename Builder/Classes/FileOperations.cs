@@ -68,7 +68,7 @@ namespace ModMenuBuilder
 
         private static void MoveToPCOutput(string script)
         {
-            string outDir = Program.Options.Output + "\\FEmulator\\BF";
+            string outDir = Program.settings.Output + "\\FEmulator\\BF";
             string outputFile = outDir + "\\" + script.Replace(Exe.Directory(), "").Replace("\\Temp\\","\\");
             Directory.CreateDirectory(Path.GetDirectoryName(outputFile));
 

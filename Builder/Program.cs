@@ -1,24 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
+﻿using Newtonsoft.Json;
+using ShrineFox.IO;
+using System;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.InteropServices;
+using System.Security.Permissions;
 using System.Windows.Forms;
 using TGE.SimpleCommandLine;
-using ShrineFox.IO;
-using System.Runtime;
-using Newtonsoft.Json;
 
 namespace ModMenuBuilder
 {
     public class Program
     {
-        public static ProgramOptions Options { get; private set; }
-        public static Game SelectedGame { get; private set; } = new Game();
-        public static string exeDir;
+        public static Settings settings { get; private set; } = new Settings();
         public static string jsonPath = "./settings.json";
+        public static string exeDir = "";
 
         [STAThread]
         private static void Main(string[] args)
@@ -30,7 +25,7 @@ namespace ModMenuBuilder
             if (args.Length > 0)
             {
                 // Validate input arguments, or show usage information if no arguments
-                Options = SimpleCommandLineParser.Default.Parse<ProgramOptions>(args);
+                settings = SimpleCommandLineParser.Default.Parse<Settings>(args);
 
                 // Begin preparing for script building based on options
                 StartWithOptions();
@@ -43,11 +38,26 @@ namespace ModMenuBuilder
             }
             else
             {
+                if (File.Exists(jsonPath))
+                    LoadJson(jsonPath);
                 // Show GUI if program was started without any commandline arguments
-                Program.Options = new ProgramOptions();
                 Hide();
                 Application.Run(new BuilderForm());
             }
+        }
+
+        public static void SaveJson(string jsonPath)
+        {
+            File.WriteAllText(jsonPath, JsonConvert.SerializeObject(settings, Newtonsoft.Json.Formatting.Indented));
+        }
+
+        public static void LoadJson(string jsonPath)
+        {
+            if (!File.Exists(jsonPath))
+                return;
+
+            string jsonText = File.ReadAllText(Path.GetFullPath(jsonPath));
+            settings = JsonConvert.DeserializeObject<Settings>(jsonText);
         }
 
         private static void GetExeDir()
@@ -70,49 +80,49 @@ namespace ModMenuBuilder
             try
             {
                 // Set the platform type. Used for output directory structure (Old: PS3/PS4, New: Switch/PC)
-                switch(Options.Game)
+                switch(settings.Game)
                 {
                     case "P5_PS3":
-                        SelectedGame.Version = GameVersion.P5_PS3;
-                        SelectedGame.Platform = PlatformType.Old;
-                        SelectedGame.Type = GameType.Vanilla;
-                        SelectedGame.ShortName = "P5";
-                        SelectedGame.ConsoleName = "PS3";
+                        SelectedGameVersion = GameVersion.P5_PS3;
+                        SelectedGamePlatform = PlatformType.Old;
+                        SelectedGameType = GameType.Vanilla;
+                        SelectedGameShortName = "P5";
+                        SelectedConsoleName = "PS3";
                         break;
                     case "P5_PS3_EX":
-                        SelectedGame.Version = GameVersion.P5_PS3_EX;
-                        SelectedGame.Platform = PlatformType.Old;
-                        SelectedGame.Type = GameType.Vanilla;
-                        SelectedGame.ShortName = "P5EX";
-                        SelectedGame.ConsoleName = "PS3";
+                        SelectedGameVersion = GameVersion.P5_PS3_EX;
+                        SelectedGamePlatform = PlatformType.Old;
+                        SelectedGameType = GameType.Vanilla;
+                        SelectedGameShortName = "P5EX";
+                        SelectedConsoleName = "PS3";
                         break;
                     case "P5_PS4":
-                        SelectedGame.Version = GameVersion.P5_PS4;
-                        SelectedGame.Platform = PlatformType.Old;
-                        SelectedGame.Type = GameType.Vanilla;
-                        SelectedGame.ShortName = "P5";
-                        SelectedGame.ConsoleName = "PS4";
+                        SelectedGameVersion = GameVersion.P5_PS4;
+                        SelectedGamePlatform = PlatformType.Old;
+                        SelectedGameType = GameType.Vanilla;
+                        SelectedGameShortName = "P5";
+                        SelectedConsoleName = "PS4";
                         break;
                     case "P5R_PS4":
-                        SelectedGame.Version = GameVersion.P5R_PS4;
-                        SelectedGame.Platform = PlatformType.Old;
-                        SelectedGame.Type = GameType.Royal;
-                        SelectedGame.ShortName = "P5R";
-                        SelectedGame.ConsoleName = "PS4";
+                        SelectedGameVersion = GameVersion.P5R_PS4;
+                        SelectedGamePlatform = PlatformType.Old;
+                        SelectedGameType = GameType.Royal;
+                        SelectedGameShortName = "P5R";
+                        SelectedConsoleName = "PS4";
                         break;
                     case "P5R_Switch":
-                        SelectedGame.Version = GameVersion.P5R_Switch;
-                        SelectedGame.Platform = PlatformType.New;
-                        SelectedGame.Type = GameType.Royal;
-                        SelectedGame.ShortName = "P5R";
-                        SelectedGame.ConsoleName = "Switch";
+                        SelectedGameVersion = GameVersion.P5R_Switch;
+                        SelectedGamePlatform = PlatformType.New;
+                        SelectedGameType = GameType.Royal;
+                        SelectedGameShortName = "P5R";
+                        SelectedConsoleName = "Switch";
                         break;
                     case "P5R_PC":
-                        SelectedGame.Version = GameVersion.P5R_PC;
-                        SelectedGame.Platform = PlatformType.New;
-                        SelectedGame.Type = GameType.Royal;
-                        SelectedGame.ShortName = "P5R";
-                        SelectedGame.ConsoleName = "PC";
+                        SelectedGameVersion = GameVersion.P5R_PC;
+                        SelectedGamePlatform = PlatformType.New;
+                        SelectedGameType = GameType.Royal;
+                        SelectedGameShortName = "P5R";
+                        SelectedConsoleName = "PC";
                         break;
                     default:
                         Output.Log($"Game selection is not valid!", ConsoleColor.Red);
@@ -126,10 +136,10 @@ namespace ModMenuBuilder
                 return;
             }
 
-            Output.Log($"Building {SelectedGame.Version} Mod Menu" +
-                $"\n\tDecompile output: {Options.Decompile}" +
-                $"\n\tRepack .PACs: {Options.Pack}" +
-                $"\n\tVersion string: {Options.Version}\n\n");
+            Output.Log($"Building {SelectedGameVersion} Mod Menu" +
+                $"\n\tDecompile output: {settings.Decompile}" +
+                $"\n\tRepack .PACs: {settings.Pack}" +
+                $"\n\tVersion string: {settings.VersionString}\n\n");
 
             // Begin building Mod Menu output
             MenuBuilder.Build();
@@ -150,23 +160,17 @@ namespace ModMenuBuilder
             ShowWindow(handle, SW_SHOW); // show the console window
         }
 
-        public static void SaveOptionsJson()
-        {
-            if (Options == null)
-                return;
-            string jsonText = JsonConvert.SerializeObject(Options, Formatting.Indented);
-            File.WriteAllText(jsonPath, jsonText);
-        }
-
-        public static void LoadOptions()
-        {
-            if (File.Exists(jsonPath))
-                Options = JsonConvert.DeserializeObject<ProgramOptions>(File.ReadAllText(jsonPath));
-        }
+        public static GameType SelectedGameType { get; set; } = GameType.Royal;
+        public static PlatformType SelectedGamePlatform { get; set; } = PlatformType.New;
+        public static GameVersion SelectedGameVersion { get; set; } = GameVersion.P5R_PC;
+        public static string SelectedGameShortName = "";
+        public static string SelectedConsoleName = "";
     }
 
-    public class ProgramOptions
+    public class Settings
     {
+        [Option("c", "compiler", "string", "Path to AtlusScriptCompiler.exe.")]
+        public string CompilerPath { get; set; } = "";
 
         [Option("d", "decompile", "bool", "Whether to decompile output scripts for debugging. (default: false)")]
         public bool Decompile { get; set; } = false;
@@ -184,24 +188,7 @@ namespace ModMenuBuilder
         public bool Pack { get; set; } = false;
 
         [Option("v", "version", "string", "Version string to show in About Menu option. (default: blank)")]
-        public string Version { get; set; } = "";
-    }
-
-    public class InputFile
-    {
-        public string Name { get; set; } = "";
-        public string Path { get; set; } = "";
-        public string Archive { get; set; } = "";
-        public string HookPath { get; set; } = "";
-    }
-
-    public class Game
-    {
-        public GameType Type { get; set; } = GameType.Royal;
-        public PlatformType Platform { get; set; } = PlatformType.New;
-        public GameVersion Version { get; set; } = GameVersion.P5R_PC;
-        public string ShortName { get; set; } = "P5R";
-        public string ConsoleName { get; set; } = "PC";
+        public string VersionString { get; set; } = "";
     }
 
     public enum GameType

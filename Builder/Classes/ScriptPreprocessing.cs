@@ -15,7 +15,7 @@ namespace ModMenuBuilder
             // Remove lines with the opposite game type's comment from Mod Menu .msg
             string removeType = "Vanilla";
             string selectedType = "Royal";
-            if (Program.SelectedGame.Type.Equals(GameType.Vanilla))
+            if (Program.SelectedGameType.Equals(GameType.Vanilla))
             {
                 removeType = "Royal";
                 selectedType = "Vanilla";
@@ -36,7 +36,7 @@ namespace ModMenuBuilder
 
                     if (line.Contains("// Version") || line.Contains("//Version"))
                     {
-                        line = line.Replace("// Version", $"[n]{Program.Options.Version}").Replace("//Version", $"[n]{Program.Options.Version}");
+                        line = line.Replace("// Version", $"[n]{Program.settings.VersionString}").Replace("//Version", $"[n]{Program.settings.VersionString}");
                     }
                     if (!string.IsNullOrEmpty(line))
                         newLines.Add(line);
@@ -52,7 +52,7 @@ namespace ModMenuBuilder
         {
             // Remove lines with the opposite game type's comment from Mod Menu .msg
             string removeType = "Vanilla";
-            if (Program.SelectedGame.Type.Equals(GameType.Vanilla))
+            if (Program.SelectedGameType.Equals(GameType.Vanilla))
                 removeType = "Royal";
 
             if (File.Exists(script))
@@ -63,7 +63,7 @@ namespace ModMenuBuilder
                     .Replace($"/* {removeType} End */", $" {removeType} End */");
 
                 // Remove lines with the wrong console name's comment from Mod Menu .msg
-                foreach (var console in new List<string>() { "PS3", "PS4", "Switch", "PC" }.Where(x => !x.Equals(Program.SelectedGame.ConsoleName)))
+                foreach (var console in new List<string>() { "PS3", "PS4", "Switch", "PC" }.Where(x => !x.Equals(Program.SelectedConsoleName)))
                 {
                     text = text.Replace($"/* {console} Start */", $"/* {console} Start ")
                     .Replace($"/* {console} End */", $" {console} End */");

@@ -1,0 +1,392 @@
+﻿// Item Model Banks
+int bank0; // bg
+int bank1; // highlighted digit
+int bank2; // digit 1
+int bank3; // digit 2
+int bank4; // digit 3
+int bank5; // digit 4
+int bank6; // digit 5
+
+int highlightedDigit; // currently highlighted digit
+int enterDigit; // last confirmed digit entry
+bool cancelDigit; // whether user pressed back
+bool endEarly; // whether user pressed select
+
+// Entered Digit Values
+int digit1;
+int digit2;
+int digit3;
+int digit4;
+int digit5;
+
+int InputNumpad(int digitCount)
+{
+    ShowBG();
+    ResetDigits();
+	
+    // For each digit in digit count...
+    for (int i = 0; i < digitCount; i++)
+    {
+        enterDigit = -1;
+		
+        // Have user select digit from pad
+        NumPad();
+		
+        // If end button was pressed...
+        if (endEarly)
+        {
+            endEarly = false;
+            digitCount = i;
+            COMSE_PLAY(3); // chime
+            break; // Exit for loop
+        }
+        else if (cancelDigit) // If back button was pressed...
+        {
+            cancelDigit = false;
+            if (i == 0)
+            {
+                break; // Exit for loop
+            }
+            else
+            {
+                UpdateDigits(i - 1);
+                i -= 2; // Go back 1 digit
+            }
+        }
+        else
+        {
+            enterDigit = highlightedDigit;
+            UpdateDigits(i);
+            if (i + 1 == digitCount)
+                COMSE_PLAY(3); // chime
+        }
+    }
+    HideValue();
+    HideBG();
+    return CalculateValue(digitCount);
+}
+
+void ResetDigits()
+{
+    digit1 = -1;
+    digit2 = -1;
+    digit3 = -1;
+    digit4 = -1;
+    digit5 = -1;
+    highlightedDigit = 0;
+}
+
+void UpdateDigits(int currentSlot)
+{
+    
+    HideValue();
+    
+    switch (currentSlot)
+    {
+        case 0:
+            digit1 = enterDigit;
+            digit2 = -1;
+            digit3 = -1;
+            digit4 = -1;
+            digit5 = -1;
+            break;
+        case 1:
+            digit2 = enterDigit;
+            digit3 = -1;
+            digit4 = -1;
+            digit5 = -1;
+            break;
+        case 2:
+            digit3 = enterDigit;
+            digit4 = -1;
+            digit5 = -1;
+            break;
+        case 3:
+            digit4 = enterDigit;
+            digit5 = -1;
+            break;
+        case 4:
+            digit5 = enterDigit;
+            break;
+        default:
+            break;
+    }
+    
+    ShowValue();
+    
+    SYNC();
+}
+
+int CalculateValue(int digitCount)
+{
+    int number = -1;
+    if (digit1 == -1)
+        return -1;
+    if (digit2 == -1)
+        digit2 = 0;
+    if (digit3 == -1)
+        digit3 = 0;
+    if (digit4 == -1)
+        digit4 = 0;
+    if (digit5 == -1)
+        digit5 = 0;
+    switch (digitCount)
+    {
+        case 1:
+            number = digit1;
+            break;
+        case 2:
+            number = (digit1 * 10) + digit2;
+            break;
+        case 3:
+            number = (digit1 * 100) + (digit2 * 10) + digit3;
+            break;
+        case 4:
+            number = (digit1 * 1000) + (digit2 * 100) + (digit3 * 10) + digit4;
+            break;
+        case 5:
+            number = (digit1 * 10000) + (digit2 * 1000) + (digit3 * 100) + (digit4 * 10) + digit5;
+            break;
+        default:
+            break;
+    }
+    return number;
+}
+
+void NumPad()
+{
+    ShowHighlightedDigit();
+    while (PAD_CHK_PRESS(PadButton.Any)) { SYNC(); }
+    bool reload = false;
+    while (true)
+    {
+        if (reload)
+        {
+            ShowHighlightedDigit();
+            reload = false;
+        }
+        if (PAD_CHK_PRESS(PadButton.Any))
+        {
+            if (PAD_CHK_TRIG(PadButton.Up))
+            {
+                COMSE_PLAY(0);
+                HideHighlightedDigit();
+                reload = true;
+                if (highlightedDigit == 8)
+                    highlightedDigit = 0;
+                else if (highlightedDigit > 0)
+                {
+                    if (highlightedDigit < 7)
+                        highlightedDigit += 3;
+                    else
+                        highlightedDigit -= 6;
+                }
+                else
+                    highlightedDigit = 2;
+            }
+            else if (PAD_CHK_TRIG(PadButton.Down))
+            {
+                COMSE_PLAY(0);
+                HideHighlightedDigit();
+                reload = true;
+                if (highlightedDigit == 2)
+                    highlightedDigit = 0;
+                else if (highlightedDigit > 0)
+                {
+                    if (highlightedDigit > 3)
+                    {
+                        highlightedDigit -= 3;
+                    }
+                    else
+                        highlightedDigit += 6;
+                }
+                else
+                    highlightedDigit = 8;
+            }
+            else if (PAD_CHK_TRIG(PadButton.Right))
+            {
+                COMSE_PLAY(0);
+                HideHighlightedDigit();
+                reload = true;
+                if (highlightedDigit == 0)
+                    highlightedDigit = 3;
+                else if (highlightedDigit != 3 && highlightedDigit != 6 && highlightedDigit != 9)
+                    highlightedDigit += 1;
+                else
+                    highlightedDigit -= 2;
+            }
+            else if (PAD_CHK_TRIG(PadButton.Left))
+            {
+                COMSE_PLAY(0);
+                HideHighlightedDigit();
+                reload = true;
+                if (highlightedDigit == 0)
+                    highlightedDigit = 1;
+                else if (highlightedDigit != 1 && highlightedDigit != 4 && highlightedDigit != 7)
+                    highlightedDigit -= 1;
+                else
+                    highlightedDigit += 2;
+            }
+            else if (PAD_CHK_TRIG(PadButton.Circle))
+            {
+                COMSE_PLAY(1); // enter
+                HideHighlightedDigit();
+                return;
+            }
+            else if (PAD_CHK_TRIG(PadButton.Cross))
+            {
+                COMSE_PLAY(2); //back
+                HideHighlightedDigit();
+                cancelDigit = true;
+                return;
+            }
+            else if (PAD_CHK_TRIG(PadButton.Select))
+            {
+                HideHighlightedDigit();
+                endEarly = true;
+                return;
+            }
+        }
+        SYNC();
+    }
+    return;
+}
+
+void ShowHighlightedDigit()
+{
+    SpawnPadModel(1, 100 + highlightedDigit);
+    SYNC();
+}
+
+void HideHighlightedDigit()
+{
+    DespawnPadModel(1);
+    SYNC();
+}
+
+void ShowDigit(int position, int value)
+{
+    if (value != -1)
+    {
+        // i.e. digit 4, selected 2 = 132
+        int dds = 100 + (10 * position) + value;
+        SpawnPadModel(position + 1, dds);
+    }
+    SYNC();
+}
+
+void HideDigit(int position, int value)
+{
+    if (value != -1)
+    {
+        DespawnPadModel(position + 1);
+    }
+    SYNC();
+}
+
+void ShowValue()
+{
+    ShowDigit(1, digit1);
+    ShowDigit(2, digit2);
+    ShowDigit(3, digit3);
+    ShowDigit(4, digit4);
+    ShowDigit(5, digit5);
+}
+
+void HideValue()
+{
+    HideDigit(1, digit1);
+    HideDigit(2, digit2);
+    HideDigit(3, digit3);
+    HideDigit(4, digit4);
+    HideDigit(5, digit5);
+}
+
+void ShowBG()
+{
+    SpawnPadModel(0, 99);
+    SYNC();
+}
+
+void HideBG()
+{
+    FLD_MODEL_FREE(bank0);
+    SYNC();
+}
+
+void SpawnPadModel(int bankId, int itemId)
+{		
+	PUTS("Bank ID:");
+	PUT(bankId);
+	PUTS("Item ID:");
+	PUT(itemId);
+	
+	int jokerHandle = FLD_PC_GET_RESHND( 0 );
+	
+	FLD_MODEL_FREE(bankId);
+	SYNC();
+
+    int gmd = FLD_ITEM_MODEL_LOAD(8000, itemId);
+    FLD_MODEL_LOADSYNC(gmd);
+	FLD_MODEL_ATTACH_TRANSLATE(gmd, jokerHandle, 0);
+	FLD_MODEL_ATTACH_ROTATE(gmd, jokerHandle, 0);
+	FLD_MODEL_SET_VISIBLE(gmd, 1, 0);
+	SYNC();
+	
+	switch(bankId)
+	{
+		case 0:
+			bank0 = gmd;
+			break;
+		case 1:
+			bank1 = gmd;
+			break;
+		case 2:
+			bank2 = gmd;
+			break;
+		case 3:
+			bank3 = gmd;
+			break;
+		case 4:
+			bank4 = gmd;
+			break;
+		case 5:
+			bank5 = gmd;
+			break;
+		case 6:
+			bank6 = gmd;
+			break;
+		default:
+			break;
+	}
+}
+
+void DespawnPadModel(int bankId)
+{	
+	switch(bankId)
+	{
+		case 0:
+			FLD_MODEL_FREE(bank0);
+			break;
+		case 1:
+			FLD_MODEL_FREE(bank1);
+			break;
+		case 2:
+			FLD_MODEL_FREE(bank2);
+			break;
+		case 3:
+			FLD_MODEL_FREE(bank3);
+			break;
+		case 4:
+			FLD_MODEL_FREE(bank4);
+			break;
+		case 5:
+			FLD_MODEL_FREE(bank5);
+			break;
+		case 6:
+			FLD_MODEL_FREE(bank6);
+			break;
+		default:
+			break;
+	}
+}

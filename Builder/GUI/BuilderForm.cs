@@ -29,13 +29,12 @@ namespace ModMenuBuilder
             Output.LogControl = rtb_Log;
 
             // Load previously used options from .json if available
-            Program.LoadOptions();
-            comboBox_Encoding.SelectedIndex = comboBox_Encoding.Items.IndexOf(Program.Options.Encoding);
-            comboBox_Version.SelectedIndex = comboBox_Version.Items.IndexOf(Program.Options.Game);
-            txt_OutPath.Text = Program.Options.Output;
-            txt_Version.Text = Program.Options.Version;
-            chk_Decompile.Checked = Program.Options.Decompile;
-            chk_RepackPACs.Checked = Program.Options.Pack;
+            comboBox_Encoding.SelectedIndex = comboBox_Encoding.Items.IndexOf(Program.settings.Encoding);
+            comboBox_Version.SelectedIndex = comboBox_Version.Items.IndexOf(Program.settings.Game);
+            txt_OutPath.Text = Program.settings.Output;
+            txt_Version.Text = Program.settings.VersionString;
+            chk_Decompile.Checked = Program.settings.Decompile;
+            chk_RepackPACs.Checked = Program.settings.Pack;
 
             SetDebugDefaults();
         }
@@ -57,13 +56,12 @@ namespace ModMenuBuilder
             rtb_Log.Clear();
 
             // Save form values to options, then save to .json
-            Program.Options.Game = comboBox_Version.Text;
-            Program.Options.Encoding = comboBox_Encoding.Text;
-            Program.Options.Output = txt_OutPath.Text;
-            Program.Options.Decompile = chk_Decompile.Checked;
-            Program.Options.Version = txt_Version.Text;
-            Program.Options.Pack = chk_RepackPACs.Checked;
-            Program.SaveOptionsJson();
+            Program.settings.Game = comboBox_Version.Text;
+            Program.settings.Encoding = comboBox_Encoding.Text;
+            Program.settings.Output = txt_OutPath.Text;
+            Program.settings.Decompile = chk_Decompile.Checked;
+            Program.settings.VersionString = txt_Version.Text;
+            Program.settings.Pack = chk_RepackPACs.Checked;
 
             // Use verbose logging if checked
             if (chk_VerboseLog.Checked)

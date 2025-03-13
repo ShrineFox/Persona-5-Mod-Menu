@@ -13,7 +13,7 @@ namespace ModMenuBuilder
         public static void UnpackPACs()
         {
             // Extract .bf files from each .PAC in Assets folder
-            foreach (var pac in Directory.GetFiles(assetsDir, "*.pac", SearchOption.AllDirectories).Where(x => x.Contains(Program.SelectedGame.Type.ToString())))
+            foreach (var pac in Directory.GetFiles(assetsDir, "*.pac", SearchOption.AllDirectories).Where(x => x.Contains(Program.SelectedGameType.ToString())))
             {
                 PAKFileSystem pak = new PAKFileSystem();
                 if (PAKFileSystem.TryOpen(pac, out pak))
@@ -36,7 +36,7 @@ namespace ModMenuBuilder
 
         private static void RepackPAC(string script)
         {
-            if (Program.SelectedGame.Platform == PlatformType.Old)
+            if (Program.SelectedGamePlatform == PlatformType.Old)
             {
                 // Get .PAC Name
                 string pakName = "";
@@ -59,9 +59,9 @@ namespace ModMenuBuilder
                 }
 
                 string pakPath = Path.Combine(Path.Combine(Path.Combine(assetsDir,
-                    Program.SelectedGame.Type.ToString()), "field"), pakName + ".pac");
+                    Program.SelectedGameType.ToString()), "field"), pakName + ".pac");
 
-                if (Program.Options.Pack)
+                if (Program.settings.Pack)
                 {
                     PAKFileSystem pak = new PAKFileSystem();
                     // Open matching .PAC from Assets folder

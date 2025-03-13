@@ -23,10 +23,10 @@ namespace ModMenuBuilder
             tempDir = Path.Combine(Program.exeDir, "Temp");
 
             // Set output path if specified by user
-            if (Program.Options.Output != "")
+            if (Program.settings.Output != "")
             {
-                Directory.CreateDirectory(Program.Options.Output);
-                outputDir = Program.Options.Output;
+                Directory.CreateDirectory(Program.settings.Output);
+                outputDir = Program.settings.Output;
             }
 
             // Get .bf files from .PAC files
@@ -36,7 +36,7 @@ namespace ModMenuBuilder
             // and reindex .msg files
             ProcessScripts(); 
 
-            if (Program.SelectedGame.ConsoleName == "Switch")
+            if (Program.SelectedConsoleName == "Switch")
                 UpperCaseOutput(); // Make all files/folders in output path uppercase
 
             Output.Log("\nDone!", ConsoleColor.Green);
@@ -77,7 +77,7 @@ namespace ModMenuBuilder
                 CompileScript(script);
             }
             // Copy _CustomScripts directory to output for P5RPC
-            if (Program.Options.Game == "P5R_PC")
+            if (Program.settings.Game == "P5R_PC")
             {
                 foreach (var script in Directory.GetFiles(Path.Combine(tempDir, "_CustomScripts"),
                     "**", SearchOption.AllDirectories))
@@ -89,7 +89,7 @@ namespace ModMenuBuilder
             }
 
             // Replace file in .PAC and save new .PAC to output dir
-            if (Program.Options.Game != "P5R_PC" || Program.Options.Game != "P5R_Switch")
+            if (Program.settings.Game != "P5R_PC" || Program.settings.Game != "P5R_Switch")
             {
                 foreach (var script in Directory.GetFiles(tempDir,
                     "*.flow", SearchOption.AllDirectories))
@@ -105,7 +105,7 @@ namespace ModMenuBuilder
 
         private static void CompileScript(string script)
         {
-            if (Program.Options.Game != "P5R_PC")
+            if (Program.settings.Game != "P5R_PC")
             {
                 if (Path.GetExtension(script).ToLower().EndsWith(".flow"))
                 {
@@ -113,7 +113,7 @@ namespace ModMenuBuilder
                     string outputScript = Compile(script);
 
                     // Decompile newly generated script for debugging
-                    if (Program.Options.Decompile)
+                    if (Program.settings.Decompile)
                         Decompile(outputScript);
                     else
                         DeleteDecompiledOutput(Path.GetDirectoryName(outputScript));
@@ -122,6 +122,7 @@ namespace ModMenuBuilder
             else
             {
                 MoveToPCOutput(script);
+                FileSys.CopyDir(Path.Combine(Exe.Directory(), "Assets\\MODEL"), Path.Combine(Program.settings.Output, "P5REssentials\\CPK\\NUMPAD.CPK\\MODEL"));
             }
         }
     }

@@ -1,8 +1,0 @@
-import("dummy.msg");
-
-void Dummy()
-{
-	MSG_WND_DSP();
-	MSG(Msg_Dummy);
-	MSG_WND_CLS();
-}
