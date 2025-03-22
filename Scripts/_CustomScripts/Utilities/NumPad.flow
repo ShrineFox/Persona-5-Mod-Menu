@@ -1,14 +1,16 @@
 ﻿// Item Model Banks
-int bank0; // bg
-int bank1; // highlighted digit
-int bank2; // digit 1
-int bank3; // digit 2
-int bank4; // digit 3
-int bank5; // digit 4
-int bank6; // digit 5
+int bank_bg; // bg
+int bank_sel; // highlighted digit
+int bank1; // digit 1
+int bank2; // digit 2
+int bank3; // digit 3
+int bank4; // digit 4
+int bank5; // digit 5
+int bank6; // digit 6
 
 int highlightedDigit; // currently highlighted digit
 int lastEnteredDigit; // last confirmed digit entry
+int currentDigitsPlace; // digits place currently being selected
 
 // Entered Digit Values
 int digit1;
@@ -16,53 +18,59 @@ int digit2;
 int digit3;
 int digit4;
 int digit5;
+int digit6;
 
 int Call_NumPad(int digitCount)
 {
-    ShowNumPadBG();
-    ResetDigitValues();
+    SetupNumPad();
     
-    int i = 0; // current digits place being selected
-
-    while (i < digitCount)
+    while (true)
     {
         lastEnteredDigit = SelectNumPadValue();
 
-		if (lastEnteredDigit == -3) // error
-        {
-            PUTS("NumPad Error");
-            break;
-        }
-        if (lastEnteredDigit == -2) // user ended entry with select button
-        {
-            digitCount = i; // Set final digit count for calculating value
-            break;
-        }
-        else if (lastEnteredDigit == -1) // user pressed back button
-        {
-            if (i > 0)
-            {
-                i--; // Move back one digit
-                UpdateConfirmedDigits(i);
-				continue; // Prevent i from increasing again
-            }
-            else
-            {
-                break; // Exit numpad if back is pressed on first digit
-            }
-        }
+        if (lastEnteredDigit == -2) break; // User confirmed entry
+		else if (lastEnteredDigit == -1) // Back button pressed
+		{
+			// Only adjust the digit place if there's a digit to move back from
+			if (currentDigitsPlace > 1)
+			{
+				Set_Numpad_EnteredDigit();
+				currentDigitsPlace--; // Move to the previous digit place
+				Set_Numpad_EnteredDigit();
+			}
+			else
+			{
+				// Clear the digit in the first place if we're at the first digit
+				Set_Numpad_EnteredDigit(); 
+				
+				// Exit numpad as the user is at the first digit and cancels all input
+				break; 
+			}
+		}
         else
         {
-            UpdateConfirmedDigits(i);
-
-			if (i < digitCount - 2)
-				i++; // Move to the next digit
+            if (currentDigitsPlace <= digitCount) 
+			{
+				Set_Numpad_EnteredDigit();
+				if (currentDigitsPlace < digitCount) 
+					currentDigitsPlace++; 
+			}
         }
     }
 
-    HideNumPad();
+    Despawn_Numpad();
 	
-    return CalculateValue(digitCount);
+    return CalculateValue();
+}
+
+
+void SetupNumPad()
+{
+	Spawn_Numpad_BG();
+	Spawn_Numpad_Select();
+	Spawn_Numpad_EnteredDigits();
+	
+	ResetDigitValues();
 }
 
 void ResetDigitValues()
@@ -72,54 +80,40 @@ void ResetDigitValues()
     digit3 = -1;
     digit4 = -1;
     digit5 = -1;
+	digit6 = -1;
     highlightedDigit = 0;
+	currentDigitsPlace = 1;
 }
 
-void UpdateConfirmedDigits(int currentSlot)
-{
-    // Remove the previous digit in the current slot before updating it
-    if (currentSlot == 0) HideValueDigit(1, digit1);
-    if (currentSlot == 1) HideValueDigit(2, digit2);
-    if (currentSlot == 2) HideValueDigit(3, digit3);
-    if (currentSlot == 3) HideValueDigit(4, digit4);
-    if (currentSlot == 4) HideValueDigit(5, digit5);
-
-    // Update only the current slot with the new entered digit
-    switch (currentSlot)
-    {
-        case 0: digit1 = lastEnteredDigit; ShowValueDigit(1, digit1); break;
-        case 1: digit2 = lastEnteredDigit; ShowValueDigit(2, digit2); break;
-        case 2: digit3 = lastEnteredDigit; ShowValueDigit(3, digit3); break;
-        case 3: digit4 = lastEnteredDigit; ShowValueDigit(4, digit4); break;
-        case 4: digit5 = lastEnteredDigit; ShowValueDigit(5, digit5); break;
-    }
-}
-
-int CalculateValue(int digitCount)
+int CalculateValue()
 {
     int number = 0;
     int multiplier = 1;
 
-    if (digitCount == 5) { number += digit5 * multiplier; multiplier *= 10; }
-    if (digitCount >= 4) { number += digit4 * multiplier; multiplier *= 10; }
-    if (digitCount >= 3) { number += digit3 * multiplier; multiplier *= 10; }
-    if (digitCount >= 2) { number += digit2 * multiplier; multiplier *= 10; }
-    if (digitCount >= 1) { number += digit1 * multiplier; }
-
-	COMSE_PLAY(3); // chime
+    if (digit6 != -1) { number += digit6 * multiplier; multiplier *= 10; }
+    if (digit5 != -1) { number += digit5 * multiplier; multiplier *= 10; }
+    if (digit4 != -1) { number += digit4 * multiplier; multiplier *= 10; }
+    if (digit3 != -1) { number += digit3 * multiplier; multiplier *= 10; }
+    if (digit2 != -1) { number += digit2 * multiplier; multiplier *= 10; }
+    if (digit1 != -1) { number += digit1 * multiplier; }
+	
+	if (digit1 == -1 && digit2 == -1 && digit3 == -1 && digit4 == -1 && digit5 == -1 && digit6 == -1)
+		return -1;
+	
     return number;
 }
 
+
 int SelectNumPadValue()
 {
-    ShowHighlightedDigit();
+	Set_Digit_Anim(bank_sel, highlightedDigit);
     while (PAD_CHK_PRESS(PadButton.Any)) { SYNC(); }
     bool reload = false;
     while (true)
     {
         if (reload)
         {
-            ShowHighlightedDigit();
+            Set_Digit_Anim(bank_sel, highlightedDigit);
             reload = false;
         }
         if (PAD_CHK_PRESS(PadButton.Any))
@@ -127,7 +121,6 @@ int SelectNumPadValue()
             if (PAD_CHK_TRIG(PadButton.Up))
             {
                 COMSE_PLAY(0);
-                HideHighlightedDigit();
                 reload = true;
                 if (highlightedDigit == 8)
                     highlightedDigit = 0;
@@ -144,7 +137,6 @@ int SelectNumPadValue()
             else if (PAD_CHK_TRIG(PadButton.Down))
             {
                 COMSE_PLAY(0);
-                HideHighlightedDigit();
                 reload = true;
                 if (highlightedDigit == 2)
                     highlightedDigit = 0;
@@ -163,7 +155,6 @@ int SelectNumPadValue()
             else if (PAD_CHK_TRIG(PadButton.Right))
             {
                 COMSE_PLAY(0);
-                HideHighlightedDigit();
                 reload = true;
                 if (highlightedDigit == 0)
                     highlightedDigit = 3;
@@ -175,7 +166,6 @@ int SelectNumPadValue()
             else if (PAD_CHK_TRIG(PadButton.Left))
             {
                 COMSE_PLAY(0);
-                HideHighlightedDigit();
                 reload = true;
                 if (highlightedDigit == 0)
                     highlightedDigit = 1;
@@ -187,18 +177,15 @@ int SelectNumPadValue()
             else if (PAD_CHK_TRIG(PadButton.Cross))
             {
                 COMSE_PLAY(2); // back
-                HideHighlightedDigit();
                 return -1;
             }
             else if (PAD_CHK_TRIG(PadButton.Circle))
             {
                 COMSE_PLAY(1); // enter
-                HideHighlightedDigit();
                 return highlightedDigit;
             }
-            else if (PAD_CHK_TRIG(PadButton.Select))
+            else if (PAD_CHK_TRIG(PadButton.Start))
             {
-                HideHighlightedDigit();
                 return -2;
             }
         }
@@ -207,98 +194,108 @@ int SelectNumPadValue()
     return -3;
 }
 
-void ShowHighlightedDigit()
+
+int SpawnModel(int majorID, int minorID)
 {
-    SpawnPadModel(1, 100 + highlightedDigit);
-    SYNC();
-}
-
-void HideHighlightedDigit()
-{
-    DespawnPadModel(1);
-    SYNC();
-}
-
-
-void ShowValueDigit(int position, int value)
-{
-    if (value != -1)
-    {
-        // i.e. digit 4, selected 2 = 132
-        int dds = 100 + (10 * position) + value;
-        SpawnPadModel(position + 1, dds);
-    }
-    SYNC();
-}
-
-void HideValueDigit(int position, int value)
-{
-    if (value != -1)
-    {
-        DespawnPadModel(position + 1);
-    }
-    SYNC();
-}
-
-void ShowNumPadBG()
-{
-	// Show Numpad BG
-    SpawnPadModel(0, 99);
-    SYNC();
-}
-
-void HideNumPad()
-{
-	// Hide Numpad BG
-    FLD_MODEL_FREE(bank0);
-    SYNC();
-	
-	// Hide All Value Digits
-	if (digit1 != -1) HideValueDigit(1, digit1);
-    if (digit2 != -1) HideValueDigit(2, digit2);
-    if (digit3 != -1) HideValueDigit(3, digit3);
-    if (digit4 != -1) HideValueDigit(4, digit4);
-    if (digit5 != -1) HideValueDigit(5, digit5);
-}
-
-void SpawnPadModel(int bankId, int itemId)
-{
-    PUTS("Bank ID:"); PUT(bankId);
-    PUTS("Item ID:"); PUT(itemId);
-
-    int jokerHandle = FLD_PC_GET_RESHND(0);
-
-    if (bankId == 0) FLD_MODEL_FREE(bank0);
-    else if (bankId == 1) FLD_MODEL_FREE(bank1);
-    else if (bankId == 2) FLD_MODEL_FREE(bank2);
-    else if (bankId == 3) FLD_MODEL_FREE(bank3);
-    else if (bankId == 4) FLD_MODEL_FREE(bank4);
-    else if (bankId == 5) FLD_MODEL_FREE(bank5);
-    else if (bankId == 6) FLD_MODEL_FREE(bank6);
+	int resHandle = FLD_ITEM_MODEL_LOAD(majorID, minorID);
+	FLD_MODEL_LOADSYNC(resHandle);
+	FLD_MODEL_SET_VISIBLE(resHandle, 1, 0);
 	SYNC();
 	
-    int gmd = FLD_ITEM_MODEL_LOAD(8000, itemId);
-    FLD_MODEL_LOADSYNC(gmd);
-    FLD_MODEL_ATTACH_TRANSLATE(gmd, jokerHandle, 0);
-    FLD_MODEL_SET_VISIBLE(gmd, 1, 0);
-	SYNC();
-	
-    if (bankId == 0) bank0 = gmd;
-    else if (bankId == 1) bank1 = gmd;
-    else if (bankId == 2) bank2 = gmd;
-    else if (bankId == 3) bank3 = gmd;
-    else if (bankId == 4) bank4 = gmd;
-    else if (bankId == 5) bank5 = gmd;
-    else if (bankId == 6) bank6 = gmd;
+	return resHandle;
 }
 
-void DespawnPadModel(int bankId)
+void DespawnModel(int resHandle)
 {
-    if (bankId == 0) FLD_MODEL_FREE(bank0);
-    else if (bankId == 1) FLD_MODEL_FREE(bank1);
-    else if (bankId == 2) FLD_MODEL_FREE(bank2);
-    else if (bankId == 3) FLD_MODEL_FREE(bank3);
-    else if (bankId == 4) FLD_MODEL_FREE(bank4);
-    else if (bankId == 5) FLD_MODEL_FREE(bank5);
-    else if (bankId == 6) FLD_MODEL_FREE(bank6);
+    FLD_MODEL_FREE(resHandle);
+	SYNC();
+}
+
+
+void Spawn_Numpad_BG()
+{
+    DespawnModel(bank_bg);
+	bank_bg = SpawnModel(8000, 99);
+}
+
+void Spawn_Numpad_Select()
+{
+    DespawnModel(bank_sel);
+	bank_sel = SpawnModel(8000, 100);
+}
+
+void Spawn_Numpad_EnteredDigits()
+{
+    DespawnModel(bank1);
+	bank1 = SpawnModel(8000, 101);
+	Set_Digit_Anim(bank1, 10); // default to hidden
+	DespawnModel(bank2);
+	bank2 = SpawnModel(8000, 102);
+	Set_Digit_Anim(bank2, 10);
+	DespawnModel(bank3);
+	bank3 = SpawnModel(8000, 103);
+	Set_Digit_Anim(bank3, 10);
+	DespawnModel(bank4);
+	bank4 = SpawnModel(8000, 104);
+	Set_Digit_Anim(bank4, 10);
+	DespawnModel(bank5);
+	bank5 = SpawnModel(8000, 105);
+	Set_Digit_Anim(bank5, 10);
+	DespawnModel(bank6);
+	bank6 = SpawnModel(8000, 106);
+	Set_Digit_Anim(bank6, 10);
+}
+
+void Despawn_Numpad()
+{
+	DespawnModel(bank_bg);
+	DespawnModel(bank_sel);
+	DespawnModel(bank1);
+	DespawnModel(bank2);
+	DespawnModel(bank3);
+	DespawnModel(bank4);
+	DespawnModel(bank5);
+	DespawnModel(bank6);
+}
+
+void Set_Numpad_EnteredDigit()
+{
+    switch (currentDigitsPlace)
+    {
+        case 1: digit1 = lastEnteredDigit; Set_Digit_Anim(bank1, lastEnteredDigit); break;
+        case 2: digit2 = lastEnteredDigit; Set_Digit_Anim(bank2, lastEnteredDigit); break;
+        case 3: digit3 = lastEnteredDigit; Set_Digit_Anim(bank3, lastEnteredDigit); break;
+        case 4: digit4 = lastEnteredDigit; Set_Digit_Anim(bank4, lastEnteredDigit); break;
+        case 5: digit5 = lastEnteredDigit; Set_Digit_Anim(bank5, lastEnteredDigit); break;
+        case 6: digit6 = lastEnteredDigit; Set_Digit_Anim(bank6, lastEnteredDigit); break;
+    }
+	
+	PrintNumPadDebug();
+}
+
+
+void PrintNumPadDebug()
+{
+	PUTS("Currently highlighted digit:");
+	PUT(highlightedDigit);
+	PUTS("Last confirmed digit entry:");
+	PUT(lastEnteredDigit);
+	PUTS("Digits place currently being selected:");
+	PUT(currentDigitsPlace);
+
+	PUTS("Current Entered Value:");
+	PUT(digit1);
+	PUT(digit2);
+	PUT(digit3);
+	PUT(digit4);
+	PUT(digit5);
+	PUT(digit6);
+}
+
+void Set_Digit_Anim(int resHandle, int animID)
+{
+	if (animID == -1)
+		animID = 10;
+	
+	FLD_MODEL_ANIM( resHandle, animID, 1, 1, 1.00f );
 }
