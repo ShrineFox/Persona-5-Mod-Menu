@@ -228,22 +228,22 @@ void Spawn_Numpad_EnteredDigits()
 {
     DespawnModel(bank1);
 	bank1 = SpawnModel(8000, 101);
-	Set_Digit_Anim(bank1, 10); // default to hidden
+	FLD_MODEL_SET_VISIBLE(bank1, 0, 0);
 	DespawnModel(bank2);
 	bank2 = SpawnModel(8000, 102);
-	Set_Digit_Anim(bank2, 10);
+	FLD_MODEL_SET_VISIBLE(bank2, 0, 0);
 	DespawnModel(bank3);
 	bank3 = SpawnModel(8000, 103);
-	Set_Digit_Anim(bank3, 10);
+	FLD_MODEL_SET_VISIBLE(bank3, 0, 0);
 	DespawnModel(bank4);
 	bank4 = SpawnModel(8000, 104);
-	Set_Digit_Anim(bank4, 10);
+	FLD_MODEL_SET_VISIBLE(bank4, 0, 0);
 	DespawnModel(bank5);
 	bank5 = SpawnModel(8000, 105);
-	Set_Digit_Anim(bank5, 10);
+	FLD_MODEL_SET_VISIBLE(bank5, 0, 0);
 	DespawnModel(bank6);
 	bank6 = SpawnModel(8000, 106);
-	Set_Digit_Anim(bank6, 10);
+	FLD_MODEL_SET_VISIBLE(bank6, 0, 0);
 }
 
 void Despawn_Numpad()
@@ -270,7 +270,7 @@ void Set_Numpad_EnteredDigit()
         case 6: digit6 = lastEnteredDigit; Set_Digit_Anim(bank6, lastEnteredDigit); break;
     }
 	
-	PrintNumPadDebug();
+	// PrintNumPadDebug();
 }
 
 
@@ -295,7 +295,9 @@ void PrintNumPadDebug()
 void Set_Digit_Anim(int resHandle, int animID)
 {
 	if (animID == -1)
-		animID = 10;
+		FLD_MODEL_SET_VISIBLE(resHandle, 0, 0); // hide model
+	else
+		FLD_MODEL_SET_VISIBLE(resHandle, 1, 0); // show model
 	
 	FLD_MODEL_ANIM( resHandle, animID, 1, 1, 1.00f );
 }
