@@ -1,6 +1,0 @@
-import("../../_CustomScripts/ModMenu/Call/Call.flow");
-
-void General_042_069_002()
-{
-	CallMenu();
-}

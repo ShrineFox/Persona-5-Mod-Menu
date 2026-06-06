@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "ModMenuBuilder": {
-      "commandName": "Project",
-      "commandLineArgs": "-g P5_PS3 -e P5 -o D:\\Games\\Steam\\steamapps\\common\\P5R\\Reloaded\\Mods\\p5rpc.modmenu2 -v 2.0 -c \"D:\\Games\\Steam\\steamapps\\common\\P5R-etc\\Tools\\AtlusScriptGUI\\AtlusScriptCompiler.exe\""
-    }
-  }
-}

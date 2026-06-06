@@ -1,6 +1,0 @@
-import("../../_CustomScripts/ModMenu/ModMenu.flow");
-
-void General_042_069_000()
-{
-	ModMenuDisplay();
-}

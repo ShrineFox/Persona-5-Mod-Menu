@@ -1,7 +1,0 @@
-﻿import("PersonaFlags.msg");
-
-void PersonaFlagsMenu()
-{
-    // i forgor
-    return;
-}

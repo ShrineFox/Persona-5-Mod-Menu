@@ -1,6 +1,0 @@
-import("../../_CustomScripts/ModMenu/Spawn/Spawn.flow");
-
-void General_042_069_006()
-{
-	SpawnMenu();
-}

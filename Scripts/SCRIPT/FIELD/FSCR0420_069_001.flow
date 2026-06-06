@@ -1,6 +1,0 @@
-import("../../_CustomScripts/ModMenu/Player/Player.flow");
-
-void General_042_069_001()
-{
-	PlayerMenu();
-}

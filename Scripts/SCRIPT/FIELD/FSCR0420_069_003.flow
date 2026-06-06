@@ -1,6 +1,0 @@
-import("../../_CustomScripts/ModMenu/Calendar/Calendar.flow");
-
-void General_042_069_003()
-{
-	CalendarMenu();
-}
