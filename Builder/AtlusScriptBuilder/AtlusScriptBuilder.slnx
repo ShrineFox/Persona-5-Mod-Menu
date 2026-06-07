@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="../../../../tge-was-taken/Atlus-Script-Tools/Source/AtlusScriptCompiler/AtlusScriptCompiler.csproj" />
+  <Project Path="../../../../tge-was-taken/Atlus-Script-Tools/Source/AtlusScriptLibrary/AtlusScriptLibrary.csproj" />
+  <Project Path="../AtlusScriptHelper/AtlusScriptHelper.csproj" />
+  <Project Path="AtlusScriptBuilder.csproj" />
+</Solution>

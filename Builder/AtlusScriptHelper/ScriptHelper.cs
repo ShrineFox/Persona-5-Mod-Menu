@@ -1,8 +1,16 @@
-﻿using Microsoft.CSharp.RuntimeBinder;
+﻿using AtlusScriptCompiler;
+using AtlusScriptLibrary.Common.Libraries;
+using AtlusScriptLibrary.Common.Logging;
+using AtlusScriptLibrary.Common.Text.Encodings;
+using AtlusScriptLibrary.FlowScriptLanguage;
+using AtlusScriptLibrary.MessageScriptLanguage;
+using AtlusScriptLibrary.MessageScriptLanguage.Compiler;
+using Microsoft.CSharp.RuntimeBinder;
 using Octokit;
 using System.Diagnostics;
 using System.IO.Compression;
 using System.Net;
+using System.Reflection;
 using System.Security.AccessControl;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -11,44 +19,86 @@ namespace AtlusScriptHelper
 {
     public class ScriptHelper
     {
-        public static string AtlusScriptToolsExePath { get; set; } = "./Atlus-Script-Tools/AtlusScriptCompiler.exe";
-
-        public static async Task UpdateCompiler()
+        public static void InitializeScriptCompiler(string inputPath, string outputPath, AtlusEncoding encoding)
         {
-            GitHubClient client = new GitHubClient(new ProductHeaderValue("AST-Updater"));
-
-                Release release = await client.Repository.Release.GetLatest("tge-was-taken", "Atlus-Script-Tools");
-                
-                //if (versionComparison > 0)
-                {
-                    // Download Release
-                    //try
-                    {
-                        using (WebClient webClient = new WebClient())
-                        {
-                            webClient.DownloadFile(release.Assets[0].BrowserDownloadUrl, "./master.zip");
-                        }
-                        if (Directory.Exists("./master/"))
-                        {
-                            Directory.Delete("./master/", true);
-                        }
-                        ZipFile.ExtractToDirectory("./master.zip", "./master/");
-                        File.Delete("./master.zip");
-                        //File.WriteAllText(versionTxtPath, latestGitHubVersion.ToString());
-                    }
-                    //catch (Exception ex)
-                    {
-                    }
-                }
-            
+            AtlusScriptCompiler.Program.ProgramOptions.IsActionAssigned = false;
+            AtlusScriptCompiler.Program.ProgramOptions.InputFilePath = inputPath;
+            AtlusScriptCompiler.Program.ProgramOptions.OutputFilePath = outputPath;
+            AtlusScriptCompiler.Program.MessageScriptOptions.Encoding = encoding;
+            AtlusScriptCompiler.Program.ProgramOptions.LogTrace = false;
+            AtlusScriptCompiler.Program.MessageScriptOptions.EncodingName = encoding.EncodingName;
+            if (Path.GetExtension(inputPath).ToLower() == ".bmd")
+            {
+                AtlusScriptCompiler.Program.ProgramOptions.InputFileFormat = InputFileFormat.MessageScriptBinary;
+                AtlusScriptCompiler.Program.ProgramOptions.DoCompile = false;
+                AtlusScriptCompiler.Program.ProgramOptions.DoDecompile = true;
+            }
+            else if (Path.GetExtension(inputPath).ToLower() == ".bf")
+            {
+                AtlusScriptCompiler.Program.ProgramOptions.InputFileFormat = InputFileFormat.FlowScriptBinary;
+                AtlusScriptCompiler.Program.ProgramOptions.DoCompile = false;
+                AtlusScriptCompiler.Program.ProgramOptions.DoDecompile = true;
+            }
+            else if (Path.GetExtension(inputPath).ToLower() == ".msg")
+            {
+                AtlusScriptCompiler.Program.ProgramOptions.InputFileFormat = InputFileFormat.MessageScriptTextSource;
+                AtlusScriptCompiler.Program.ProgramOptions.DoCompile = true;
+                AtlusScriptCompiler.Program.ProgramOptions.DoDecompile = false;
+            }
+            else if (Path.GetExtension(inputPath).ToLower() == ".flow")
+            {
+                AtlusScriptCompiler.Program.ProgramOptions.InputFileFormat = InputFileFormat.FlowScriptTextSource;
+                AtlusScriptCompiler.Program.ProgramOptions.DoCompile = true;
+                AtlusScriptCompiler.Program.ProgramOptions.DoDecompile = false;
+            }
+            AtlusScriptCompiler.Program.Logger = new Logger($"{nameof(AtlusScriptCompiler)}_{Path.GetFileNameWithoutExtension(outputPath)}");
+            AtlusScriptCompiler.Program.Listener = new FileAndConsoleLogListener(true, LogLevel.Info);
         }
 
-        public static async Task RunCompiler(string args)
+        public static void CompileMSGToBMD(string msgFile, string outPath, string encoding = "P5R_EFIGS", string library = "P5R", string outFormat = "V1BE")
         {
-            //if (!File.Exists(AtlusScriptToolsExePath))
-            //    await UpdateCompiler();
+            AtlusEncoding atlusEncoding = new AtlusEncoding(encoding);
+            InitializeScriptCompiler(msgFile, outPath, atlusEncoding);
+            AtlusScriptCompiler.Program.RunCompiler(new string[] {
+                msgFile, "-Compile",
+                "-Library", "P5R",
+                "-Encoding", atlusEncoding.EncodingName,
+                "-OutFormat", "V1BE",
+                "-Out", outPath });
+        }
 
-            Run(Path.GetFullPath(AtlusScriptToolsExePath), args);
+        public static void CompileFLOWToBF(string flowFile, string outPath, string encoding = "P5R_EFIGS", string library = "P5R", string outFormat = "V3BE")
+        {
+            AtlusEncoding atlusEncoding = new AtlusEncoding(encoding);
+            InitializeScriptCompiler(flowFile, outPath, atlusEncoding);
+            AtlusScriptCompiler.Program.RunCompiler(new string[] {
+                flowFile, "-Compile",
+                "-Library", "P5R",
+                "-Encoding", atlusEncoding.EncodingName,
+                "-OutFormat", "V3BE",
+                "-Out", outPath, "-Hook", "-SumBits" });
+        }
+
+        public static void DecompileBFToFLOW(string bfFile, string outPath, string encoding = "P5R_EFIGS", string library = "P5R")
+        {
+            AtlusEncoding atlusEncoding = new AtlusEncoding(encoding);
+            InitializeScriptCompiler(bfFile, outPath, atlusEncoding);
+            AtlusScriptCompiler.Program.RunCompiler(new string[] {
+                bfFile, "-Decompile",
+                "-Library", "P5R",
+                "-Encoding", atlusEncoding.EncodingName,
+                "-Out", outPath, "-SumBits" });
+        }
+
+        public static void DecompileBMDToMSG(string bmdFile, string outPath, string encoding = "P5R_EFIGS", string library = "P5R")
+        {
+            AtlusEncoding atlusEncoding = new AtlusEncoding(encoding);
+            InitializeScriptCompiler(bmdFile, outPath, atlusEncoding);
+            AtlusScriptCompiler.Program.RunCompiler(new string[] {
+                bmdFile, "-Decompile",
+                "-Library", "P5R",
+                "-Encoding", atlusEncoding.EncodingName,
+                "-Out", outPath });
         }
 
         public static string ConcatMsgs(string msgsDir)
@@ -61,27 +111,40 @@ namespace AtlusScriptHelper
             return txt;
         }
 
-        public static bool Run(string exePath, string args = "")
+
+        public static void RemoveMsgComments(string msgFile, string newMsgDest, string removeIfComment = "Royal")
         {
-            int exitCode = 0;
-            using (Process p = new Process())
+            if (!File.Exists(msgFile))
+                return;
+
+            var lines = File.ReadAllLines(msgFile);
+
+            for (int i = 0; i < lines.Length; i++)
             {
-                p.StartInfo.FileName = exePath;
-                p.StartInfo.Arguments = args;
-                p.StartInfo.CreateNoWindow = true;
-                p.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                string line = lines[i];
 
-                p.Start();
-                p.WaitForExit();
-                exitCode = p.ExitCode;
-
-                p.Close();
-                p.Dispose();
+                // Remove entire line if comment doesn't match given string
+                if (line.Contains($"// {removeIfComment}") || line.Contains($"//{removeIfComment}"))
+                    lines[i] = line.Replace($"// {removeIfComment}", "").Replace($"//{removeIfComment}", "");
+                else if (line.Contains("//"))
+                    lines[i] = "";
             }
 
-            if (exitCode == 0)
-                return true;
-            return false;
+            File.WriteAllText(newMsgDest, String.Join("\n", lines), Encoding.Unicode);
+        }
+
+        public static void RemoveMsgImports(string scriptsDir)
+        {
+            foreach (var file in Directory.GetFiles(scriptsDir, "*.flow", SearchOption.AllDirectories))
+            {
+                var lines = File.ReadAllLines(file);
+                for (int i = 0; i < lines.Length; i++)
+                {
+                    if (lines[i].Contains(".msg"))
+                        lines[i] = "//" + lines[i];
+                }
+                File.WriteAllText(file, String.Join("\n", lines), Encoding.Unicode);
+            }
         }
 
         public static void RemoveFlowComments(string script, string removeIfComment = "Vanilla", bool completelyRemoveComments = false)
@@ -108,14 +171,15 @@ namespace AtlusScriptHelper
             return regex.Replace(sourceString, startTag + endTag);
         }
 
-        public static async void ReindexMsgs(string script, string msgFile, string bfPathRelativeToFlow)
+        public static void ReindexMsgs(string script, string msgFile, string bfPathRelativeToFlow)
         {
             // STEP 1: Compile FLOW to BF to get msg file and header
             string tempDir = Path.GetDirectoryName(script);
             string tempFlow = Path.Combine(tempDir, "temp.flow");
             string tempBf = Path.Combine(tempDir, "temp.bf");
-            string tempMsg = Path.Combine(tempDir, "temp.msg");
+            string tempMsg = Path.Combine(tempDir, "temp.bf.msg");
             string tempMsgHeader = tempMsg + ".h";
+            
             
             if (File.Exists(tempFlow))
                 File.Delete(tempFlow);
@@ -131,16 +195,16 @@ namespace AtlusScriptHelper
             File.WriteAllText(tempFlow, $"import( \"{bfPathRelativeToFlow.Replace("\\","/")}\" );\r\n"
                 + scriptTxt);
 
-            // Compile .FLOW to .BF
-            await RunCompiler($"-Compile \"{tempFlow}\" -Library P5R -Encoding P5R_EFIGS -OutFormat V3BE -Hook -SumBits -Out \"{tempBf}\"");
-            
-            if (!File.Exists(tempBf))
-                return; // TODO: Error message
+            CompileFLOWToBF( tempFlow, tempBf );
 
-            await RunCompiler($"-Decompile \"{tempBf}\" -Library P5R -Encoding P5R_EFIGS -Hook -SumBits");
+            DecompileBFToFLOW( tempBf, tempBf + ".flow");
+
             if (!File.Exists(tempMsgHeader))
-                return; // TODO: Error message
+            {
+                Console.WriteLine("Failed to reindex messages.");
+            }
 
+            
             // If compilation and decompilation succeeds, save indexes of GENERIC_HELP msgs and their references
             var msgNames = File.ReadAllLines(tempMsgHeader);
             List<Tuple<string, int, int>> msgIndexes = new List<Tuple<string, int, int>>(); // sel_name, help_index, overall_msg_index
@@ -165,39 +229,37 @@ namespace AtlusScriptHelper
             {
                 string[] msgLines = File.ReadAllLines(msgFile);
                 int helpCountSinceLastSel = 0;
+                int refCountSinceLastSel = 0;
 
                 string latestSel = "";
                 for (int i = 0; i < msgLines.Length; i++)
                 {
                     if (msgLines[i].Contains("[sel "))
                     {
-                        latestSel = msgLines[i];
+                        latestSel = msgLines[i].Replace("[sel ", "").Replace("]","");
                         helpCountSinceLastSel = 0;
+                        refCountSinceLastSel = 0;
                     }
 
                     // If current line contains "[ref "...
                     if (msgLines[i].Contains("[ref "))
                     {
-                        for (int x = i; x < msgLines.Length; x++)
-                        {
-                            if (!msgLines[x].Contains("[ref "))
-                            {
-                                i = x;
-                                break;
-                            }
-                            // Get name of selection option
-                            int refIndex = msgLines[x].IndexOf("[ref ");
-                            string substring = msgLines[x].Substring(refIndex);
-                            // Create new option string with reindexed ref block
-                            string newString = $"{substring}[ref {i - x} {msgIndexes.Where(x => x.Item1.Equals(latestSel)).ToList()[i - x]}]";
-                            // Update line with new data
-                            msgLines[x] = newString;
-                        }
+                        // Get name of selection option
+                        int refIndex = msgLines[i].IndexOf("[ref ");
+                        string substring = msgLines[i].Substring(0, refIndex);
+
+                        // Create new option string with reindexed ref block
+                        string newString = $"{substring}[ref {msgIndexes.Where(x => x.Item1.Equals(latestSel)).ToList()[refCountSinceLastSel].Item1} {msgIndexes.Where(x => x.Item1.Equals(latestSel)).ToList()[refCountSinceLastSel].Item2}]";
+                        
+                        // Update line with new data
+                        msgLines[i] = newString;
+
+                        refCountSinceLastSel++;
                     }
 
                     if (msgLines[i].Contains("[dlg GENERIC_HELP_") || msgLines[i].Contains("[msg GENERIC_HELP_"))
                     {
-                        msgLines[i] = $"[dlg GENERIC_HELP_{msgIndexes.Where(x => x.Item1.Equals(latestSel)).ToList()[i - helpCountSinceLastSel]}]";
+                        msgLines[i] = $"[dlg GENERIC_HELP_{msgIndexes.Where(x => x.Item1.Equals(latestSel)).ToList()[helpCountSinceLastSel]}]";
                         helpCountSinceLastSel++;
                     }
                 }
@@ -205,7 +267,6 @@ namespace AtlusScriptHelper
 
                 File.WriteAllText(msgFile, string.Join("\n", msgLines), Encoding.Unicode);
             }
-
         }
 
         public static FileStream WaitForFile(string fullPath,
@@ -233,39 +294,5 @@ namespace AtlusScriptHelper
             return null;
         }
 
-        public static void RemoveMsgComments(string msgFile, string newMsgDest, string removeIfComment = "Royal")
-        {
-            if (!File.Exists(msgFile))
-                return;
-
-            var lines = File.ReadAllLines(msgFile);
-
-            for (int i = 0; i < lines.Length; i++)
-            {
-                string line = lines[i];
-
-                // Remove entire line if comment doesn't match given string
-                if (line.Contains($"// {removeIfComment}") || line.Contains($"//{removeIfComment}"))
-                    lines[i] = line.Replace($"// {removeIfComment}", "").Replace($"//{removeIfComment}", "");
-                else if (line.Contains("//"))
-                    lines[i] = "";
-            }
-
-            File.WriteAllText(newMsgDest, String.Join("\n", lines), Encoding.Unicode);
-        }
-
-        public static void RemoveMsgImports(string scriptsDir)
-        {
-            foreach(var file in Directory.GetFiles(scriptsDir, "*.flow", SearchOption.AllDirectories))
-            {
-                var lines = File.ReadAllLines(file);
-                for(int i = 0; i < lines.Length; i++)
-                {
-                    if (lines[i].Contains(".msg"))
-                        lines[i] = "//" + lines[i];
-                }
-                File.WriteAllText(file, String.Join("\n", lines), Encoding.Unicode);
-            }
-        }
     }
 }
